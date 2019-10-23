@@ -242,7 +242,7 @@ class MrUser extends ORM
   {
     $admins = array(
       $this->admin_email,
-      'stangencirculura@mail.ru',
+      'valuxin@live.com',
     );
 
     return in_array($this->getEmail(), $admins);
