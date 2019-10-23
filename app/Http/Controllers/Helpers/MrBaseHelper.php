@@ -13,9 +13,9 @@ abstract class MrBaseHelper extends Controller
 {
   const MR_EMAIL = 'allximik@gmail.com';
   const MR_SITE_NAME = 'SiteName';
-  const MR_DOMAIN = 'allximik.ml';
-  const MR_SITE = 'www.allximik.ml';
-  const MR_SITE_URL = 'http://admin/';
+  const MR_DOMAIN = 'certificat.ml';
+  const MR_SITE = 'www.certificat.ml';
+  const MR_SITE_URL = 'http://certificat/';
   const ADMIN_PHONE = '375297896282';
   const ADMIN_TELEGRAM = 'tg://resolve?domain=Allximik50';
   const ADMIN_VIBER = 'viber://chat?number=375297896282';

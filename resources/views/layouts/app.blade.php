@@ -77,6 +77,9 @@
                   <a class="dropdown-item" href="{{ route('admin') }}">
                     Админка
                   </a>
+                  <a class="dropdown-item" href="/phpmyadmin">
+                    PhpMyAdmin
+                  </a>
                   <a class="dropdown-item" href="{{ route('panel') }}">
                     Кабинет USER
                   </a>

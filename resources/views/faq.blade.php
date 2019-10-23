@@ -68,6 +68,7 @@
 			<div class="form-group">
 				<input type="submit" value="{{ __('mr-t.Отправить') }}" class="btn btn-primary">
 			</div>
+			<br>
 		</form>
 	</div>
 @endsection
