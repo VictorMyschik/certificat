@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="510ed588-e2bf-487a-8541-c317c06d05b6" name="samba" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="W:\certificat" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
