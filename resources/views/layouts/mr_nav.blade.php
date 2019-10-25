@@ -63,7 +63,7 @@
         </li>
         @endguest
 
-        <li class="nav-item dropdown border mr-border-radius-5">
+        <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             {{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span>
