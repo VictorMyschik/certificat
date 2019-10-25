@@ -11,6 +11,8 @@ use App\Models\MrPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class MrAdminPolicyController extends Controller
 {
@@ -40,6 +42,32 @@ class MrAdminPolicyController extends Controller
 
       return redirect('/admin/policy');
     }
+/*
+    $messages = [
+      'required' => 'Поле ":attribute" обязательно к заполнению.',
+      'unique' => ':attribute уже занят.',
+      'same' => ':attribute и :other должны совпадать.',
+    ];
+
+    Validator::make(
+      $request->all(),
+      [
+        'Email' => [
+          'required',
+          'email',
+        ],
+        'name' => [
+          'required',
+          'min:3',
+        ],
+        'Password' => "nullable|min:6|same:password_confirm",
+      ],
+
+      $messages
+
+    )->validate();
+
+*/
 
     $out = array();
     $out['policy'] = $policy;

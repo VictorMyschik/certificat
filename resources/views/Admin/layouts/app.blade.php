@@ -14,8 +14,8 @@
         <li class="active"><a href="/admin"> <i class="menu-icon fa fa-dashboard"></i>Главная</a></li>
         <h3 class="menu-title">Категории</h3>
 
-        <li><a href="/admin/language"><i class="fa fa-user"></i> Переводчик</a></li>
-
+        <li><a href="/admin/language"><i class="fa fa-language"></i> Переводчик</a></li>
+				<li><a href="/admin/users"><i class="fa fa-user"></i> Пользователи</a></li>
         <li class="menu-item-has-children dropdown">
           <a href="/admin/pudlic" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Разделы сайта</a>
@@ -42,9 +42,6 @@
             <li><i class="fa fa-tachometer"></i><a href="/admin/hardware/bot">Bot фильтр</a></li>
           </ul>
         </li>
-
-        <li><a href="/admin/users"><i class="fa fa-user"></i> Пользователи</a></li>
-
 
         <li class="margin-t-20">
           <a class="dropdown-item" href="{{ route('logout') }}"

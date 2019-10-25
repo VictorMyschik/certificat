@@ -15,78 +15,81 @@
 @extends('Admin.layouts.app')
 
 @section('content')
-	<div id="right-panel" class="right-panel">
+<div id="right-panel" class="right-panel">
 
-		<div class="breadcrumbs">
-			<div class="col-sm-4">
-				<div class="page-header float-left">
-					<div class="page-title">
-						<h1>Часто-задаваемые вопросы
-							<a href="/admin/faq/edit/0">
-							<button type="button" title="Создать новую запись" class="btn btn-primary btn-sm mr-border-radius-10">new</button>
-							</a>
-						</h1>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-8">
-				<div class="page-header float-right">
-					<div class="page-title">
-						<ol class="breadcrumb text-right">
-							<li><a href="/admin">Главная</a></li>
-							<li class="active">FAQ</li>
-						</ol>
-					</div>
+	<div class="breadcrumbs">
+		<div class="col-sm-4">
+			<div class="page-header float-left">
+				<div class="page-title">
+					<h1>Часто-задаваемые вопросы
+						<a href="/admin/faq/edit/0">
+							<button type="button" title="Создать новую запись" class="btn btn-primary btn-sm mr-border-radius-10">
+								new
+							</button>
+						</a>
+					</h1>
 				</div>
 			</div>
 		</div>
-
-		<div class="content mt-3">
-			<div class="animated fadeIn">
-				<div class="row">
-
-					<div class="col-md-12">
-						<div class="card-body">
-							<table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-								<thead>
-								<tr>
-									<td><b>Наименование</b></td>
-									<td><b>Удалить</b></td>
-								</tr>
-								<thead>
-								<tbody>
-								@foreach($list as $value)
-									<tr>
-										<td><a href="/admin/faq/edit/{{ $value->id() }}">{{ $value->getTitle() }}</a></td>
-										<td><a href="/admin/faq/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');"><button type="button" class="btn btn-danger btn-sm fa da-edit mr-border-radius-5"><i class="fo fa-edit"></i></button></a></td>
-									</tr>
-								@endforeach
-								</tbody>
-							</table>
-						</div>
-					</div>
-
+		<div class="col-sm-8">
+			<div class="page-header float-right">
+				<div class="page-title">
+					<ol class="breadcrumb text-right">
+						<li><a href="/admin">Главная</a></li>
+						<li class="active">FAQ</li>
+					</ol>
 				</div>
-			</div><!-- .animated -->
-		</div><!-- .content -->
+			</div>
+		</div>
+	</div>
+
+	<div class="animated fadeIn">
+		<div class="card-body padding-horizontal">
+			<table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+				<thead>
+				<tr>
+					<td><b>Наименование</b></td>
+					<td><b>#</b></td>
+				</tr>
+				<thead>
+				<tbody>
+				@foreach($list as $value)
+				<tr>
+					<td><a href="/admin/faq/edit/{{ $value->id() }}">{{ $value->getTitle() }}</a></td>
+					<td>
+						<a href="/admin/faq/edit/{{ $value->id() }}">
+							<button type="button" title="Изменить"
+											class="btn btn-info btn-sm mr-border-radius-5"><i class="fa fa-edit"></i></button>
+						</a>
+						<a href="/admin/faq/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
+							<button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
+							</button>
+						</a></td>
+				</tr>
+				@endforeach
+				</tbody>
+			</table>
+		</div>
+
+	</div><!-- .animated -->
 
 
-	</div><!-- /#right-panel -->
-	<script src="/public/vendors/jquery/dist/jquery.min.js"></script>
-	<script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
-	<script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="/public/js/js/main.js"></script>
+</div><!-- /#right-panel -->
+<script src="/public/vendors/jquery/dist/jquery.min.js"></script>
+<script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
+<script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/public/js/js/main.js"></script>
 
 
-	<script src="/public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="/public/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script src="/public/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/public/vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-	<script src="/public/vendors/jszip/dist/jszip.min.js"></script>
-	<script src="/public/vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="/public/vendors/pdfmake/build/vfs_fonts.js"></script>
-	<script src="/public/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="/public/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/public/vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-	<script src="/public/js/js/init-scripts/data-table/datatables-init.js"></script>
+<script src="/public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/public/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/public/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/public/vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="/public/vendors/jszip/dist/jszip.min.js"></script>
+<script src="/public/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="/public/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="/public/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/public/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/public/vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="/public/js/js/init-scripts/data-table/datatables-init.js"></script>
 @endsection

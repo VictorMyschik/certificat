@@ -86,20 +86,4 @@ class MrUserController extends Controller
     return redirect()->route('panel');
   }
   #endregion
-
-  #region Соревнования
-  /**
-   * Результаты всех гонок
-   */
-  public function Races()
-  {
-    $out = array();
-    $out['races'] = MrGame::GetUserGamesList();
-    $out['future_game'] = MrGame::GetFutureGame();
-
-    return View('User.races')->with($out);
-  }
-
-
-  #endregion
 }
