@@ -29,7 +29,7 @@ return array(
     */
     'disks' => [
       'upload' => [ // имя нашего диска
-        'URL' => 'https://'.MrBaseHelper::MR_DOMAIN.'/uploads', // его ссылка
+        'URL' => MrBaseHelper::MR_SITE_URL.'/uploads', // его ссылка
         'alias' => 'My storage', // имя в редакторе
       ]
     ],

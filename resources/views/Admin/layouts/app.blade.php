@@ -18,9 +18,10 @@
 
         <li class="menu-item-has-children dropdown">
           <a href="/admin/pudlic" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-             aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Публичные данные</a>
+             aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Разделы сайта</a>
           <ul class="sub-menu children dropdown-menu">
             <li><i class="fa fa-list"></i><a href="/admin/faq">FAQ</a></li>
+						<li><i class="fa fa-list"></i><a href="/admin/feedback">Обратная связь</a></li>
             <li><i class="fa fa-list"></i><a href="/admin/policy">Policy</a></li>
           </ul>
         </li>
@@ -29,8 +30,6 @@
           <a href="/admin/pudlic" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false"> <i class="menu-icon fa fa-comments-o"></i>Интерактив</a>
           <ul class="sub-menu children dropdown-menu">
-            <li><i class="fa fa-list"></i><a href="/admin/comments">Комментарии</a></li>
-            <li><i class="fa fa-list"></i><a href="/admin/feedback">Обратная связь</a></li>
             <li><i class="fa fa-list"></i><a href="/admin/subscription">Подписка</a></li>
           </ul>
         </li>
@@ -39,8 +38,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="menu-icon fa fa-wrench"></i>Сиситемные</a>
           <ul class="sub-menu children dropdown-menu">
-            <li><i class="fa fa-tachometer"></i><a href="/admin/hardware">Нагрузка</a></li>
-            <li><i class="fa fa-tachometer"></i><a href="/admin/hardware/bot">Bot</a></li>
+            <li><i class="fa fa-tachometer"></i><a href="/admin/hardware">Лог посещений</a></li>
+            <li><i class="fa fa-tachometer"></i><a href="/admin/hardware/bot">Bot фильтр</a></li>
           </ul>
         </li>
 

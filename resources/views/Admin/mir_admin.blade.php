@@ -35,16 +35,12 @@
     </div>
 
 
+
   </div><!-- /#right-panel -->
-
-  <!-- Right Panel -->
-
-
   <script src="/public/vendors/jquery/dist/jquery.min.js"></script>
   <script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
   <script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/public/js/js/main.js"></script>
-
 
   <script src="/public/vendors/chart.js/dist/Chart.bundle.min.js"></script>
   <script src="/public/js/js/dashboard.js"></script>
