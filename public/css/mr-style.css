@@ -400,16 +400,6 @@
 }
 
 /* line 68, ../../resources/scss/_other.scss */
-.mr-bg-img_game {
-  background-image: url("/public/images/background/background.jpg");
-  height: 100vh;
-  min-height: 100%;
-  background-repeat: repeat;
-  background-size: cover;
-  background-position: center center;
-}
-
-/* line 77, ../../resources/scss/_other.scss */
 .mr-bg-img {
   background-image: url("/public/images/other/background_2.png");
   height: 100vh;
@@ -419,26 +409,26 @@
   background-position: center center;
 }
 
-/* line 86, ../../resources/scss/_other.scss */
+/* line 77, ../../resources/scss/_other.scss */
 .mr-center {
   min-height: 500px;
   height: 100%;
   position: relative;
   border-radius: 10px;
 }
-/* line 92, ../../resources/scss/_other.scss */
+/* line 83, ../../resources/scss/_other.scss */
 .mr-center .mr-q {
   margin: 0;
   position: absolute;
   top: 10%;
 }
 
-/* line 99, ../../resources/scss/_other.scss */
+/* line 90, ../../resources/scss/_other.scss */
 .mr-div-top-right {
   position: relative;
 }
 
-/* line 103, ../../resources/scss/_other.scss */
+/* line 94, ../../resources/scss/_other.scss */
 .mr-trans {
   /*background-image: url("/public/images/other/background_2.png");
   height: 90vh;
@@ -450,17 +440,27 @@
   background-color: rgba(220, 220, 220, 0.7);
 }
 
-/* line 114, ../../resources/scss/_other.scss */
+/* line 105, ../../resources/scss/_other.scss */
 .mr-base-border {
   background-image: url("/public/images/other/base_bg.jpg");
 }
 
-/* line 118, ../../resources/scss/_other.scss */
+/* line 109, ../../resources/scss/_other.scss */
 .mr-muted {
   color: #7c7c7c;
 }
 
-/* line 122, ../../resources/scss/_other.scss */
+/* line 112, ../../resources/scss/_other.scss */
+.mr-bg-muted-blue {
+  background-color: rgba(10, 6, 93, 0.1);
+}
+
+/* line 116, ../../resources/scss/_other.scss */
 .mr-description {
   color: #7c7c7c;
+}
+
+/* line 120, ../../resources/scss/_other.scss */
+.mr-base-bg {
+  background-color: rgba(13, 6, 255, 0.1);
 }
