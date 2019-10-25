@@ -1,7 +1,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Policy редактирование</title>
-<script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
 
 <link rel="stylesheet" href="/public/css/flaticon.css">
 <link rel="stylesheet" href="/public/css/icomoon.css">
@@ -52,7 +51,7 @@
 				<select class="mr-border-radius-10 col-md-4 col-sm-10" name="LanguageID">
 					<option value="0">[не выбрано]</option>
 					@foreach($languages as $language)
-						@if($policy->getLanguage())
+						@if($policy->getLanguage()->id() == $language->id())
 							<option selected="selected" value="{{ $language->id() }}">{{ $language->getName() }}
 								({{ $language->getDescription() }})
 							</option>
