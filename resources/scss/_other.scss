@@ -65,15 +65,6 @@
   color: #00A000;
 }
 
-.mr-bg-img_game {
-  background-image: url('/public/images/background/background.jpg');
-  height: 100vh;
-  min-height: 100%;
-  background-repeat: repeat;
-  background-size: cover;
-  background-position: center center;
-}
-
 .mr-bg-img {
   background-image: url('/public/images/other/background_2.png');
   height: 100vh;
@@ -118,7 +109,14 @@
 .mr-muted {
   color: #7c7c7c;
 }
+.mr-bg-muted-blue {
+  background-color: rgba(10, 6, 93, 0.1);
+}
 
 .mr-description {
   color: #7c7c7c;
+}
+
+.mr-base-bg {
+  background-color: rgba(13, 6, 255, 0.1);
 }
