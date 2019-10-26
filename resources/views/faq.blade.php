@@ -20,19 +20,13 @@
     <div id="accordion">
       @foreach($list as $value)
 
-        <a class="card-link mr-color-black mr-bold" data-toggle="collapse" href="#menu{{ $value->id() }}"
-           aria-expanded="true"
-           aria-controls="menu{{ $value->id() }}">
-				<span class="card-header col-md-12">
-				{{ $value->getTitle() }}
-		</span>
+        <a class="mr-color-black mr-bold" data-toggle="collapse" href="#menu{{ $value->id() }}"
+           aria-expanded="true" aria-controls="menu{{ $value->id() }}">
+          <span class="row card-header">{{ $value->getTitle() }}</span>
         </a>
 
-
-        <div id="menu{{ $value->id() }}" class="collapse">
-          <div class="card-body">
+        <div id="menu{{ $value->id() }}" class="collapse card-body padding-horizontal">
             {!! $value->getText() !!}
-          </div>
         </div>
       @endforeach
     </div>
