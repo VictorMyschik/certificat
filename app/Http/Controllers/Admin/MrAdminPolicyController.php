@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Forms\MrForm;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Models\MrLanguage;
 use App\Models\MrPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class MrAdminPolicyController extends Controller
 {
@@ -26,53 +25,38 @@ class MrAdminPolicyController extends Controller
 
   public function edit(Request $request, int $id)
   {
-    $policy = MrPolicy::loadBy($id);
-    if(!$policy)
-    {
-      $policy = new MrPolicy();
-      $policy->setLanguageID(null);
-      $policy->setText('');
-    }
+    $policy = MrPolicy::loadBy($id) ?: new MrPolicy();
 
-    if($request->get('LanguageID'))
+    if(!count($request->all()))
     {
+      if(!$policy)
+      {
+        $policy = new MrPolicy();
+        $policy->setLanguageID(null);
+        $policy->setText('');
+      }
+
+      $out = array();
+      $out['policy'] = $policy;
+      $out['languages'] = MrLanguage::GetAll();
+
+      return View('Admin.mir_admin_policy_edit')->with($out);
+    }
+    else
+    {
+      $errors = MrForm::required($request->all());
+
+      if(count($errors))
+      {
+        return back()->withInput($request->all());
+      }
+
       $policy->setLanguageID($request->get('LanguageID'));
       $policy->setText($request->get('Text'));
-      $id = $policy->save_mr();
+      $policy->save_mr();
 
       return redirect('/admin/policy');
     }
-/*
-    $messages = [
-      'required' => 'Поле ":attribute" обязательно к заполнению.',
-      'unique' => ':attribute уже занят.',
-      'same' => ':attribute и :other должны совпадать.',
-    ];
-
-    Validator::make(
-      $request->all(),
-      [
-        'Email' => [
-          'required',
-          'email',
-        ],
-        'name' => [
-          'required',
-          'min:3',
-        ],
-        'Password' => "nullable|min:6|same:password_confirm",
-      ],
-
-      $messages
-
-    )->validate();
-
-*/
-
-    $out = array();
-    $out['policy'] = $policy;
-    $out['languages'] = MrLanguage::GetAll();
-    return View('Admin.mir_admin_policy_edit')->with($out);
   }
 
   /**

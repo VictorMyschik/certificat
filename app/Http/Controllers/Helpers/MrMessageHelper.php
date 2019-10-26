@@ -14,24 +14,22 @@ class MrMessageHelper extends Controller
     const KIND_SUCCESS = 'alert-success';
 
 
-    /**
-     * Сообщение на страницу
-     *
-     * @param  string  $kind
-     * @param  string  $message
-     * @param  string  $name
-     */
+  /**
+   * Сообщение на страницу
+   *
+   * @param string $kind
+   * @param string $message
+   */
     public static function SetMessage(string $kind, string $message)
     {
         Session::flash($kind, $message);
     }
 
-    /**
-     * Сообщение на страницу
-     *
-     * @param  string  $name
-     * @return string
-     */
+  /**
+   * Сообщение на страницу
+   *
+   * @return string
+   */
     public static function GetMessage(): string
     {
         $out = '';

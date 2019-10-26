@@ -42,66 +42,55 @@
         </div>
       </div>
     </div>
-
-    <div class="content mt-3">
-      <div class="animated fadeIn">
-        <div class="row">
-          <div class="col-md-12">
-            <h4 class="margin-t-20">Зарегистрированные пользователи</h4>
-            <div class="card-body">
-              <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
-                <thead>
-                <tr>
-                  <td class="padding-horizontal">№</td>
-                  <td class="padding-horizontal">Login</td>
-                  <td class="padding-horizontal">ФИО</td>
-                  <td class="padding-horizontal">Контакты</td>
-                  <td class="padding-horizontal">Регистрация</td>
-                  <td class="padding-horizontal">Старт сессии</td>
-                  <td class="padding-horizontal">Конец сессии</td>
-                  <td class="padding-horizontal">Подписка</td>
-                  <td class="padding-horizontal">#</td>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $user)
-                  <tr class="{{ $user->getBlock() ? 'mr-bg-red' : '' }}">
-                    <td class="padding-horizontal small">{{ $user->id() }}</td>
-                    <td class="padding-horizontal small">{{ $user->getName() }}</td>
-                    <td class="padding-horizontal small">{{ $user->GetFullName() }}</td>
-                    <td class="padding-horizontal small">
-                      {{ $user->getPhone() }}
-                      {{ $user->getEmail() }}
-                    </td>
-                    <td class="padding-horizontal small">{{ $user->getDateFirstVisit()->format('d M Y H:i') }}</td>
-                    <td class="padding-horizontal small">{{ $user->getDateLogin()->format('d M Y H:i') }}</td>
-                    <td class="padding-horizontal small">{{ $user->getDateLastVisit()->format('d M Y H:i') }}</td>
-                    <td class="padding-horizontal small">
-                      {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
-                    </td>
-                    <td class="padding-horizontal small">
-                      {!!  \App\Http\Controllers\Forms\MrForm::loadForm('user_edit', 'MrUserEditForm', ['id' => $user->id()],'',['fa','fa-edit']) !!}
-                      <a href="/admin/users/delete/{{ $user->id() }}"
-                         onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');">
-                        <button class="btn btn-sm btn-danger mr-border-radius-5"><span class="fa fa-trash"></span>
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div><!-- .animated -->
+    <div class="animated fadeIn">
+      <div class="card-body padding-horizontal">
+        <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+          <thead>
+          <tr>
+            <td class="padding-horizontal">№</td>
+            <td class="padding-horizontal">Login</td>
+            <td class="padding-horizontal">ФИО</td>
+            <td class="padding-horizontal">Контакты</td>
+            <td class="padding-horizontal">Регистрация</td>
+            <td class="padding-horizontal">Старт сессии</td>
+            <td class="padding-horizontal">Конец сессии</td>
+            <td class="padding-horizontal">Подписка</td>
+            <td class="padding-horizontal">#</td>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($users as $user)
+            <tr class="{{ $user->getBlock() ? 'mr-bg-red' : '' }}">
+              <td class="padding-horizontal small">{{ $user->id() }}</td>
+              <td class="padding-horizontal small">{{ $user->getName() }}</td>
+              <td class="padding-horizontal small">{{ $user->GetFullName() }}</td>
+              <td class="padding-horizontal small">
+                {{ $user->getPhone() }}
+                {{ $user->getEmail() }}
+              </td>
+              <td class="padding-horizontal small">{{ $user->getDateFirstVisit()->format('d M Y H:i') }}</td>
+              <td class="padding-horizontal small">{{ $user->getDateLogin()->format('d M Y H:i') }}</td>
+              <td class="padding-horizontal small">{{ $user->getDateLastVisit()->format('d M Y H:i') }}</td>
+              <td class="padding-horizontal small">
+                {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
+              </td>
+              <td class="padding-horizontal small">
+                {!!  \App\Http\Controllers\Forms\MrForm::loadForm('user_edit', 'MrUserEditForm', ['id' => $user->id()],'',['fa','fa-edit']) !!}
+                <a href="/admin/users/delete/{{ $user->id() }}"
+                   onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');">
+                  <button class="btn btn-sm btn-danger mr-border-radius-5"><span class="fa fa-trash"></span>
+                  </button>
+                </a>
+              </td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
       <hr>
     </div><!-- .content -->
-    <div class="content mt-3">
-      <div class="animated fadeIn">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card-body">
+    <div class="animated fadeIn">
+      <div class="card-body padding-horizontal">
               <div class="row col-md-12 d-inline-block">
                 <h4>Блокировка пользователя</h4>
                 {{ Form::open(['url'=>'/admin/users/block','method' => 'get', 'enctype'=>'multipart/form-data', 'files' => false]) }}
@@ -154,10 +143,6 @@
             </div>
           </div>
         </div>
-      </div><!-- .animated -->
-    </div><!-- .content -->
-
-  </div><!-- /#right-panel -->
   <script src="/public/vendors/jquery/dist/jquery.min.js"></script>
   <script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
   <script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>

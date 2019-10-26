@@ -97,7 +97,6 @@
               </button>
             </a>
 
-
             <a href="/admin/hardware/delete" style="color: white" onclick="return confirm('Уверены?')">
               <button type="button" class="btn btn-primary btn-sm mr-border-radius-5 pull-right">
                 Очистить всё
@@ -106,8 +105,8 @@
 
 
             <span class="margin-l-20">{!! $date !!} ({{ count($logs) }})</span>
-            <div class="card-body">
-              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+            <div class="card-body padding-horizontal">
+              <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
                 <thead>
                 <tr>
                   <td class="padding-horizontal">№</td>
@@ -115,7 +114,6 @@
                   <td class="padding-horizontal">IP</td>
                   <td class="padding-horizontal">Источник</td>
                   <td class="padding-horizontal">URL</td>
-                  <td class="padding-horizontal">Авторизованный</td>
                   <td class="padding-horizontal">Робот</td>
                   <td class="padding-horizontal">UserAgent</td>
                   <td class="padding-horizontal">Cookie</td>
@@ -132,18 +130,14 @@
                     <td class="padding-horizontal small"
                         style="max-width: 200px; word-wrap: break-word;">{{ $item->getIp() }}</td>
                     <td class="padding-horizontal small"
-                        style="max-width: 200px; word-wrap: break-word;">{{ $item->getReferer() }}</td>
+                        style="max-width: 200px; word-wrap: break-word;"><a href="{{ $item->getReferer() }}" target="_blank">{{ $item->getReferer() }}</a></td>
                     <td class="padding-horizontal small"
-                        style="max-width: 200px; word-wrap: break-word;">{{ $item->getLink() }}</td>
-                    <td class="padding-horizontal small" style="max-width: 200px; word-wrap: break-word;">
-                      {!!   $item->getUser()?
-                      '<div>'.$item->getUser()->getName().'</div>
-                      <div>'.$item->getUser()->getEmail().'</div>'
-
-                      :null !!}
-                    </td>
+                        style="max-width: 200px; word-wrap: break-word;"><a href="{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_URL.$item->getLink() }}" target="_blank">{{ $item->getLink() }}</a></td>
                     <td class="padding-horizontal small">{!!
-                     $item->getUser()?'':($item->getBot()
+                     $item->getUser()?
+                     '<div>'.$item->getUser()->getName().'</div>
+                      <div>'.$item->getUser()->getEmail().'</div>'
+                     :($item->getBot()
                     ?
                     $item->getBot()->getDescription()
                     :
