@@ -38,46 +38,45 @@
         </div>
       </div>
     </div>
+    {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
+    <div class="animated fadeIn">
+      <div class="card-body padding-horizontal">
+        <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+          <thead>
+          <tr>
+            <td>№</td>
+            <td>Имя</td>
+            <td>Email</td>
+            <td>Дата</td>
+            <td>Отвечена</td>
+            <td>Удалить</td>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($list as $value)
+            <tr>
+              <td class="padding-horizontal">{{ $value->id() }}</td>
+              <td class="padding-horizontal">{{ $value->getName() }}</td>
+              <td class="padding-horizontal">{{ $value->getEmail() }}</td>
+              <td class="padding-horizontal">{{ date('d M Y', strtotime($value->getDate())) }}</td>
+              <td class="padding-horizontal">{{ $value->getSendMessage() ? 'Да': 'Нет' }}</td>
+              <td>
+                <a href="/admin/feedback/edit/{{ $value->id }}">
+                  <button type="button" class="btn btn-info btn-sm mr-border-radius-5"><i class="fa fa-eye"></i>
+                  </button>
+                </a>
+                <a href="/admin/feedback/delete/{{ $value->id() }}" onclick="return confirm('Уверены?');">
+                  <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
+                  </button>
+                </a></td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <div class="content mt-3">
-      <div class="animated fadeIn">
-        <div class="row">
-          <div class="col-md-12">
-            {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
-            <div class="card-body">
-              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                  <td>№</td>
-                  <td>Имя</td>
-                  <td>Email</td>
-                  <td>Дата</td>
-                  <td>Отвечена</td>
-                  <td>Удалить</td>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($list as $value)
-                  <tr>
-                    <td class="padding-horizontal">{{ $value->id() }}</td>
-                    <td class="padding-horizontal">{{ $value->getName() }}</td>
-                    <td class="padding-horizontal"><a href="/admin/feedback/edit/{{ $value->id }}">{{ $value->getEmail() }}</a></td>
-                    <td class="padding-horizontal">{{ date('d M Y', strtotime($value->getDate())) }}</td>
-                    <td class="padding-horizontal">{{ $value->getSendMessage() ? 'Да': 'Нет' }}</td>
-                    <td><a href="/admin/feedback/delete/{{ $value->id() }}" onclick="return confirm('Уверены?');">Del</a></td>
-                  </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-        </div>
-      </div><!-- .animated -->
-    </div><!-- .content -->
-
-
-  </div><!-- /#right-panel -->
+  </div>
   <script src="/public/vendors/jquery/dist/jquery.min.js"></script>
   <script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
   <script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -66,7 +66,7 @@
 					</script>
 
 					<br>
-					<button type="submit" class="btn btn-primary mr-border-radius-10">Отправить</button>
+					<button type="submit" class="btn btn-primary btn-sm  mr-border-radius-5">Отправить</button>
 				</form>
 			</div>
 		</div>

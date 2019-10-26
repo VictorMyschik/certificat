@@ -2,13 +2,8 @@
 <module type="WEB_MODULE" version="4">
   <component name="CompassSettings">
     <option name="compassConfigPath" value="$MODULE_DIR$/config.rb" />
-    <option name="compassExecutableFilePath" value="C:/Program Files/Ruby25-x64/bin/compass.bat" />
+    <option name="compassExecutableFilePath" value="C:\Ruby25\bin\scss.bat" />
     <option name="compassSupportEnabled" value="true" />
-    <option name="importPaths">
-      <list>
-        <option value="C:/Program" />
-      </list>
-    </option>
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
