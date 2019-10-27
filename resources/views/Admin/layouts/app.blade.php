@@ -42,6 +42,15 @@
             <li><i class="fa fa-tachometer"></i><a href="/admin/hardware/bot">Bot фильтр</a></li>
           </ul>
         </li>
+
+        <li class="menu-item-has-children dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="menu-icon fa fa-book"></i>Справочники</a>
+          <ul class="sub-menu children dropdown-menu">
+            <li><i class="fa fa-tachometer"></i><a href="/admin/reference/country">Страны мира</a></li>
+          </ul>
+        </li>
+
         <li class="margin-t-20">
           <a class="dropdown-item" href="/clear">
             Очистить кэш

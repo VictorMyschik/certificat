@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\MrParticipant;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\MrCountry;
 
 class MrTestController extends Controller
 {
@@ -12,27 +12,20 @@ class MrTestController extends Controller
 
   public function index()
   {
+    MrCountry::loadBy(1);
     $out = array();
-    $user_id = 54;
-    $text = 'Пользователь был удалён';
-    if(false)
+    $data = json_decode(file_get_contents('http://api.travelpayouts.com/data/ru/countries.json'));
+    foreach ($data as $item)
     {
-      $arr = array(
-        'UserID' => 1,//MrUser::zeroUser()->id(),
-      );
-    }
-    else
-    {
-      $arr = array(
-        'UserID' => 1,//MrUser::zeroUser()->id(),
-        'FirstName' => $text,
-        'LastName' => '',
-        'Passport' => '',
-        'Phone' => '',
-      );
+      $new = new MrCountry();
+      $new->setCode($item['code']);
+      $new->setNameRus($item['name']);
+      $new->setNameEng($item['name_translations']['en']);
+
+      $new->save_mr();
     }
 
-    DB::table(MrParticipant::$mr_table)->Where('UserID', '=', $user_id)->update($arr);
+
     return View('test')->with($out);
   }
 

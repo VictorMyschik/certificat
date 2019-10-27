@@ -6,31 +6,33 @@
 		<div class="container">
 
 			<a class="navbar-brand" href="{{ url('/') }}">
-				{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}
+				<span class="mr-color-white">{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</span>
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Right Side Of Navbar -->
 				<ul class="navbar-nav ml-auto">
-					<!-- Authentication Links -->
 					<li class="nav-item">
-						<a class="nav-link" href="/faq">FAQ</a>
+						<a class="nav-link" href="/references"><span class="mr-color-white">{{ __('mr-t.Справочники') }}</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/faq"><span class="mr-color-white">FAQ</span></a>
 					</li>
 
 					@guest
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+						<a class="nav-link" href="{{ route('login') }}"><span class="mr-color-white">{{ __('Login') }}</span></a>
 					</li>
 					@if (Route::has('register'))
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+						<a class="nav-link" href="{{ route('register') }}"><span class="mr-color-white">{{ __('Register') }}</span></a>
 					</li>
 					@endif
 					@else
 					<li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-							 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-							{{ Auth::user()->name }} <span class="caret"></span>
+							 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-color-white">
+								{{ Auth::user()->name }} <span class="caret"></span></span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
@@ -69,8 +71,8 @@
 
 					<li class="nav-item dropdown border mr-border-radius-5">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-							 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-							{{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span>
+							 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-color-white">
+								{{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span></span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							@foreach(\App\Models\MrLanguage::GetAll() as $item)

@@ -10,6 +10,9 @@
       <ul class="navbar-nav ml-auto">
         <!-- Authentication Links -->
         <li class="nav-item">
+          <a class="nav-link" href="/references">{{ __('mr-t.Справочники') }}</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/faq">FAQ</a>
         </li>
 
