@@ -23,12 +23,16 @@ class MrReferences extends Controller
 
   public function View(string $name)
   {
-    $pref = 'Mr';
+    $out = array();
+
     if($reference = $this->references[$name])
     {
-      $l = substr($reference, 0, 1);
-      $class_name = str_replace($l, mb_strtoupper($l), $reference);
-      $class_name = $pref . $class_name;
+      $out['reference_name'] = $reference;
+
+      $pref = 'Mr';
+      $l = substr($name, 0, 1);
+      $class_name = str_replace($l, mb_strtoupper($l), $name);
+      $class_name = "App\\Http\\Models\\" . $pref . $class_name;
 
       if(class_exists($class_name))
       {
@@ -41,5 +45,7 @@ class MrReferences extends Controller
         return back();
       }
     }
+
+    return View('References.'.$name)->with($out);
   }
 }

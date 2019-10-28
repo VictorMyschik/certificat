@@ -50,11 +50,11 @@
               <div class="row col-md-12 d-inline-block">
                 <h4>Список языков
                   <span
-                      title="Редактировать">{!!  \App\Http\Controllers\Forms\MrForm::loadForm('admin_language_edit_form', 'MrLanguageEditForm', ['id' => '0'],'Редактировать') !!}</span>
+                      title="Редактировать">{!!  \App\Http\Controllers\Forms\MrForm::loadForm('admin_language_edit_form', 'MrLanguageEditForm', ['id' => '0'],'Редактировать',['btn btn-primary btn-sm']) !!}</span>
                 </h4>
                 {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
                 @foreach($languages as $language)
-                  <span class="mr-border-radius-10 mr-language-icon" style="border: #0d152a 1px solid;padding-left: 5px;padding-right: 5px;background-image: url('/public/images/other/bg-btn.jpg');color: #00A000;">{{$language->getName()}}</span>
+                  <span class="mr-border-radius-10 mr-language-icon" title="{{$language->getDescription()}}" style="border: #0d152a 1px solid;padding-left: 5px;padding-right: 5px;background-image: url('/public/images/other/bg-btn.jpg');color: #00A000;">{{$language->getName()}}</span>
                 @endforeach
               </div>
             </div>
@@ -69,7 +69,7 @@
           <div class="col-md-12">
             <div class="card-body">
               <h4>Добавить перевод
-                {!!  \App\Http\Controllers\Forms\MrForm::loadForm('translate_word_edit', 'MrTranslateWordEditForm', ['id' => '0'], '+') !!}
+                {!!  \App\Http\Controllers\Forms\MrForm::loadForm('translate_word_edit', 'MrTranslateWordEditForm', ['id' => '0'], '+',['btn btn-primary btn-sm']) !!}
               </h4>
               <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                 <thead>

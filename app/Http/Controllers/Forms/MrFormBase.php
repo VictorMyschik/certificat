@@ -22,7 +22,7 @@ class MrFormBase extends Controller
     $out['url'] = route($route_name, $url_data);
     $out['btn_name'] = $btn_name ?? 'Изменить';
     $base_class_btn = array(
-      'btn', 'btn-primary', 'btn-sm', 'mr-border-radius-5'
+      'mr-border-radius-5'
     );
 
     foreach ($btn_class as $class)

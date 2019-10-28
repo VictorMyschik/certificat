@@ -27,7 +27,7 @@ Route::post('/feedback', "MrFAQController@Feedback");
 
 //// Справочники
 Route::get('/references', 'MrReferences@List');
-Route::get('/references/{name}', 'MrReferences@View');
+Route::get('/reference/{name}', 'MrReferences@View');
 
 //// для авторизованных
 Route::group(['middleware' => 'auth'], function () {
@@ -109,10 +109,15 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/policy/edit/{id}', "Admin\MrAdminPolicyController@edit")->name('edit_policy');
   Route::get('/admin/policy/delete/{id}', "Admin\MrAdminPolicyController@delete")->name('delete_policy');
   //// Справочники
-  Route::get('/admin/reference/country', "Admin\MrAdminPolicyController@delete")->name('delete_policy');
+  // Удаление строки
+  Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID");
+  // Страны мира
+  Route::get('/admin/reference/{name}', "Admin\MrAdminReferences@View");
+  // Переустановка справочника
+  Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry");
   // Форма редактирования справочника стран
-  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\MrLanguageEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\MrLanguageEditForm@builderForm")->name('admin_country_edit_form');
+  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\MrReferenceCountryEditForm@submitForm");
+  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\MrReferenceCountryEditForm@builderForm")->name('admin_reference_country_edit_form');
 });
 
 
