@@ -4,8 +4,10 @@
 namespace App\Http\Models;
 
 
+use App\Models\MrVisitCard;
 use App\Models\ORM;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MrCertificate extends ORM
 {
@@ -22,7 +24,7 @@ class MrCertificate extends ORM
     'Status',
     'LinkOut',
     'Description',
-   // 'WriteDate',
+    // 'WriteDate',
   );
 
   const KIND_CERTIFICATE = 1;
@@ -97,9 +99,9 @@ class MrCertificate extends ORM
   }
 
   // Дата начала блокировки
-  public function getDateFrom(): Carbon
+  public function getDateFrom(): ?Carbon
   {
-    return new Carbon($this->DateFrom);
+    return $this->DateFrom ? new Carbon($this->DateFrom) : null;
   }
 
   public function setDateFrom($value)
@@ -109,7 +111,7 @@ class MrCertificate extends ORM
       $value = new Carbon($value);
     }
 
-    $this->DateFrom  = $value;
+    $this->DateFrom = $value;
   }
 
   // Дата окончания
@@ -193,5 +195,41 @@ class MrCertificate extends ORM
     {
       dd('Неизвестный статус');
     }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  public function GetFullName(): string
+  {
+    $out = $this->getNumber();
+    $out .= ' с ';
+    $out .= $this->getDateFrom()->format('d.m.Y');
+    $out .= ' по ';
+    $out .= $this->getDateTo()->format('d.m.Y');
+    $out .= ' (';
+    $out .= $this->getStatusName();
+    $out .= ')';
+
+    return $out;
+  }
+
+  /**
+   * поиск по серитфикатам
+   *
+   * @param string|null $str
+   * @return array|object[]
+   */
+  public static function Search(?string $str)
+  {
+    if(!$str)
+    {
+      return array();
+    }
+
+    $list = DB::table(MrCertificate::$mr_table)
+      ->where('Number', 'LIKE', '%' . $str . '%')
+      ->limit(1)
+      ->get();
+
+    return self::LoadArray($list, self::class);
   }
 }

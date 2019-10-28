@@ -29,6 +29,13 @@ Route::post('/feedback', "MrFAQController@Feedback");
 Route::get('/references', 'MrReferences@List');
 Route::get('/reference/{name}', 'MrReferences@View');
 
+// Поиск
+Route::post('/search', 'HomeController@Search')->name('search');
+
+// Страница инфо о сертификате
+Route::get('/certificate/{number}', 'MrCertificateController@View');
+
+
 //// для авторизованных
 Route::group(['middleware' => 'auth'], function () {
 

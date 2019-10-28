@@ -65,5 +65,6 @@ return $translate_arr + [
     'Выйти' => 'Logout',
     'выйти' => 'logout',
     'Удалить мой аккаунт' => 'Delete My Account',
-    'Справочники' => 'References'
+    'Справочники' => 'References',
+    'Поиск сертификата' => 'Certificate search'
   ];
