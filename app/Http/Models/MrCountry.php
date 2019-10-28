@@ -2,7 +2,6 @@
 
 namespace App\Http\Models;
 
-use App\Http\Controllers\Forms\MrMessageEditForm;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Models\ORM;
 

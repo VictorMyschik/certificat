@@ -96,8 +96,14 @@
 		</div>
 	</nav>
 	<div class="container padding-t-20">
+		<div>
+			<h1 class="mr-bold">Работаете с сертификатами?</h1>
 
-		цццццц
+			<h3 class="mr-bold">On-line</h3>
+
+			<h4>библиотека актуальных сертификатов соответствия</h4>
+			<h4 class="mr-bold">On-line библиотека актуальных декларации о соответствии</h4>
+		</div>
 	</div>
 </div>
 @endsection

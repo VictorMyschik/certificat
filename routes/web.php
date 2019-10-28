@@ -118,6 +118,14 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Форма редактирования справочника стран
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\MrReferenceCountryEditForm@submitForm");
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\MrReferenceCountryEditForm@builderForm")->name('admin_reference_country_edit_form');
+
+  //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ
+  Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
+  // Форма добавления нового сертификата
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\MrCertificateEditForm@submitForm");
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\MrCertificateEditForm@builderForm")->name('admin_certificate_edit_form');
+  // Удалить сертификат
+  Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
 });
 
 

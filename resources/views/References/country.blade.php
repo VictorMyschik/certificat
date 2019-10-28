@@ -3,8 +3,7 @@
 @section('content')
 @include('layouts.mr_nav')
 <div class="container">
-  <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
-       data-scrollax-parent="true">
+  <div class="row justify-content-center padding-t-10">
 
     <h4>{{$reference_name}}</h4>
 

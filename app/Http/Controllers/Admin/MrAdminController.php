@@ -13,40 +13,41 @@ use Illuminate\Support\Facades\Redirect;
 
 class MrAdminController extends Controller
 {
-    public function index()
+  public function index()
+  {
+    if(!MrUser::me()->IsAdmin())
     {
-        if (!MrUser::me()->IsAdmin()) {
-            return back();
-        }
-
-        $out = array();
-
-        $date = new Carbon();
-        $date->addDays(-1);
-
-        //$out['visits'] = MrLogIdent::GetDifferentUsers($date);
-
-        return View('Admin.mir_admin')->with($out);
+      return back();
     }
 
+    $out = array();
 
-    /**
-     * Удаление пользователя навсегда из БД
-     *
-     * @param  int  $id
-     * @return RedirectResponse
-     * @throws \Exception
-     */
-    public function userDeleteForever(int $id)
+    $date = new Carbon();
+    $date->addDays(-1);
+
+    //$out['visits'] = MrLogIdent::GetDifferentUsers($date);
+
+    return View('Admin.mir_admin')->with($out);
+  }
+
+
+  /**
+   * Удаление пользователя навсегда из БД
+   *
+   * @param int $id
+   * @return RedirectResponse
+   * @throws \Exception
+   */
+  public function userDeleteForever(int $id)
+  {
+    if($user = MrUser::loadBy($id))
     {
-        if ($user = MrUser::loadBy($id))
-        {
-            $user_laravel = $user->getUserLaravel();
-            $user->mr_delete();
+      $user_laravel = $user->getUserLaravel();
+      $user->mr_delete();
 
-            User::find($user_laravel->id)->delete();
-        }
-
-        return Redirect::route('users');
+      User::find($user_laravel->id)->delete();
     }
+
+    return Redirect::route('users');
+  }
 }
