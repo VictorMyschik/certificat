@@ -97,7 +97,9 @@ class MrTranslate extends ORM
   {
     $lg = MrLanguage::loadBy(mb_strtoupper($lg_code), 'Name');
     if(!$lg)
+    {
       return array();
+    }
 
     $out = array();
     foreach (self::GetByLg($lg) as $item)
@@ -105,6 +107,22 @@ class MrTranslate extends ORM
       $out[$item->getName()] = $item->getTranslate();
     }
 
+    return $out;
+  }
+
+  /**
+   * Вывод всех русских слов
+   *
+   * @return array
+   */
+  public static function GetAllRusWords(): array
+  {
+    $list = self::GetAll();
+    $out = array();
+    foreach ($list as $item)
+    {
+      $out[$item->getName()] = $item->getName();
+    }
     return $out;
   }
 }

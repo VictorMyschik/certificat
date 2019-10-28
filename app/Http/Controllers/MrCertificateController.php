@@ -8,10 +8,9 @@ use App\Http\Models\MrCertificate;
 
 class MrCertificateController extends Controller
 {
-
   public function View(string $number)
   {
-    $certificate = MrCertificate::loadBy($number);
+    $certificate = MrCertificate::loadBy($number, 'Number');
 
     $out = array();
     if($certificate)
@@ -21,7 +20,7 @@ class MrCertificateController extends Controller
     }
     else
     {
-      return redirect()->action('MrError404Controller@indexView','404');
+      return redirect()->action('MrError404Controller@indexView', '404');
     }
   }
 }

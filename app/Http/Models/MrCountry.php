@@ -89,6 +89,14 @@ class MrCountry extends ORM
     {
       MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Удалённый сервер не вернул данные, справочник не был затронут');
     }
+  }
 
+  public function getCodeWithName()
+  {
+    $r = $this->getCode();
+    $r .= ' ';
+    $r .= $this->getNameRus();
+
+    return $r;
   }
 }

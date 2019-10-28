@@ -1,6 +1,10 @@
 <?php
 
-return [
+use App\Models\MrTranslate;
+
+$translate_arr = MrTranslate::GetAllRusWords();
+
+return $translate_arr + [
   'Моя почта' => 'Моя почта',
   'Пароль' => 'Пароль',
   'пароль' => 'пароль',
