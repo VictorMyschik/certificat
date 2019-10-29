@@ -1,0 +1,33 @@
+<?php
+
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+class createmrbaselog extends Migration
+{
+  public function up()
+  {
+    Schema::create('mr_base_log', function (Blueprint $table) {
+      $table->Increments('id')->autoIncrement();
+      $table->integer('LogIdentID');
+      $table->string('TableName');
+      $table->integer('RowId');
+      $table->string('Field');
+      $table->string('Value');
+      $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+    });
+  }
+
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('mr_base_log');
+  }
+}

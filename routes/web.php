@@ -99,6 +99,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/hardware/bot', "Admin\MrAdminHardwareController@botPage")->name('bot_page');
   Route::get('/admin/hardware/bot/delete/{id}', "Admin\MrAdminHardwareController@DelBot")->name('bot_del');
   Route::post('/admin/hardware/bot/add/{id}/{text}', "Admin\MrAdminHardwareController@AddBot")->name('bot_del');
+
+  // Лог изменений БД
+  Route::get('/admin/hardware/dblog', "Admin\MrAdminHardwareController@ViewDbLog")->name('db_log_list');
   //// Перевод сайта на другие языки
   Route::get('/admin/language', "Admin\MrAdminLanguageController@List")->name('language_list');
   // Добавить новый язык

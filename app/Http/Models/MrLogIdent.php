@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class MrLogIdent extends ORM
 {
   public static $mr_table = 'mr_log_ident';
+  public static $ident_id = null;
   protected static $dbFieldsMap = array(
     'Referer',
     'Link',
@@ -31,7 +32,7 @@ class MrLogIdent extends ORM
 
   public function save_mr()
   {
-    return parent::mr_save_object($this);
+    return self::$ident_id = parent::mr_save_object($this);
   }
 
   // Дата
@@ -40,8 +41,7 @@ class MrLogIdent extends ORM
     try
     {
       return new Carbon($this->Date);
-    }
-    catch (\Exception $e)
+    } catch (\Exception $e)
     {
       dd($e);
     }
@@ -162,7 +162,7 @@ class MrLogIdent extends ORM
 
 
   /**
-   * @param Carbon      $date
+   * @param Carbon $date
    * @param string|null $type
    * @return self[]
    */
@@ -194,7 +194,9 @@ class MrLogIdent extends ORM
       }
     }
     else
+    {
       $list = DB::table(static::$mr_table)->orderBy('Date', 'DESC')->get(['id']);
+    }
 
     foreach ($list as $item)
     {
@@ -205,7 +207,7 @@ class MrLogIdent extends ORM
   }
 
   /**
-   * Вернут список посещений разбитый на ботов и людей
+   * Вернуть список посещений разбитый на ботов и людей
    *
    * @param Carbon|null $date
    * @return array
@@ -226,7 +228,9 @@ class MrLogIdent extends ORM
         $out['bot_unique'][$item->getBot()->id()] = $item;
       }
       else
+      {
         $out['other'][] = $item;
+      }
     }
 
     return $out;

@@ -42,6 +42,7 @@
           <ul class="sub-menu children dropdown-menu">
             <li><i class="fa fa-tachometer"></i><a href="/admin/hardware">Лог посещений</a></li>
             <li><i class="fa fa-tachometer"></i><a href="/admin/hardware/bot">Bot фильтр</a></li>
+            <li><i class="fa fa-tachometer"></i><a href="/admin/hardware/dblog">Лог БД</a></li>
           </ul>
         </li>
 

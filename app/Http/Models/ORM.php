@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Models\MrBaseLog;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -79,6 +81,7 @@ class ORM extends Model
       {
         $object->$key = $value;
       }
+
       $out[] = $object;
     }
 
@@ -88,6 +91,8 @@ class ORM extends Model
   public function mr_save_object($object): ?int
   {
     $array = array();
+    $diff = array();
+
     foreach (static::$dbFieldsMap as $propertis)
     {
       if(is_object($object->$propertis))
@@ -106,25 +111,72 @@ class ORM extends Model
         $array[$propertis] = $object->$propertis;
       }
     }
+
     if($object->id)
     {
-      DB::table(static::$mr_table)->where('id', '=', $object->id)->update($array);
+      $origin = self::loadBy($object->id);
 
-      $out =  $object->id;
+      $diff = self::equals($origin, $object);
+      if(count($diff))
+      {
+        DB::table(static::$mr_table)->where('id', '=', (int)$object->id)->update($diff);
+      }
+
+      $last_id_out = (int)$object->id;
     }
     else
     {
-      $out = DB::table(static::$mr_table)->insertGetId($array);
+      $last_id_out = DB::table(static::$mr_table)->insertGetId($array);
+      $diff = $array;
     }
 
+    MrBaseLog::SaveData(static::$mr_table, $last_id_out, $diff);
+
     $this->FlushCache();
+
+    return $last_id_out;
+  }
+
+  /**
+   * Отбор данных для сохранения
+   *
+   * @param object $origin
+   * @param object $modified
+   * @return array
+   * @throws \Exception
+   */
+  private static function equals(object $origin, object $modified): array
+  {
+    $out = array();
+
+    foreach ($origin->attributes as $orgn_key => $orgn_value)
+    {
+      if(in_array((string)$orgn_key, array('WriteDate', 'DateLastVisit')))
+      {
+        continue;
+      }
+
+      if($modified->attributes[$orgn_key] instanceof Carbon)
+      {
+        $or = new Carbon($orgn_value);
+        if($modified->attributes[$orgn_key]->format('Y-m-d H:i:s') !== $or->format('Y-m-d H:i:s'))
+        {
+          $out[$orgn_key] = $modified->attributes[$orgn_key];
+        }
+      }
+      elseif($modified->attributes[$orgn_key] != $orgn_value)
+      {
+        $out[$orgn_key] = $modified->attributes[$orgn_key];
+      }
+    }
+
 
     return $out;
   }
 
   private function FlushCache()
   {
-    foreach(static::$mr_caches as $mr_cache)
+    foreach (static::$mr_caches as $mr_cache)
     {
       Cache::forget($mr_cache);
     }
@@ -148,11 +200,11 @@ class ORM extends Model
       DB::table(static::$mr_table)->delete($this->id());
 
       $this->FlushCache();
+      MrBaseLog::SaveData(static::$mr_table, $this->id(), []);
 
       return true;
     }
     else
-
     {
       return false;
     }

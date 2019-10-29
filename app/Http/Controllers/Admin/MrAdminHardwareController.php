@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\MrBaseLog;
 use App\Models\MrBotUserAgent;
 use App\Models\MrLogIdent;
 use Illuminate\Http\RedirectResponse;
@@ -133,6 +134,14 @@ class MrAdminHardwareController extends Controller
     $log->mr_delete();
 
     return back();
+  }
+
+  public function ViewDbLog()
+  {
+    $out = array();
+    $out['list'] = MrBaseLog::GetAll();
+
+    return View('Admin.bd_log')->with($out);
   }
 
 }

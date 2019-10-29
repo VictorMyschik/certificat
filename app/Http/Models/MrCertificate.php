@@ -4,7 +4,6 @@
 namespace App\Http\Models;
 
 
-use App\Models\MrUser;
 use App\Models\ORM;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
