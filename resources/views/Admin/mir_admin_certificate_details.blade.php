@@ -58,7 +58,7 @@
 					<td>{{ $value->id() }}</td>
 					<td>{{ $value->getField() }}</td>
 					<td>{{ $value->getValue() }}</td>
-					<td>{{ $certificate->getWriteDate()->format('d.m.Y H:i:s') }}</td>
+					<td>{{ $value->getWriteDate()->format('d.m.Y H:i:s') }}</td>
 					<td>
 						{!! \App\Http\Controllers\Forms\MrForm::loadForm('admin_certificate_details_edit_form', 'MrCertificateDetailsEditForm',
 						['certificate_id'=>$certificate->id(),'id' => $value->id()], '',['btn btn-primary btn-sm fa fa-edit']) !!}

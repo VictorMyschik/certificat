@@ -16,6 +16,17 @@ class MrCertificateController extends Controller
     if($certificate)
     {
       $out['certificate'] = $certificate;
+      $date = $certificate->getWriteDate();
+      foreach ($certificate->GetDetails() as $details)
+      {
+        if($details->getWriteDate()->isAfter($date))
+        {
+          $date = $details->getWriteDate();
+        }
+      }
+
+      $out['actual_date'] = $date;
+
       return View('certificate_view')->with($out);
     }
     else

@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="margin-t-20 margin-b-20">
 		<h3>{{ __('mr-t.Документ' )}}: {{ $certificate->getKindName().' '.$certificate->GetFullName() }}</h3>
-		<u class="mr-color-green-dark">{{ __('mr-t.Сведения обновлены') }}: {{ $certificate->getWriteDate()->format('d.m.Y h:i:s')
+		<u class="mr-color-green-dark">{{ __('mr-t.Сведения обновлены') }}: {{ $actual_date->format('d.m.Y h:i:s')
 			}}</u>
 	</div>
 
