@@ -128,11 +128,16 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
+  Route::get('/admin/certificate/details/{id}', "Admin\MrAdminCertificateController@CertificateDetails");
+  // Форма редактированиея сведения о сертификате
+  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\MrCertificateDetailsEditForm@submitForm");
+  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\MrCertificateDetailsEditForm@builderForm")->name('admin_certificate_details_edit_form');
   // Форма добавления нового сертификата
   Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\MrCertificateEditForm@submitForm");
   Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\MrCertificateEditForm@builderForm")->name('admin_certificate_edit_form');
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
+  Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
 });
 
 

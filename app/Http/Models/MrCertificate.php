@@ -4,9 +4,10 @@
 namespace App\Http\Models;
 
 
-use App\Models\MrVisitCard;
+use App\Models\MrUser;
 use App\Models\ORM;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MrCertificate extends ORM
@@ -60,8 +61,17 @@ class MrCertificate extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
+  protected function before_delete()
+  {
+    foreach ($this->GetDetails() as $details)
+    {
+      $details->mr_delete();
+    }
+  }
+
   public function save_mr()
   {
+    Cache::forget('certificate' . $this->id());
     return parent::mr_save_object($this);
   }
 
@@ -158,11 +168,6 @@ class MrCertificate extends ORM
     return new Carbon($this->WriteDate);
   }
 
-  public function setWriteDate(Carbon $value)
-  {
-    $this->WriteDate = $value;
-  }
-
   // Страна
   public function getCountry(): ?MrCountry
   {
@@ -232,4 +237,20 @@ class MrCertificate extends ORM
 
     return self::LoadArray($list, self::class);
   }
+
+  /**
+   * Массив сведений о сертификате
+   *
+   * @return MrCertificateDetails[]
+   */
+  public function GetDetails(): array
+  {
+    //Cache::forget('certificate' . $this->id());
+    $r = Cache::rememberForever('certificate' . $this->id(), function () {
+      return DB::table(MrCertificateDetails::$mr_table)->WHERE('CertificateID', '=', $this->id())->get();
+    });
+
+    return parent::LoadArray($r, MrCertificateDetails::class);
+  }
+
 }
