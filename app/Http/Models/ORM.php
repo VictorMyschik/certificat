@@ -132,8 +132,6 @@ class ORM extends Model
 
     MrBaseLog::SaveData(static::$mr_table, $last_id_out, $diff);
 
-    $this->FlushCache();
-
     return $last_id_out;
   }
 
@@ -170,16 +168,7 @@ class ORM extends Model
       }
     }
 
-
     return $out;
-  }
-
-  private function FlushCache()
-  {
-    foreach (static::$mr_caches as $mr_cache)
-    {
-      Cache::forget($mr_cache);
-    }
   }
 
   // Загрузка по имени класса и ID
@@ -199,7 +188,6 @@ class ORM extends Model
     {
       DB::table(static::$mr_table)->delete($this->id());
 
-      $this->FlushCache();
       MrBaseLog::SaveData(static::$mr_table, $this->id(), []);
 
       return true;
