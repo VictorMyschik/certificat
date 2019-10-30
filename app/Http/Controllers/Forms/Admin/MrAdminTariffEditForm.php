@@ -16,9 +16,11 @@ class MrAdminTariffEditForm extends MrFormBase
 
     $out['id'] = $id;
     $out['tariff'] = MrTariff::loadBy($id);
+    $out['list'] = array();
+
     $out['title'] = $id ? "Редактирование" : 'Создать';
 
-    return View('Form.admin_certificate_details_edit_form')->with($out);
+    return View('Form.admin_tariff_edit_form')->with($out);
   }
 
   protected static function validateForm(array $v)
@@ -47,12 +49,7 @@ class MrAdminTariffEditForm extends MrFormBase
     parent::submitFormBase($request->all());
 
 
-    $certificate = MrTariff::loadBy($id) ?: new MrTariff();
-    $certificate->set($certificate_id);
-    $certificate->setField($v['Field']);
-    $certificate->setValue($v['Value']);
 
-    $certificate->save_mr();
 
     return;
   }

@@ -15,6 +15,7 @@ class createmrtariff extends Migration
       $table->tinyInteger('Measure');
       $table->float('Cost');
       $table->string('Description');
+      $table->string('Category');
     });
   }
 
