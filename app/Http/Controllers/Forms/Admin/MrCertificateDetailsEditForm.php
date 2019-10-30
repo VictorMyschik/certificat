@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms;
+namespace App\Http\Controllers\Forms\Admin;
 
 
+use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrCertificate;
 use App\Http\Models\MrCertificateDetails;
 use Illuminate\Http\Request;

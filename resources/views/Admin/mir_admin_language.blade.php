@@ -22,23 +22,17 @@
 
 @section('content')
   <div id="right-panel" class="right-panel">
-
-
     <div class="breadcrumbs">
       <div class="col-sm-4">
         <div class="page-header float-left">
-          <div class="page-title">
-            <h1>Страница управления языками</h1>
-          </div>
+          <h1>Страница управления языками</h1>
         </div>
       </div>
       <div class="col-sm-8">
         <div class="page-header float-right">
-          <div class="page-title">
-            <ol class="breadcrumb text-right">
-              <li><a href="/admin">Главная</a></li>
-            </ol>
-          </div>
+          <ol class="breadcrumb text-right">
+            <li><a href="/admin">Главная</a></li>
+          </ol>
         </div>
       </div>
     </div>
@@ -50,11 +44,12 @@
               <div class="row col-md-12 d-inline-block">
                 <h4>Список языков
                   <span
-                      title="Редактировать">{!!  \App\Http\Controllers\Forms\MrForm::loadForm('admin_language_edit_form', 'MrLanguageEditForm', ['id' => '0'],'Редактировать',['btn btn-primary btn-sm']) !!}</span>
+                    title="Редактировать">{!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_language_edit_form', "Admin\\MrLanguageEditForm", ['id' => '0'],'Добавить',['btn btn-info btn-sm']) !!}</span>
                 </h4>
                 {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
                 @foreach($languages as $language)
-                  <span class="mr-border-radius-10 mr-language-icon" title="{{$language->getDescription()}}" style="border: #0d152a 1px solid;padding-left: 5px;padding-right: 5px;background-image: url('/public/images/other/bg-btn.jpg');color: #00A000;">{{$language->getName()}}</span>
+                  <span class="mr-border-radius-10 mr-language-icon" title="{{$language->getDescription()}}"
+                        style="border: #0d152a 1px solid;padding-left: 5px;padding-right: 5px;background-image: url('/public/images/other/bg-btn.jpg');color: #00A000;">{{$language->getName()}}</span>
                 @endforeach
               </div>
             </div>
@@ -68,8 +63,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card-body">
-              <h4>Добавить перевод
-                {!!  \App\Http\Controllers\Forms\MrForm::loadForm('translate_word_edit', 'MrTranslateWordEditForm', ['id' => '0'], '+',['btn btn-primary btn-sm']) !!}
+              <h4>
+                {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrTranslateWordEditForm', ['id' => '0'], 'Добавить перевод',['btn btn-primary btn-sm']) !!}
               </h4>
               <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                 <thead>
@@ -78,8 +73,7 @@
                   <td class="padding-horizontal">Русский</td>
                   <td class="padding-horizontal">Язык</td>
                   <td class="padding-horizontal">Перевод</td>
-                  <td class="padding-horizontal">Изменить</td>
-                  <td class="padding-horizontal">Удалить</td>
+                  <td class="padding-horizontal">#</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,11 +84,12 @@
                     <td class="padding-horizontal small">{{ $word->getLanguage()->getName() }}</td>
                     <td class="padding-horizontal small">{{ $word->getTranslate() }}</td>
                     <td class="padding-horizontal small">
-                      {!!  \App\Http\Controllers\Forms\MrForm::loadForm('translate_word_edit', 'MrTranslateWordEditForm', ['id' => $word->id()], 'изменить') !!}
-                    </td>
-                    <td class="padding-horizontal small">
+                      {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrTranslateWordEditForm', ['id' => $word->id()],'',['btn btn-info btn-sm fa fa-edit']) !!}
+
                       <a href="/admin/language/word/{{$word->id()}}/delete"
-                         onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');">Удалить</a>
+                         onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');">
+                        <button type="button" class="btn btn-danger btn-sm fa fa-trash mr-border-radius-5"></button>
+                      </a>
                     </td>
                   </tr>
                 @endforeach

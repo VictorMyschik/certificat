@@ -14,7 +14,6 @@ class ORM extends Model
   protected static $mr_table;
   protected static $dbFieldsMap;
   protected static $className;
-  protected static $mr_caches = array();
 
   public function __construct()
   {

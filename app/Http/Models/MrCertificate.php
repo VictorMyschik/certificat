@@ -13,7 +13,6 @@ class MrCertificate extends ORM
 {
   public static $mr_table = 'mr_certificate';
   public static $className = MrCertificate::class;
-  protected $mr_caches = array();
 
   protected $id = 0;
 
@@ -152,7 +151,7 @@ class MrCertificate extends ORM
     $this->Description = $value;
   }
 
-  // Описание
+  // Ссылка на оригинал
   public function getLinkOut(): ?string
   {
     return $this->LinkOut;

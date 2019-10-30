@@ -141,7 +141,7 @@ class MrAdminHardwareController extends Controller
     $out = array();
     $out['list'] = MrBaseLog::GetAll();
 
-    return View('Admin.bd_log')->with($out);
+    return View('Admin.mir_admin_bd_log')->with($out);
   }
 
 }

@@ -19,6 +19,7 @@ class MrCountry extends ORM
     'NameRus',
     'NameEng',
     'Code',
+    'NumericCode'
   );
 
   public static function loadBy($value, $field = 'id'): ?MrCountry
@@ -59,6 +60,16 @@ class MrCountry extends ORM
   public function setCode(?string $value)
   {
     $this->Code = $value;
+  }
+
+  public function getNumericCode(): ?int
+  {
+    return $this->NumericCode;
+  }
+
+  public function setNumericCode(?int $value)
+  {
+    $this->NumericCode = $value;
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////

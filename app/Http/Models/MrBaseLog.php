@@ -44,7 +44,7 @@ class MrBaseLog extends ORM
   }
 
   // Посетитель
-  public function getLogIdent(): MrLogIdent
+  public function getLogIdent(): ?MrLogIdent
   {
     return MrLogIdent::loadBy($this->LogIdentID);
   }

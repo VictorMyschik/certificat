@@ -1012,7 +1012,7 @@ aside.left-panel {
         display: inline-block;
         font-family: 'Open Sans';
         font-size: 14px;
-        line-height: 30px;
+        
         padding: 10px 0;
         position: relative;
         width: 100%; }
@@ -1037,7 +1037,7 @@ aside.left-panel {
       .navbar .navbar-nav li.menu-item-has-children {
         position: relative; }
         .navbar .navbar-nav li.menu-item-has-children a {
-          line-height: 30px; }
+           }
           .navbar .navbar-nav li.menu-item-has-children a:before {
             content: "\f105";
             color: #c8c9ce;
@@ -2101,7 +2101,7 @@ header .form-inline {
   color: #252525;
   font-size: 12px;
   font-weight: 400;
-  line-height: 30px; }
+   }
 
 .stat-widget-seven .stat-count {
   font-size: 18px;
@@ -2308,7 +2308,7 @@ header .form-inline {
       aside.left-panel .navbar .navbar-nav li.menu-item-has-children a:before {
         top: 5px; }
       aside.left-panel .navbar .menu-title {
-        line-height: 30px;
+        
         padding: 0; }
 
   .menutoggle {

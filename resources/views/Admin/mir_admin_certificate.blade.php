@@ -48,8 +48,8 @@
 			<div class="card-body padding-horizontal">
 				{!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
 				<h4>Добавить сертификат
-					{!! \App\Http\Controllers\Forms\MrForm::loadForm('admin_certificate_edit_form', 'MrCertificateEditForm', ['id'
-					=>'0'],	'Новый',['btn btn-primary btn-sm']) !!}
+					{!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_edit_form', 'Admin\\MrCertificateEditForm', ['id'
+					=>'0'],	'Новый',['btn btn-info btn-sm']) !!}
 				</h4>
 				<table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
 					<thead>
@@ -81,7 +81,7 @@
 						<td>{{ $certificate->getDescription() }}</td>
 						<td>{{ $certificate->getWriteDate()->format('d.m.Y H:i:s') }}</td>
 						<td class="padding-horizontal small">
-							{!! \App\Http\Controllers\Forms\MrForm::loadForm('admin_certificate_edit_form', 'MrCertificateEditForm',
+							{!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_edit_form', 'Admin\\MrCertificateEditForm',
 							['id' =>
 							$certificate->id()], '',['btn btn-info btn-sm fa fa-edit']) !!}
 

@@ -23,7 +23,7 @@
 				<div class="page-title">
 					<h1>Часто-задаваемые вопросы
 						<a href="/admin/faq/edit/0">
-							<button type="button" title="Создать новую запись" class="btn btn-primary btn-sm mr-border-radius-10">
+							<button type="button" title="Создать новую запись" class="btn btn-info btn-sm mr-border-radius-10">
 								new
 							</button>
 						</a>
