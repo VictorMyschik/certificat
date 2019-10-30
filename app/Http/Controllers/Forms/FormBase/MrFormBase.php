@@ -35,13 +35,13 @@ class MrFormBase extends Controller
     return View::make('Form.button_form_base')->with($out);
   }
 
-  protected static function getFormBuilder(&$out)
+  protected static function getFormBuilder($out)
   {
     $out['btn_success'] = 'Сохранить';
     $out['btn_cancel'] = 'Отменить';
-    $out['title'] = '';
+    //$out['title'] = '';
 
-    return $out;
+    return View('Form.admin_tariff_edit_form')->with($out);
   }
 
   protected static function ValidateBase(&$out, array $v)

@@ -4,15 +4,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="margin-b-20">
-      <h4>Сертификат: {{ $tariff?$tariff->GetFullName():null }}</h4>
+      <h4>{{ $tariff?'Сертификат: '.$tariff->GetFullName():null }}</h4>
     </div>
 
     <div>
-      <label>Выберите язык для редактирования <span id="LanguageID" class="mr-middle"></span>
-        <select class="mr-border-radius-10 col-sm-12" name="LanguageID">
-         @include('Form.BaseForm.Inputs.select')
-        </select>
-      </label>
+      @include('Form.BaseForm.Inputs.select')
     </div>
 
     <div class="row">

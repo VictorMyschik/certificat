@@ -23,7 +23,7 @@ class MrTariff extends ORM
 
   private static $categories = array(
     self::CATEGORY_API => 'API доступ к системе',
-    self::CATEGORY_SEARCH => 'Отслеживание состояния сертифмкатов',
+    self::CATEGORY_SEARCH => 'Отслеживание состояния сертификатов',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrTariff
@@ -36,7 +36,7 @@ class MrTariff extends ORM
     return parent::mr_save_object($this);
   }
 
-  public function getCategoryList(): array
+  public static function getCategoryList(): array
   {
     return self::$categories;
   }

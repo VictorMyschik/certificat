@@ -12,15 +12,27 @@ class MrAdminTariffEditForm extends MrFormBase
 {
   protected static function builderForm(int $id)
   {
-    parent::getFormBuilder($out);
+    $tariff = MrTariff::loadBy($id);
+    $out = array();
 
     $out['id'] = $id;
-    $out['tariff'] = MrTariff::loadBy($id);
-    $out['list'] = array();
+    $out['tariff'] = $tariff;
+    $out['Category'] = array(
+      '#type' => 'select',
+      '#title' => 'Категория',
+      '#default' => 0,
+      '#value' => MrTariff::getCategoryList(),
+    );
+
+    $out['Measure'] = array(
+      '#type' => 'textfield',
+      '#default' => $tariff ? $tariff->getMeasure() : null,
+      '#title' => 'За что оплата',
+    );
 
     $out['title'] = $id ? "Редактирование" : 'Создать';
 
-    return View('Form.admin_tariff_edit_form')->with($out);
+   return parent::getFormBuilder($out);
   }
 
   protected static function validateForm(array $v)
@@ -47,8 +59,6 @@ class MrAdminTariffEditForm extends MrFormBase
     }
 
     parent::submitFormBase($request->all());
-
-
 
 
     return;
