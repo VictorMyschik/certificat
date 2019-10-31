@@ -134,8 +134,8 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\Admin\MrCertificateDetailsEditForm@submitForm");
   Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\Admin\MrCertificateDetailsEditForm@builderForm")->name('admin_certificate_details_edit_form');
   // Форма добавления нового сертификата
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\Admin\MrCertificateEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\Admin\MrCertificateEditForm@builderForm")->name('admin_certificate_edit_form');
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\Admin\MrCertificateEditForm@submitForm")->name('admin_certificate_form_sumbit');
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\Admin\MrCertificateEditForm@getFormBuilder")->name('admin_certificate_form_edit');
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");

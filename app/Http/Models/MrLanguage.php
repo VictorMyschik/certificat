@@ -26,7 +26,7 @@ class MrLanguage extends ORM
 
   public function before_delete()
   {
-    foreach(MrTranslate::GetByLg($this) as $words)
+    foreach (MrTranslate::GetByLg($this) as $words)
     {
       $words->mr_delete();
     }
@@ -56,7 +56,7 @@ class MrLanguage extends ORM
   public static function SelectList()
   {
     $out = array();
-
+    $out[0] = '[не выбрано]';
     foreach (self::GetAll() as $item)
     {
       $out[$item->id()] = $item->getName();

@@ -16,7 +16,6 @@ $('#mr-form').submit(function (e)
     data: mr_data
   }).done(function (response)
     {
-
       if (response)
       {
         for (let key in response)
@@ -36,6 +35,5 @@ $('#mr-form').submit(function (e)
   {
     console.log(response)
   });
-  //отмена действия по умолчанию для кнопки submit
   e.preventDefault();
 });

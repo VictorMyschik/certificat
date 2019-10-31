@@ -18,6 +18,20 @@ class MrTariff extends ORM
     'Category',
   );
 
+  const MEASURE_MONTH = 1;
+  const MEASURE_SERT_AMOUNT = 2;
+
+  private static $measures = array(
+    self::MEASURE_MONTH => 'Помесячная оплата',
+    self::MEASURE_SERT_AMOUNT => 'По количеству сертификатов',
+  );
+
+
+  public static function getMeasureList()
+  {
+    return self::$measures;
+  }
+
   const CATEGORY_API = 1;
   const CATEGORY_SEARCH = 2;
 
@@ -96,14 +110,19 @@ class MrTariff extends ORM
     $this->Name = $value;
   }
 
-
-  // Название тарифного плана
-  public function getMeasure(): string
+  // Тип оплаты
+  public function getMeasure(): int
   {
     return $this->Measure;
   }
 
-  public function setMeasure(string $value)
+  public function getMeasureName(): string
+  {
+    return self::getMeasureList()[$this->Measure];
+  }
+
+
+  public function setMeasure(int $value)
   {
     $this->Measure = $value;
   }

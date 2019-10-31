@@ -48,7 +48,7 @@
 			<div class="card-body padding-horizontal">
 				{!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
 				<h4>Добавить сертификат
-					{!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_edit_form', 'Admin\\MrCertificateEditForm', ['id'
+					{!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrCertificateEditForm', ['id'
 					=>'0'],	'Новый',['btn btn-info btn-sm']) !!}
 				</h4>
 				<table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">

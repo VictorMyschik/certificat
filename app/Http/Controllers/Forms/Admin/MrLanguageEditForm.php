@@ -26,7 +26,7 @@ class MrLanguageEditForm extends MrFormBase
     $form['LanguageID'] = array(
       '#type' => 'select',
       '#title' => 'Язык',
-      '#default_value' => $language ?: 0,
+      '#default_value' => $language->id() ?: 0,
       '#value' => MrLanguage::SelectList(),
     );
 
@@ -52,7 +52,7 @@ class MrLanguageEditForm extends MrFormBase
   {
     parent::ValidateBase($out, $v);
 
-    if(!$v['id'])
+    if(!$v['LanguageID'])
     {
       if(MrLanguage::loadBy($v['Name'], 'Name'))
       {
@@ -83,7 +83,7 @@ class MrLanguageEditForm extends MrFormBase
     else
     {
       $language->setName($v['Name']);
-      $language->setDescription($v['Description']);
+      $language->setDescription($v['Description'] ?: null);
       $language->save_mr();
     }
 

@@ -18,13 +18,6 @@ class MrAdminTariffEditForm extends MrFormBase
 
     $form['#id'] = $id;
 
-    $form['Category'] = array(
-      '#type' => 'select',
-      '#title' => 'Категория',
-      '#default_value' => 0,
-      '#value' => MrTariff::getCategoryList(),
-    );
-
     $form['Name'] = array(
       '#type' => 'textfield',
       '#title' => 'Наименование тарифа',
@@ -32,11 +25,18 @@ class MrAdminTariffEditForm extends MrFormBase
       '#value' => $tariff ? $tariff->getName() : null,
     );
 
+    $form['Category'] = array(
+      '#type' => 'select',
+      '#title' => 'Категория',
+      '#default_value' => 0,
+      '#value' => MrTariff::getCategoryList(),
+    );
+
     $form['Measure'] = array(
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => 'За что оплата',
-      '#class' => ['mr-border-radius-5'],
-      '#value' => $tariff ? $tariff->getMeasure() : null,
+      '#default_value' => $tariff ? $tariff->getMeasure() : 0,
+      '#value' => MrTariff::getMeasureList(),
     );
 
     $form['Cost'] = array(
@@ -60,6 +60,15 @@ class MrAdminTariffEditForm extends MrFormBase
   protected static function validateForm(array $v)
   {
     parent::ValidateBase($out, $v);
+
+    if(!$v['Cost'])
+    {
+      $out['Cost'] = 'Стоимость обязательна';
+    }
+    if(!$v['Name'])
+    {
+      $out['Name'] = 'Наименование тарифа обязательно';
+    }
 
     return $out;
   }

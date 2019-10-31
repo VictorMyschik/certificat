@@ -4,6 +4,8 @@ namespace App\Http\Models;
 
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Models\ORM;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Данные берутся с API http://api.travelpayouts.com/data/ru/countries.json
@@ -109,5 +111,25 @@ class MrCountry extends ORM
     $r .= $this->getNameRus();
 
     return $r;
+  }
+
+  /**
+   * список стран для выпадушки
+   *
+   * @return mixed
+   */
+  public static function SelectList()
+  {
+    return Cache::rememberForever('country_list', function () {
+      {
+        $out = array();
+        $list = DB::table(MrCountry::$mr_table)->get(['id', 'Code', 'NameRus']);
+        foreach ($list as $country)
+        {
+          $out[$country->id] = $country->Code . ' ' . $country->NameRus;
+        }
+        return $out;
+      }
+    });
   }
 }

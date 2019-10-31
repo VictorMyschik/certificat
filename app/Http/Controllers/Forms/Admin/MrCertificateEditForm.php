@@ -11,18 +11,18 @@ use Illuminate\Http\Request;
 
 class MrCertificateEditForm extends MrFormBase
 {
-  protected static function builderForm(int $id)
+  protected function builderForm(&$form, $id)
   {
-    parent::getFormBuilder($out);
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
+    $certificate = MrCertificate::loadBy($id);
 
-    $out['id'] = $id;
-    $out['certificate'] = MrCertificate::loadBy($id) ?: new MrCertificate();
-    $out['title'] = $id ? "Редактирование" : 'Создать';
-    $out['countries'] = MrCountry::GetAll();
-    $out['kind'] = MrCertificate::getKinds();
-    $out['statuses'] = MrCertificate::getStatuses();
+    $form['Kind'] = array(
+      '#type' => 'select',
+      '#title' => 'Тип',
+      '#default_value' => $certificate ? $certificate->getKind() : 0
+    );
 
-    return View('Form.admin_certificate_edit_form')->with($out);
+    return $form;
   }
 
   protected static function validateForm(array $v)

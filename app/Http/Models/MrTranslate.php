@@ -43,7 +43,7 @@ class MrTranslate extends ORM
     $this->Name = $value;
   }
 
-  public function getLanguage(): ?MrLanguage
+  public function getLanguage(): MrLanguage
   {
     return MrLanguage::loadBy($this->LanguageID);
   }
