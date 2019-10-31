@@ -33,7 +33,6 @@ class MrTariff extends ORM
 
   public function canDelete(): bool
   {
-    $s = true;
     $offices = MrOffice::GetAll();
 
     /** @var MrOffice[] $offices */
@@ -48,7 +47,7 @@ class MrTariff extends ORM
       }
     }
 
-    return $s;
+    return true;
   }
 
   public function save_mr()

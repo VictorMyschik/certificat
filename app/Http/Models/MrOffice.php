@@ -73,8 +73,15 @@ class MrOffice extends ORM
   }
 
   //////////////////////////////////////////////////////////////////
-  public function GetTariff():array
+
+  /**
+   * Список тарифов для офиса
+   *
+   * @return MrTariffInOffice[]
+   */
+  public function GetTariff(): array
   {
-    DB::table(MrOfficeTariff::get)
+    $list = DB::table(MrTariffInOffice::$mr_table)->WHERE('OfficeID', '=', $this->id())->get();
+    return parent::LoadArray($list, MrTariffInOffice::class);
   }
 }

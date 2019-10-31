@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrTariff;
 
 class MrAdminTariffController extends Controller
@@ -25,6 +26,12 @@ class MrAdminTariffController extends Controller
     if($tariff->canDelete())
     {
       $tariff->mr_delete();
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
     }
+    else
+    {
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Удаление нефозможно, есть офисы, подключенные на этот тариф');
+    }
+    return back();
   }
 }

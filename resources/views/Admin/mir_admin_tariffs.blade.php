@@ -40,6 +40,7 @@
 
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
+        {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
           <tr>
