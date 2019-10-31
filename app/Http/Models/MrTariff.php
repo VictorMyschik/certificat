@@ -31,6 +31,26 @@ class MrTariff extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
+  public function canDelete(): bool
+  {
+    $s = true;
+    $offices = MrOffice::GetAll();
+
+    /** @var MrOffice[] $offices */
+    foreach ($offices as $item)
+    {
+      foreach ($item->GetTariff() as $tariff)
+      {
+        if($this->id() == $tariff->id())
+        {
+          return false;
+        }
+      }
+    }
+
+    return $s;
+  }
+
   public function save_mr()
   {
     return parent::mr_save_object($this);

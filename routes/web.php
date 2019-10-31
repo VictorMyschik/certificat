@@ -143,6 +143,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/offeces',"Admin\MrAdminOfficeController@List")->name('offices');
   // Тарифы
   Route::get('/admin/tariffs',"Admin\MrAdminTariffController@List")->name('tariffs');
+  Route::get('/admin/tariff/delete/{id}',"Admin\MrAdminTariffController@List")->name('tariffs');
   Route::match(['get', 'post'], '/admin/tariff/edit/{id}/submit', "Forms\Admin\MrAdminTariffEditForm@submitForm")->name('tariff_submit');
   Route::match(['get', 'post'], '/admin/tariff/edit/{id}', "Forms\Admin\MrAdminTariffEditForm@getFormBuilder")->name('tariff_edit');
 

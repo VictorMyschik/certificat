@@ -7,6 +7,7 @@ namespace App\Http\Models;
 use App\Models\MrUser;
 use App\Models\ORM;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MrOffice extends ORM
 {
@@ -69,5 +70,11 @@ class MrOffice extends ORM
   public function getCreateDate(): Carbon
   {
     return new Carbon($this->CreateDate);
+  }
+
+  //////////////////////////////////////////////////////////////////
+  public function GetTariff():array
+  {
+    DB::table(MrOfficeTariff::get)
   }
 }

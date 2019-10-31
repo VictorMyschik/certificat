@@ -18,4 +18,13 @@ class MrAdminTariffController extends Controller
 
     return View('Admin.mir_admin_tariffs')->with($out);
   }
+
+  public function tariffDelete(int $id)
+  {
+    $tariff = MrTariff::loadBy($id);
+    if($tariff->canDelete())
+    {
+      $tariff->mr_delete();
+    }
+  }
 }
