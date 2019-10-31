@@ -5,10 +5,21 @@ namespace App\Http\Controllers\Forms\FormBase;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
 class MrFormBase extends Controller
 {
+  /**
+   * Построение кнопки вызова формы
+   *
+   * @param $route_name
+   * @param $data
+   * @param null $btn_name
+   * @param array $btn_class
+   * @return \Illuminate\Contracts\View\View
+   */
   public static function getFormBase($route_name, $data, $btn_name = null, $btn_class = array())
   {
     $out = array();
@@ -35,13 +46,28 @@ class MrFormBase extends Controller
     return View::make('Form.button_form_base')->with($out);
   }
 
-  protected static function getFormBuilder($out)
+  /**
+   * Построение всплывающей формы
+   *
+   * @param int $id
+   * @return Factory|\Illuminate\View\View
+   */
+  public function getFormBuilder(int $id)
   {
-    $out['btn_success'] = 'Сохранить';
-    $out['btn_cancel'] = 'Отменить';
-    //$out['title'] = '';
+    $form = array();
+    $this->builderForm($form, $id);
+    // Получеине роута для сохранения
+    $route_referer_name = Route::getFacadeRoot()->current()->action['as'];
+    $route_submit = explode('_', $route_referer_name);
+    $route_submit[count($route_submit) - 1] = 'submit';
 
-    return View('Form.admin_tariff_edit_form')->with($out);
+    $form['#url'] = route(implode($route_submit, '_'), ['id' => $id]);
+
+    $form['#btn_success'] = 'Сохранить';
+    $form['#btn_cancel'] = 'Отменить';
+    $out['form'] = $form;
+
+    return View('Form.BaseForm.form_templates')->with($out);
   }
 
   protected static function ValidateBase(&$out, array $v)

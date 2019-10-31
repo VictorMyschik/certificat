@@ -10,49 +10,64 @@ use Illuminate\Http\Request;
 
 class MrAdminTariffEditForm extends MrFormBase
 {
-  protected static function builderForm(int $id)
+  protected function builderForm(&$form, $id)
   {
     $tariff = MrTariff::loadBy($id);
-    $out = array();
 
-    $out['id'] = $id;
-    $out['tariff'] = $tariff;
-    $out['Category'] = array(
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
+
+    $form['#id'] = $id;
+
+    $form['Category'] = array(
       '#type' => 'select',
       '#title' => 'Категория',
-      '#default' => 0,
+      '#default_value' => 0,
       '#value' => MrTariff::getCategoryList(),
     );
 
-    $out['Measure'] = array(
+    $form['Name'] = array(
       '#type' => 'textfield',
-      '#default' => $tariff ? $tariff->getMeasure() : null,
-      '#title' => 'За что оплата',
+      '#title' => 'Наименование тарифа',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $tariff ? $tariff->getName() : null,
     );
 
-    $out['title'] = $id ? "Редактирование" : 'Создать';
+    $form['Measure'] = array(
+      '#type' => 'textfield',
+      '#title' => 'За что оплата',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $tariff ? $tariff->getMeasure() : null,
+    );
 
-   return parent::getFormBuilder($out);
+    $form['Cost'] = array(
+      '#type' => 'number',
+      '#title' => 'Цена',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $tariff ? $tariff->getCost() : null,
+    );
+
+    $form['Description'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Примечание для себя',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $tariff ? $tariff->getDescription() : null,
+    );
+
+
+    return $form;
   }
 
   protected static function validateForm(array $v)
   {
     parent::ValidateBase($out, $v);
 
-    if(!$v['Field'] || !$v['Value'])
-    {
-      $out['Field'] = 'Заполните "Поле"';
-      $out['Value'] = 'Заполните "Значение"';
-    }
-
-
     return $out;
   }
 
-  protected static function submitForm(Request $request, int $certificate_id, int $id)
+  protected static function submitForm(Request $request, int $id)
   {
     $v = $request->all();
-    $errors = self::validateForm($request->all() + ['CertificateID' => $certificate_id, 'id' => $id]);
+    $errors = self::validateForm($v + ['id' => $id]);
     if(count($errors))
     {
       return $errors;
@@ -60,6 +75,13 @@ class MrAdminTariffEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
+    $tariff = MrTariff::loadBy($id) ?: new MrTariff();
+    $tariff->setName($v['Name']);
+    $tariff->setDescription($v['Description']);
+    $tariff->setCost($v['Cost']);
+    $tariff->setMeasure($v['Measure']);
+    $tariff->setCategory($v['Category']);
+    $tariff->save_mr();
 
     return;
   }

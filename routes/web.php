@@ -81,15 +81,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/users/edit/{id}/submit', "Forms\Admin\MrUserEditForm@submitForm");
   Route::match(['get', 'post'], '/admin/users/edit/{id}', "Forms\Admin\MrUserEditForm@builderForm")->name('user_edit');
 
-  // Офисы
-  Route::get('/admin/offeces',"Admin\MrAdminOfficeController@List")->name('offices');
-  // Тарифы
-  Route::get('/admin/tariffs',"Admin\MrAdminTariffController@List")->name('tariffs');
-
-  Route::match(['get', 'post'], '/admin/tariff/edit/{id}/submit', "Forms\Admin\MrAdminTariffEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/tariff/edit/{id}', "Forms\Admin\MrAdminTariffEditForm@builderForm")->name('tariff_edit');
-
-
   // Подписка
   Route::get('/admin/subscription', "Admin\MrAdminSubscription@index")->name('admin_subscription');
   Route::get('/admin/subscription/delete/{id}',
@@ -148,6 +139,13 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
+  // Офисы
+  Route::get('/admin/offeces',"Admin\MrAdminOfficeController@List")->name('offices');
+  // Тарифы
+  Route::get('/admin/tariffs',"Admin\MrAdminTariffController@List")->name('tariffs');
+  Route::match(['get', 'post'], '/admin/tariff/edit/{id}/submit', "Forms\Admin\MrAdminTariffEditForm@submitForm")->name('tariff_submit');
+  Route::match(['get', 'post'], '/admin/tariff/edit/{id}', "Forms\Admin\MrAdminTariffEditForm@getFormBuilder")->name('tariff_edit');
+
 });
 
 

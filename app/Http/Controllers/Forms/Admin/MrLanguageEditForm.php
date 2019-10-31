@@ -12,7 +12,7 @@ class MrLanguageEditForm extends MrFormBase
 {
   protected static function builderForm(int $id)
   {
-    parent::getFormBuilder($out);
+    parent::getFormBuilder($id);
 
     $out['id'] = $id;
     $out['language'] = MrLanguage::loadBy($id) ?: new MrLanguage();

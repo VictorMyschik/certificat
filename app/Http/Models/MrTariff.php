@@ -8,8 +8,8 @@ use App\Models\ORM;
 
 class MrTariff extends ORM
 {
-
   public static $mr_table = 'mr_tariff';
+  protected static $className = MrTariff::class;
   protected static $dbFieldsMap = array(
     'Name',
     'Measure',
@@ -51,6 +51,16 @@ class MrTariff extends ORM
     return $this->getCategorylist()[$this->Category];
   }
 
+  public function getCost(): float
+  {
+    return $this->Cost;
+  }
+
+  public function setCost(float $value): float
+  {
+    return $this->Cost = $value;
+  }
+
   public function setCategory(int $value)
   {
     $this->Category = $value;
@@ -69,7 +79,7 @@ class MrTariff extends ORM
 
 
   // Название тарифного плана
-  public function getMeasure(): int
+  public function getMeasure(): string
   {
     return $this->Measure;
   }

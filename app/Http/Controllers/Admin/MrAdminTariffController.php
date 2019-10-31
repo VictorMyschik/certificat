@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\MrTariff;
 
 class MrAdminTariffController extends Controller
 {
@@ -13,7 +14,7 @@ class MrAdminTariffController extends Controller
     $out = array();
     $out['page_title'] = 'Тарифные планы';
 
-    $out['list'] = array();
+    $out['list'] = MrTariff::GetAll();
 
     return View('Admin.mir_admin_tariffs')->with($out);
   }

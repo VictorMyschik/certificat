@@ -24,7 +24,7 @@
       <div class="col-sm-4">
         <div class="page-header float-left">
           <h1>{{ $page_title }}
-            {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => '0'], 'Новый',['btn btn-info btn-sm']) !!}
+            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => '0'], 'Новый',['btn btn-info btn-sm']) !!}
           </h1>
         </div>
       </div>
@@ -62,10 +62,7 @@
               <td>{{ $value->getCost() }}</td>
               <td>{{ $value->getDescription() }}</td>
               <td>
-                <a href="/admin/tariff/edit/{{ $value->id() }}">
-                  <button type="button" title="Изменить"
-                          class="btn btn-info btn-sm mr-border-radius-5"><i class="fa fa-edit"></i></button>
-                </a>
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => $value->id()], '',['btn btn-info btn-sm fa fa-edit']) !!}
                 <a href="/admin/tariff/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
                   <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
                   </button>
