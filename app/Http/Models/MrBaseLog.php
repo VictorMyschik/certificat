@@ -82,7 +82,7 @@ class MrBaseLog extends ORM
     return $this->Value;
   }
 
-  public function setValue(string $value)
+  public function setValue(?string $value)
   {
     $this->Value = $value;
   }

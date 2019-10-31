@@ -16,7 +16,7 @@ class createmrbaselog extends Migration
       $table->string('TableName');
       $table->integer('RowId');
       $table->string('Field');
-      $table->string('Value');
+      $table->string('Value')->nullable();
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
   }

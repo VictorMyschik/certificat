@@ -23,6 +23,7 @@ class MrAdminTariffController extends Controller
   public function tariffDelete(int $id)
   {
     $tariff = MrTariff::loadBy($id);
+
     if($tariff->canDelete())
     {
       $tariff->mr_delete();

@@ -56,6 +56,7 @@ class MrFormBase extends Controller
   {
     $form = array();
     $this->builderForm($form, $id);
+
     // Получеине роута для сохранения
     $route_referer_name = Route::getFacadeRoot()->current()->action['as'];
     $route_submit = explode('_', $route_referer_name);

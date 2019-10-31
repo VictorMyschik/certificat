@@ -10,16 +10,42 @@ use Illuminate\Http\Request;
 
 class MrLanguageEditForm extends MrFormBase
 {
-  protected static function builderForm(int $id)
+  protected function builderForm(&$form, $id)
   {
-    parent::getFormBuilder($id);
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
 
-    $out['id'] = $id;
-    $out['language'] = MrLanguage::loadBy($id) ?: new MrLanguage();
-    $out['title'] = $id ? "Редактирование" : 'Создать';
-    $out['languages'] = MrLanguage::GetAll();
+    $language = MrLanguage::loadBy($id);
 
-    return View('Form.admin_language_edit_form')->with($out);
+    $form['Delete'] = array(
+      '#type' => 'checkbox',
+      '#title' => 'Удалить',
+      '#value' => true,
+      '#attributes' => [],
+    );
+
+    $form['LanguageID'] = array(
+      '#type' => 'select',
+      '#title' => 'Язык',
+      '#default_value' => $language ?: 0,
+      '#value' => MrLanguage::SelectList(),
+    );
+
+    $form['Name'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Код',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $language ? $language->getName() : null,
+    );
+
+    $form['Description'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Примечание (для себя)',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $language ? $language->getDescription() : null,
+    );
+
+
+    return $form;
   }
 
   protected static function validateForm(array $v)
@@ -28,11 +54,10 @@ class MrLanguageEditForm extends MrFormBase
 
     if(!$v['id'])
     {
-      if(!$v['Name'])
-        $out['Name'] = 'Поле имя обязательно для заполнения';
-
       if(MrLanguage::loadBy($v['Name'], 'Name'))
+      {
         $out['Name'] = 'Такой язык уже существует';
+      }
     }
 
     return $out;
@@ -43,26 +68,17 @@ class MrLanguageEditForm extends MrFormBase
     $v = $request->all();
     $errors = self::validateForm($request->all() + ['id' => $id]);
     if(count($errors))
+    {
       return $errors;
+    }
 
     parent::submitFormBase($request->all());
 
-    $language = MrLanguage::loadBy($v['id']) ?: new MrLanguage();
+    $language = MrLanguage::loadBy($v['LanguageID']) ?: new MrLanguage();
 
-    if($language->id)
+    if(isset($v['Delete']) && $v['Delete'])
     {
-      if($v['option'] == 2)
-      {
-        $language->mr_delete();
-      }
-      else
-      {
-        if($v['Name'])
-          $language->setName($v['Name']);
-        if($v['Description'])
-          $language->setDescription($v['Description']);
-        $language->save_mr();
-      }
+      $language->mr_delete();
     }
     else
     {

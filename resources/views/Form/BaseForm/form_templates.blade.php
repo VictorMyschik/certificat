@@ -20,6 +20,11 @@
         @if($items['#type'] == 'number')
           @include('Form.BaseForm.Inputs.number', ['name' => $key, 'item' => $items])
         @endif
+
+        @if($items['#type'] == 'checkbox')
+          @include('Form.BaseForm.Inputs.checkbox', ['name' => $key, 'item' => $items])
+        @endif
+
       @else
         @if(substr($key, 0, 1) !== '#')
           <div>{{ $items }}</div>

@@ -45,19 +45,19 @@ Route::group(['middleware' => 'auth'], function () {
   Route::POST('/panel/edit/{id}', "User\MrUserController@Edit")->name('panel_edit');
   Route::get('/panel/races', "User\MrUserController@Races")->name('panel_races');
 
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrTranslateWordEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrTranslateWordEditForm@builderForm")->name('translate_word_edit');
 
   //// Удаление аккаунта
   Route::match(['get', 'post'], '/panel/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
   Route::match(['get', 'post'], '/panel/delete/submit', "Forms\MrUserDeleteForm@submitForm");
-
 });
 
 
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
-
+/*
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrTranslateWordEditForm@submitForm");
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrTranslateWordEditForm@builderForm")->name('translate_word_edit');
+*/
   Route::get('/test', "MrTestController@index");
   //// Админка
   Route::get('/admin', "Admin\MrAdminController@index")->name('admin');
@@ -105,13 +105,13 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Добавить новый язык
   Route::get('/admin/language/add', "Admin\MrAdminLanguageController@Add")->name('language_add');
   // Форма редактирования языка
-  Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "Forms\Admin\MrLanguageEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/language/edit/{id}', "Forms\Admin\MrLanguageEditForm@builderForm")->name('admin_language_edit_form');
+  Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "Forms\Admin\MrLanguageEditForm@submitForm")->name('admin_language_edit_submit');
+  Route::match(['get', 'post'], '/admin/language/edit/{id}', "Forms\Admin\MrLanguageEditForm@getFormBuilder")->name('admin_language_edit_form');
   // Удалить перевод слов(а)
   Route::get('/admin/language/word/{id}/delete', "Admin\MrAdminLanguageController@translatedWordDelete")->name('translate_word_delete');
   // Форма редактирования перевода
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrTranslateWordEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrTranslateWordEditForm@builderForm")->name('translate_word_edit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrTranslateWordEditForm@submitForm")->name('translate_word_submit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
   // Политика конфиденциальности
   Route::get('/admin/policy', "Admin\MrAdminPolicyController@List")->name('admin_policy_list');
   Route::match(['get', 'post'], '/admin/policy/edit/{id}', "Admin\MrAdminPolicyController@edit")->name('edit_policy');

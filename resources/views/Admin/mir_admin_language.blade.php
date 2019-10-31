@@ -43,8 +43,8 @@
             <div class="card-body margin-t-15">
               <div class="row col-md-12 d-inline-block">
                 <h4>Список языков
-                  <span
-                    title="Редактировать">{!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_language_edit_form', "Admin\\MrLanguageEditForm", ['id' => '0'],'Добавить',['btn btn-info btn-sm']) !!}</span>
+                  <span title="Редактировать">
+                    {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_language_edit_form', "Admin\\MrLanguageEditForm", ['id' => '0'],'Добавить язык',['btn btn-info btn-sm']) !!}</span>
                 </h4>
                 {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
                 @foreach($languages as $language)

@@ -11,16 +11,35 @@ use Illuminate\Http\Request;
 
 class MrTranslateWordEditForm extends MrFormBase
 {
-  protected static function builderForm(int $id)
+  protected function builderForm(&$form, $id)
   {
-    parent::getFormBuilder($out);
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
 
-    $out['id'] = $id;
-    $out['word'] = $word = MrTranslate::loadBy($id) ?: new MrTranslate();
-    $out['title'] = $id ? "Редактирование {$word->getName()}" : 'Создать';
-    $out['languages'] = MrLanguage::GetAll();
+    $word = MrTranslate::loadBy($id);
 
-    return View('Form.admin_translate_word_edit_form')->with($out);
+    $form['Name'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Руский',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $word ? $word->getName() : null,
+    );
+
+    $form['LanguageID'] = array(
+      '#type' => 'select',
+      '#title' => 'Язык',
+      '#default_value' => $word ? $word->getLanguage()->id() : 0,
+      '#value' => MrLanguage::SelectList(),
+    );
+
+    $form['Translated'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Перевод',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $word ? $word->getTranslate() : null,
+    );
+
+
+    return $form;
   }
 
   protected static function validateForm(array $v)
@@ -40,7 +59,9 @@ class MrTranslateWordEditForm extends MrFormBase
     $v = $request->all();
     $errors = self::validateForm($request->all() + ['id' => $id]);
     if(count($errors))
+    {
       return $errors;
+    }
 
     parent::submitFormBase($request->all());
 

@@ -1,3 +1,4 @@
 <label>{{ $item['#title'] }}
-  <input type="number" name="{{ $name }}" value="{{ $item['#value'] }}" class="@foreach($item['#class'] as $class){{ $class }}@endforeach">
+  <input type="number" name="{{ $name }}" value="{{ $item['#value'] }}"
+         @if(isset($item['#class']))class="@foreach($item['#class'] as $class){{ $class }}@endforeach"@endif>
 </label>

@@ -24,6 +24,14 @@ class MrLanguage extends ORM
     return parent::mr_save_object($this);
   }
 
+  public function before_delete()
+  {
+    foreach(MrTranslate::GetByLg($this) as $words)
+    {
+      $words->mr_delete();
+    }
+  }
+
   public function getName(): ?string
   {
     return $this->Name;
@@ -45,4 +53,15 @@ class MrLanguage extends ORM
   }
 
   ////////////////////////////////////////////////////////////////////////
+  public static function SelectList()
+  {
+    $out = array();
+
+    foreach (self::GetAll() as $item)
+    {
+      $out[$item->id()] = $item->getName();
+    }
+
+    return $out;
+  }
 }

@@ -57,10 +57,12 @@
         </li>
 
         <li class="margin-t-20">
-          <a class="dropdown-item" href="/clear">
-            Очистить кэш
-          </a>
+          <a class="dropdown-item" href="/clear"> Очистить кэш</a>
         </li>
+        <li>
+          <a class="dropdown-item" href="/phpmyadmin" target="_blank"> PhpMyAdmin</a>
+        </li>
+
         <li>
           <a class="dropdown-item" href="{{ route('logout') }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
