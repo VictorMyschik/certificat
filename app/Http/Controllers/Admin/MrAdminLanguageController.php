@@ -35,7 +35,7 @@ class MrAdminLanguageController extends Controller
     {
       if($language = MrLanguage::loadBy($name))
       {
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Такой язык уже добавлен');
+        MrMessageHelper::SetMessage(false, 'Такой язык уже добавлен');
       }
       else
       {
@@ -43,12 +43,12 @@ class MrAdminLanguageController extends Controller
         $language->setName($name);
         $language->setDescription($request->get('Description'));
         $language->save_mr();
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, "Язык {$name} успешно добавлен.");
+        MrMessageHelper::SetMessage(true, "Язык {$name} успешно добавлен.");
       }
     }
     else
     {
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Не указано наименование нового языка');
+      MrMessageHelper::SetMessage(false, 'Не указано наименование нового языка');
     }
 
     return redirect('/admin/language');
@@ -59,12 +59,12 @@ class MrAdminLanguageController extends Controller
     if($word = MrTranslate::loadBy($id))
     {
       $word->mr_delete();
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
+      MrMessageHelper::SetMessage(true, 'Успешно удалено');
     }
     else
     {
 
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, "Слово в БД не найдено id={$id}");
+      MrMessageHelper::SetMessage(false, "Слово в БД не найдено id={$id}");
     }
 
     return redirect('/admin/language');

@@ -33,7 +33,7 @@ class MrAdminCertificateController extends Controller
     $certificate = MrCertificate::loadBy($id);
     $certificate->mr_delete();
 
-    MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удален');
+    MrMessageHelper::SetMessage(true, 'Успешно удален');
 
     return back();
   }
@@ -53,13 +53,13 @@ class MrAdminCertificateController extends Controller
       if($details->id() == $id)
       {
         $details->mr_delete();
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удален.');
+        MrMessageHelper::SetMessage(true, 'Успешно удален.');
 
         return back();
       }
     }
 
-    MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Инфо о сертификате не найдено.');
+    MrMessageHelper::SetMessage(false, 'Инфо о сертификате не найдено.');
     return back();
   }
 

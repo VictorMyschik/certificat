@@ -1,4 +1,4 @@
-<title>Лог БД</title>
+<title>{{ $title }}</title>
 <meta name="description" content="Sufee Admin - HTML5 Admin Template">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="/public/images/Admin/favicon.ico">
@@ -20,14 +20,14 @@
     <div class="breadcrumbs">
       <div class="col-sm-4">
         <div class="page-header float-left">
-          <h1>Лог БД</h1>
+          <h1>{{ $title }} <a href="/admin/hardware/dblog/delete/0" onclick="return confirm('Вы уверены?');"><button type="button" class="btn btn-danger btn-sm mr-border-radius-5">all delete</button></a> </h1>
         </div>
       </div>
       <div class="col-sm-8">
         <div class="page-header float-right">
           <ol class="breadcrumb text-right">
             <li><a href="/admin">Главная</a></li>
-            <li class="active">Лог БД</li>
+            <li class="active">{{ $title }}</li>
           </ol>
         </div>
       </div>
@@ -35,6 +35,7 @@
 
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
+        {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
           <tr>
@@ -52,13 +53,14 @@
           @foreach($list as $value)
             <tr>
               <td>{{ $value->id() }}</td>
-              <td>{{ $value->getLogIdent()?$value->getLogIdent()->id():null }}</td>
+              <td>{{ $value->getLogIdent() ? ('ID'.$value->getLogIdent()->id()) : null }}</td>
               <td>{{ $value->getRowId() }}</td>
               <td>{{ $value->getTableName() }}</td>
               <td>{{ $value->getField() }}</td>
               <td>{{ $value->getValue() }}</td>
               <td>{{ $value->getWriteDate() }}</td>
               <td>
+                <a href="/admin/hardware/dblog/delete/{{$value->id()}}"><button type="button" class="btn btn-danger btn-sm mr-border-radius-5">del</button></a>
               </td>
             </tr>
           @endforeach

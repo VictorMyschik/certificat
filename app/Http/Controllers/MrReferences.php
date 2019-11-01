@@ -41,7 +41,7 @@ class MrReferences extends Controller
       }
       else
       {
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Справочника нет');
+        MrMessageHelper::SetMessage(false, 'Справочника нет');
         return back();
       }
     }

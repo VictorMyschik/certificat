@@ -81,7 +81,7 @@
 						<td>{{ $certificate->getDescription() }}</td>
 						<td>{{ $certificate->getWriteDate()->format('d.m.Y H:i:s') }}</td>
 						<td class="padding-horizontal small">
-							{!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_edit_form', 'Admin\\MrCertificateEditForm',
+							{!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrCertificateEditForm',
 							['id' =>
 							$certificate->id()], '',['btn btn-info btn-sm fa fa-edit']) !!}
 

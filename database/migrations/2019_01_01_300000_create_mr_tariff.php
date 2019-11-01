@@ -11,8 +11,8 @@ class createmrtariff extends Migration
   {
     Schema::create('mr_tariff', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
-      $table->string('Name');
-      $table->string('Measure');
+      $table->string('Name', 50);
+      $table->tinyInteger('Measure');
       $table->float('Cost');
       $table->string('Description')->nullable();
       $table->string('Category');

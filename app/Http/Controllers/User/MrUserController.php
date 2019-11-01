@@ -81,7 +81,7 @@ class MrUserController extends Controller
 
     $user->save_mr();
 
-    MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Информация о пользователе обновлена');
+    MrMessageHelper::SetMessage(true, 'Информация о пользователе обновлена');
 
     return redirect()->route('panel');
   }

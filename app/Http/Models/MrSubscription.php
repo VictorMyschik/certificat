@@ -6,7 +6,6 @@ namespace App\Models;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class MrSubscription extends ORM
 {
@@ -80,11 +79,11 @@ class MrSubscription extends ORM
             $new_subscription->setToken(md5(time()));
             $new_subscription->save_mr();
 
-            MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Email: '.$email.' успешно подписан на рассылку');
+            MrMessageHelper::SetMessage(true, 'Email: '.$email.' успешно подписан на рассылку');
         }
         else
         {
-            MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Такой Email уже имеется');
+            MrMessageHelper::SetMessage(false, 'Такой Email уже имеется');
         }
     }
 

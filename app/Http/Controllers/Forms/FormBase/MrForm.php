@@ -53,7 +53,7 @@ class MrForm extends Controller
     if(count($errors))
     {
       $out = implode('<br>', $errors);
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, $out);
+      MrMessageHelper::SetMessage(false, $out);
     }
 
     return $errors;

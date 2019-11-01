@@ -64,12 +64,12 @@ class MrCountry extends ORM
     $this->Code = $value;
   }
 
-  public function getNumericCode(): ?int
+  public function getNumericCode(): ?string
   {
     return $this->NumericCode;
   }
 
-  public function setNumericCode(?int $value)
+  public function setNumericCode(?string $value)
   {
     $this->NumericCode = $value;
   }
@@ -96,11 +96,11 @@ class MrCountry extends ORM
         $new->save_mr();
       }
 
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Импортировано ' . count($data) . ' строк');
+      MrMessageHelper::SetMessage(true, 'Импортировано ' . count($data) . ' строк');
     }
     else
     {
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Удалённый сервер не вернул данные, справочник не был затронут');
+      MrMessageHelper::SetMessage(false, 'Удалённый сервер не вернул данные, справочник не был затронут');
     }
   }
 

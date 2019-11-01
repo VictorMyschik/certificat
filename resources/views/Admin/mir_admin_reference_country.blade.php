@@ -25,9 +25,9 @@
       <div class="col-sm-4">
         <div class="page-header float-left">
           <h1>Страны мира
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_edit_form',
+            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
             'Admin\\MrReferenceCountryEditForm', ['id' => '0'], 'Новый', ['btn', 'btn-info', 'btn-sm']) !!}
-            <a href="/admin/reference/country/rebuild">
+            <a href="/admin/reference/country/rebuild" onclick="return confirm('Вы уверены?');">
               <button type="button" title="Будет скачан с переустановлен с нуля"
                       class="btn btn-primary btn-sm mr-border-radius-5">
                 Переустановить справочник
@@ -52,12 +52,12 @@
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
           <tr>
-            <td><b>ID</b></td>
-            <td><b>Наименование</b></td>
-            <td><b>English</b></td>
-            <td><b>Код</b></td>
-            <td><b>Цифровой</b></td>
-            <td><b>#</b></td>
+            <td>ID</td>
+            <td>Наименование</td>
+            <td>English</td>
+            <td>Код 1</td>
+            <td>Код 2</td>
+            <td>#</td>
           </tr>
           <thead>
           <tbody>
@@ -69,7 +69,7 @@
               <td>{{ $value->getNumericCode() }}</td>
               <td>{{ $value->getCode() }}</td>
               <td>
-                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_edit_form',
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
                 'Admin\\MrReferenceCountryEditForm', ['id' => $value->id()], '', ['btn', 'btn-info', 'btn-sm', 'fa', 'fa-edit'])
                 !!}
                 <a href="/admin/reference/country/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">

@@ -71,11 +71,11 @@ class MrAdminPolicyController extends Controller
     if($faq)
     {
       $faq->mr_delete();
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
+      MrMessageHelper::SetMessage(true, 'Успешно удалено');
     }
     else
     {
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Запись не найдена');
+      MrMessageHelper::SetMessage(false, 'Запись не найдена');
     }
 
 

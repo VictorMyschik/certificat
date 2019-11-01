@@ -27,11 +27,11 @@ class MrAdminTariffController extends Controller
     if($tariff->canDelete())
     {
       $tariff->mr_delete();
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
+      MrMessageHelper::SetMessage(true, 'Успешно удалено');
     }
     else
     {
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Удаление нефозможно, есть офисы, подключенные на этот тариф');
+      MrMessageHelper::SetMessage(false, 'Удаление нефозможно, есть офисы, подключенные на этот тариф');
     }
     return back();
   }

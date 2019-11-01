@@ -10,20 +10,46 @@ use Illuminate\Http\Request;
 
 class MrReferenceCountryEditForm extends MrFormBase
 {
-  protected static function builderForm(int $id)
+  protected function builderForm(&$form, $id)
   {
-    parent::getFormBuilder($out);
-    $out['id'] = $id;
-    $out['country'] = MrCountry::loadBy($id) ?: new MrCountry();
-    $out['title'] = $id ? "Редактировать" : 'Создать';
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
+    $country = MrCountry::loadBy($id);
 
-    return View('Form.admin_reference_country_edit_form')->with($out);
+    $form['NameRus'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Наименование',
+      '#value' => $country ? $country->getNameEng() : null,
+    );
+
+    $form['NameEng'] = array(
+      '#type' => 'textfield',
+      '#title' => 'На английском',
+      '#value' => $country ? $country->getNameEng() : null,
+    );
+
+    $form['Code'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Буквенный код',
+      '#value' => $country ? $country->getCode() : null,
+    );
+
+    $form['NumericCode'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Цифровой код',
+      '#value' => $country ? $country->getNumericCode() : null,
+    );
+
+    return $form;
   }
+
 
   protected static function validateForm(array $v)
   {
     parent::ValidateBase($out, $v);
-
+    if(!$v['Code'])
+    {
+      $out['Code'] = 'Буквенный код обязателен';
+    }
 
     return $out;
   }
@@ -42,6 +68,7 @@ class MrReferenceCountryEditForm extends MrFormBase
 
     $country = MrCountry::loadBy($id) ?: new MrCountry();
     $country->setCode($v['Code']);
+    $country->setNumericCode($v['NumericCode'] ?: null);
     $country->setNameRus($v['NameRus']);
     $country->setNameEng($v['NameEng']);
     $country->save_mr();

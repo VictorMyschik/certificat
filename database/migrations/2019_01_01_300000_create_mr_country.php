@@ -12,7 +12,7 @@ class createmrcountry extends Migration
       $table->smallIncrements('id')->autoIncrement();
       $table->string('NameRus')->nullable();
       $table->string('NameEng')->nullable();
-      $table->string('NameEng')->nullable();
+      $table->string('Code')->nullable();
       $table->string('NumericCode')->nullable();
     });
   }

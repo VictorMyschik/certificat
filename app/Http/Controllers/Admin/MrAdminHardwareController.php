@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrBaseLog;
 use App\Models\MrBotUserAgent;
 use App\Models\MrLogIdent;
@@ -139,9 +140,37 @@ class MrAdminHardwareController extends Controller
   public function ViewDbLog()
   {
     $out = array();
+    $out['title'] = 'Лог БД';
     $out['list'] = MrBaseLog::GetAll();
 
     return View('Admin.mir_admin_bd_log')->with($out);
   }
 
+  /**
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function deleteDbLog(int $id)
+  {
+    if($id == 0)
+    {
+      MrBaseLog::AllDelete();
+    }
+    else
+    {
+      $log = MrBaseLog::loadBy($id);
+
+      if($log)
+      {
+        $log->mr_delete();
+        MrMessageHelper::SetMessage(true, "Запись ID{$id} удалена");
+      }
+      else
+      {
+        MrMessageHelper::SetMessage(false, "Запись ID{$id} удалена");
+      }
+    }
+
+    return back();
+  }
 }

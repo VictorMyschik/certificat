@@ -75,9 +75,9 @@ class MrAdminFeedbackController extends Controller
         $feedback = MrFeedback::loadBy($id);
         if ($feedback) {
             $feedback->mr_delete();
-            MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
+            MrMessageHelper::SetMessage(true, 'Успешно удалено');
         } else {
-            MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Раздел не найден');
+            MrMessageHelper::SetMessage(false, 'Раздел не найден');
         }
 
         return Redirect::route('admin_feedback_list');

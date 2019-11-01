@@ -38,7 +38,7 @@ class MrFAQController extends Controller
 
       $feedback->save_mr();
 
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Ваше сообщение отправлено');
+      MrMessageHelper::SetMessage(true, 'Ваше сообщение отправлено');
     }
 
     return redirect('/faq');

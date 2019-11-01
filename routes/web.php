@@ -100,6 +100,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Лог изменений БД
   Route::get('/admin/hardware/dblog', "Admin\MrAdminHardwareController@ViewDbLog")->name('db_log_list');
+  Route::get('/admin/hardware/dblog/delete/{id}', "Admin\MrAdminHardwareController@deleteDbLog")->name('delete_bd_log');
   //// Перевод сайта на другие языки
   Route::get('/admin/language', "Admin\MrAdminLanguageController@List")->name('language_list');
   // Добавить новый язык
@@ -124,17 +125,17 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Переустановка справочника
   Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry");
   // Форма редактирования справочника стран
-  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\Admin\MrReferenceCountryEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\Admin\MrReferenceCountryEditForm@builderForm")->name('admin_reference_country_edit_form');
+  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\Admin\MrReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
+  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\Admin\MrReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
 
   //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
   Route::get('/admin/certificate/details/{id}', "Admin\MrAdminCertificateController@CertificateDetails");
   // Форма редактированиея сведения о сертификате
-  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\Admin\MrCertificateDetailsEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\Admin\MrCertificateDetailsEditForm@builderForm")->name('admin_certificate_details_edit_form');
+  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\Admin\MrCertificateDetailsEditForm@submitForm")->name('admin_certificate_details_form_submit');
+  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\Admin\MrCertificateDetailsEditForm@getFormBuilder")->name('admin_certificate_details_form_edit');
   // Форма добавления нового сертификата
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\Admin\MrCertificateEditForm@submitForm")->name('admin_certificate_form_sumbit');
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\Admin\MrCertificateEditForm@submitForm")->name('admin_certificate_form_submit');
   Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\Admin\MrCertificateEditForm@getFormBuilder")->name('admin_certificate_form_edit');
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");

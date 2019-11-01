@@ -77,7 +77,7 @@ class MrBaseLog extends ORM
   }
 
   // Новое значение
-  public function getValue(): string
+  public function getValue(): ?string
   {
     return $this->Value;
   }

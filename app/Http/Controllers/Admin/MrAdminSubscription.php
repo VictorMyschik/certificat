@@ -27,7 +27,7 @@ class MrAdminSubscription extends Controller
             $sub->mr_delete();
         }
 
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS,
+        MrMessageHelper::SetMessage(true,
             'Email: '.$sub->getEmail().' успешно отписн от рассылки');
 
         return back();

@@ -45,8 +45,8 @@
           <thead>
           <tr>
             <td>ID</td>
-            <td>Категория</td>
             <td>Наименование</td>
+            <td>Категория</td>
             <td>Измерение</td>
             <td>Цена</td>
             <td>Примечание</td>
@@ -58,8 +58,8 @@
             <tr>
               <td>{{ $value->id() }}</td>
               <td>{{ $value->getName() }}</td>
-              <td>{{ $value->getCategory() }}</td>
-              <td>{{ $value->getMeasure() }}</td>
+              <td>{{ $value->getCategoryName() }}</td>
+              <td>{{ $value->getMeasureName() }}</td>
               <td>{{ $value->getCost() }}</td>
               <td>{{ $value->getDescription() }}</td>
               <td>

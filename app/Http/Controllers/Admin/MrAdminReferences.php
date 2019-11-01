@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrCountry;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -33,6 +34,29 @@ class MrAdminReferences extends Controller
   public function RebuildCountry()
   {
     MrCountry::RebuildReference();
+
+    $text_number_codes = array(
+      'RU' => '643',
+      'KG' => '417',
+      'KZ' => '398',
+      'BY' => '112',
+      'AM' => '051',
+    );
+
+    foreach($text_number_codes as $key => $value)
+    {
+      $country = MrCountry::loadBy($key, 'Code');
+      if($country)
+      {
+        $country->setNumericCode($value);
+        $country->save_mr();
+      }
+      else
+      {
+        MrMessageHelper::SetMessage(false,'Не все цифровые коды были добавлены');
+      }
+    }
+
     return back();
   }
 
