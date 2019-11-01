@@ -28,9 +28,22 @@ class MrOffice extends ORM
     return parent::mr_save_object($this);
   }
 
-  public function canDelete():bool
+  public function canDelete(): bool
   {
     return true;
+  }
+
+  public function before_delete()
+  {
+    foreach ($this->GetTariffs() as $tariffInOffice)
+    {
+      $tariffInOffice->mr_delete();
+    }
+
+    foreach ($this->GetUsers() as $userInOffice)
+    {
+      $userInOffice->mr_delete();
+    }
   }
 
   /**
