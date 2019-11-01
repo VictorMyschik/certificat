@@ -49,9 +49,12 @@ class MrUser extends ORM
    */
   public static function me(): ?MrUser
   {
-    if (Auth::check()) {
+    if(Auth::check())
+    {
       return MrUser::loadBy(Auth::id(), 'UserLaravelID');
-    } else {
+    }
+    else
+    {
       return null;
     }
   }
@@ -59,13 +62,17 @@ class MrUser extends ORM
   // пользователь Laravel
   public function getUserLaravel(): ?User
   {
-    if ($this['UserLaravelID']) {
+    if($this['UserLaravelID'])
+    {
       $object = User::where('id', $this['UserLaravelID'])->get();
-    } else {
+    }
+    else
+    {
       return null;
     }
 
-    if (!count($object)) {
+    if(!count($object))
+    {
       return null;
     }
 
@@ -146,9 +153,12 @@ class MrUser extends ORM
   public function getIsSubscription(): bool
   {
     $sub = MrSubscription::loadBy($this->getEmail(), 'Email');
-    if ($sub) {
+    if($sub)
+    {
       return true;
-    } else {
+    }
+    else
+    {
       return false;
     }
   }
@@ -162,8 +172,10 @@ class MrUser extends ORM
   public function getBlock(): ?MrUsersBloked
   {
     $list = MrUsersBloked::GetAllBlocked();
-    foreach ($list as $item) {
-      if ($this->id == $item->getUser()->id()) {
+    foreach ($list as $item)
+    {
+      if($this->id == $item->getUser()->id())
+      {
         return $item;
       }
     }
@@ -180,8 +192,10 @@ class MrUser extends ORM
   {
     $list = DB::table(static::$mr_table)->get(['id']);
     $out = array();
-    foreach ($list as $id) {
-      if ($user = parent::loadBy((string)$id->id)) {
+    foreach ($list as $id)
+    {
+      if($user = parent::loadBy((string)$id->id))
+      {
         $out[] = $user;
       }
     }
@@ -206,8 +220,10 @@ class MrUser extends ORM
       ->pluck('Link')->toArray();
 
     $url = '';
-    foreach ($links as $link) {
-      if ($link == '/ulogin' || $link == '/login' || $link == '/home' || $link == '/register') {
+    foreach ($links as $link)
+    {
+      if($link == '/ulogin' || $link == '/login' || $link == '/home' || $link == '/register')
+      {
         continue;
       }
       $url = $link;
@@ -237,7 +253,7 @@ class MrUser extends ORM
     $r = '';
     $r .= $this->getName();
     $r .= ' (';
-    $r .= $this->getEmail().')';
+    $r .= $this->getEmail() . ')';
 
 
     return $r;
@@ -252,7 +268,8 @@ class MrUser extends ORM
     return Cache::rememberForever('emails', function () {
       $list = DB::table('users')->pluck('email')->toArray();
       $out = array();
-      foreach ($list as $item) {
+      foreach ($list as $item)
+      {
         $out[] = $item;
       }
       return $out;
@@ -264,7 +281,8 @@ class MrUser extends ORM
    */
   public function AccountDelete()
   {
-    if ($user = MrUser::me()) {
+    if($user = MrUser::me())
+    {
       $user_laravel = $user->getUserLaravel();
       $user->mr_delete();
 
@@ -272,11 +290,21 @@ class MrUser extends ORM
     }
   }
 
-  /** ID поьзователя-заглушки
+  /** ID пользователя-заглушки
    * @return MrUser|null
    */
   public static function zeroUser()
   {
     return self::loadBy(2);
+  }
+
+  public static function SelectList()
+  {
+    $out = array();
+    foreach (self::GetAll() as $user)
+    {
+      $out[$user->id()] = $user->GetFullName();
+    }
+    return $out;
   }
 }

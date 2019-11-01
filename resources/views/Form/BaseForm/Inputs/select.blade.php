@@ -1,6 +1,6 @@
+<div id="{{ $name }}"></div>
 {{ $item['#title'] }}
-<label><span
-    class="@if(isset($item['#class']))@foreach($item['#class'] as $class){{ $class }}@endforeach @endif"></span>
+<label>
   <select class="mr-border-radius-5" name="{{ $name }}">
     @foreach($item['#value'] as $key => $value)
       @if(isset($item['#default_value']) && ($item['#default_value'] == $key))

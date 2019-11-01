@@ -25,7 +25,7 @@
               <td>{{ $value->id() }}</td>
               <td>{{ $value->getName() }}</td>
               <td>
-                @foreach($value->GetAdminUsers() as $admin)
+                @foreach($value->GetUsers() as $admin)
                   {{ $admin->getUser()->GetFullName() }}
                 @endforeach
               </td>
@@ -36,11 +36,11 @@
               </td>
               <td>{{ $value->getDescription() }}</td>
               <td>
-                <a href="/admin/faq/edit/{{ $value->id() }}">
-                  <button type="button" title="Изменить"
-                          class="btn btn-info btn-sm mr-border-radius-5"><i class="fa fa-edit"></i></button>
-                </a>
-                <a href="/admin/faq/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
+                <a href="{{ route('office_page',['id'=>$value->id()]) }}"
+                   class="btn btn-primary btn-sm mr-border-radius-5">
+                  <i class="fa fa-eye"></i></a>
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$value->id()], '', ['btn btn-info btn-sm fa fa-edit']) !!}
+                <a href="/admin/office/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
                   <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
                   </button>
                 </a></td>

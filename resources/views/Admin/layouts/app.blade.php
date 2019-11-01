@@ -36,7 +36,7 @@
         <li><a href="/admin/language"><i class="fa fa-language"></i> Переводчик</a></li>
         <li><a href="/admin/users"><i class="fa fa-user"></i> Пользователи</a></li>
         <li><a href="/admin/tariffs"><i class="fa fa-paypal"></i> тарифы</a></li>
-        <li><a href="/admin/offeces"><i class="fa fa-users"></i> Офисы</a></li>
+        <li><a href="/admin/offices"><i class="fa fa-users"></i> Офисы</a></li>
         <li><a href="/admin/certificate"><i class="fa fa-dot-circle-o"></i> Сертификаты</a></li>
 
         <li class="menu-item-has-children dropdown">

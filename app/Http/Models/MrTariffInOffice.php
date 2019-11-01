@@ -4,6 +4,7 @@
 namespace App\Http\Models;
 
 
+use App\Http\Controllers\Helpers\MtDateTime;
 use App\Models\ORM;
 
 class MrTariffInOffice extends ORM
@@ -13,6 +14,7 @@ class MrTariffInOffice extends ORM
   protected static $dbFieldsMap = array(
     'OfficeID',
     'TariffID',
+    //'CreateDate',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrTariffInOffice
@@ -43,5 +45,10 @@ class MrTariffInOffice extends ORM
   public function setTariffID(int $value)
   {
     $this->TariffID = $value;
+  }
+
+  public function getCreateDate():MtDateTime
+  {
+    return MtDateTime::fromValue($this->CreateDate);
   }
 }

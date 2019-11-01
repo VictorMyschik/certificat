@@ -28,6 +28,11 @@ class MrOffice extends ORM
     return parent::mr_save_object($this);
   }
 
+  public function canDelete():bool
+  {
+    return true;
+  }
+
   /**
    * @return MrTariffInOffice[]
    */
@@ -41,7 +46,7 @@ class MrOffice extends ORM
   /**
    * @return MrTariffInOffice[]
    */
-  public function GetAdminUsers(): array
+  public function GetUsers(): array
   {
     $list = DB::table(MrUserInOffice::$mr_table)->where('OfficeID', $this->id())->get();
     return parent::LoadArray($list, MrUserInOffice::class);
@@ -78,14 +83,4 @@ class MrOffice extends ORM
 
   //////////////////////////////////////////////////////////////////
 
-  /**
-   * Список тарифов для офиса
-   *
-   * @return MrTariffInOffice[]
-   */
-  public function GetTariff(): array
-  {
-    $list = DB::table(MrTariffInOffice::$mr_table)->WHERE('OfficeID', '=', $this->id())->get();
-    return parent::LoadArray($list, MrTariffInOffice::class);
-  }
 }

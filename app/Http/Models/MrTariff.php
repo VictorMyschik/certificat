@@ -145,4 +145,17 @@ class MrTariff extends ORM
     $r .= $this->getName();
     return $r;
   }
+
+  /**
+   * @return MrTariff[]
+   */
+  public static function SelectList(): ?array
+  {
+    $out = array();
+    foreach (MrTariff::GetAll() as $tariff)
+    {
+      $out[$tariff->id()] = $tariff->getName();
+    }
+    return $out;
+  }
 }

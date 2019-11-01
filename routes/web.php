@@ -54,10 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
-/*
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrAdminTranslateWordEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrAdminTranslateWordEditForm@builderForm")->name('translate_word_edit');
-*/
+  /*
+    Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrAdminTranslateWordEditForm@submitForm");
+    Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrAdminTranslateWordEditForm@builderForm")->name('translate_word_edit');
+  */
   Route::get('/test', "MrTestController@index");
   //// Админка
   Route::get('/admin', "Admin\MrAdminController@index")->name('admin');
@@ -77,7 +77,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('users');
   Route::get('/admin/users/unblock/{id}', "Admin\MrAdminUsersController@unblock")->name('users_unblock');
   Route::get('/admin/users/block', "Admin\MrAdminUsersController@setUserBlock")->name('user_block');
-  Route::get('/admin/users/delete/{id}',"Admin\MrAdminController@userDeleteForever")->name('user_delete_forever');
+  Route::get('/admin/users/delete/{id}', "Admin\MrAdminController@userDeleteForever")->name('user_delete_forever');
   Route::match(['get', 'post'], '/admin/users/edit/{id}/submit', "Forms\Admin\MrUserEditForm@submitForm");
   Route::match(['get', 'post'], '/admin/users/edit/{id}', "Forms\Admin\MrUserEditForm@builderForm")->name('user_edit');
 
@@ -142,14 +142,25 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
 
   //// Офисы
-  Route::get('/admin/offeces',"Admin\MrAdminOfficeController@List")->name('offices');
-  Route::get('/admin/offece/{id}',"Admin\MrAdminOfficeController@editPage")->name('office_page');
+  Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('offices');
+  Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('office_page');
+  Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
   Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');
   Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('office_edit');
+  // Добавление тарифа для офиса
+  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
+  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
+  Route::get('/admin/office/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
+
+  // Добавление пользователя в ВО
+  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\Admin\MrAdminOfficeUserEditForm@submitForm")->name('office_user_submit');
+  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\Admin\MrAdminOfficeUserEditForm@getFormBuilder")->name('office_user_edit');
+  Route::get('/admin/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
+  Route::get('/admin/office/userinoffice/{id}/isadmin', "Admin\MrAdminOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
 
   // Тарифы
-  Route::get('/admin/tariffs',"Admin\MrAdminTariffController@List")->name('tariffs');
-  Route::get('/admin/tariff/delete/{id}',"Admin\MrAdminTariffController@tariffDelete")->name('tariff_delete');
+  Route::get('/admin/tariffs', "Admin\MrAdminTariffController@List")->name('tariffs');
+  Route::get('/admin/tariff/delete/{id}', "Admin\MrAdminTariffController@tariffDelete")->name('tariff_delete');
   Route::match(['get', 'post'], '/admin/tariff/edit/{id}/submit', "Forms\Admin\MrAdminTariffEditForm@submitForm")->name('tariff_submit');
   Route::match(['get', 'post'], '/admin/tariff/edit/{id}', "Forms\Admin\MrAdminTariffEditForm@getFormBuilder")->name('tariff_edit');
 
