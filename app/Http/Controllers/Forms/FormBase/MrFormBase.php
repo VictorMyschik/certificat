@@ -55,6 +55,7 @@ class MrFormBase extends Controller
   public function getFormBuilder(int $id)
   {
     $form = array();
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
     $this->builderForm($form, $id);
 
     // Получеине роута для сохранения

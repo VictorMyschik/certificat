@@ -140,8 +140,10 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
-  // Офисы
+
+  //// Офисы
   Route::get('/admin/offeces',"Admin\MrAdminOfficeController@List")->name('offices');
+  Route::get('/admin/offece/{id}',"Admin\MrAdminOfficeController@editPage")->name('office_page');
   Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');
   Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('office_edit');
 

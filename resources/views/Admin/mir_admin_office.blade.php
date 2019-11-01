@@ -5,12 +5,15 @@
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
         {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
+        <div class="margin-b-15 margin-t-10">
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>'0'], 'Создать пустой офис', ['btn btn-info btn-sm']) !!}
+        </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
           <tr>
             <td>ID</td>
             <td>Наименование</td>
-            <td>Админ</td>
+            <td>Админ(ы)</td>
             <td>Тарифы</td>
             <td>Примечание</td>
             <td>#</td>
@@ -21,7 +24,11 @@
             <tr>
               <td>{{ $value->id() }}</td>
               <td>{{ $value->getName() }}</td>
-              <td>{{ $value->getAdmin()->GetFullName() }}</td>
+              <td>
+                @foreach($value->GetAdminUsers() as $admin)
+                  {{ $admin->getUser()->GetFullName() }}
+                @endforeach
+              </td>
               <td>
                 @foreach($value->GetTariffs() as $til)
                   <div>{{ $til->getTariff()->getName() }}</div>

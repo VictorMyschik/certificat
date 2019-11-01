@@ -6,7 +6,7 @@
     <hr>
 
     @foreach($form as $key => $items)
-      <div id="{{ $key }}"></div>
+
       @if(isset($items['#type']))
 
         @if($items['#type'] == 'select')
@@ -35,7 +35,9 @@
 
       @else
         @if(substr($key, 0, 1) !== '#')
-          <div>{{ $items }}</div>
+          <div>
+            {!! $items !!}
+          </div>
         @endif
       @endif
 

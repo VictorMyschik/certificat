@@ -4,7 +4,6 @@
 namespace App\Http\Models;
 
 
-use App\Models\MrUser;
 use App\Models\ORM;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +14,8 @@ class MrOffice extends ORM
   public static $className = MrOffice::class;
   protected static $dbFieldsMap = array(
     'Name',
-    'AdminID',
-    'TariffID',
-    'Description',    // Если из зарегистрированных
-    'CreateDate'
+    'Description',
+    //'CreateDate'
   );
 
   public static function loadBy($value, $field = 'id'): ?MrOffice
@@ -31,16 +28,23 @@ class MrOffice extends ORM
     return parent::mr_save_object($this);
   }
 
-
-  // Админ офиса
-  public function getAdmin(): MrUser
+  /**
+   * @return MrTariffInOffice[]
+   */
+  public function GetTariffs(): array
   {
-    return $this->GetObject((int)$this->AdminID, MrUser::class);
+    $list = DB::table(MrTariffInOffice::$mr_table)->where('OfficeID', $this->id())->get();
+    return parent::LoadArray($list, MrTariffInOffice::class);
   }
 
-  public function setAdminID(?int $value)
+
+  /**
+   * @return MrTariffInOffice[]
+   */
+  public function GetAdminUsers(): array
   {
-    $this->AdminID = $value;
+    $list = DB::table(MrUserInOffice::$mr_table)->where('OfficeID', $this->id())->get();
+    return parent::LoadArray($list, MrUserInOffice::class);
   }
 
 

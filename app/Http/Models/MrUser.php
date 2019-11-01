@@ -236,8 +236,8 @@ class MrUser extends ORM
   {
     $r = '';
     $r .= $this->getName();
-    $r .= ' ';
-    $r .= $this->getEmail();
+    $r .= ' (';
+    $r .= $this->getEmail().')';
 
 
     return $r;

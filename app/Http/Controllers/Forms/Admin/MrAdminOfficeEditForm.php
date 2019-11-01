@@ -6,34 +6,26 @@ namespace App\Http\Controllers\Forms\Admin;
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrOffice;
+use Illuminate\Http\Request;
 
 class MrAdminOfficeEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
-
-    $language = MrOffice::loadBy($id);
-
-    $form['LanguageID'] = array(
-      '#type' => 'select',
-      '#title' => 'Язык',
-      '#default_value' => $language ? $language->id() : 0,
-      '#value' => MrLanguage::SelectList(),
-    );
+    $office = MrOffice::loadBy($id);
 
     $form['Name'] = array(
       '#type' => 'textfield',
-      '#title' => 'Код',
+      '#title' => 'Наименование офиса',
       '#class' => ['mr-border-radius-5'],
-      '#value' => $language ? $language->getName() : null,
+      '#value' => $office ? $office->getName() : null,
     );
 
     $form['Description'] = array(
       '#type' => 'textfield',
       '#title' => 'Примечание (для себя)',
       '#class' => ['mr-border-radius-5'],
-      '#value' => $language ? $language->getDescription() : null,
+      '#value' => $office ? $office->getDescription() : null,
     );
 
 
@@ -44,11 +36,16 @@ class MrAdminOfficeEditForm extends MrFormBase
   {
     parent::ValidateBase($out, $v);
 
-    if(!$v['LanguageID'])
+    if(!$v['Name'])
     {
-      if(MrLanguage::loadBy($v['Name'], 'Name'))
+      $out['Name'] = 'Наименование обязательно';
+    }
+
+    if(!$v['id'] && $v['Name'])
+    {
+      if(MrOffice::loadBy($v['Name'], 'Name'))
       {
-        $out['Name'] = 'Такой язык уже существует';
+        $out['Name'] = 'Такой офис уже существует, выберите другое название';
       }
     }
 
@@ -66,18 +63,11 @@ class MrAdminOfficeEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $language = MrLanguage::loadBy($v['LanguageID']) ?: new MrLanguage();
+    $office = MrOffice::loadBy($id) ?: new MrOffice();
 
-    if(isset($v['Delete']) && $v['Delete'])
-    {
-      $language->mr_delete();
-    }
-    else
-    {
-      $language->setName($v['Name']);
-      $language->setDescription($v['Description'] ?: null);
-      $language->save_mr();
-    }
+    $office->setName($v['Name']);
+    $office->setDescription($v['Description'] ?: null);
+    $office->save_mr();
 
 
     return;
