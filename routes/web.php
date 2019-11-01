@@ -145,8 +145,14 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('offices');
   Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('office_page');
   Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
+  // Форма для создания пустого офиса
   Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');
   Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('office_edit');
+  // форма для редактирования юридических данных офиса
+  Route::match(['get', 'post'], '/admin/office/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficeDetailsEditForm@submitForm")->name('office_details_submit');
+  Route::match(['get', 'post'], '/admin/office/details/edit/{id}', "Forms\Admin\MrAdminOfficeDetailsEditForm@getFormBuilder")->name('office_details_edit');
+
+
   // Добавление тарифа для офиса
   Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
   Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
@@ -163,7 +169,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/tariff/delete/{id}', "Admin\MrAdminTariffController@tariffDelete")->name('tariff_delete');
   Route::match(['get', 'post'], '/admin/tariff/edit/{id}/submit', "Forms\Admin\MrAdminTariffEditForm@submitForm")->name('tariff_submit');
   Route::match(['get', 'post'], '/admin/tariff/edit/{id}', "Forms\Admin\MrAdminTariffEditForm@getFormBuilder")->name('tariff_edit');
-
 });
 
 
