@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Forms\Admin;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrTariff;
 use Illuminate\Http\Request;
 
@@ -89,6 +90,8 @@ class MrAdminTariffEditForm extends MrFormBase
     $tariff->setMeasure($v['Measure']);
     $tariff->setCategory($v['Category']);
     $tariff->save_mr();
+
+    MrMessageHelper::SetMessage(true, "Тариф {$v['Name']} успешно создан");
 
     return;
   }

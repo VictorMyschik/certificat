@@ -1,53 +1,21 @@
-<title>Страны мира</title>
-<meta name="description" content="Sufee Admin - HTML5 Admin Template">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="/public/images/Admin/favicon.ico">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
-<link rel="stylesheet" href="/public/vendors/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet" href="/public/vendors/selectFX/css/cs-skin-elastic.css">
-<link rel="stylesheet" href="/public/vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="/public/vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
-<link rel="stylesheet" href="/public/css/mr-admin-page.css">
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="/public/css/mr-style.css">
 @extends('Admin.layouts.app')
-
 @section('content')
   <div id="right-panel" class="right-panel">
 
-    <div class="breadcrumbs">
-      <div class="col-sm-4">
-        <div class="page-header float-left">
-          <h1>Страны мира
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
-            'Admin\\MrReferenceCountryEditForm', ['id' => '0'], 'Новый', ['btn', 'btn-info', 'btn-sm']) !!}
-            <a href="/admin/reference/country/rebuild" onclick="return confirm('Вы уверены?');">
-              <button type="button" title="Будет скачан с переустановлен с нуля"
-                      class="btn btn-primary btn-sm mr-border-radius-5">
-                Переустановить справочник
-              </button>
-            </a>
-          </h1>
-        </div>
-      </div>
-      <div class="col-sm-8">
-        <div class="page-header float-right">
-          <ol class="breadcrumb text-right">
-            <li><a href="/admin">Главная</a></li>
-            <li class="active">Страны мира</li>
-          </ol>
-        </div>
-      </div>
-    </div>
+    @include('Admin.layouts.page_title')
 
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
+        <div class="margin-b-15 margin-t-10">
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
+  'Admin\\MrAdminReferenceCountryEditForm', ['id' => '0'], 'Новый', ['btn', 'btn-info', 'btn-sm']) !!}
+          <a href="{{ route('reference_country') }}" onclick="return confirm('Вы уверены?');">
+            <button type="button" title="Будет скачан с переустановлен с нуля"
+                    class="btn btn-primary btn-sm mr-border-radius-5">
+              Переустановить справочник
+            </button>
+          </a>
+        </div>
         {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
@@ -70,7 +38,7 @@
               <td>{{ $value->getCode() }}</td>
               <td>
                 {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
-                'Admin\\MrReferenceCountryEditForm', ['id' => $value->id()], '', ['btn', 'btn-info', 'btn-sm', 'fa', 'fa-edit'])
+                'Admin\\MrAdminReferenceCountryEditForm', ['id' => $value->id()], '', ['btn', 'btn-info', 'btn-sm', 'fa', 'fa-edit'])
                 !!}
                 <a href="/admin/reference/country/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
                   <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash"></i>
@@ -89,7 +57,6 @@
   <script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
   <script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/public/js/js/main.js"></script>
-
 
   <script src="/public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="/public/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>

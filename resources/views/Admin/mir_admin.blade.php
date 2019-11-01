@@ -1,22 +1,3 @@
-<html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Admin Panel</title>
-<meta name="description" content="Sufee Admin - HTML5 Admin Template">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="/public/images/Admin/favicon.ico">
-<link rel="stylesheet" href="/public/vendors/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
-<link rel="stylesheet" href="/public/vendors/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet" href="/public/vendors/selectFX/css/cs-skin-elastic.css">
-<link rel="stylesheet" href="/public/vendors/jqvmap/dist/jqvmap.min.css">
-<link rel="stylesheet" href="/public/css/mr-admin-page.css">
-<link rel="stylesheet" href="/public/css/mr-style.css">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-
 @extends('Admin.layouts.app')
 
 @section('content')
@@ -41,6 +22,5 @@
   <script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
   <script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/public/js/js/main.js"></script>
-
 
 @endsection

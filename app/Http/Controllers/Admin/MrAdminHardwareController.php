@@ -9,6 +9,7 @@ use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrBaseLog;
 use App\Models\MrBotUserAgent;
 use App\Models\MrLogIdent;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -19,6 +20,7 @@ class MrAdminHardwareController extends Controller
   public function index(Request $request)
   {
     $out = array();
+    $out['page_title'] = 'Лог посещения';
     $date = new Carbon();
 
     // Выбор только людей или ботов
@@ -114,12 +116,14 @@ class MrAdminHardwareController extends Controller
   /**
    * Страница ботов
    *
-   * @return \Illuminate\Contracts\View\Factory|View
+   * @return Factory|View
    */
   public function botPage()
   {
     $out = array();
+    $out['page_title'] = 'Страница отслеживания роботов';
     $out['bots'] = MrBotUserAgent::GetAll();
+
     return View('Admin.mir_admin_bot_page')->with($out);
   }
 
@@ -140,7 +144,7 @@ class MrAdminHardwareController extends Controller
   public function ViewDbLog()
   {
     $out = array();
-    $out['title'] = 'Лог БД';
+    $out['page_title'] = 'Лог БД';
     $out['list'] = MrBaseLog::GetAll();
 
     return View('Admin.mir_admin_bd_log')->with($out);

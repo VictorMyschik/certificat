@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Forms\MrForm;
+use App\Http\Controllers\Forms\FormBase\MrForm;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Models\MrLanguage;
 use App\Models\MrPolicy;
@@ -18,6 +18,7 @@ class MrAdminPolicyController extends Controller
   public function List()
   {
     $out = array();
+    $out['page_title'] = 'Политика конфеденциальности';
     $out['list'] = MrPolicy::GetAll();
 
     return View('Admin.mir_admin_policy')->with($out);
@@ -37,6 +38,7 @@ class MrAdminPolicyController extends Controller
       }
 
       $out = array();
+      $out['page_title'] = 'Редактирование политики конфеденциальности';
       $out['policy'] = $policy;
       $out['languages'] = MrLanguage::GetAll();
 

@@ -11,7 +11,7 @@ class MrAdminOfficeController extends Controller
   public function List()
   {
     $out = array();
-    $out['page_title'] = 'Офисы';
+    $out['page_title'] = 'Виртуальные офисы';
 
     $out['list'] = array();
 

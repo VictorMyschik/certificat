@@ -1,3 +1,21 @@
+<title>{{ $page_title ?? '' }}</title>
+<meta name="description" content="Sufee Admin - HTML5 Admin Template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/public/images/Admin/favicon.ico">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
+<link rel="stylesheet" href="/public/vendors/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet" href="/public/vendors/selectFX/css/cs-skin-elastic.css">
+<link rel="stylesheet" href="/public/vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/public/vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="/public/css/mr-admin-page.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="/public/css/mr-style.css">
+
 <aside id="left-panel" class="left-panel">
   <nav class="navbar navbar-expand-sm navbar-default">
 
@@ -6,7 +24,8 @@
               aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fa fa-bars"></i>
       </button>
-      <a class="navbar-brand" href="/"><img src="/public/images/Admin/admin_lable.png" alt="Logo"></a>
+      <a class="navbar-brand" href="/">Admin</a>
+
     </div>
 
     <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -16,7 +35,7 @@
 
         <li><a href="/admin/language"><i class="fa fa-language"></i> Переводчик</a></li>
         <li><a href="/admin/users"><i class="fa fa-user"></i> Пользователи</a></li>
-        <li><a href="/admin/tariffs"><i class="fa fa-users"></i> тарифы</a></li>
+        <li><a href="/admin/tariffs"><i class="fa fa-paypal"></i> тарифы</a></li>
         <li><a href="/admin/offeces"><i class="fa fa-users"></i> Офисы</a></li>
         <li><a href="/admin/certificate"><i class="fa fa-dot-circle-o"></i> Сертификаты</a></li>
 
@@ -63,7 +82,7 @@
           <a class="dropdown-item" href="/phpmyadmin" target="_blank"> PhpMyAdmin</a>
         </li>
 
-        <li>
+        <li class="margin-t-20">
           <a class="dropdown-item" href="{{ route('logout') }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             {{ __('Logout') }}

@@ -17,6 +17,7 @@ class MrAdminUsersController extends Controller
   public function index()
   {
     $out = array();
+    $out['page_title'] = 'Пользователи';
     $out['users'] = MrUser::GetAll();
     $out['users_blocked'] = MrUsersBloked::GetAllBlocked();
     $out['history'] = MrUsersBloked::GetAll();

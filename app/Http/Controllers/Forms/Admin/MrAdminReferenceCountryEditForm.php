@@ -8,7 +8,7 @@ use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrCountry;
 use Illuminate\Http\Request;
 
-class MrReferenceCountryEditForm extends MrFormBase
+class MrAdminReferenceCountryEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {

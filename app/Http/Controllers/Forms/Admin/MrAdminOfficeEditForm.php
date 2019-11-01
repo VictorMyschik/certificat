@@ -5,28 +5,20 @@ namespace App\Http\Controllers\Forms\Admin;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
-use App\Models\MrLanguage;
-use Illuminate\Http\Request;
+use App\Http\Models\MrOffice;
 
-class MrLanguageEditForm extends MrFormBase
+class MrAdminOfficeEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {
     $form['#title'] = $id ? "Редактирование" : 'Создать';
 
-    $language = MrLanguage::loadBy($id);
-
-    $form['Delete'] = array(
-      '#type' => 'checkbox',
-      '#title' => 'Удалить',
-      '#value' => true,
-      '#attributes' => [],
-    );
+    $language = MrOffice::loadBy($id);
 
     $form['LanguageID'] = array(
       '#type' => 'select',
       '#title' => 'Язык',
-      '#default_value' => $language->id() ?: 0,
+      '#default_value' => $language ? $language->id() : 0,
       '#value' => MrLanguage::SelectList(),
     );
 

@@ -55,8 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
 /*
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrTranslateWordEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrTranslateWordEditForm@builderForm")->name('translate_word_edit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrAdminTranslateWordEditForm@submitForm");
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrAdminTranslateWordEditForm@builderForm")->name('translate_word_edit');
 */
   Route::get('/test', "MrTestController@index");
   //// Админка
@@ -106,13 +106,13 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Добавить новый язык
   Route::get('/admin/language/add', "Admin\MrAdminLanguageController@Add")->name('language_add');
   // Форма редактирования языка
-  Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "Forms\Admin\MrLanguageEditForm@submitForm")->name('admin_language_edit_submit');
-  Route::match(['get', 'post'], '/admin/language/edit/{id}', "Forms\Admin\MrLanguageEditForm@getFormBuilder")->name('admin_language_edit_form');
+  Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "Forms\Admin\MrAdminLanguageEditForm@submitForm")->name('admin_language_edit_submit');
+  Route::match(['get', 'post'], '/admin/language/edit/{id}', "Forms\Admin\MrAdminLanguageEditForm@getFormBuilder")->name('admin_language_edit_form');
   // Удалить перевод слов(а)
   Route::get('/admin/language/word/{id}/delete', "Admin\MrAdminLanguageController@translatedWordDelete")->name('translate_word_delete');
   // Форма редактирования перевода
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrTranslateWordEditForm@submitForm")->name('translate_word_submit');
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrAdminTranslateWordEditForm@submitForm")->name('translate_word_submit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrAdminTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
   // Политика конфиденциальности
   Route::get('/admin/policy', "Admin\MrAdminPolicyController@List")->name('admin_policy_list');
   Route::match(['get', 'post'], '/admin/policy/edit/{id}', "Admin\MrAdminPolicyController@edit")->name('edit_policy');
@@ -123,25 +123,28 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Страны мира
   Route::get('/admin/reference/{name}', "Admin\MrAdminReferences@View");
   // Переустановка справочника
-  Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry");
+  Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry")->name('reference_country');
   // Форма редактирования справочника стран
-  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\Admin\MrReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
-  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\Admin\MrReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
+  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\Admin\MrAdminReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
+  Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\Admin\MrAdminReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
 
   //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
   Route::get('/admin/certificate/details/{id}', "Admin\MrAdminCertificateController@CertificateDetails");
   // Форма редактированиея сведения о сертификате
-  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\Admin\MrCertificateDetailsEditForm@submitForm")->name('admin_certificate_details_form_submit');
-  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\Admin\MrCertificateDetailsEditForm@getFormBuilder")->name('admin_certificate_details_form_edit');
+  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\Admin\MrAdminCertificateDetailsEditForm@submitForm")->name('admin_certificate_details_form_submit');
+  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\Admin\MrAdminCertificateDetailsEditForm@getFormBuilder")->name('admin_certificate_details_form_edit');
   // Форма добавления нового сертификата
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\Admin\MrCertificateEditForm@submitForm")->name('admin_certificate_form_submit');
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\Admin\MrCertificateEditForm@getFormBuilder")->name('admin_certificate_form_edit');
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "Forms\Admin\MrAdminCertificateEditForm@submitForm")->name('admin_certificate_form_submit');
+  Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "Forms\Admin\MrAdminCertificateEditForm@getFormBuilder")->name('admin_certificate_form_edit');
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
   // Офисы
   Route::get('/admin/offeces',"Admin\MrAdminOfficeController@List")->name('offices');
+  Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');
+  Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('office_edit');
+
   // Тарифы
   Route::get('/admin/tariffs',"Admin\MrAdminTariffController@List")->name('tariffs');
   Route::get('/admin/tariff/delete/{id}',"Admin\MrAdminTariffController@tariffDelete")->name('tariff_delete');

@@ -9,7 +9,7 @@ use App\Models\MrLanguage;
 use App\Models\MrTranslate;
 use Illuminate\Http\Request;
 
-class MrTranslateWordEditForm extends MrFormBase
+class MrAdminTranslateWordEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {

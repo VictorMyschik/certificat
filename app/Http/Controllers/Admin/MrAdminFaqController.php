@@ -15,22 +15,26 @@ class MrAdminFaqController extends Controller
   public function list()
   {
     $out = array();
-
+    $out['page_title'] = 'FAQ';
     $out['list'] = MrFaq::GetAll();
+
     return View('Admin.mir_admin_faq')->with($out);
   }
 
   public function edit(Request $request, int $id)
   {
+    $out = array();
+    $out['page_title'] = 'Редактирование FAQ';
+
     $faq = MrFaq::loadBy($id);
-    if (!$faq)
+    if(!$faq)
     {
       $faq = new MrFaq();
       $faq->setTitle('');
       $faq->setText('');
     }
 
-    if ($request->get('title'))
+    if($request->get('title'))
     {
       $text = $request->get('text');
       $title = $request->get('title');
@@ -42,7 +46,6 @@ class MrAdminFaqController extends Controller
       return redirect('/admin/faq');
     }
 
-    $out = array();
     $out['faq'] = $faq;
     $out['list'] = MrFaq::GetAll();
 
@@ -58,14 +61,14 @@ class MrAdminFaqController extends Controller
   public function delete($id)
   {
     $faq = MrFaq::loadBy($id);
-    if ($faq)
+    if($faq)
     {
-        $faq->mr_delete();
-        MrMessageHelper::SetMessage(true,'Успешно удалено');
+      $faq->mr_delete();
+      MrMessageHelper::SetMessage(true, 'Успешно удалено');
     }
     else
     {
-        MrMessageHelper::SetMessage(false,'Раздел не найден');
+      MrMessageHelper::SetMessage(false, 'Раздел не найден');
     }
 
 

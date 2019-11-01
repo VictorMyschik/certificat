@@ -1,51 +1,8 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Обратная связь</title>
-<script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
-<link rel="shortcut icon" href="/public/images/Admin/favicon.ico">
-<link rel="stylesheet" href="/public/css/flaticon.css">
-<link rel="stylesheet" href="/public/css/icomoon.css">
-<link rel="stylesheet" href="/public/css/mr-style.css">
-
-<meta name="description" content="Sufee Admin - HTML5 Admin Template">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/public/vendors/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
-<link rel="stylesheet" href="/public/vendors/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet" href="/public/vendors/selectFX/css/cs-skin-elastic.css">
-<link rel="stylesheet" href="/public/vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="/public/vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
-<link rel="stylesheet" href="/public/css/mr-admin-page.css">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-<script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
 @extends('Admin.layouts.app')
-
 @section('content')
+	<script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
 	<div id="right-panel" class="right-panel">
-
-		<div class="breadcrumbs">
-			<div class="col-sm-4">
-				<div class="page-header float-left">
-					<div class="page-title">
-						<h1>Обратная связь</h1>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-8">
-				<div class="page-header float-right">
-					<div class="page-title">
-						<ol class="breadcrumb text-right">
-							<li><a href="/admin">Главная</a></li>
-							<li><a href="/admin/feedback">Список сообщений</a></li>
-							<li class="active">Обратная связь</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-
+		@include('Admin.layouts.page_title')
 		<div class=" col-md-12">
 			<div class="animated fadeIn">
 				<h5>От:</h5>

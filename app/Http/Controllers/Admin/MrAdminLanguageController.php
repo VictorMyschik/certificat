@@ -15,7 +15,7 @@ class MrAdminLanguageController extends Controller
   public function List()
   {
     $out = array();
-
+    $out['page_title'] = 'Страница управления языками';
     $out['users'] = array();
     $out['languages'] = MrLanguage::GetAll();
     $out['translate'] = MrTranslate::GetAll();

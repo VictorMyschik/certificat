@@ -21,8 +21,8 @@ class MrAdminReferences extends Controller
   public function View(string $name)
   {
     $out = array();
+    $out['page_title'] = 'Справочник стран мира';
     $out['list'] = MrCountry::GetAll();
-    MrCountry::class;
 
     return View('Admin.mir_admin_reference_country')->with($out);
   }

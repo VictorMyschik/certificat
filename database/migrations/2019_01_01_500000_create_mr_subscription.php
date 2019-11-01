@@ -12,7 +12,7 @@ class createmrsubscription extends Migration
     Schema::create('mr_subscription', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Email')->unique();
-      $table->date('Date');
+      $table->dateTime('Date');
       $table->string('Token', 50)->unique();
     });
   }

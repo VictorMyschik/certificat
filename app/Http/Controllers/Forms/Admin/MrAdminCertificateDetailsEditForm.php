@@ -9,7 +9,7 @@ use App\Http\Models\MrCertificate;
 use App\Http\Models\MrCertificateDetails;
 use Illuminate\Http\Request;
 
-class MrCertificateDetailsEditForm extends MrFormBase
+class MrAdminCertificateDetailsEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $certificate_id, $id)
   {
