@@ -4,6 +4,7 @@
 namespace App\Http\Models;
 
 
+use App\Http\Controllers\Helpers\MtDateTime;
 use App\Models\ORM;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -28,10 +29,12 @@ class MrCertificate extends ORM
     // 'WriteDate',
   );
 
+  const KIND_UNKNOWN = 0;
   const KIND_CERTIFICATE = 1;
   const KIND_DECLARATION = 2;
 
   protected static $kinds = array(
+    self::KIND_UNKNOWN => '[не выбрано]', //Активен
     self::KIND_CERTIFICATE => 'сертификат соответствия', //Активен
     self::KIND_DECLARATION => 'декларация о соответствии', // Приостановлен
   );
@@ -109,9 +112,9 @@ class MrCertificate extends ORM
   }
 
   // Дата начала блокировки
-  public function getDateFrom(): ?Carbon
+  public function getDateFrom(): ?MtDateTime
   {
-    return $this->DateFrom ? new Carbon($this->DateFrom) : null;
+    return $this->DateFrom ? MtDateTime::fromValue($this->DateFrom) : null;
   }
 
   public function setDateFrom($value)
@@ -125,9 +128,9 @@ class MrCertificate extends ORM
   }
 
   // Дата окончания
-  public function getDateTo(): ?Carbon
+  public function getDateTo(): ?MtDateTime
   {
-    return $this->DateTo ? new Carbon($this->DateTo) : null;
+    return $this->DateTo ? MtDateTime::fromValue($this->DateTo) : null;
   }
 
   public function setDateTo($value)

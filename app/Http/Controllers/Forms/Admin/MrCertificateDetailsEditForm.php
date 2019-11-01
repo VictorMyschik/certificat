@@ -11,16 +11,21 @@ use Illuminate\Http\Request;
 
 class MrCertificateDetailsEditForm extends MrFormBase
 {
-  protected static function builderForm(int $certificate_id, int $id)
+  protected function builderForm(&$form, $certificate_id, $id)
   {
-    parent::getFormBuilder($out);
+    $certificate = MrCertificate::loadBy($certificate_id);
 
-    $out['id'] = $id;
-    $out['certificate_details'] = MrCertificateDetails::loadBy($id);
-    $out['certificate'] = MrCertificate::loadBy($certificate_id);
-    $out['title'] = $id ? "Редактирование" : 'Создать';
+    $form['#title'] = $id ? "Редактирование" : 'Создать';
 
-    return View('Form.admin_certificate_details_edit_form')->with($out);
+    $form['Kind'] = array(
+      '#type' => 'select',
+      '#title' => 'Тип',
+      '#default_value' => 0,
+      '#value' => MrCertificate::getKinds(),
+    );
+
+
+    return $form;
   }
 
   protected static function validateForm(array $v)

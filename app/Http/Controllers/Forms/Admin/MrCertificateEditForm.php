@@ -14,13 +14,60 @@ class MrCertificateEditForm extends MrFormBase
   protected function builderForm(&$form, $id)
   {
     $form['#title'] = $id ? "Редактирование" : 'Создать';
+
     $certificate = MrCertificate::loadBy($id);
 
     $form['Kind'] = array(
       '#type' => 'select',
       '#title' => 'Тип',
-      '#default_value' => $certificate ? $certificate->getKind() : 0
+      '#default_value' => $certificate ? $certificate->getKind() : 0,
+      '#value' => MrCertificate::getKinds(),
     );
+
+    $form['Number'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Номер',
+      '#value' => $certificate ? $certificate->getNumber() : null,
+    );
+
+    $form['DateFrom'] = array(
+      '#type' => 'date',
+      '#title' => 'Дата с',
+      '#value' => $certificate ? $certificate->getDateFrom()->getMysqlDate() : null,
+    );
+
+    $form['DateTo'] = array(
+      '#type' => 'date',
+      '#title' => 'Дата по',
+      '#value' => $certificate ? $certificate->getDateTo()->getMysqlDate() : null,
+    );
+
+    $form['CountryID'] = array(
+      '#type' => 'select',
+      '#title' => 'Страна',
+      '#default_value' => $certificate ? $certificate->getCountry()->id() : 0,
+      '#value' => MrCountry::SelectList(),
+    );
+
+    $form['Status'] = array(
+      '#type' => 'select',
+      '#title' => 'Статус',
+      '#default_value' => $certificate ? $certificate->getStatus() : 0,
+      '#value' => MrCertificate::getStatuses(),
+    );
+
+    $form['LinkOut'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Ссылка',
+      '#value' => $certificate ? $certificate->getLinkOut() : null,
+    );
+
+    $form['Description'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Примечание',
+      '#value' => $certificate ? $certificate->getDescription() : null,
+    );
+
 
     return $form;
   }
@@ -32,28 +79,6 @@ class MrCertificateEditForm extends MrFormBase
     if(!$v['Kind'])
     {
       $out['Kind'] = 'Выберите тип докумета';
-    }
-
-    if(!$v['CountryID'])
-    {
-      $out['CountryID'] = 'Выберите страну';
-    }
-    else
-    {
-      if(!MrCountry::loadBy($v['CountryID']))
-      {
-        $out['CountryID'] = 'Страна не найдена';
-      }
-    }
-
-    if(!$v['Status'])
-    {
-      $out['Status'] = 'Выберите статус';
-    }
-
-    if(!$v['Number'])
-    {
-      $out['Number'] = 'Введите номер';
     }
 
 

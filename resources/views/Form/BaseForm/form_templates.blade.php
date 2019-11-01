@@ -25,6 +25,14 @@
           @include('Form.BaseForm.Inputs.checkbox', ['name' => $key, 'item' => $items])
         @endif
 
+        @if($items['#type'] == 'date')
+          @include('Form.BaseForm.Inputs.date', ['name' => $key, 'item' => $items])
+        @endif
+
+        @if($items['#type'] == 'datetime')
+          @include('Form.BaseForm.Inputs.datetime', ['name' => $key, 'item' => $items])
+        @endif
+
       @else
         @if(substr($key, 0, 1) !== '#')
           <div>{{ $items }}</div>

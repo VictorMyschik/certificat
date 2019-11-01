@@ -16,8 +16,6 @@ class MrAdminTariffEditForm extends MrFormBase
 
     $form['#title'] = $id ? "Редактирование" : 'Создать';
 
-    $form['#id'] = $id;
-
     $form['Name'] = array(
       '#type' => 'textfield',
       '#title' => 'Наименование тарифа',

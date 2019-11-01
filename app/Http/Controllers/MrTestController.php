@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrCountry;
+
+use App\Http\Controllers\Helpers\MtDateTime;
 
 class MrTestController extends Controller
 {
@@ -12,8 +13,9 @@ class MrTestController extends Controller
   public function index()
   {
     $out = array();
+    $qwe = MtDateTime::fromValue('2019-05-18');
 
-    dd(MrCountry::SelectList());
+    dd($qwe);
 
     return View('test')->with($out);
   }
