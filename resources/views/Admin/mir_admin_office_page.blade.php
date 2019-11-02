@@ -8,19 +8,23 @@
         <div class="row col-md-9 margin-b-10" style="border-bottom: #0c175b 1px solid">
           <div class="d-inline-flex col-md-8">
             <h4>Персональные данные
-              {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_details_edit', 'Admin\\MrAdminOfficeDetailsEditForm', ['id' => $office->id()], 'Редактировать', ['btn btn-info btn-xs']) !!}
+
               <div class="mr-bold mr-middle margin-b-10"
                    style="border-bottom: #0c175b 1px solid">Офис создан: {{ $office->getCreateDate() }} |
                 Примечание: {{ $office->getDescription() }}</div>
             </h4>
-            <div class="col-md-12 mr-middle">
+            <div class="col-md-12 mr-middle padding-0">
+              <h5 class="mr-bold margin-b-5">
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_details_edit', 'Admin\\MrAdminOfficeDetailsEditForm', ['id' => $office->id()], '', ['btn btn-info btn-xs fa fa-edit']) !!}
+                Контактная информация и лицо с правом подписи</h5>
               <div class="d-inline-flex col-md-6 padding-0">
+
                 <div>
                   <span class="mr-bold">Телефон:</span>
                   <span>{{ $office->getPhone() }}</span>
                 </div>
                 <div>
-                  <span class="mr-bold">Почтовый индекс:</span>
+                  <span class="mr-bold">ПО Почтовый индекс:</span>
                   <span>{{ $office->getPOPostalCode() }}</span>
                 </div>
                 <div>
@@ -53,9 +57,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12 mr-middle margin-t-15 ">
+            <div class="col-md-12 mr-middle margin-t-15 padding-0">
+              <h5 class="mr-bold margin-b-5">
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_details_edit', 'Admin\\MrAdminOfficeDetailsEditForm', ['id' => $office->id()], '', ['btn btn-info btn-xs fa fa-edit']) !!}
+                Юридическая информация</h5>
               <div class="d-inline-flex col-md-6 padding-0">
-                <h4><u>Почта</u></h4>
                 <div>
                   <span class="mr-bold">Почтовый индекс:</span>
                   <span>{{ $office->getURPostalCode() }}</span>
@@ -69,13 +75,12 @@
                   <span>{{ $office->getURCity() }}</span>
                 </div>
                 <div>
-                  <span class="mr-bold">Адрес:</span>
+                  <span class="mr-bold">ЮР Адрес:</span>
                   <span>{{ $office->getURAddress() }}</span>
                 </div>
               </div>
 
               <div class="d-inline-flex col-md-6 padding-0">
-                <h4><u>Банк</u></h4>
                 <div>
                   <span class="mr-bold">Банк р/с:</span>
                   <td>{{ $office->getBankRS() }}</td>
@@ -95,7 +100,7 @@
               </div>
             </div>
 
-            <div class="col-md-12 mr-middle margin-t-15">
+            <div class="col-md-12 mr-middle margin-t-15 padding-0">
               <h4><u>Лицо с правом подписи</u></h4>
               <div>
                 <span class="mr-bold">Должность:</span>
@@ -144,7 +149,7 @@
 
         <div class="">
           <div class="d-inline-flex col-md-9">
-            <h4>Пользователи
+            <h4>Пользователи ВО
               {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_user_edit', 'Admin\\MrAdminOfficeUserEditForm', ['id' => $office->id()], 'Добавить пользователя', ['btn btn-info btn-xs']) !!}
             </h4>
             <table id="" class="table table-striped table-bordered mr-middle">

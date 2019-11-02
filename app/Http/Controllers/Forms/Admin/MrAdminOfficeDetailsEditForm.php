@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Forms\Admin;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
+use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Models\MrCountry;
 use App\Http\Models\MrOffice;
 use Illuminate\Http\Request;
@@ -15,20 +16,6 @@ class MrAdminOfficeDetailsEditForm extends MrFormBase
   {
     $office = MrOffice::loadBy($id);
 
-    $form['Name'] = array(
-      '#type' => 'textfield',
-      '#title' => 'Наименование офиса',
-      '#class' => ['mr-border-radius-5'],
-      '#value' => $office->getName() ?: null,
-    );
-
-    $form['Description'] = array(
-      '#type' => 'textfield',
-      '#title' => 'Примечание (для себя)',
-      '#class' => ['mr-border-radius-5'],
-      '#value' => $office->getDescription() ?: null,
-    );
-
     $form['CountryID'] = array(
       '#type' => 'select',
       '#title' => 'Страна',
@@ -37,10 +24,14 @@ class MrAdminOfficeDetailsEditForm extends MrFormBase
       '#attributes' => ['style' => 'max-width: 150px;'],
     );
 
-    $form[] = '<p class="mr-bold">Юр. информация</p>';
-
-
     $form['URPostalCode'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Email',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $office->getEmail() ?: null,
+    );
+
+    $form['Email'] = array(
       '#type' => 'textfield',
       '#title' => 'Почтовый индекс',
       '#class' => ['mr-border-radius-5'],
@@ -54,17 +45,8 @@ class MrAdminOfficeDetailsEditForm extends MrFormBase
   {
     parent::ValidateBase($out, $v);
 
-    if(!$v['Name'])
+    if($v['Email'])
     {
-      $out['Name'] = 'Наименование обязательно';
-    }
-
-    if(!$v['id'] && $v['Name'])
-    {
-      if(MrOffice::loadBy($v['Name'], 'Name'))
-      {
-        $out['Name'] = 'Такой офис уже существует, выберите другое название';
-      }
     }
 
     return $out;
@@ -83,10 +65,9 @@ class MrAdminOfficeDetailsEditForm extends MrFormBase
 
     $office = MrOffice::loadBy($id) ?: new MrOffice();
 
-    $office->setName($v['Name']);
-    $office->setDescription($v['Description'] ?: null);
     $office->setCountryID($v['CountryID'] ?: null);
     $office->setURPostalCode($v['URPostalCode'] ?: null);
+    $office->setEmail($v['Email'] ?: null);
     $office->save_mr();
 
 
