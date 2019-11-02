@@ -7,7 +7,7 @@
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
           {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_details_form_edit', 'Admin\\MrAdminCertificateDetailsEditForm',
-           ['certificate_id'=>$certificate->id(),'id' => '0'], 'Добавить',['btn btn-info btn-sm']) !!}
+           ['certificate_id'=>$certificate->id(),'id' => '0'], 'Добавить',['btn btn-info btn-xs']) !!}
         </div>
         {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <h4 class="margin-t-10">Сертификат: {{ $certificate->GetFullName() }}</h4>
@@ -31,10 +31,10 @@
               <td>{{ $value->getWriteDate()->format('d.m.Y H:i:s') }}</td>
               <td>
                 {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_details_form_edit', 'Admin\\MrAdminCertificateDetailsEditForm',
-                ['certificate_id'=>$certificate->id(),'id' => $value->id()], '',['btn btn-primary btn-sm fa fa-edit']) !!}
+                ['certificate_id'=>$certificate->id(),'id' => $value->id()], '',['btn btn-primary btn-xs fa fa-edit']) !!}
                 <a href="/admin/certificate/{{ $certificate->id() }}/details/delete/{{ $value->id() }}"
                    onclick="return confirm('Вы уверены?');">
-                  <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
+                  <button type="button" class="btn btn-danger btn-xs mr-border-radius-5"><i class="fa fa-trash-o"></i>
                   </button>
                 </a></td>
             </tr>

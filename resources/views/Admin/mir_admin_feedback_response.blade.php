@@ -23,7 +23,7 @@
 					</script>
 
 					<br>
-					<button type="submit" class="btn btn-primary btn-sm  mr-border-radius-5">Отправить</button>
+					<button type="submit" class="btn btn-primary btn-xs  mr-border-radius-5">Отправить</button>
 				</form>
 			</div>
 		</div>

@@ -7,7 +7,7 @@
           {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
           <div class="margin-b-15 margin-t-10">
             {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm', ['id'
-            =>'0'],	'Добавить сертификат',['btn btn-info btn-sm']) !!}
+            =>'0'],	'Добавить сертификат',['btn btn-info btn-xs']) !!}
           </div>
           <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
             <thead>
@@ -41,14 +41,14 @@
                 <td class="padding-horizontal small">
                   {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm',
                   ['id' =>
-                  $certificate->id()], '',['btn btn-info btn-sm fa fa-edit']) !!}
+                  $certificate->id()], '',['btn btn-info btn-xs fa fa-edit']) !!}
 
                   <a href="/admin/certificate/details/{{ $certificate->id() }}">
-                    <button type="button" class="btn btn-primary btn-sm fa da-edit mr-border-radius-5"><span
+                    <button type="button" class="btn btn-primary btn-xs fa da-edit mr-border-radius-5"><span
                         class="fo fa-eye"></span></button>
                   </a>
                   <a href="/admin/certificate/delete/{{ $certificate->id() }}" onclick="return confirm('Вы уверены?');">
-                    <button type="button" class="btn btn-danger btn-sm fa da-edit mr-border-radius-5"><span
+                    <button type="button" class="btn btn-danger btn-xs fa da-edit mr-border-radius-5"><span
                         class="fo fa-trash-o"></span></button>
                   </a>
                 </td>

@@ -7,7 +7,7 @@
       <div class="card-body padding-horizontal">
         {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <div class="margin-b-15 margin-t-10">
-          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => '0'], 'Новый тариф',['btn btn-info btn-sm']) !!}
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => '0'], 'Новый тариф',['btn btn-info btn-xs']) !!}
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
@@ -31,9 +31,9 @@
               <td>{{ $value->getCost() }}</td>
               <td>{{ $value->getDescription() }}</td>
               <td>
-                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => $value->id()], '',['btn btn-info btn-sm fa fa-edit']) !!}
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => $value->id()], '',['btn btn-info btn-xs fa fa-edit']) !!}
                 <a href="/admin/tariff/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
-                  <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
+                  <button type="button" class="btn btn-danger btn-xs mr-border-radius-5"><i class="fa fa-trash-o"></i>
                   </button>
                 </a></td>
             </tr>

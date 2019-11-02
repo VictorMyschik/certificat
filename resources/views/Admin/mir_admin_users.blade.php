@@ -6,7 +6,7 @@
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
-          {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => '0'], 'Добавить',['btn btn-info btn-sm']) !!}
+          {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => '0'], 'Добавить',['btn btn-info btn-xs']) !!}
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
@@ -39,10 +39,10 @@
                 {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
               </td>
               <td class="padding-horizontal small">
-                {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => $user->id()],'',['btn btn-info btn-sm fa fa-edit']) !!}
+                {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => $user->id()],'',['btn btn-info btn-xs fa fa-edit']) !!}
                 <a href="/admin/users/delete/{{ $user->id() }}"
                    onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');">
-                  <button type="button" class="btn btn-danger btn-sm fa fa-trash mr-border-radius-5"></button>
+                  <button type="button" class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5"></button>
                 </a>
               </td>
             </tr>
@@ -74,7 +74,7 @@
                  class="mr-border-radius-10">
 
           <input name="description" type="text" placeholder="причина..." class="mr-border-radius-10">
-          <button type="submit" class="btn btn-sm top btn-primary mr-border-radius-5">Блокировать</button>
+          <button type="submit" class="btn btn-xs top btn-primary mr-border-radius-5">Блокировать</button>
           {!! Form::close() !!}
         </div>
 

@@ -27,7 +27,7 @@
                     style="max-width: 200px; word-wrap: break-word;">{{ $item->getDescription() }}</td>
                 <td class="padding-horizontal small"><a href="/admin/hardware/bot/delete/{{ $item->id() }}"
                                                         onclick="return confirm('Вы уверены?');">
-                    <button type="button" class="btn btn-danger btn-sm fa da-edit mr-border-radius-5"><i
+                    <button type="button" class="btn btn-danger btn-xs fa da-edit mr-border-radius-5"><i
                         class="fo fa-edit"></i></button>
                   </a></td>
               </tr>

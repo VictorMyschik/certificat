@@ -10,7 +10,7 @@
         <div class="card-body margin-t-15">
           <div class="d-inline-block">
             <h4>Список языков <span title="Редактировать">
-                    {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_language_edit_form', "Admin\\MrAdminLanguageEditForm", ['id' => '0'],'Добавить язык',['btn btn-info btn-sm']) !!}</span>
+                    {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_language_edit_form', "Admin\\MrAdminLanguageEditForm", ['id' => '0'],'Добавить язык',['btn btn-info btn-xs']) !!}</span>
             </h4>
             {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
             @foreach($languages as $language)
@@ -25,7 +25,7 @@
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
-          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => '0'], 'Добавить перевод',['btn btn-primary btn-sm']) !!}
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => '0'], 'Добавить перевод',['btn btn-primary btn-xs']) !!}
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
           <thead>

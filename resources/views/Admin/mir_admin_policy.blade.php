@@ -7,7 +7,7 @@
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
           <a href="/admin/policy/edit/0">
-            <button type="button" title="Создать новую запись" class="btn btn-info btn-sm mr-border-radius-10">
+            <button type="button" title="Создать новую запись" class="btn btn-info btn-xs mr-border-radius-10">
               new
             </button>
           </a>
@@ -24,11 +24,11 @@
             <tr>
               <td>{{ $policy->getLanguage()?$policy->getLanguage()->getName():'RU' }}</td>
               <td><a href="/admin/policy/edit/{{ $policy->id() }}">
-                  <button type="button" class="btn btn-info btn-sm fa da-edit mr-border-radius-5"><span
+                  <button type="button" class="btn btn-info btn-xs fa da-edit mr-border-radius-5"><span
                       class="fo fa-edit"></span></button>
                 </a>
                 <a href="/admin/policy/delete/{{ $policy->id() }}" onclick="return confirm('Вы уверены?');">
-                  <button type="button" class="btn btn-danger btn-sm fa da-edit mr-border-radius-5"><span
+                  <button type="button" class="btn btn-danger btn-xs fa da-edit mr-border-radius-5"><span
                       class="fo fa-trash-o"></span></button>
                 </a>
               </td>

@@ -6,43 +6,43 @@
       <div class="card-body padding-horizontal">
         <div class="margin-b-20 margin-t-15" style="color: white">
           <a href="/admin/hardware" style="color: white">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">день</button>
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">день</button>
           </a>
           <a href="/admin/hardware?date=week">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">неделя</button>
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">неделя</button>
           </a>
           <a href="/admin/hardware?date=month">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">
               месяц
             </button>
           </a>
           <a href="/admin/hardware?date=year">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">
               год
             </button>
           </a>
 
 
           <a href="/admin/hardware?type=user" class="margin-l-20">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">
               User
             </button>
           </a>
 
           <a href="/admin/hardware?type=bot">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">
               Bot
             </button>
           </a>
 
           <a href="/admin/hardware?type=all">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5">
               Все
             </button>
           </a>
 
           <a href="/admin/hardware/delete" onclick="return confirm('Уверены?')">
-            <button type="button" class="btn btn-primary btn-sm mr-border-radius-5 pull-right">
+            <button type="button" class="btn btn-primary btn-xs mr-border-radius-5 pull-right">
               Очистить всё
             </button>
           </a>
@@ -89,7 +89,7 @@
                     ?
                     $item->getBot()->getDescription()
                     :
-              '<button type="button" class="btn btn-primary btn-sm mr-border-radius-5" onclick="mr_edit('.$item->id().')">
+              '<button type="button" class="btn btn-primary btn-xs mr-border-radius-5" onclick="mr_edit('.$item->id().')">
                 bot
               </button>')
             !!}</td>

@@ -7,7 +7,7 @@
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
           <a href="{{ route('delete_bd_log', ['id' =>0]) }}" onclick="return confirm('Вы уверены?');">
-            <button type="button" class="btn btn-danger btn-sm mr-border-radius-5">all delete</button>
+            <button type="button" class="btn btn-danger btn-xs mr-border-radius-5">all delete</button>
           </a>
         </div>
         {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
@@ -36,7 +36,7 @@
               <td>{{ $value->getWriteDate() }}</td>
               <td>
                 <a href="/admin/hardware/dblog/delete/{{$value->id()}}">
-                  <button type="button" class="btn btn-danger btn-sm mr-border-radius-5">del</button>
+                  <button type="button" class="btn btn-danger btn-xs mr-border-radius-5">del</button>
                 </a>
               </td>
             </tr>

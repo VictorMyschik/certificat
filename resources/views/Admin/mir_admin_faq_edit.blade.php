@@ -17,7 +17,7 @@
       <div class="col-md-9 col-sm-12 padding-0">
         <b>Текст ответа</b>
         <textarea name="text" class="textarea" id="editor1" title="Contents">{{ $faq->getText() }}</textarea>
-        <button type="submit" class="btn btn-sm btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить
+        <button type="submit" class="btn btn-xs btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить
         </button>
       </div>
 

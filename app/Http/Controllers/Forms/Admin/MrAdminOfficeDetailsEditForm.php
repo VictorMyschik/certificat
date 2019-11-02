@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Forms\Admin;
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrCountry;
 use App\Http\Models\MrOffice;
+use Illuminate\Http\Request;
 
 class MrAdminOfficeDetailsEditForm extends MrFormBase
 {
@@ -84,6 +85,8 @@ class MrAdminOfficeDetailsEditForm extends MrFormBase
 
     $office->setName($v['Name']);
     $office->setDescription($v['Description'] ?: null);
+    $office->setCountryID($v['CountryID'] ?: null);
+    $office->setURPostalCode($v['URPostalCode'] ?: null);
     $office->save_mr();
 
 

@@ -28,7 +28,7 @@
         <b>Текст</b>
         <textarea name="Text" class="textarea" id="editor1"
                   title="Contents">{{ old('Text') ?: $policy->getText() }}</textarea>
-        <button type="submit" class="btn btn-sm btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить
+        <button type="submit" class="btn btn-xs btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить
         </button>
       </div>
       <script>

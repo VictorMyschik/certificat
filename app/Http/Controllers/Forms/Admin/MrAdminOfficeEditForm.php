@@ -7,7 +7,9 @@ namespace App\Http\Controllers\Forms\Admin;
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrOffice;
 use Illuminate\Http\Request;
-
+/**
+ * Форма создания пустого офиса
+ */
 class MrAdminOfficeEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)

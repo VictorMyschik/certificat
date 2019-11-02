@@ -11,7 +11,7 @@
           <label>
             <input name="email" type="text" required placeholder="Email" class="mr-border-radius-5 padding-horizontal">
           </label>
-          <button type="submit" class="btn btn-primary btn-sm mr-border-radius-5">Подписать</button>
+          <button type="submit" class="btn btn-primary btn-xs mr-border-radius-5">Подписать</button>
           {!! Form::close() !!}
         </div>
 
@@ -32,7 +32,7 @@
               <td class="padding-horizontal small">{{ $email->getDate()->format('d M Y H:i') }}</td>
               <td class="padding-horizontal small">
                 <a href="/admin/subscription/delete/{{ $email->id() }}"
-                   onclick="return confirm('Отписать Email: {{ $email->getEmail() }} от рассылки');"><button type="button" class="btn btn-danger btn-sm mr-border-radius-5">Отписать</button></a>
+                   onclick="return confirm('Отписать Email: {{ $email->getEmail() }} от рассылки');"><button type="button" class="btn btn-danger btn-xs mr-border-radius-5">Отписать</button></a>
               </td>
             </tr>
           @endforeach

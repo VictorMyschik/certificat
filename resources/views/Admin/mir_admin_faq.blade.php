@@ -7,7 +7,7 @@
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
           <a href="{{ route('edit_faq', ['id' =>0]) }}">
-            <button type="button" title="Создать новую запись" class="btn btn-info btn-sm mr-border-radius-5">
+            <button type="button" title="Создать новую запись" class="btn btn-info btn-xs mr-border-radius-5">
               new FAQ
             </button>
           </a>
@@ -26,10 +26,10 @@
               <td>
                 <a href="/admin/faq/edit/{{ $value->id() }}">
                   <button type="button" title="Изменить"
-                          class="btn btn-info btn-sm mr-border-radius-5"><i class="fa fa-edit"></i></button>
+                          class="btn btn-info btn-xs mr-border-radius-5"><i class="fa fa-edit"></i></button>
                 </a>
                 <a href="/admin/faq/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
-                  <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
+                  <button type="button" class="btn btn-danger btn-xs mr-border-radius-5"><i class="fa fa-trash-o"></i>
                   </button>
                 </a></td>
             </tr>

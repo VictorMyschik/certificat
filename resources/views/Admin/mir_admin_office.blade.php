@@ -6,7 +6,7 @@
       <div class="card-body padding-horizontal">
         {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <div class="margin-b-15 margin-t-10">
-          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>'0'], 'Создать пустой офис', ['btn btn-info btn-sm']) !!}
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>'0'], 'Создать пустой офис', ['btn btn-info btn-xs']) !!}
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
@@ -37,11 +37,11 @@
               <td>{{ $value->getDescription() }}</td>
               <td>
                 <a href="{{ route('office_page',['id'=>$value->id()]) }}"
-                   class="btn btn-primary btn-sm mr-border-radius-5">
+                   class="btn btn-primary btn-xs mr-border-radius-5">
                   <i class="fa fa-eye"></i></a>
-                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$value->id()], '', ['btn btn-info btn-sm fa fa-edit']) !!}
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$value->id()], '', ['btn btn-info btn-xs fa fa-edit']) !!}
                 <a href="/admin/office/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
-                  <button type="button" class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash-o"></i>
+                  <button type="button" class="btn btn-danger btn-xs mr-border-radius-5"><i class="fa fa-trash-o"></i>
                   </button>
                 </a></td>
             </tr>
