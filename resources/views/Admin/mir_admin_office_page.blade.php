@@ -21,8 +21,8 @@
               <div class="d-sm-inline-flex col-md-12 padding-horizontal margin-b-15">
                 <div><span class="mr-bold">Лицо:</span>
                   <span>{{ $office->getPersonPost() }}</span>
-                  <span class="margin-l-10">{{ $office->getPersonFIO() }}</span>
-                  <span title="на оновании">({{ $office->getPersonSign() }})</span>
+                  <span class="margin-l-10">{{ $office->getPersonFIO()?:'-' }}</span>
+                  <span title="на оновании">{{ $office->getPersonSign()?' ('.$office->getPersonSign().')':null }}</span>
                 </div>
               </div>
 
