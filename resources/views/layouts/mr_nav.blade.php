@@ -41,14 +41,14 @@
             <a class="dropdown-item" href="/phpmyadmin">
               PhpMyAdmin
             </a>
-            <a class="dropdown-item" href="{{ route('panel') }}">
+            <a class="dropdown-item" href="{{ route('office') }}">
               Кабинет USER
             </a>
             <a class="dropdown-item" href="/clear">
               Очистить кэш
             </a>
             @else
-            <a class="dropdown-item" href="{{ route('panel') }}">
+            <a class="dropdown-item" href="{{ route('office') }}">
               Кабинет
             </a>
             @endif

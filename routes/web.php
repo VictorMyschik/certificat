@@ -40,10 +40,9 @@ Route::get('/certificate/{number}', 'MrCertificateController@View');
 Route::group(['middleware' => 'auth'], function () {
 
   //// Кабинет пользователя
-  Route::get('/panel', "User\MrUserController@View")->name('panel');
-  // Изменение личных данных пользователя
-  Route::POST('/panel/edit/{id}', "User\MrUserController@Edit")->name('panel_edit');
-  Route::get('/panel/races', "User\MrUserController@Races")->name('panel_races');
+  Route::get('/office', "User\MrOfficeController@View")->name('office');
+  Route::POST('/office/personal/', "User\MrOfficeController@Edit")->name('panel_edit');
+  Route::get('/office/monitoring', "User\MrOfficeController@monitoringPage")->name('monitoring_page');
 
 
   //// Удаление аккаунта

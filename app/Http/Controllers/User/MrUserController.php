@@ -22,11 +22,7 @@ class MrUserController extends Controller
   #region Panel
   public function View()
   {
-    $out = array();
-    $user = MrUser::me();
-    $out['user'] = $user;
 
-    return View('User.panel')->with($out);
   }
 
   public function Edit(Request $request)
