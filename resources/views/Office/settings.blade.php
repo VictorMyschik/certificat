@@ -4,7 +4,7 @@
   @include('Office.mr_nav_user')
   <div class="container col-md-9 col-sm-12">
 
-
+  Настройки
 
 
   </div>

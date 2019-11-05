@@ -40,14 +40,15 @@ Route::get('/certificate/{number}', 'MrCertificateController@View');
 Route::group(['middleware' => 'auth'], function () {
 
   //// Кабинет пользователя
-  Route::get('/office', "User\MrOfficeController@View")->name('office');
-  Route::POST('/office/personal/', "User\MrOfficeController@Edit")->name('panel_edit');
-  Route::get('/office/monitoring', "User\MrOfficeController@monitoringPage")->name('monitoring_page');
+  Route::get('/office', "Office\MrOfficeController@View")->name('office');
+  Route::get('/office/personal', "Office\MrOfficeController@personalPage")->name('office_personal_page');
+  Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
+  Route::get('/office/monitoring', "Office\MrOfficeController@monitoringPage")->name('office_monitoring_page');
 
 
   //// Удаление аккаунта
-  Route::match(['get', 'post'], '/panel/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
-  Route::match(['get', 'post'], '/panel/delete/submit', "Forms\MrUserDeleteForm@submitForm");
+  Route::match(['get', 'post'], '/office/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
+  Route::match(['get', 'post'], '/office/delete/submit', "Forms\MrUserDeleteForm@submitForm");
 });
 
 
