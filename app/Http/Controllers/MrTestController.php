@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 
 
-use App\Http\Controllers\Helpers\MtDateTime;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class MrTestController extends Controller
 {
@@ -13,11 +14,19 @@ class MrTestController extends Controller
   public function index()
   {
     $out = array();
-    $qwe = MtDateTime::fromValue('2019-05-18');
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setCellValue('A1', 'Hello World !');
 
-    dd($qwe);
+    $writer = new Xlsx($spreadsheet);
 
-    return View('test')->with($out);
+    $file_name = 'hello world.xlsx';
+
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename=' . $file_name);
+    $writer->save('hello world.xlsx');
+
+    //return View('test')->with($out);
   }
 
 }
