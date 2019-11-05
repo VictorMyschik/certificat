@@ -6,9 +6,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Models\MrDiscount;
 use App\Http\Models\MrOffice;
 use App\Http\Models\MrTariffInOffice;
 use App\Http\Models\MrUserInOffice;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 class MrAdminOfficeController extends Controller
 {
@@ -22,6 +25,12 @@ class MrAdminOfficeController extends Controller
     return View('Admin.mir_admin_office')->with($out);
   }
 
+  /**
+   * Страница ВО
+   *
+   * @param int $id
+   * @return Factory|View
+   */
   public function OfficePage(int $id)
   {
     $out = array();
@@ -95,6 +104,15 @@ class MrAdminOfficeController extends Controller
     }
     $tariff_office->save_mr();
 
+    return back();
+  }
+
+  public function discountDelete(int $id)
+  {
+    $discount = MrDiscount::loadBy($id);
+    $discount->mr_delete();
+
+    MrMessageHelper::SetMessage(true, 'Скидка из ВО удалена');
     return back();
   }
 }

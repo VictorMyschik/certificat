@@ -27,10 +27,10 @@
           <tbody>
           @foreach($emails as $email)
             <tr>
-              <td class="padding-horizontal small">{{ $email->id() }}</td>
-              <td class="padding-horizontal small">{{ $email->getEmail() }}</td>
-              <td class="padding-horizontal small">{{ $email->getDate()->format('d M Y H:i') }}</td>
-              <td class="padding-horizontal small">
+              <td class="padding-horizontal">{{ $email->id() }}</td>
+              <td class="padding-horizontal">{{ $email->getEmail() }}</td>
+              <td class="padding-horizontal">{{ $email->getDate()->format('d M Y H:i') }}</td>
+              <td class="padding-horizontal">
                 <a href="/admin/subscription/delete/{{ $email->id() }}"
                    onclick="return confirm('Отписать Email: {{ $email->getEmail() }} от рассылки');"><button type="button" class="btn btn-danger btn-xs mr-border-radius-5">Отписать</button></a>
               </td>

@@ -38,7 +38,7 @@
                 <td><a href="{{ $certificate->getLinkOut() }}" target="_blank">ссылка</a></td>
                 <td>{{ $certificate->getDescription() }}</td>
                 <td>{{ $certificate->getWriteDate()->format('d.m.Y H:i:s') }}</td>
-                <td class="padding-horizontal small">
+                <td class="padding-horizontal">
                   {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm',
                   ['id' =>
                   $certificate->id()], '',['btn btn-info btn-xs fa fa-edit']) !!}

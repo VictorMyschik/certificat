@@ -67,21 +67,21 @@
             <tbody>
             @foreach($logs as $item)
               <tr>
-                <td class="padding-horizontal small"
+                <td class="padding-horizontal"
                     style="max-width: 200px; word-wrap: break-word;">{{ $item->id() }}</td>
-                <td class="padding-horizontal small"
+                <td class="padding-horizontal"
                     style="max-width: 200px; word-wrap: break-word;">{{ date('d M H:m:s', strtotime($item->getDate())) }}</td>
-                <td class="padding-horizontal small"
+                <td class="padding-horizontal"
                     style="max-width: 200px; word-wrap: break-word;">{{ $item->getIp() }}</td>
-                <td class="padding-horizontal small"
+                <td class="padding-horizontal"
                     style="max-width: 200px; word-wrap: break-word;"><a href="{{ $item->getReferer() }}"
                                                                         target="_blank">{{ $item->getReferer() }}</a>
                 </td>
-                <td class="padding-horizontal small"
+                <td class="padding-horizontal"
                     style="max-width: 200px; word-wrap: break-word;"><a
                     href="{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_URL.$item->getLink() }}"
                     target="_blank">{{ $item->getLink() }}</a></td>
-                <td class="padding-horizontal small">{!!
+                <td class="padding-horizontal">{!!
                      $item->getUser()?
                      '<div>'.$item->getUser()->getName().'</div>
                       <div>'.$item->getUser()->getEmail().'</div>'
@@ -93,9 +93,9 @@
                 bot
               </button>')
             !!}</td>
-                <td class="padding-horizontal small">{{ $item->getUserAgent() }}</td>
-                <td class="padding-horizontal small">{{ $item->getCookie() }}</td>
-                <td class="padding-horizontal small">{{ $item->getCity() }} / {{ $item->getCountry() }}</td>
+                <td class="padding-horizontal">{{ $item->getUserAgent() }}</td>
+                <td class="padding-horizontal">{{ $item->getCookie() }}</td>
+                <td class="padding-horizontal">{{ $item->getCity() }} / {{ $item->getCountry() }}</td>
               </tr>
             @endforeach
             </tbody>

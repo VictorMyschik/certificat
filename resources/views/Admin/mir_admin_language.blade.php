@@ -27,7 +27,7 @@
         <div class="margin-b-15 margin-t-10">
           {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => '0'], 'Добавить перевод',['btn btn-primary btn-xs']) !!}
         </div>
-        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+        <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
           <tr>
             <td class="padding-horizontal">№</td>
@@ -40,16 +40,16 @@
           <tbody>
           @foreach($translate as $word)
             <tr>
-              <td class="padding-horizontal small">{{ $word->id() }}</td>
-              <td class="padding-horizontal small">{{ $word->getName() }}</td>
-              <td class="padding-horizontal small">{{ $word->getLanguage()->getName() }}</td>
-              <td class="padding-horizontal small">{{ $word->getTranslate() }}</td>
-              <td class="padding-horizontal small">
-                {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => $word->id()],'',['btn btn-info btn-sm fa fa-edit']) !!}
+              <td class="padding-horizontal">{{ $word->id() }}</td>
+              <td class="padding-horizontal">{{ $word->getName() }}</td>
+              <td class="padding-horizontal">{{ $word->getLanguage()->getName() }}</td>
+              <td class="padding-horizontal">{{ $word->getTranslate() }}</td>
+              <td class="padding-horizontal">
+                {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => $word->id()],'',['btn btn-info btn-xs fa fa-edit']) !!}
 
                 <a href="/admin/language/word/{{$word->id()}}/delete"
                    onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');">
-                  <button type="button" class="btn btn-danger btn-sm fa fa-trash mr-border-radius-5"></button>
+                  <button type="button" class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5"></button>
                 </a>
               </td>
             </tr>

@@ -76,6 +76,12 @@ class MtDateTime extends \DateTime
    */
   public static function fromValue($value, ?string $format = null, DateTimeZone $timezone = null): ?MtDateTime
   {
+    //can not parse date by that format
+    if(!$value)
+    {
+      return null;
+    }
+
     if($value instanceof MtDateTime)
     {
       return $value;

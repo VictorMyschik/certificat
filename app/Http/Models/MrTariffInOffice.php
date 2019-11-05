@@ -27,6 +27,15 @@ class MrTariffInOffice extends ORM
     return parent::mr_save_object($this);
   }
 
+  public function before_delete()
+  {
+    foreach($this->getOffice()->GetDiscount() as $discount)
+    {
+      if($discount->getTariff()->id() == $this->getTariff()->id())
+        $discount->mr_delete();
+    }
+  }
+
   public function getOffice(): MrOffice
   {
     return MrOffice::loadBy($this->OfficeID);

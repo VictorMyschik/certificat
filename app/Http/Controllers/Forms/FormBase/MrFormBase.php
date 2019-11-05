@@ -24,13 +24,7 @@ class MrFormBase extends Controller
   {
     $out = array();
 
-    $url_data = array();
-    foreach ($data as $key => $item)
-    {
-      $url_data[$key] = $item;
-    }
-
-    $out['url'] = route($route_name, $url_data);
+    $out['url'] = route($route_name, $data);
     $out['btn_name'] = $btn_name ?? 'Изменить';
     $base_class_btn = array(
       'mr-border-radius-5'
@@ -52,18 +46,22 @@ class MrFormBase extends Controller
    * @param int $id
    * @return Factory|\Illuminate\View\View
    */
-  public function getFormBuilder(int $id)
+  public function getFormBuilder()
   {
+    $route_parameters = Route::getFacadeRoot()->current()->parameters();
+
     $form = array();
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
-    $this->builderForm($form, $id);
+    $form['#title'] = Route::getFacadeRoot()->current()->parameters()['id'] ? "Редактирование" : 'Создать';
+    $this->builderForm($form, $route_parameters['id'], $route_parameters);
 
     // Получеине роута для сохранения
     $route_referer_name = Route::getFacadeRoot()->current()->action['as'];
+
     $route_submit = explode('_', $route_referer_name);
     $route_submit[count($route_submit) - 1] = 'submit';
 
-    $form['#url'] = route(implode($route_submit, '_'), ['id' => $id]);
+
+    $form['#url'] = route(implode($route_submit, '_'), $route_parameters);
 
     $form['#btn_success'] = 'Сохранить';
     $form['#btn_cancel'] = 'Отменить';

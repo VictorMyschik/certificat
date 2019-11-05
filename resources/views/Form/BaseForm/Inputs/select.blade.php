@@ -1,7 +1,7 @@
 <div id="{{ $name }}"></div>
 {{ $item['#title'] }}
 <label>
-  <select class="mr-border-radius-5"
+  <select class="mr-border-radius-5 form-control-sm"
   @if(isset($item['#attributes']))
     @foreach($item['#attributes'] as $attr_key => $attr_val)
       {{ $attr_key }}='{{ $attr_val }}'

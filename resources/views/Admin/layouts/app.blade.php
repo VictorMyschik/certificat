@@ -25,7 +25,6 @@
         <i class="fa fa-bars"></i>
       </button>
       <a class="navbar-brand" href="/">Admin</a>
-
     </div>
 
     <div id="main-menu" class="main-menu collapse navbar-collapse">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Helpers\MtDateTime;
 use App\Http\Models\MrBaseLog;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -152,7 +153,7 @@ class ORM extends Model
         continue;
       }
 
-      if($modified->attributes[$orgn_key] instanceof Carbon)
+      if($modified->attributes[$orgn_key] instanceof Carbon || $modified->attributes[$orgn_key] instanceof MtDateTime)
       {
         $or = new Carbon($orgn_value);
         if($modified->attributes[$orgn_key]->format('Y-m-d H:i:s') !== $or->format('Y-m-d H:i:s'))

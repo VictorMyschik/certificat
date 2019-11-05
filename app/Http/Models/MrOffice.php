@@ -6,7 +6,7 @@ namespace App\Http\Models;
 
 use App\Http\Controllers\Helpers\MtDateTime;
 use App\Models\ORM;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MrOffice extends ORM
@@ -16,18 +16,22 @@ class MrOffice extends ORM
   protected static $dbFieldsMap = array(
     'Name',
     'Description',
+
     'UNP',
     'CountryID',
     'Email',
     'Phone',
+    // для свзяи и отправки почты
     'POPostalCode',
     'PORegion',
     'POCity',
     'POAddress',
+    // Юр. данные
     'URPostalCode',
     'URRegion',
     'URCity',
     'URAddress',
+    // Банковские данные
     'BankRS',
     'BankName',
     'BankCode',
@@ -322,6 +326,18 @@ class MrOffice extends ORM
   {
     $this->PersonFIO = $value;
   }
+
   ////////////////////////////////////////////////////////////////
 
+  /**
+   * Скидки ВО
+   * @return MrDiscount[]
+   */
+  public function GetDiscount(): array
+  {
+    return Cache::rememberForever('discount_' . $this->id(), function () {
+      $list = DB::table(MrDiscount::$mr_table)->where('OfficeID', '=', $this->id())->get();
+      return parent::LoadArray($list, MrDiscount::class);
+    });
+  }
 }
