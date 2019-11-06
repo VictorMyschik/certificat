@@ -16,6 +16,7 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
+    $out['office'] = $user->getOffice();
 
     return View('Office.home')->with($out);
   }

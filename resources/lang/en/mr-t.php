@@ -72,5 +72,7 @@ return $translate_arr + [
     'Настройки' => 'Settings',
     'Персональные' => 'Personal',
     'Скидка' => 'Discount',
-    'Тарифные планы'=>'Tariffs'
+    'Тарифные планы' => 'Tariffs',
+    'Услуги' => 'Services',
+    'Мониторинг' => 'Monitoring',
   ];

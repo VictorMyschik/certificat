@@ -8,8 +8,8 @@
 
       <div class="d-inline col-md-4 border mr-border-radius-10 padding-0">
         <div class="mr-bg-blue mr-border-radius-10">
-          <h3 class="margin-l-15">{{ __('mr-t.Финансы') }} <a href="#"
-                                                              class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a>
+          <h3 class="margin-l-15">{{ __('mr-t.Финансы') }}
+            <a href="#" class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a>
           </h3>
         </div>
         <div class="margin-l-15">
@@ -101,24 +101,19 @@
 
       <div class="d-inline col-md-4 border mr-border-radius-10 padding-0">
         <div class="mr-bg-blue mr-border-radius-10">
-          <h3 class="margin-l-15">{{ __('mr-t.Пользователи') }} <a href="#"
-                                                                   class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Добавить') }}</a>
+          <h3 class="margin-l-15">{{ __('mr-t.Пользователи') }}
+            <a href="#" class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Добавить') }}</a>
           </h3>
         </div>
-        <div class="margin-l-15 margin-r-15">
-          <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
-            <tr>
-              <td>Имя</td>
-              <td>Email</td>
-              <td>#</td>
-            </tr>
+        <div class="padding-0">
+          <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle padding-0">
             @foreach($office->GetUsers() as $user)
               <tr>
                 <td>{{ $user->getUser()->getName() }}</td>
                 <td>{{ $user->getUser()->getEmail() }}</td>
                 <td>
                   {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
-                 'Admin\\MrAdminReferenceCountryEditForm', ['id' => $user->id()], '', ['btn', 'btn-info', 'btn-xs', 'fa', 'fa-edit'])
+                 'Admin\\MrAdminReferenceCountryEditForm', ['id' => $user->id()], '', ['btn', 'btn-info', 'btn-xs', 'fa fa-edit'])
                  !!}
                 </td>
               </tr>

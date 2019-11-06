@@ -5,7 +5,6 @@ namespace App\Http\Models;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
-use App\Models\ORM;
 
 class MrCertificateMonitoring extends ORM
 {
