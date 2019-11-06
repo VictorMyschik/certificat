@@ -6,39 +6,39 @@
     <h4 class="margin-t-10"><span class="mr-bold">{{__('mr-t.Виртуальный офис')}}:</span> {{ $office->getName() }}</h4>
     <div class="row padding-0">
 
-      <div class="d-inline col-md-4 border">
-        <h3>Финансы <a href="#" class="btn btn-info btn-sm mr-color-white">поменять тарифный план</a></h3>
+      <div class="d-inline col-md-4 border mr-border-radius-10 padding-0">
+        <div class="mr-bg-blue mr-border-radius-10">
+          <h3 class="margin-l-15">{{ __('mr-t.Финансы') }} <a href="#" class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a></h3>
+        </div>
+        <div class="margin-l-15">
+          <h6><span class="mr-bold">Баланс:</span> 100 BYN</h6>
+          <h5>{{__('mr-t.Тарифные планы')}}:</h5>
 
-        <h6><span class="mr-bold">Баланс:</span> 100 BYN</h6>
-        <h5>{{__('mr-t.Тарифные планы')}}:</h5>
+          @if(count($office->GetGlobalDiscountList()))
+            <div class="mr-color-green-dark margin-b-15">
+              <div>Глобальные скидки:</div>
+              @foreach($office->GetGlobalDiscountList() as $global_discount)
+                <li>{{$global_discount->GetFullName()}}</li>
+              @endforeach
+            </div>
+          @endif
 
-        @if(count($office->GetGlobalDiscountList()))
-          <div class="mr-color-green-dark margin-b-15">
-            <div>Глобальные скидки:</div>
-          @foreach($office->GetGlobalDiscountList() as $global_discount)
-              <li>{{$global_discount->GetFullName()}}</li>
-          @endforeach
-          </div>
-        @endif
-
-        @foreach($office->GetTariffs() as $tariff_in_office)
-          <li>{{ $tariff_in_office->getTariff()->getName() }}
-            @if(count($tariff_in_office->GetDiscountList()))
-              <span class="mr-color-green-dark"><i> {{ __('mr-t.Скидка') }}:
+          @foreach($office->GetTariffs() as $tariff_in_office)
+            <li>{{ $tariff_in_office->getTariff()->getName() }}
+              @if(count($tariff_in_office->GetDiscountList()))
+                <span class="mr-color-green-dark"><i> {{ __('mr-t.Скидка') }}:
                 @foreach($tariff_in_office->GetDiscountList() as $discount)
-                    <span class="">{{ $discount->GetFullName() }}</span>
-                  @endforeach
+                      <span class="">{{ $discount->GetFullName() }}</span>
+                    @endforeach
                 </i></span>
-            @endif
-          </li>
-        @endforeach
-
+              @endif
+            </li>
+          @endforeach
+        </div>
       </div>
 
 
-
-
-      <div class="d-inline col-md-8 border">
+      <div class="d-inline col-md-8 ">
         <div class="">
           {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
           @foreach($errors->all() as $err)
@@ -95,6 +95,21 @@
 
     </div>
 
+    <div class="row padding-0 mr-border-radius-10 margin-t-10">
+
+      <div class="d-inline col-md-4 border mr-border-radius-10 padding-0">
+        <div class="mr-bg-blue mr-border-radius-10">
+          <h3 class="margin-l-15">{{ __('mr-t.Пользователи') }} <a href="#" class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Добавить') }}</a></h3>
+        </div>
+        <div class="margin-l-15">
+          @foreach($office->GetUsers() as $user)
+            <li>{{ $user->getUser()->GetFullName() }}</li>
+          @endforeach
+        </div>
+      </div>
+
+
+    </div>
   </div>
 
 
