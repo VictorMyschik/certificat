@@ -4,29 +4,35 @@ namespace App\Http\Controllers;
 
 
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\Http\Controllers\Helpers\MtExcelHelperBase;
 
-class MrTestController extends Controller
+class MrTestController extends MtExcelHelperBase
 {
   protected $vkontakteUserId = '181953031';
 
   public function index()
   {
     $out = array();
-    $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
-    $sheet->setCellValue('A1', 'Hello World !');
 
-    $writer = new Xlsx($spreadsheet);
+    $excel = self::excel();
+    $sheet = $excel->getSheet(0);
 
-    $file_name = 'hello world.xlsx';
+    $data_map = self::SetFirstRowHeader($sheet, array(
+      'Код' => 12,
+      'Наименование' => 50,
+      'Страна' => 7,
+      'Вес' => 8,
+      'Таможенная пошлина' => 35,
+      'Антидемпинг' => 14,
+      'Информация' => 50,
+    ));
 
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename=' . $file_name);
-    $writer->save('hello world.xlsx');
+    $row_num = 1;
 
-    //return View('test')->with($out);
+
+
+
+    $excel->setActiveSheetIndex(0);
+    self::write();
   }
-
 }
