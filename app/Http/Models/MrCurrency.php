@@ -103,7 +103,7 @@ class MrCurrency extends ORM
     return $this->Description;
   }
 
-  public function setDescription(string $value)
+  public function setDescription(?string $value)
   {
     $this->Description = $value;
   }

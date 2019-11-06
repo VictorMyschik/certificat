@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrCountry;
+use App\Http\Models\MrCurrency;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -15,16 +16,24 @@ class MrAdminReferences extends Controller
 {
   /**
    * Загрузка одного справочника
-   * @param string $name
    * @return Factory|View
    */
-  public function View(string $name)
+  public function ViewCountry()
   {
     $out = array();
     $out['page_title'] = 'Справочник стран мира';
     $out['list'] = MrCountry::GetAll();
 
     return View('Admin.mir_admin_reference_country')->with($out);
+  }
+
+  public function ViewCurrency()
+  {
+    $out = array();
+    $out['page_title'] = 'Справочник Валют';
+    $out['list'] = MrCurrency::GetAll();
+
+    return View('Admin.mir_admin_reference_currency')->with($out);
   }
 
   /**
@@ -43,7 +52,7 @@ class MrAdminReferences extends Controller
       'AM' => '051',
     );
 
-    foreach($text_number_codes as $key => $value)
+    foreach ($text_number_codes as $key => $value)
     {
       $country = MrCountry::loadBy($key, 'Code');
       if($country)
@@ -53,9 +62,21 @@ class MrAdminReferences extends Controller
       }
       else
       {
-        MrMessageHelper::SetMessage(false,'Не все цифровые коды были добавлены');
+        MrMessageHelper::SetMessage(false, 'Не все цифровые коды были добавлены');
       }
     }
+
+    return back();
+  }
+
+  /**
+   * Переустановка справочника валют
+   *
+   * @return RedirectResponse
+   */
+  public function RebuildCurrency()
+  {
+    MrAdminBackUpController::MrCurrencyData();
 
     return back();
   }
@@ -71,7 +92,9 @@ class MrAdminReferences extends Controller
   {
     $pref = 'Mr';
     $l = substr($reference, 0, 1);
-    $class_name = str_replace($l, mb_strtoupper($l), $reference);
+
+    $class_name = substr_replace($reference, mb_strtoupper($l), 0,1);
+
     $class_name = "App\\Http\\Models\\" . $pref . $class_name;
 
     /** @var object $class_name */

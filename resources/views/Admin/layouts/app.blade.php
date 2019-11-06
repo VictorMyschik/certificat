@@ -72,6 +72,7 @@
             <i class="menu-icon fa fa-book"></i>Справочники</a>
           <ul class="sub-menu children dropdown-menu">
             <li><i class="fa fa-tachometer"></i><a href="/admin/reference/country">Страны мира</a></li>
+            <li><i class="fa fa-tachometer"></i><a href="/admin/reference/currency">Валюты мира</a></li>
           </ul>
         </li>
 

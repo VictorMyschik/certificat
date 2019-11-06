@@ -13,11 +13,11 @@ class createmrcurrency extends Migration
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Code', 3);
       $table->string('TextCode', 3);
-      $table->date('DateFrom');
-      $table->date('DateTo');
+      $table->date('DateFrom')->nullable();
+      $table->date('DateTo')->nullable();
       $table->string('Name', 200);
       $table->tinyInteger('Rounding');
-      $table->string('Description');
+      $table->string('Description')->nullable();
     });
   }
 

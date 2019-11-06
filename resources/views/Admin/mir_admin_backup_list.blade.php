@@ -9,6 +9,7 @@
           <a class="btn btn-primary btn-xs mr-border-radius-5"
              href="{{route('artisan_migrate')}}">Запустить миграцию</a>
           <p><i>Будут созданы из файлов таблицы, отсутствующие в БД</i></p>
+          <div class="mr-color-red">Кнопки Back Up и Recovery пока находятся в стадии разработки</div>
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
