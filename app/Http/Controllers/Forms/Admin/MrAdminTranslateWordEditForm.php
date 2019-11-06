@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Forms\Admin;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
-use App\Models\MrLanguage;
-use App\Models\MrTranslate;
+use App\Http\Models\MrLanguage;
+use App\Http\Models\MrTranslate;
 use Illuminate\Http\Request;
 
 class MrAdminTranslateWordEditForm extends MrFormBase

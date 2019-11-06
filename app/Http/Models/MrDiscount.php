@@ -5,7 +5,6 @@ namespace App\Http\Models;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
-use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
 
 class MrDiscount extends ORM
@@ -35,9 +34,21 @@ class MrDiscount extends ORM
     self::KIND_DOCUMENTS => 'в документах',
   );
 
+  protected static $kinds_code = array(
+    self::KIND_MONEY => '$',
+    self::KIND_PERCENT => '%',
+    self::KIND_DAYS => 'день',
+    self::KIND_DOCUMENTS => 'док',
+  );
+
   public static function getKinds()
   {
     return self::$kinds;
+  }
+
+  public static function getKindCodes()
+  {
+    return self::$kinds_code;
   }
 
   public function getKind(): int
@@ -60,6 +71,11 @@ class MrDiscount extends ORM
   public function getKindName()
   {
     return self::getKinds()[$this->getKind()];
+  }
+
+  public function getKindCode()
+  {
+    return self::getKindCodes()[$this->getKind()];
   }
 
   public static function loadBy($value, $field = 'id'): ?MrDiscount
@@ -129,4 +145,12 @@ class MrDiscount extends ORM
     $this->Amount = $value;
   }
 
+////////////////////////////////////////////////////////////////////////////
+  public function GetFullName()
+  {
+    $r = $this->getAmount();
+    $r .= ' ';
+    $r .= $this->getKindCode();
+    return $r;
+  }
 }

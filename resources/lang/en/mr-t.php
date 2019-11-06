@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\MrTranslate;
+
+use App\Http\Models\MrTranslate;
 
 $translate_arr = MrTranslate::GetWords('en');
 
@@ -70,4 +71,6 @@ return $translate_arr + [
     'Страны мира' => 'Countries',
     'Настройки' => 'Settings',
     'Персональные' => 'Personal',
+    'Скидка' => 'Discount',
+    'Тарифные планы'=>'Tariffs'
   ];

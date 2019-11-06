@@ -34,7 +34,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
 
-            @if(\App\Models\MrUser::me()->IsAdmin())
+            @if(\App\Http\Models\MrUser::me()->IsAdmin())
             <a class="dropdown-item" href="{{ route('admin') }}">
               Админка
             </a>
@@ -72,7 +72,7 @@
             {{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            @foreach(\App\Models\MrLanguage::GetAll() as $item)
+            @foreach(\App\Http\Models\MrLanguage::GetAll() as $item)
             @if($item->getName() == mb_strtoupper(app()->getLocale()))
             @continue
             @endif

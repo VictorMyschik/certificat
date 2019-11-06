@@ -4,8 +4,8 @@
 namespace App\Http\Controllers\Helpers;
 
 use App\Http\Controllers\Controller;
-use App\Models\MrLanguage;
-use App\Models\MrTranslate;
+use App\Http\Models\MrLanguage;
+use App\Http\Models\MrTranslate;
 
 class MrLanguageController extends Controller
 {

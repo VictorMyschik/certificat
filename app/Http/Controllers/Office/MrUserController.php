@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Models\MrGame;
-use App\Models\MrUser;
+use App\Http\Models\MrGame;
+use App\Http\Models\MrUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;

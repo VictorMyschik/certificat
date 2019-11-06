@@ -60,6 +60,30 @@ class MtDateTime extends \DateTime
     return $this->format($format);
   }
 
+  public static function GetFromToDate(?MtDateTime $from, ?MtDateTime $to): string
+  {
+    $r = '';
+
+    if($from && $to)
+    {
+      if($from->diff($to)->days == 0)
+      {
+        return $from->format('d.m.Y');
+      }
+    }
+
+    if($from)
+      $r .= $from->format('d.m.Y');
+
+    if(strlen($r))
+      $r .= ' - ';
+
+    if($to)
+      $r .= $to->format('d.m.Y');
+
+    return $r;
+  }
+
 
   private static $from_value_cache = array();
 

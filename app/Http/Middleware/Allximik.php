@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 
-use App\Models\MrBotUserAgent;
-use App\Models\MrLogIdent;
-use App\Models\MrUser;
+use App\Http\Models\MrBotUserAgent;
+use App\Http\Models\MrLogIdent;
+use App\Http\Models\MrUser;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;

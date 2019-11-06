@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Models;
 
 use App\Http\Controllers\Helpers\MtDateTime;
-use App\Http\Models\MrBaseLog;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -200,5 +199,40 @@ class ORM extends Model
   public function id(): ?int
   {
     return $this->id ?: null;
+  }
+
+  protected function getDateNullableField(string $field): ?MtDateTime
+  {
+    return $this->$field ? MtDateTime::fromValue($this->$field) : null;
+  }
+
+  /**
+   * @param $value
+   * @param $field
+   * @throws \Exception
+   */
+  protected function setDateNullableField($value, $field)
+  {
+    if($value)
+    {
+      if($value instanceof MtDateTime)
+      {
+        //nothing to do
+      }
+      elseif($value instanceof \DateTime)
+      {
+        $value = new MtDateTime($value->format(MtDateTime::MYSQL_DATETIME));
+      }
+      else
+      {
+        $value = MtDateTime::fromValue($value);
+      }
+    }
+    else
+    {
+      $value = null;
+    }
+
+    $this->$field = MtDateTime::fromValue($value);
   }
 }

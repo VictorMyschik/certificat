@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Forms\Admin;
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrOffice;
+use App\Http\Models\MrUser;
 use App\Http\Models\MrUserInOffice;
-use App\Models\MrUser;
 use Illuminate\Http\Request;
 
 class MrAdminOfficeUserEditForm extends MrFormBase

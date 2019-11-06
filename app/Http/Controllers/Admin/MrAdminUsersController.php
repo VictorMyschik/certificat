@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\MrUser;
-use App\Models\MrUsersBloked;
+use App\Http\Models\MrUser;
+use App\Http\Models\MrUsersBloked;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\MrMessage;
+use App\Http\Models\MrMessage;
 use Illuminate\Http\RedirectResponse;
 
 class MrAdminMessageController extends Controller

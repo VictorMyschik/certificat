@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Models;
 
 
 use App\User;
@@ -14,7 +14,6 @@ class MrUser extends ORM
   private $admin_email = 'allximik50@gmail.com';
   private $zero_email = 'mega-ximik@mail.ru';
   protected static $className = MrUser::class;
-  protected static $mr_caches = array('emails');
 
   protected static $mr_table = 'mr_users';
   protected static $dbFieldsMap = array(
@@ -306,5 +305,14 @@ class MrUser extends ORM
       $out[$user->id()] = $user->GetFullName();
     }
     return $out;
+  }
+
+  public function getOffice()
+  {
+    $offise_ids = Cache::rememberForever('MrUser' . $this->id(), function () {
+      return DB::table(MrUserInOffice::$mr_table)->where('UserID', '=', $this->id())->limit(1)->pluck('OfficeID')->toArray();
+    });
+
+    return MrOffice::loadBy($offise_ids[0]);
   }
 }

@@ -4,8 +4,6 @@
 namespace App\Http\Models;
 
 
-use App\Models\MrLogIdent;
-use App\Models\ORM;
 use Carbon\Carbon;
 
 /**
@@ -15,7 +13,6 @@ class MrBaseLog extends ORM
 {
   public static $mr_table = 'mr_base_log';
   public static $className = MrBaseLog::class;
-  protected static $mr_caches = array();
   protected $id = 0;
 
   private static $ignoring_tables = array(

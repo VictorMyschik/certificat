@@ -4,7 +4,6 @@
 namespace App\Http\Models;
 
 
-use App\Models\ORM;
 
 class MrTariff extends ORM
 {

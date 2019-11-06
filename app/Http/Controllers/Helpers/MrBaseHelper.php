@@ -60,64 +60,6 @@ abstract class MrBaseHelper extends Controller
     return $clean;
   }
 
-
-  /**
-   * перевод строки в float
-   *
-   * @param $str
-   * @return float|null
-   */
-  public static function toFloat($str): ?float
-  {
-    if(is_float($str))
-    {
-      return $str;
-    }
-
-    if(is_null($str))
-    {
-      return null;
-    }
-
-    if(is_int($str))
-    {
-      return (float)$str;
-    } //casting int to float is always safe
-
-    //убираем все пробелы
-    $str = preg_replace('/\s/', '', $str);
-
-    //точки заменяем на запятые
-    $str = preg_replace('/\./', ',', $str);
-
-    //leave only last point
-    $l = strlen($str);
-    $last_point = -1;
-    for ($i = 0; $i < $l; $i++)
-    {
-      if($str[$i] == ',')
-      {
-        $last_point = $i;
-      }
-    }
-
-    if($last_point >= 0)
-    {
-      $str[$last_point] = '.';
-    }
-
-    $str = preg_replace('/\,/', '', $str);
-
-    if(is_numeric($str))
-    {
-      return (float)$str;
-    }
-    else
-    {
-      return null;
-    }
-  }
-
   /**
    * Генератор коротких ссылок
    *
@@ -165,16 +107,6 @@ abstract class MrBaseHelper extends Controller
     $status = mail($email_to, $subject, $message, $headers);
 
     return $status;
-  }
-
-  public static function formatMoney(string $value): ?string
-  {
-    if(!$value)
-    {
-      return null;
-    }
-
-    return number_format($value, 2, '.', ' ');
   }
 
   public static function RandomString($length = 10)

@@ -54,12 +54,29 @@ Route::group(['middleware' => 'auth'], function () {
 
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
-  /*
-    Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\MrAdminTranslateWordEditForm@submitForm");
-    Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\MrAdminTranslateWordEditForm@builderForm")->name('translate_word_edit');
-  */
+
   Route::get('/test', "MrTestController@index");
   //// Админка
+
+  // BACK UP
+  Route::get('/admin/hardware/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_list');
+
+  Route::get('/admin/hardware/backup/refresh/{table_name}', function ($table_name) {
+    Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
+    \App\Http\Controllers\Helpers\MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
+    return back();
+  })->name('migration_refresh_table');
+
+  Route::get('/admin/hardware/backup/save/{table_name}', "Admin\MrAdminBackUpController@SaveDataFromTable")->name('save_table_data');
+  Route::get('/admin/hardware/backup/recovery/{table_name}', "Admin\MrAdminBackUpController@RecoveryDataToTable")->name('recovery_table_data');
+
+
+  Route::get('/admin/hardware/backup/migrate/', function () {
+    Artisan::call('migrate');
+    return back();
+  })->name('artisan_migrate');
+
+
   Route::get('/admin', "Admin\MrAdminController@index")->name('admin');
   // FAQ
   Route::match(['get', 'post'], '/admin/faq', "Admin\MrAdminFaqController@list")->name('faq');

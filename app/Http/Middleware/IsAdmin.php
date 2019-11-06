@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\MrUser;
+use App\Http\Models\MrUser;
 use Closure;
 
 class IsAdmin

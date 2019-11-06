@@ -24,10 +24,10 @@ class MrAdminOfficeDiscountEditForm extends MrFormBase
     }
 
     $tariffs = array();
-    $tariffs[0] = 'Для всего ТП';
+    $tariffs[0] = 'Для всего ВО';
     foreach ($office->GetTariffs() as $q)
     {
-      $tariffs[$q->id()] = $q->getTariff()->getName();
+      $tariffs[$q->getTariff()->id()] = $q->getTariff()->getName();
     }
 
     $form['TariffID'] = array(

@@ -5,7 +5,7 @@ namespace App\Http\Models;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
-use App\Models\ORM;
+use Illuminate\Support\Facades\DB;
 
 class MrTariffInOffice extends ORM
 {
@@ -59,5 +59,16 @@ class MrTariffInOffice extends ORM
   public function getCreateDate():MtDateTime
   {
     return MtDateTime::fromValue($this->CreateDate);
+  }
+
+  /////////////////////////////////////////////////////////////////
+  public function GetDiscountList()
+  {
+   $list = DB::table(MrDiscount::$mr_table)
+      ->where('OfficeID','=',$this->getOffice()->id())
+      ->where('TariffID','=',$this->getTariff()->id())
+      ->get();
+
+   return parent::LoadArray($list, MrDiscount::class);
   }
 }

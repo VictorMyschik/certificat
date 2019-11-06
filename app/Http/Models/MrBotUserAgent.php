@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Models;
 
-/*
+/**
  * Список ботов
  * */
 
@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class MrBotUserAgent extends ORM
 {
   public static $mr_table = 'mr_bot_useragent';
+  public static $className = MrBotUserAgent::class;
   protected $id = 0;
 
   protected static $dbFieldsMap = array(

@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class createmrtranslatetable extends Migration
+class createmrtranslate extends Migration
 {
   public function up()
   {

@@ -4,8 +4,6 @@
 namespace App\Http\Models;
 
 
-use App\Models\MrUser;
-use App\Models\ORM;
 
 class MrUserInOffice extends ORM
 {

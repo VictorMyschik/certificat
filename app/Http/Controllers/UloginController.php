@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MrUser;
+use App\Http\Models\MrUser;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

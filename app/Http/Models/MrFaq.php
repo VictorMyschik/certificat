@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Models;
+
+namespace App\Http\Models;
 
 
 use Illuminate\Support\Facades\DB;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class MrFaq extends ORM
 {
   public static $mr_table = 'mr_faq';
+  public static $className = MrFaq::class;
   protected $id = 0;
 
   protected static $dbFieldsMap = array(

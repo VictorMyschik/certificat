@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\MrUser;
+use App\Http\Models\MrUser;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -30,8 +30,9 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
+    $out['office'] = $user->getOffice();
 
-//    return View('Office.personal')->with($out);
+    return View('Office.personal')->with($out);
   }
 
   /**
@@ -45,6 +46,6 @@ class MrOfficeController extends Controller
     $user = MrUser::me();
     $out['user'] = $user;
 
-  //  return View('Office.settings')->with($out);
+    return View('Office.settings')->with($out);
   }
 }

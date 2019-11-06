@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Models\MrLanguage;
-use App\Models\MrTranslate;
+use App\Http\Models\MrLanguage;
+use App\Http\Models\MrTranslate;
 use Illuminate\Http\Request;
 
 class MrAdminLanguageController extends Controller

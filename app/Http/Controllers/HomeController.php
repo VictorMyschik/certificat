@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Models\MrCertificate;
-use App\Models\MrVisitCard;
+use App\Http\Models\MrVisitCard;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

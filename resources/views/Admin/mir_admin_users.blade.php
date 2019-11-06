@@ -36,7 +36,7 @@
               <td class="padding-horizontal">{{ $user->getDateLogin()->format('d M Y H:i') }}</td>
               <td class="padding-horizontal">{{ $user->getDateLastVisit()->format('d M Y H:i') }}</td>
               <td class="padding-horizontal">
-                {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
+                {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Http\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
               </td>
               <td class="padding-horizontal">
                 {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => $user->id()],'',['btn btn-info btn-xs fa fa-edit']) !!}

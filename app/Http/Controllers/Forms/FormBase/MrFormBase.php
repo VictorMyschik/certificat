@@ -43,7 +43,6 @@ class MrFormBase extends Controller
   /**
    * Построение всплывающей формы
    *
-   * @param int $id
    * @return Factory|\Illuminate\View\View
    */
   public function getFormBuilder()

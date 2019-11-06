@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Models\MrFaq;
-use App\Models\MrFeedback;
+use App\Http\Models\MrFaq;
+use App\Http\Models\MrFeedback;
 use Illuminate\Http\Request;
 
 class MrFAQController extends Controller

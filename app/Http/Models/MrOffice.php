@@ -5,7 +5,6 @@ namespace App\Http\Models;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
-use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -339,5 +338,23 @@ class MrOffice extends ORM
       $list = DB::table(MrDiscount::$mr_table)->where('OfficeID', '=', $this->id())->get();
       return parent::LoadArray($list, MrDiscount::class);
     });
+  }
+
+  /**
+   * @return MrDiscount[]
+   */
+  public function GetGlobalDiscountList(): array
+  {
+    $out = array();
+
+    foreach ($this->GetDiscount() as $discount)
+    {
+      if(!$discount->getTariff())
+      {
+        $out[] = $discount;
+      }
+    }
+
+    return $out;
   }
 }

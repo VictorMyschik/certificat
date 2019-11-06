@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Forms\Admin;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
-use App\Models\MrUser;
+use App\Http\Models\MrUser;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

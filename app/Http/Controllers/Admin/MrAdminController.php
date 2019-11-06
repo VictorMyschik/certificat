@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\MrLogIdent;
-use App\Models\MrUser;
+use App\Http\Models\MrUser;
 use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;

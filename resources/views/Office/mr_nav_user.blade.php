@@ -19,7 +19,7 @@
 
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ __('mr-t.Справочники') }} <span class="caret"></span>
           </a>
           <a class="dropdown-menu padding-horizontal" href="/reference/country">{{ __('mr-t.Страны мира') }}</a>
@@ -29,7 +29,7 @@
           <a class="nav-link" href="/faq">FAQ</a>
         </li>
 
-        @if(\App\Models\MrUser::me()->IsAdmin())
+        @if(\App\Http\Models\MrUser::me()->IsAdmin())
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -38,7 +38,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
 
-              @if(\App\Models\MrUser::me()->IsAdmin())
+              @if(\App\Http\Models\MrUser::me()->IsAdmin())
                 <a class="dropdown-item" href="{{ route('admin') }}">
                   Админка
                 </a>
@@ -57,7 +57,7 @@
                 </a>
               @endif
               <a class="dropdown-item" href="{{ route('logout') }}"
-                 onclick="event.preventDefault();
+                 onclick="event.preventDefault();MrOfficeController
                                                      document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
               </a>
@@ -75,7 +75,7 @@
               {{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              @foreach(\App\Models\MrLanguage::GetAll() as $item)
+              @foreach(\App\Http\Models\MrLanguage::GetAll() as $item)
                 @if($item->getName() == mb_strtoupper(app()->getLocale()))
                   @continue
                 @endif
