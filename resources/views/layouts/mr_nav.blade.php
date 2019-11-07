@@ -13,6 +13,9 @@
           <a class="nav-link" href="/references">{{ __('mr-t.Справочники') }}</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/api">API</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/faq">FAQ</a>
         </li>
 

@@ -16,6 +16,7 @@ Route::get('/', 'HomeController@index')->name('welcome');
 Route::match(['get', 'post'], '/faq', 'MrFAQController@index');
 
 Route::get('/policy', 'MrPolicyController@View');
+Route::get('/api', 'MrArticlesController@View');
 
 // атворизация через соц сети
 Route::post('/ulogin', 'UloginController@login');
