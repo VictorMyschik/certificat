@@ -9,7 +9,7 @@ use App\Http\Models\MrPolicy;
 
 class MrApiController extends Controller
 {
-  public function View()
+  public function ViewApi()
   {
     $out = array();
 

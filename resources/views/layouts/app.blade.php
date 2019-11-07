@@ -37,7 +37,7 @@
         <table>
           <tr>
             <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>
-            <td class="fa-phone"><a href="tel:+375297896282" class="margin-l-5">+375(29)789-62-82</a></td>
+            <td><a href="tel:+375297896282" class="margin-l-5">+375(29)789-62-82</a></td>
           </tr>
           <tr>
             <td class="fa fa-envelope"> Email:</td>

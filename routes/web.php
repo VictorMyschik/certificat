@@ -15,8 +15,8 @@ Route::get('locale/{locale}', function ($locale) {
 Route::get('/', 'HomeController@index')->name('welcome');
 Route::match(['get', 'post'], '/faq', 'MrFAQController@index');
 
-Route::get('/policy', 'MrPolicyController@View');
-Route::get('/api', 'MrArticlesController@View');
+Route::get('/policy', 'MrArticlesController@ViewPolicy');
+Route::get('/api', 'MrArticlesController@ViewApi');
 
 // атворизация через соц сети
 Route::post('/ulogin', 'UloginController@login');
@@ -86,7 +86,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Статьи
   Route::get('/admin/articles', "Admin\MrAdminArticlesController@list")->name('article_list');
-  Route::match(['get', 'post'], '/admin/article/edit/{id}', "Admin\MrAdminArticleController@edit")->name('article_edit');
+  Route::match(['get', 'post'], '/admin/article/edit/{id}', "Admin\MrAdminArticlesController@edit")->name('article_edit');
+  Route::get('/admin/article/delete/{id}', "Admin\MrAdminArticlesController@delete")->name('article_delete');
 
   // Сообщения от пользователей
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
@@ -136,10 +137,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Форма редактирования перевода
   Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrAdminTranslateWordEditForm@submitForm")->name('translate_word_submit');
   Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrAdminTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
-  // Политика конфиденциальности
-  Route::get('/admin/policy', "Admin\MrAdminPolicyController@List")->name('admin_policy_list');
-  Route::match(['get', 'post'], '/admin/policy/edit/{id}', "Admin\MrAdminPolicyController@edit")->name('edit_policy');
-  Route::get('/admin/policy/delete/{id}', "Admin\MrAdminPolicyController@delete")->name('delete_policy');
   //// Справочники
   // Удаление строки
   Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID");

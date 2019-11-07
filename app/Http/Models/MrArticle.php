@@ -5,6 +5,7 @@ namespace App\Http\Models;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MrArticle extends ORM
@@ -19,7 +20,7 @@ class MrArticle extends ORM
     'LanguageID',
     'Text',
     'DateUpdate',
-    'Public',
+    'IsPublic',
     // 'WriteDate',
   );
 
@@ -44,10 +45,16 @@ class MrArticle extends ORM
 
   public function save_mr()
   {
+    Cache::forget('MrArticles_ids');
     return parent::mr_save_object($this);
   }
 
-  public function getKinds(): array
+  public function before_delete()
+  {
+    Cache::forget('MrArticles_ids');
+  }
+
+  public static function getKinds(): array
   {
     return self::$kinds;
   }
@@ -101,7 +108,7 @@ class MrArticle extends ORM
 
   public function setDateUpdate($value)
   {
-    return $this->setDateNullableField('DateUpdate', $value);
+    return $this->setDateNullableField($value, 'DateUpdate');
   }
 
   public function getIsPublic(): bool
@@ -122,12 +129,13 @@ class MrArticle extends ORM
 //////////////////////////////////////////////////
 
   /**
-   * @return MrArticle[]
+   * @return array
    */
-  public static function GetAPIList()
+  public static function GetIds()
   {
-    $list = DB::table(self::$mr_table)->where('Kind', '=', MrArticle::KIND_API)->get();
-    return parent::LoadArray($list, MrArticle::class);
+    return Cache::rememberForever('MrArticles_ids', function () {
+      return DB::table(MrArticle::$mr_table)->get(['id','Kind', 'LanguageID','IsPublic'])->toArray();
+    });
   }
 
 }

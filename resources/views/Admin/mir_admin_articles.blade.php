@@ -6,10 +6,9 @@
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
-          <a href="{{ route('article_edit',['id'=>'0']) }}">
-            <button type="button" title="Создать новую запись" class="btn btn-info btn-xs mr-border-radius-10">
-              new
-            </button>
+          <a href="{{ route('article_edit',['id'=>'0']) }}" title="Создать новую запись"
+             class="btn btn-info btn-sm mr-border-radius-5">
+            new
           </a>
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
@@ -27,14 +26,14 @@
               <td>{{ $article->getKindName() }}</td>
               <td>{{ $article->getLanguage()?$article->getLanguage()->getName():'RU' }}</td>
               <td>{!! $article->getIsPublic()?'<span class="mr-color-green">public</span>':'<span class="mr-color-red">no</span>' !!}</td>
-              <td><a href="/admin/{{ $article->getKind() }}/edit/{{ $article->id() }}">
-                  <button type="button" class="btn btn-info btn-xs fa da-edit mr-border-radius-5"><span
-                      class="fo fa-edit"></span></button>
+              <td>
+                <a href="{{ route('article_edit',['id'=>$article->id()]) }}" title="Создать новую запись"
+                   class="btn btn-info btn-xs mr-border-radius-5">
+                  <span class="fa fa-edit "></span>
                 </a>
-                <a href="/admin/{{ $article->getKind() }}/delete/{{ $article->id() }}"
-                   onclick="return confirm('Вы уверены?');">
-                  <button type="button" class="btn btn-danger btn-xs fa da-edit mr-border-radius-5"><span
-                      class="fo fa-trash-o"></span></button>
+                <a href="{{ route('article_delete',['id'=>$article->id()]) }}" title="Создать новую запись"
+                   class="btn btn-danger btn-xs mr-border-radius-5" onclick="return confirm('Будет удалена статья. Продолжить?');">
+                  <span class="fa fa-trash-o"></span>
                 </a>
               </td>
             </tr>

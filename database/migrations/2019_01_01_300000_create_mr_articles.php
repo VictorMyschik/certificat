@@ -16,7 +16,7 @@ class createmrarticles extends Migration
       $table->smallInteger('LanguageID');
       $table->text('Text');
       $table->dateTime('DateUpdate');
-      $table->boolean('Public');
+      $table->boolean('IsPublic');
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
   }
