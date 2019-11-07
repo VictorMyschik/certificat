@@ -5,11 +5,12 @@ namespace App\Http\Models;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
+use Illuminate\Support\Facades\DB;
 
-class MrArticles extends ORM
+class MrArticle extends ORM
 {
   public static $mr_table = 'mr_articles';
-  public static $className = MrArticles::class;
+  public static $className = MrArticle::class;
 
   protected $id = 0;
 
@@ -31,7 +32,7 @@ class MrArticles extends ORM
     self::KIND_API => 'API',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrArticles
+  public static function loadBy($value, $field = 'id'): ?MrArticle
   {
     return parent::loadBy((string)$value, $field);
   }
@@ -118,5 +119,15 @@ class MrArticles extends ORM
     return $this->getDateNullableField('WriteDate');
   }
 
+//////////////////////////////////////////////////
+
+  /**
+   * @return MrArticle[]
+   */
+  public static function GetAPIList()
+  {
+    $list = DB::table(self::$mr_table)->where('Kind', '=', MrArticle::KIND_API)->get();
+    return parent::LoadArray($list, MrArticle::class);
+  }
 
 }

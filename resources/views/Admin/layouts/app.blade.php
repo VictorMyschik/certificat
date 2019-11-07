@@ -44,7 +44,7 @@
           <ul class="sub-menu children dropdown-menu">
             <li><i class="fa fa-list"></i><a href="/admin/faq">FAQ</a></li>
             <li><i class="fa fa-list"></i><a href="/admin/feedback">Обратная связь</a></li>
-            <li><i class="fa fa-list"></i><a href="/admin/policy">Policy</a></li>
+            <li><i class="fa fa-list"></i><a href="/admin/articles">Статьи</a></li>
           </ul>
         </li>
 

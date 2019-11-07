@@ -83,6 +83,11 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/faq', "Admin\MrAdminFaqController@list")->name('faq');
   Route::match(['get', 'post'], '/admin/faq/edit/{id}', "Admin\MrAdminFaqController@edit")->name('edit_faq');
   Route::get('/admin/faq/delete/{id}', "Admin\MrAdminFaqController@delete")->name('delete_faq');
+
+  // Статьи
+  Route::get('/admin/articles', "Admin\MrAdminArticlesController@list")->name('article_list');
+  Route::match(['get', 'post'], '/admin/article/edit/{id}', "Admin\MrAdminArticleController@edit")->name('article_edit');
+
   // Сообщения от пользователей
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
   Route::get('/admin/feedback/edit/{id}', "Admin\MrAdminFeedbackController@edit")->name('admin_feedback_edit');
