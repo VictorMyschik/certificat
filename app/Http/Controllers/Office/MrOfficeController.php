@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\MrCertificateMonitoring;
 use App\Http\Models\MrUser;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -47,6 +48,17 @@ class MrOfficeController extends Controller
     $user = MrUser::me();
     $out['user'] = $user;
 
+    return View('Office.settings')->with($out);
+  }
+
+  public function monitoringPage()
+  {
+    $out = array();
+    $user = MrUser::me();
+    $out['user'] = $user;
+
+    $out['monitoring_list'] = $id = MrCertificateMonitoring::GetByUser($user);
+dd($id);
     return View('Office.settings')->with($out);
   }
 }

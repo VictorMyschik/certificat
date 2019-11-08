@@ -15,7 +15,7 @@ class MrUser extends ORM
   private $zero_email = 'mega-ximik@mail.ru';
   protected static $className = MrUser::class;
 
-  protected static $mr_table = 'mr_users';
+  public static $mr_table = 'mr_users';
   protected static $dbFieldsMap = array(
     'UserLaravelID',
     'DateFirstVisit',
