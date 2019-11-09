@@ -56,9 +56,8 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
-
-    $out['monitoring_list'] = $id = MrCertificateMonitoring::GetByUser($user);
-dd($id);
-    return View('Office.settings')->with($out);
+    $user_in_office = $user->GetUserInOffice();
+    $out['monitoring_list'] = $id = MrCertificateMonitoring::GetUserCertificateMonitoringList($user_in_office);
+    return View('Office.certificate_monitoring')->with($out);
   }
 }

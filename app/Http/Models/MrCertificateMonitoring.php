@@ -74,16 +74,19 @@ class MrCertificateMonitoring extends ORM
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-  public static function GetByUser(MrUser $user): array
+  /**
+   * Список сертификатов, загруженных пользователем
+   *
+   * @param MrUserInOffice $user_in_office
+   * @return array
+   */
+  public static function GetUserCertificateMonitoringList(MrUserInOffice $user_in_office): array
   {
-    return MrCertificateMonitoring::LoadArray(Cache::rememberForever('user_certificate_' . $user->id(), function () use ($user) {
-      return DB::table(self::$mr_table)
-        ->join(MrUserInOffice::$mr_table, MrUserInOffice::$mr_table . '.id', '=', self::$mr_table . '.UserInOfficeID')
-        ->join(MrUser::$mr_table, MrUser::$mr_table . '.id', '=', MrUserInOffice::$mr_table . '.UserID')
-        ->where(MrUser::$mr_table . '.id', '=', $user->id())
-        ->get(array_merge(array(self::$mr_table . '.id'), MrCertificateMonitoring::$dbFieldsMap));
-    }
-    ), MrCertificateMonitoring::class);
+    return Cache::rememberForever('user_certificate_' . $user_in_office->id(), function () use ($user_in_office) {
+      return DB::table(MrCertificate::$mr_table)
+        ->join(MrCertificateMonitoring::$mr_table, MrCertificateMonitoring::$mr_table . '.CertificateID', '=', MrCertificate::$mr_table . '.id')
+        ->where(MrCertificateMonitoring::$mr_table . '.UserInOfficeID', '=', $user_in_office->id())
+        ->get()->toArray();
+    });
   }
-
 }

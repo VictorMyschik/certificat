@@ -22,6 +22,7 @@ class MrUser extends ORM
     'DateLogin',
     'DateLastVisit',
     'Phone',
+    'DefaultOfficeID'
   );
 
   public static function loadBy($value, $field = 'id'): ?MrUser
@@ -141,6 +142,16 @@ class MrUser extends ORM
   public function setDateLastVisit(Carbon $value)
   {
     $this->DateLastVisit = $value;
+  }
+
+  public function getDefaultOffice(): ?MrOffice
+  {
+    return MrOffice::loadBy($this->DefaultOfficeID);
+  }
+
+  public function setDefaultOfficeID(?int $value)
+  {
+    $this->DefaultOfficeID = $value;
   }
   //////////////////////////////////////////////////////////////////////////////////
 
@@ -307,12 +318,25 @@ class MrUser extends ORM
     return $out;
   }
 
-  public function getOffice()
+  /**
+   * @return MrUserInOffice|null
+   */
+  public function GetUserInOffice(): ?MrUserInOffice
   {
-    $offise_ids = Cache::rememberForever('MrUser' . $this->id(), function () {
-      return DB::table(MrUserInOffice::$mr_table)->where('UserID', '=', $this->id())->limit(1)->pluck('OfficeID')->toArray();
+    $out = null;
+
+    $id = Cache::rememberForever('MrUserInOffice' . $this->id(), function () {
+      return DB::table(MrUserInOffice::$mr_table)
+        ->where('UserID', '=', $this->id())
+        ->where('OfficeID', '=', $this->getDefaultOffice()->id())
+        ->pluck('id');
     });
 
-    return MrOffice::loadBy($offise_ids[0]);
+    if(count($id))
+    {
+      $out = MrUserInOffice::loadBy($id[0]);
+    }
+
+    return $out;
   }
 }
