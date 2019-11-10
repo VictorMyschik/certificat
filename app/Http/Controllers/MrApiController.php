@@ -4,8 +4,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Models\MrCertificate;
 use App\Http\Models\MrLanguage;
 use App\Http\Models\MrPolicy;
+use App\Http\Models\MrUser;
+use Illuminate\Http\Request;
 
 class MrApiController extends Controller
 {
@@ -28,4 +31,28 @@ class MrApiController extends Controller
     return View('api')->with($out);
   }
 
+  /**
+   * Живой поиск
+   *
+   * @param Request $request
+   * @return array
+   */
+  public function search(Request $request): array
+  {
+    $out = array();
+    $list = MrCertificate::Search($request->get('search', null));
+
+    if(count($list) == 1)
+    {
+      MrCertificate::SetCacheSearch($list[0], MrUser::me());
+    }
+
+    foreach ($list as $item)
+    {
+      $out[$item->getNumber()] = $item->GetFullName();
+    }
+
+
+    return $out;
+  }
 }

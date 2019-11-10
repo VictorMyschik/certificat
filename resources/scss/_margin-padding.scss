@@ -131,17 +131,17 @@
   padding-right: 5px;
 }
 
-.padding-0{
-  padding-right:0;
-  padding-left:0;
+.padding-0 {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .padding-l-0 {
-  padding-left:0;
+  padding-left: 0;
 }
 
 .mr-table-padding {
-  td{
+  td {
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -149,4 +149,8 @@
 
 .margin-b-0 {
   margin-bottom: 0;
+}
+
+padding_all_0 {
+  padding: 0 0 0 0;
 }

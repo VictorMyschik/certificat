@@ -31,7 +31,7 @@ Route::get('/references', 'MrReferences@List');
 Route::get('/reference/{name}', 'MrReferences@View');
 
 // Поиск
-Route::post('/search', 'HomeController@Search')->name('search');
+Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search');
 
 // Страница инфо о сертификате
 Route::get('/certificate/{number}', 'MrCertificateController@View');

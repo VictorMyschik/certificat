@@ -209,9 +209,7 @@ class MrCertificate extends ORM
   {
     $out = $this->getNumber();
     $out .= ' с ';
-    $out .= $this->getDateFrom()->format('d.m.Y');
-    $out .= ' по ';
-    $out .= $this->getDateTo()->format('d.m.Y');
+    $out .= MtDateTime::GetFromToDate($this->getDateFrom(), $this->getDateTo());
     $out .= ' (';
     $out .= $this->getStatusName();
     $out .= ')';
@@ -234,10 +232,15 @@ class MrCertificate extends ORM
 
     $list = DB::table(MrCertificate::$mr_table)
       ->where('Number', 'LIKE', '%' . $str . '%')
-      ->limit(1)
+      ->limit(5)
       ->get();
 
-    return self::LoadArray($list, self::class);
+    if(count($list))
+    {
+      return self::LoadArray($list, self::class);
+    }
+
+    return array();
   }
 
   /**
@@ -253,5 +256,32 @@ class MrCertificate extends ORM
     });
 
     return parent::LoadArray($r, MrCertificateDetails::class);
+  }
+
+  /**
+   * недавно искали
+   * @param MrUser $user
+   * @return mixed
+   */
+  public static function GetCacheSearch(MrUser $user): array
+  {
+    return Cache::get('user_search_' . $user->id(), array());
+  }
+
+  /**
+   * Запись в кэш поиска сертификата
+   *
+   * @param MrCertificate $certificate
+   * @param MrUser $user
+   */
+  public static function SetCacheSearch(MrCertificate $certificate, MrUser $user)
+  {
+    $key = 'user_search_' . $user->id();
+
+    $certificates = Cache::get($key, array());
+    Cache::forget($key);
+    $certificates[$certificate->id()] = $certificate->GetFullName();
+
+    Cache::add($key, $certificates, 3600);
   }
 }
