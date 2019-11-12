@@ -12,6 +12,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('office_personal_page') }}">{{ __('mr-t.Персональные') }}</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('office_monitoring_page') }}">{{ __('mr-t.Мониторинг') }}</a>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="{{ route('office_settings_page') }}">{{ __('mr-t.Настройки') }}</a>

@@ -12,7 +12,7 @@ class createmrcertificatemonitoring extends Migration
   {
     Schema::create('mr_certificate_monitoring', function (Blueprint $table) {
       $table->Increments('id')->autoIncrement();
-      $table->integer('UserID');
+      $table->integer('UserInOfficeID');
       $table->integer('CertificateID')->unsigned();
       $table->string('Description', 1000)->nullable();
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

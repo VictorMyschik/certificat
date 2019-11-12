@@ -80,7 +80,7 @@ class MrOffice extends ORM
 
 
   /**
-   * @return MrTariffInOffice[]
+   * @return MrUserInOffice[]
    */
   public function GetUsers(): array
   {

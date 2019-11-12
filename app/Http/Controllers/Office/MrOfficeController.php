@@ -18,7 +18,7 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
-    $out['office'] = $user->getOffice();
+    $out['office'] = $user->getDefaultOffice();
 
     return View('Office.home')->with($out);
   }
@@ -33,7 +33,7 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
-    $out['office'] = $user->getOffice();
+    $out['office'] = $user->getDefaultOffice();
 
     return View('Office.personal')->with($out);
   }

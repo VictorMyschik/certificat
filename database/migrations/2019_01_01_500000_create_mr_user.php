@@ -15,6 +15,7 @@ class createmruser extends Migration
       $table->integer('UserLaravelID')->unique();
       $table->dateTime('DateFirstVisit');
       $table->dateTime('DateLogin')->nullable();
+      $table->integer('DefaultOfficeID')->nullable();
       $table->timestamp('DateLastVisit')->default(DB::raw('CURRENT_TIMESTAMP'));
 
       $table->string('Phone', 18)->nullable();

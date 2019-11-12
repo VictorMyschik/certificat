@@ -83,10 +83,19 @@ class MrCertificateMonitoring extends ORM
   public static function GetUserCertificateMonitoringList(MrUserInOffice $user_in_office): array
   {
     return Cache::rememberForever('user_certificate_' . $user_in_office->id(), function () use ($user_in_office) {
-      return DB::table(MrCertificate::$mr_table)
+      $list = DB::table(MrCertificate::$mr_table)
         ->join(MrCertificateMonitoring::$mr_table, MrCertificateMonitoring::$mr_table . '.CertificateID', '=', MrCertificate::$mr_table . '.id')
         ->where(MrCertificateMonitoring::$mr_table . '.UserInOfficeID', '=', $user_in_office->id())
         ->get()->toArray();
+
+      if(count($list))
+      {
+        return $list;
+      }
+      else
+      {
+        return array();
+      }
     });
   }
 }
