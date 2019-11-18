@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="63c49f79-67d8-47c3-acf5-2964a5e8421f" name="sftp" url="http://83.220.169.39">
+        <fileTransfer host="83.220.169.39" port="22" rootFolder="/home/mir/certificat" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

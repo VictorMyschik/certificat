@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\MtStringUtils;
 use App\Http\Models\MrUser;
 use App\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
+use Redis;
 
 class MrAdminController extends Controller
 {
@@ -21,8 +22,17 @@ class MrAdminController extends Controller
 
     $out = array();
 
-    $date = new Carbon();
-    $date->addDays(-1);
+    $data = new Redis();
+    $data->connect('localhost');
+
+    $redis_info = $data->info();
+    $data->select(1);
+
+    $out['Redis'] = array(
+      'used_memory' => MtStringUtils::formatSize($redis_info['used_memory']),
+      'max_memory' => MtStringUtils::formatSize($redis_info['maxmemory']),
+      'dbSize' =>($data->dbSize()),
+    );
 
     //$out['visits'] = MrLogIdent::GetDifferentUsers($date);
 
