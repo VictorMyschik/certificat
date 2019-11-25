@@ -7,7 +7,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
+  <title>{{ $page_title ?? \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
 
   <link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
