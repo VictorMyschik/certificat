@@ -44,7 +44,7 @@ class MrMessageHelper extends Controller
     $out = '';
     if(session(self::KIND_ERROR))
     {
-      $out = '<div class="alert ' . self::KIND_ERROR . '" role="alert"><span class="badge badge-pill badge-danger"> Error</span>' . Session(self::KIND_ERROR) . "</div>";
+      $out = '<div class="alert ' . self::KIND_ERROR . '" role="alert"><span class="badge badge-pill badge-danger"> Error</span> ' . Session(self::KIND_ERROR) . "</div>";
     }
     elseif(session(self::KIND_SUCCESS))
     {

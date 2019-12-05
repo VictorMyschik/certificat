@@ -29,11 +29,25 @@ class MrAdminArticlesController extends Controller
     if($request->getMethod() == 'POST')
     {
       $v = $request->all();
+
+      if(!$v['Kind'])
+      {
+        MrMessageHelper::SetMessage(false,' Тип обязателен');
+        return back()->withInput($v);
+      }
+
+      if(!$v['LanguageID'])
+      {
+        MrMessageHelper::SetMessage(false,' Язык обязателен');
+        return back()->withInput($v);
+      }
+
+
       $article = MrArticle::loadBy($id) ?: new MrArticle();
       $article->setIsPublic((bool)isset($v['IsPublic']));
       $article->setKind($v['Kind']);
       $article->setLanguageID($v['LanguageID']);
-      $article->setText($v['Text']);
+      $article->setText($v['Text'] ?: null);
       $article->setDateUpdate(MtDateTime::now());
 
       $id = $article->save_mr();

@@ -7,7 +7,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ $page_title ?? \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
+  <title>{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
 
   <link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
@@ -34,6 +34,8 @@
 
       <div class="d-inline-block align-top">
         <span class="mr-bold">{{ __('mr-t.Обратная связь') }}</span>
+        <script src="https://cardbox.ml/public/js/api/mr_c.js"></script>
+        <div id="contacts"></div>
         <table>
           <tr>
             <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>

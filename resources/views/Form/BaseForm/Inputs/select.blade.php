@@ -9,7 +9,7 @@
   @endif
   name="{{ $name }}">
   @foreach($item['#value'] as $key => $value)
-    @if(isset($item['#default_value']) && ($item['#default_value'] == $key))
+    @if(isset($item['#default_value']) && (old($name, $item['#default_value'])) == $key))
       <option selected="selected" value="{{ $key }}">{{ $value }}</option>
     @else
       <option value="{{ $key }}">{{ $value }}</option>
