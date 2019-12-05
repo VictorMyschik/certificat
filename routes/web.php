@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\MrAdminBackUpController;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -45,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/office/personal', "Office\MrOfficeController@personalPage")->name('office_personal_page');
   Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
   Route::get('/office/monitoring', "Office\MrOfficeController@monitoringPage")->name('office_monitoring_page');
-
+  Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');
 
   //// Удаление аккаунта
   Route::match(['get', 'post'], '/office/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
@@ -64,7 +67,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   Route::get('/admin/hardware/backup/refresh/{table_name}', function ($table_name) {
     Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
-    \App\Http\Controllers\Helpers\MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
+    Cache::forget(MrAdminBackUpController::getTableNameFromFileName($table_name) . '_count_rows');
+    MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
     return back();
   })->name('migration_refresh_table');
 
@@ -102,8 +106,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/users/unblock/{id}', "Admin\MrAdminUsersController@unblock")->name('users_unblock');
   Route::get('/admin/users/block', "Admin\MrAdminUsersController@setUserBlock")->name('user_block');
   Route::get('/admin/users/delete/{id}', "Admin\MrAdminController@userDeleteForever")->name('user_delete_forever');
-  Route::match(['get', 'post'], '/admin/users/edit/{id}/submit', "Forms\Admin\MrUserEditForm@submitForm");
-  Route::match(['get', 'post'], '/admin/users/edit/{id}', "Forms\Admin\MrUserEditForm@builderForm")->name('user_edit');
+
+  Route::match(['get', 'post'], '/admin/users/edit/{id}/submit', "Forms\Admin\MrUserEditForm@submitForm")->name('user_form_submit');
+  Route::match(['get', 'post'], '/admin/users/edit/{id}', "Forms\Admin\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   // Подписка
   Route::get('/admin/subscription', "Admin\MrAdminSubscription@index")->name('admin_subscription');

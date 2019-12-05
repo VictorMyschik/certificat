@@ -13,12 +13,12 @@
           </h5>
         </div>
         <div class="margin-l-15">
-          <h6><span class="mr-bold">Баланс:</span> 100 BYN</h6>
+          <h6><span class="mr-bold">{{ __('mr-t.Баланс') }}:</span> 100 BYN</h6>
           <h5>{{__('mr-t.Тарифные планы')}}:</h5>
 
           @if(count($office->GetGlobalDiscountList()))
             <div class="mr-color-green-dark margin-b-15">
-              <div>Глобальные скидки:</div>
+              <div>{{ __('mr-t.Глобальные скидки') }}:</div>
               @foreach($office->GetGlobalDiscountList() as $global_discount)
                 <li>{{$global_discount->GetFullName()}}</li>
               @endforeach

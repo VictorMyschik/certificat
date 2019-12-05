@@ -75,4 +75,12 @@ return $translate_arr + [
     'Тарифные планы' => 'Tariffs',
     'Услуги' => 'Services',
     'Мониторинг' => 'Monitoring',
+    'Пользователи' => 'Users',
+    'Финансы' => 'Finance',
+    'Виртуальный офис' => 'Virtual Office',
+    'Дата регистрации' => 'Registration date',
+    'Последний визит' => 'Last visit',
+    'Глобальные скидки' => 'Global discount',
+    'Баланс' => 'Balance',
+    'Добавить' => 'Add',
   ];

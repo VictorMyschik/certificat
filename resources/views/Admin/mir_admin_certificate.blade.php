@@ -6,8 +6,7 @@
       <div class="card-body padding-horizontal">
         {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
         <div class="margin-b-15 margin-t-10">
-          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm', ['id'
-          =>'0'],	'Добавить сертификат',['btn btn-info btn-xs']) !!}
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm', ['id'=>'0'], 'Добавить сертификат',['btn btn-info btn-xs']) !!}
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>

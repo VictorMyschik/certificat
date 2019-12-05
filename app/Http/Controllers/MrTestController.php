@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Controllers\Helpers\MtExcelHelperBase;
-use App\Http\Models\MrCertificate;
 
 class MrTestController extends MtExcelHelperBase
 {
@@ -12,6 +12,8 @@ class MrTestController extends MtExcelHelperBase
 
   public function index()
   {
+
+    MrBaseHelper::sendMeByTelegram(789);
     $out = array();
 
     /*    $excel = self::excel();
@@ -33,8 +35,8 @@ class MrTestController extends MtExcelHelperBase
         self::write();
     */
 
-    $sert = MrCertificate::Search('BY');
-    dd($sert);
+    //$sert = MrCertificate::Search('BY');
+    //dd($sert);
 
   }
 }

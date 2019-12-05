@@ -101,17 +101,5 @@
 </aside>
 
 @yield('content')
-
-<div class="modal fade" id="mr_modal" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-    function mr_popup(url) {
-        $("#mr_modal").modal("show").find('.modal-body').load(url);
-    }
-</script>
+<div class="modal fade padding-0" id="mr_modal" role="dialog"></div>
+<script src="/public/js/mr_popup.js"></script>

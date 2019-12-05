@@ -27,7 +27,7 @@
 
               <td><a class="btn btn-danger btn-xs mr-border-radius-5"
                      onclick="return confirm('Будет переустановлена таблица! Данные будут утеряны! Продолжить?');"
-                     href="{{route('migration_refresh_table', ['table_name'=>$table['Name']])}}">refresh</a></td>
+                     href="{{route('migration_refresh_table', ['table_name'=>$table['FileName']])}}">refresh</a></td>
 
               <td>{{$table['count_rows']}}</td>
 
@@ -36,6 +36,7 @@
                    href="{{route('save_table_data', ['table_name'=>$table['Name']])}}">Back UP</a>
                 <a class="btn btn-primary btn-xs mr-border-radius-5"
                    href="{{route('recovery_table_data', ['table_name'=>$table['Name']])}}">Recovery</a>
+                {!! $table['has'] ? 'да':'нет' !!}
               </td>
             </tr>
           @endforeach

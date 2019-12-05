@@ -1,10 +1,10 @@
-<div class="container-fluid">
-  <form action="{{$form['#url']}}" method="post" id="mr-form">
+<div class="container-fluid padding-0">
+  <form action="{{$form['#url']}}" method="post" id="mr-form" style="margin-bottom: 0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <button type="button" class="close" data-dismiss="modal">x</button>
     <h4>{{ $form['#title'] }}</h4>
     <hr>
-    <div class="row col-md-12 col-sm-12 padding-0 form-control-sm">
+
       @foreach($form as $key => $items)
 
         @if(isset($items['#type']))
@@ -42,7 +42,8 @@
         @endif
 
       @endforeach
-    </div>
+
+    <hr>
     <div class="margin-t-15 d-md-flex d-sm-flex justify-content-center">
       <button type="submit" id="mr-btn" class="mr-sumbit-success m-2">{{ $form['#btn_success'] }}</button>
       <button type="button" class="mr-sumbit-cancel m-2" data-dismiss="modal">{{ $form['#btn_cancel'] }}</button>

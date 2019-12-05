@@ -9,11 +9,11 @@ use App\Http\Controllers\Helpers\MrMessageHelper;
 
 class MrForm extends Controller
 {
-  public static function loadForm(string $route_name, string $class_name, array $data, $btn_name = null, $btn_class = array())
+  public static function loadForm(string $route_name, string $class_name, array $data, $btn_name = null, $btn_class = array(), string $form_size = 'lg')
   {
     $object = "App\\Http\\Controllers\\Forms\\" . $class_name;
 
-    return $object::getFormBase($route_name, $data, $btn_name, $btn_class);
+    return $object::getFormBase($route_name, $data, $btn_name, $btn_class, $form_size);
   }
 
   /**

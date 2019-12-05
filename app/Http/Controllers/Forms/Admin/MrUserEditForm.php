@@ -5,66 +5,65 @@ namespace App\Http\Controllers\Forms\Admin;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrUser;
-use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class MrUserEditForm extends MrFormBase
 {
-  protected static function builderForm(int $id)
+  protected function builderForm(&$form, $id)
   {
-    parent::getFormBuilder($out);
+    $user = MrUser::loadBy($id);
 
-    $out['id'] = $id;
-    $out['user'] = $user = MrUser::loadBy($id) ?: new MrUser();
-    $out['title'] = $id ? "Редактирование {$user->id()}" : 'Создать';
+    $form['Login'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Login',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $user ? $user->getName() : null,
+    );
 
-    return View('Form.admin_user_edit_form')->with($out);
+    $form['Email'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Email',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $user ? $user->getEmail() : null,
+    );
+
+    $form['Password'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Password',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => null,
+    );
+
+    $form['Password_confirm'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Password repeat',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => null,
+    );
+
+    return $form;
   }
 
   protected static function validateForm(array $v)
   {
     parent::ValidateBase($out, $v);
 
-    if(!$v['Login'])
-      return $out = array('Login' => 'Login обязателен');
-
-    if(!$v['Email'])
-      return $out = array('Email' => 'Email обязателен');
-
-    if((isset($v['Password']) && !isset($v['password_reset'])) || (!isset($v['Password']) && isset($v['password_reset'])))
+    foreach (MrUser::GetAll() as $user)
     {
-      $out['Password'] = 'При вводе пароля, оба поля необходимо заполнить.';
-      $out['password_reset'] = 'При вводе пароля, оба поля необходимо заполнить.';
-
-      return $out;
-    }
-
-    if(isset($v['Password']) && isset($v['password_reset']))
-    {
-      if($v['Password'] !== $v['password_reset'])
+      if($user->id() !== $v['id'])
       {
-        $out['Password'] = 'Пароль и повтор пароля не совпадают.';
-        $out['password_reset'] = 'Пароль и повтор пароля не совпадают.';
-      }
-    }
+        if($user->getEmail() == $v['Email'])
+        {
+          $out['Email'] = 'Этот Email уже занят';
+        }
 
-    self::validateHalper($v['Login'], 'Login', 255, $out);
-    self::validateHalper($v['Email'], 'Email', 255, $out);
-    self::validateHalper($v['Password'], 'Password', 255, $out);
-
-    foreach (MrUser::all() as $user)
-    {
-      if($user->getName() == $v['Login'] && $user->id() !== $v['id'])
-      {
-        $out['Login'] = 'Login уже занят';
-      }
-
-      if($user->getEmail() == $v['Email'] && $user->id() !== $v['id'])
-      {
-        $out['Email'] = 'Email уже занят';
+        if($user->getName() == $v['Login'] && $user->id() !== $v['id'])
+        {
+          $out['Login'] = 'Этот Login уже занят';
+        }
       }
     }
 
@@ -73,37 +72,34 @@ class MrUserEditForm extends MrFormBase
 
   protected static function submitForm(Request $request, int $id)
   {
-    $errors = self::validateForm($request->all() + ['id' => $id]);
+    $v = $request->all();
+    $errors = self::validateForm($v + ['id' => $id]);
     if(count($errors))
+    {
       return $errors;
+    }
 
     parent::submitFormBase($request->all());
 
     $user = MrUser::loadBy($id);
+    $user_laravel = $user->getUserLaravel();
 
-    if(!$user)
+    $user_laravel->email = $v['Email'];
+    $user_laravel->name = $v['Login'];
+
+    if($pass = $v['Password'])
     {
-      // Новый в Laravel
-      $new_user = User::create([
-        'name'     => $request->get('Login'),
-        'email'    => $request->get('Email'),
-        'password' => Hash::make($request->get('Password')),
-      ]);
-
-      $user = new MrUser();
-      $user->setUserLaravelID($new_user->id);
-      $user->setDateFirstVisit(Carbon::now());
-      $user->setDateLogin();
+      if(strlen($pass) > 5)
+      {
+        $user_laravel->password = Hash::make($pass);
+      }
     }
 
-    $user_lara = $user->getUserLaravel();
-    $user_lara->name = $request->get('Login');
-    $user_lara->email = $request->get('Email');
-    $user_lara->save();
-
-    $user->setPhone($request->get('Phone'));
+    $user_laravel->update();
 
     $user->save_mr();
+
+    MrMessageHelper::SetMessage(true, "");
 
     return;
   }

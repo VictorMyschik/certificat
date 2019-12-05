@@ -6,7 +6,7 @@
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
-          {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => '0'], 'Добавить',['btn btn-info btn-xs']) !!}
+          {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'Admin\\MrUserEditForm', ['id' => '0'], 'Добавить', ['btn btn-info btn-xs'],'xs') !!}
         </div>
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
           <thead>
@@ -32,14 +32,14 @@
                 {{ $user->getPhone() }}
                 {{ $user->getEmail() }}
               </td>
-              <td class="padding-horizontal">{{ $user->getDateFirstVisit()->format('d M Y H:i') }}</td>
-              <td class="padding-horizontal">{{ $user->getDateLogin()->format('d M Y H:i') }}</td>
-              <td class="padding-horizontal">{{ $user->getDateLastVisit()->format('d M Y H:i') }}</td>
+              <td class="padding-horizontal">{{ $user->getDateFirstVisit()->getShortDateShortTime() }}</td>
+              <td class="padding-horizontal">{{ $user->getDateLogin()->getShortDateShortTime() }}</td>
+              <td class="padding-horizontal">{{ $user->getDateLastVisit()->getShortDateShortTime() }}</td>
               <td class="padding-horizontal">
                 {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Http\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
               </td>
               <td class="padding-horizontal">
-                {!!  \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_edit', 'Admin\\MrUserEditForm', ['id' => $user->id()],'',['btn btn-info btn-xs fa fa-edit']) !!}
+                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'Admin\\MrUserEditForm', ['id' => $user->id()], '', ['btn btn-info btn-xs fa fa-edit'],'xs') !!}
                 <a href="/admin/users/delete/{{ $user->id() }}"
                    onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');">
                   <button type="button" class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5"></button>
@@ -110,6 +110,7 @@
   <script src="/public/vendors/popper.js/dist/umd/popper.min.js"></script>
   <script src="/public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/public/js/js/main.js"></script>
+  <script src="/public/js/mr-popup.js"></script>
 
   <script src="/public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="/public/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>

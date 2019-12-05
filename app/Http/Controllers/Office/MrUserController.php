@@ -79,7 +79,7 @@ class MrUserController extends Controller
 
     MrMessageHelper::SetMessage(true, 'Информация о пользователе обновлена');
 
-    return redirect()->route('panel');
+    return redirect()->route('office_personal_page');
   }
   #endregion
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrFaq;
 use App\Http\Models\MrFeedback;
@@ -14,7 +15,7 @@ class MrFAQController extends Controller
   {
     $out = array();
 
-    $out['list'] =  MrFaq::GetAll();
+    $out['list'] = MrFaq::GetAll();
 
     return View('faq')->with($out);
   }
@@ -37,7 +38,8 @@ class MrFAQController extends Controller
       $feedback->setDate();
 
       $feedback->save_mr();
-
+      $telegramm = "$name \n $email \n $text";
+      MrBaseHelper::sendMeByTelegram($telegramm);
       MrMessageHelper::SetMessage(true, 'Ваше сообщение отправлено');
     }
 

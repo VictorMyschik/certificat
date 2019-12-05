@@ -18,13 +18,15 @@ class MrFormBase extends Controller
    * @param $data
    * @param null $btn_name
    * @param array $btn_class
+   * @param string $form_size
    * @return \Illuminate\Contracts\View\View
    */
-  public static function getFormBase($route_name, $data, $btn_name = null, $btn_class = array())
+  public static function getFormBase($route_name, $data, $btn_name = null, $btn_class = array(), $form_size = 'lg')
   {
     $out = array();
 
     $out['url'] = route($route_name, $data);
+    $out['form_size'] = $form_size;
     $out['btn_name'] = $btn_name ?? 'Изменить';
     $base_class_btn = array(
       'mr-border-radius-5'

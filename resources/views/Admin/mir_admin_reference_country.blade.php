@@ -8,7 +8,7 @@
       <div class="card-body padding-horizontal">
         <div class="margin-b-15 margin-t-10">
           {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
-  'Admin\\MrAdminReferenceCountryEditForm', ['id' => '0'], 'Новый', ['btn', 'btn-info', 'btn-xs']) !!}
+  'Admin\\MrAdminReferenceCountryEditForm', ['id' => '0'], 'Новый', ['btn', 'btn-info', 'btn-xs'], 'sm') !!}
           <a href="{{ route('reference_country') }}" onclick="return confirm('Вы уверены?');">
             <button type="button" title="Будет скачан с переустановлен с нуля"
                     class="btn btn-primary btn-xs mr-border-radius-5">

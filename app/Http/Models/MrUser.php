@@ -3,8 +3,8 @@
 namespace App\Http\Models;
 
 
+use App\Http\Controllers\Helpers\MtDateTime;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -110,38 +110,38 @@ class MrUser extends ORM
   }
 
   // Дата первого посещения
-  public function getDateFirstVisit(): Carbon
+  public function getDateFirstVisit(): MtDateTime
   {
-    return new Carbon($this->DateFirstVisit);
+    return $this->getDateNullableField('DateFirstVisit');
   }
 
 
-  public function setDateFirstVisit(Carbon $value)
+  public function setDateFirstVisit($value)
   {
-    $this->DateFirstVisit = $value;
+    $this->setDateNullableField($value, 'DateLogin');
   }
 
   // Дата залогинивания
-  public function getDateLogin(): ?Carbon
+  public function getDateLogin(): ?MtDateTime
   {
-    return $this->DateLogin ? new Carbon($this->DateLogin) : null;
+    return $this->getDateNullableField('DateLogin');
   }
 
 
   public function setDateLogin()
   {
-    $this->DateLogin = Carbon::now();
+    $this->setDateNullableField(MtDateTime::now(), 'DateLogin');
   }
 
   // Дата последнего посещения
-  public function getDateLastVisit(): ?Carbon
+  public function getDateLastVisit(): ?MtDateTime
   {
-    return $this->DateLastVisit ? new Carbon($this->DateLastVisit) : null;
+    return $this->getDateNullableField('DateLastVisit');
   }
 
-  public function setDateLastVisit(Carbon $value)
+  public function setDateLastVisit($value)
   {
-    $this->DateLastVisit = $value;
+    $this->setDateNullableField($value, 'DateLastVisit');
   }
 
   public function getDefaultOffice(): ?MrOffice
