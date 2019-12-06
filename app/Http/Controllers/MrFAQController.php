@@ -38,8 +38,11 @@ class MrFAQController extends Controller
       $feedback->setDate();
 
       $feedback->save_mr();
-      $telegramm = "$name \n $email \n $text";
+
+      $site = MrBaseHelper::MR_DOMAIN;
+      $telegramm = "$site \n $name \n $email \n $text";
       MrBaseHelper::sendMeByTelegram($telegramm);
+
       MrMessageHelper::SetMessage(true, 'Ваше сообщение отправлено');
     }
 
