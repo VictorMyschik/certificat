@@ -24,6 +24,7 @@
   <!-- Styles -->
   <link href="/public/css/bootstrap.css" rel="stylesheet">
   <link href='/public/css/mr-style.css' rel="stylesheet">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body class="mr-base-bg">

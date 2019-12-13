@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('layouts.mr_nav')
+  @include('layouts.mr_nav')
 
   <div class="container">
     <div class="row justify-content-center">
@@ -13,7 +13,8 @@
             @csrf
 
             <div class="form-group row">
-              <label for="email" class="col-md-4 col-form-label text-md-right mr-bold">{{ __('mr-t.Моя почта') }}</label>
+              <label for="email"
+                     class="col-md-4 col-form-label text-md-right mr-bold">{{ __('mr-t.Моя почта') }}</label>
 
               <div class="col-md-6">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
@@ -28,7 +29,8 @@
             </div>
 
             <div class="form-group row">
-              <label for="password" class="col-md-4 col-form-label text-md-right mr-bold">{{ __('mr-t.Пароль') }}</label>
+              <label for="password"
+                     class="col-md-4 col-form-label text-md-right mr-bold">{{ __('mr-t.Пароль') }}</label>
               <div class="col-md-6">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                        name="password" required autocomplete="current-password">
