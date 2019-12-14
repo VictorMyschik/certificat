@@ -1,0 +1,123 @@
+.mr-small {
+  @include responsiveText(7px, 12px);
+  line-height: normal;
+}
+
+.mr-middle {
+  @include responsiveText(10px, 12px);
+}
+
+.mr-bold {
+  font-weight: bold;
+}
+
+.mr-input {
+  border-radius: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.mr-right {
+  text-align: right;
+}
+
+
+.mr-sumbit-success {
+  border-radius: 5px;
+  @include responsiveText(12px, 15px);
+  background-image: url("/public/images/other/bg-btn.jpg");
+  color: darkgreen;
+}
+
+.mr-sumbit-cancel {
+  border-radius: 5px;
+  @include responsiveText(12px, 15px);
+  background-image: url("/public/images/other/bg-btn.jpg");
+  color: darkred;
+}
+
+
+.mr-btn-user-top-menu {
+  @include responsiveText(15px, 20px);
+  border-radius: 5px;
+  background-image: url("/public/images/other/bg-btn.jpg");
+  color: darkgreen;
+  line-height: 0.9em;
+}
+
+.mr-social-icon {
+  width: 50px;
+}
+
+.mr-social-icon-sm {
+  width: 25px;
+}
+
+.mr-social-icon-mini {
+  width: 15px;
+}
+
+.mr-language-icon {
+  border: #0d152a 1px solid;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-image: url("/public/images/other/bg-btn.jpg");
+  color: #00A000;
+}
+
+.mr-bg-img {
+  background-image: url('/public/images/background/background.jpg');
+  height: 100vh;
+  min-height: 100%;
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.mr-center {
+  min-height: 500px;
+  height: 100%;
+  position: relative;
+  border-radius: 10px;
+
+  .mr-q {
+    margin: 0;
+    position: absolute;
+    top: 10%;
+  }
+}
+
+.mr-div-top-right {
+  position: relative;
+}
+
+.mr-trans {
+  /*background-image: url("/public/images/other/background_2.png");
+  height: 90vh;
+ // opacity: 0.5;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+*/
+  background-color: rgba(220, 220, 220, 0.7);
+}
+
+.mr-muted {
+  color: #7c7c7c;
+}
+
+.mr-bg-muted-blue {
+  background-color: rgba(10, 6, 93, 0.2);
+}
+
+.mr-bg-muted-blue-light {
+  background-color: rgba(10, 6, 93, 0.1);
+}
+
+.mr-description {
+  color: #7c7c7c;
+}
+
+.mr-base-bg {
+  background-image: url("/public/images/background/base_bg.png");
+}

@@ -9,8 +9,8 @@
 
   <title>{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
 
-  <link rel="stylesheet" href="/public/vendors/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/public/vendors/themify-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="/public/css/font-awesome.css">
+  <link rel="stylesheet" href="/public/css/main.css">
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
@@ -22,13 +22,14 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <!-- Styles -->
-  <link href="/public/css/bootstrap.css" rel="stylesheet">
   <link href='/public/css/mr-style.css' rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body class="mr-base-bg">
-@yield('content')
+<div id="app">
+  @yield('content')
+</div>
 <div class="mr-bg-muted-blue">
   <div class="container col-md-8 footer mr-middle">
     <div class="padding-t-15">
