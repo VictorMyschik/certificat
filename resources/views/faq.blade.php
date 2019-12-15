@@ -2,8 +2,6 @@
 
 @section('content')
   @include('layouts.mr_nav')
-
-
   <div class="container">
 
     <div class="row no-gutters align-items-center justify-content-center margin-t-10" data-scrollax-parent="true">

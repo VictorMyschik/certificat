@@ -1,7 +1,8 @@
-@extends('Admin.layouts.app')
+@extends('layouts.app')
 
 @section('content')
-  <div id="right-panel" class="right-panel">
+  @include('Admin.layouts.nav_bar')
+  <div class="container">
     @include('Admin.layouts.page_title')
     <div class="animated fadeIn">
       <div class="card-body padding-horizontal">

@@ -72,11 +72,7 @@
 
   </div>
 </div>
-<script>
-  function mr_popup(url)
-  {
-    $("#mr_modal").modal("show").find('.modal-body').load(url);
-  }
-</script>
+<div class="modal fade padding-0" id="mr_modal" role="dialog"></div>
+<script src="/public/js/mr_popup.js"></script>
 </body>
 </html>

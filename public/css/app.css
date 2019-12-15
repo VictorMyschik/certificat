@@ -8,6 +8,11 @@ Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.
 6: 
 7: // Bootstrap
 8: @import '~bootstrap/scss/bootstrap';
+9: 
+10: .navbar-laravel {
+11:     background-color: #fff;
+12:     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+13: }
 
 Backtrace:
 app.scss:8
@@ -53,4 +58,4 @@ C:/Ruby25/bin/sass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 8 of app.scss\A \A 3: \A 4: // Variables\A 5: @import 'variables';\A 6: \A 7: // Bootstrap\A 8: @import '~bootstrap/scss/bootstrap';"; }
+  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 8 of app.scss\A \A 3: \A 4: // Variables\A 5: @import 'variables';\A 6: \A 7: // Bootstrap\A 8: @import '~bootstrap/scss/bootstrap';\A 9: \A 10: .navbar-laravel {\A 11:     background-color: #fff;\A 12:     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);\A 13: }"; }

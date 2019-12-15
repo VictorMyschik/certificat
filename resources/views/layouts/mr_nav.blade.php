@@ -20,53 +20,52 @@
         </li>
 
         @guest
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-        </li>
-        @if (Route::has('register'))
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-        </li>
-        @endif
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+          </li>
+          @if (Route::has('register'))
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+          @endif
         @else
-        <li class="nav-item dropdown">
-          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            {{ Auth::user()->name }} <span class="caret"></span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              {{ Auth::user()->name }} <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-
-            @if(\App\Http\Models\MrUser::me()->IsAdmin())
-            <a class="dropdown-item" href="{{ route('admin') }}">
-              Админка
-            </a>
-            <a class="dropdown-item" href="/phpmyadmin">
-              PhpMyAdmin
-            </a>
-            <a class="dropdown-item" href="{{ route('office') }}">
-              Кабинет USER
-            </a>
-            <a class="dropdown-item" href="/clear">
-              Очистить кэш
-            </a>
-            @else
-            <a class="dropdown-item" href="{{ route('office') }}">
-              Кабинет
-            </a>
-            @endif
-            <a class="dropdown-item" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
+              @if(\App\Http\Models\MrUser::me()->IsAdmin())
+                <a class="dropdown-item" href="{{ route('admin') }}">
+                  Админка
+                </a>
+                <a class="dropdown-item" href="/phpmyadmin">
+                  PhpMyAdmin
+                </a>
+                <a class="dropdown-item" href="{{ route('office') }}">
+                  Кабинет USER
+                </a>
+                <a class="dropdown-item" href="/clear">
+                  Очистить кэш
+                </a>
+              @else
+                <a class="dropdown-item" href="{{ route('office') }}">
+                  Кабинет
+                </a>
+              @endif
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                 onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
-            </a>
+                {{ __('Logout') }}
+              </a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                  style="display: none;">
-              @csrf
-            </form>
-          </div>
-        </li>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                    style="display: none;">
+                @csrf
+              </form>
+            </div>
+          </li>
         @endguest
 
         <li class="nav-item dropdown">
@@ -76,11 +75,11 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             @foreach(\App\Http\Models\MrLanguage::GetAll() as $item)
-            @if($item->getName() == mb_strtoupper(app()->getLocale()))
-            @continue
-            @endif
-            <a href="{{ url('/locale/'.mb_strtolower($item->getName())) }}" class="dropdown-item">
-              <i class="nav-item  fa fa-language"></i> {{ $item->getName(). ' - '. $item->getDescription() }}</a>
+              @if($item->getName() == mb_strtoupper(app()->getLocale()))
+                @continue
+              @endif
+              <a href="{{ url('/locale/'.mb_strtolower($item->getName())) }}" class="dropdown-item">
+                <i class="nav-item  fa fa-language"></i> {{ $item->getName(). ' - '. $item->getDescription() }}</a>
             @endforeach
           </div>
         </li>
