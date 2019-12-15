@@ -45,8 +45,17 @@ class MrAdminFaqController extends Controller
 
       return redirect('/admin/faq');
     }
+    $form = array();
+
+    $form['Text'] = array(
+      '#type' => 'textarea',
+      '#title' => 'Текст',
+      '#value' => $faq ? $faq->getText() : null,
+      '#ckeditor' => true,
+    );
 
     $out['faq'] = $faq;
+    $out['form'] = $form;
     $out['list'] = MrFaq::GetAll();
 
     return View('Admin.mir_admin_faq_edit')->with($out);

@@ -78,7 +78,7 @@ class MrAdminArticlesController extends Controller
 
     $form['Text'] = array(
       '#type' => 'textarea',
-      '#title' => 'Текст',
+      '#title' => 'Текст ответа',
       '#value' => $article ? $article->getText() : null,
       '#ckeditor' => true,
     );

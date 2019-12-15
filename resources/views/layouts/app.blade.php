@@ -6,7 +6,7 @@
   <!--<link rel="shortcut icon" href="/public/images/other/favicon.ico">-->
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <title>{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
 
   <link rel="stylesheet" href="/public/css/font-awesome.css">
