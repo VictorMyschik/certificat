@@ -118,7 +118,7 @@ class MrUser extends ORM
 
   public function setDateFirstVisit($value)
   {
-    $this->setDateNullableField($value, 'DateLogin');
+    $this->setDateNullableField($value, 'DateFirstVisit');
   }
 
   // Дата залогинивания

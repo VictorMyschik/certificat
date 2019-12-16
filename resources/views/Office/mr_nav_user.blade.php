@@ -2,7 +2,11 @@
   <div class="container">
 
     <a class="navbar-brand" href="{{ url('/') }}">
-      {{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}
+      @guest()
+        {{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}
+      @else
+        {{ \App\Http\Models\MrUser::me()->getDefaultOffice()->getName() }}
+      @endguest
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

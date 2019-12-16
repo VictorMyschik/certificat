@@ -3,22 +3,21 @@
 @section('content')
   @include('Office.mr_nav_user')
   <div class="container col-md-9 col-sm-12">
-    <h5 class="margin-t-10"><span class="mr-bold">{{__('mr-t.Виртуальный офис')}}:</span> {{ $office->getName() }}</h5>
-    <div class="row padding-0">
+    <div class="row padding-0 padding-t-10">
 
-      <div class="d-inline col-md-4 border mr-border-radius-5 padding-0">
-        <div class="mr-bg-blue mr-border-radius-5">
-          <h5 class="margin-l-15">{{ __('mr-t.Финансы') }}
-            <a href="#" class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a>
+      <div class="d-inline col-md-4 mr-border-radius-5" style="padding: 0">
+        <div class="mr-bg-founded mr-border-radius-5">
+          <h5 class="margin-l-15 mr-bold">
+            <a href="#" class="btn btn-primary btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a>
+            {{__('mr-t.Тарифные планы')}}
           </h5>
         </div>
         <div class="margin-l-15">
-          <h6><span class="mr-bold">{{ __('mr-t.Баланс') }}:</span> 100 BYN</h6>
-          <h5>{{__('mr-t.Тарифные планы')}}:</h5>
+          <span class="mr-bold">{{ __('mr-t.Баланс') }}: 100 BYN</span>
 
           @if(count($office->GetGlobalDiscountList()))
             <div class="mr-color-green-dark margin-b-15">
-              <div>{{ __('mr-t.Глобальные скидки') }}:</div>
+              <div class="mr-bold">{{ __('mr-t.Глобальные скидки') }}:</div>
               @foreach($office->GetGlobalDiscountList() as $global_discount)
                 <li>{{$global_discount->GetFullName()}}</li>
               @endforeach
@@ -38,20 +37,17 @@
           @endforeach
         </div>
       </div>
-
-
     </div>
 
-    <div class="row padding-0 mr-border-radius-5 margin-t-10">
-
-      <div class="d-inline col-md-4 border mr-border-radius-5 padding-0">
-        <div class="mr-bg-blue mr-border-radius-5">
+    <div class="row padding-0 mr-border-radius-5 margin-t-15">
+      <div class="d-inline col-md-4 border mr-border-radius-5" style="padding: 0;">
+        <div class="mr-bg-founded mr-border-radius-5">
           <h5 class="margin-l-15">{{ __('mr-t.Пользователи') }}
-            <a href="#" class="btn btn-info btn-xs mr-color-white">{{ __('mr-t.Добавить') }}</a>
+            <a href="#" class="btn btn-primary btn-xs mr-color-white">{{ __('mr-t.Добавить') }}</a>
           </h5>
         </div>
-        <div class="padding-0">
-          <table class="table mr-middle padding-0">
+        <div class="">
+          <table class="table mr-middle">
             @foreach($office->GetUsers() as $user)
               <tr>
                 <td>{{ $user->getUser()->getName() }}</td>
@@ -59,17 +55,7 @@
                 <td>
                   {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_user_edit',
                  'Admin\\MrAdminOfficeUserEditForm', ['id' => $user->id()], '',
-                  ['btn', 'btn-info', 'btn-xs','mr-border-radius-5', 'fa fa-edit'])
-                 !!}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $user->getUser()->getName() }}</td>
-                <td>{{ $user->getUser()->getEmail() }}</td>
-                <td>
-                  {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_user_edit',
-                 'Admin\\MrAdminOfficeUserEditForm', ['id' => $user->id()], '',
-                  ['btn', 'btn-info', 'btn-xs', ' fa fa-edit mr-border-radius-15'])
+                  ['btn', 'btn-primary', 'btn-xs','mr-border-radius-5', 'fa fa-edit'])
                  !!}
                 </td>
               </tr>
