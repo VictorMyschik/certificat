@@ -4,7 +4,7 @@
   <div class="container">
     @include('Admin.layouts.page_title')
     <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
-    {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
+    {!!  MrMessage::GetMessage() !!}
     <div class="padding-horizontal">
       {{ Form::open(['name'=>'article_edit','method' => 'post', 'enctype'=>'multipart/form-data', 'files' => true]) }}
       {{ Form::token() }}

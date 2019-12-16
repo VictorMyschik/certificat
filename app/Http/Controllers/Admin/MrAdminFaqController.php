@@ -27,15 +27,12 @@ class MrAdminFaqController extends Controller
     $out['page_title'] = 'Редактирование FAQ';
 
     $faq = MrFaq::loadBy($id);
-    if(!$faq)
+    if($request->getMethod() == 'POST')
     {
-      $faq = new MrFaq();
-      $faq->setTitle('');
-      $faq->setText('');
-    }
-
-    if($request->get('title'))
-    {
+      if(!$faq)
+      {
+        $faq = new MrFaq();
+      }
       $text = $request->get('text');
       $title = $request->get('title');
 
@@ -45,7 +42,14 @@ class MrAdminFaqController extends Controller
 
       return redirect('/admin/faq');
     }
+
     $form = array();
+    $form['Title'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Заголовок',
+      '#value' => $faq ? $faq->getTitle() : null,
+      '#ckeditor' => true,
+    );
 
     $form['Text'] = array(
       '#type' => 'textarea',
@@ -54,9 +58,7 @@ class MrAdminFaqController extends Controller
       '#ckeditor' => true,
     );
 
-    $out['faq'] = $faq;
     $out['form'] = $form;
-    $out['list'] = MrFaq::GetAll();
 
     return View('Admin.mir_admin_faq_edit')->with($out);
   }

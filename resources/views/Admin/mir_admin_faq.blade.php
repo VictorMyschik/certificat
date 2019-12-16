@@ -5,7 +5,7 @@
     @include('Admin.layouts.page_title')
     <div class="margin-b-15 margin-t-10">
       <a href="{{ route('edit_faq', ['id' =>0]) }}">
-        <button type="button" title="Создать новую запись" class="btn btn-info btn-sm mr-border-radius-5">
+        <button type="button" title="Создать новую запись" class="btn btn-primary btn-sm mr-border-radius-5">
           new FAQ
         </button>
       </a>
