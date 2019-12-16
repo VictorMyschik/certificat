@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <title>{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
 
-  <link rel="stylesheet" href="/public/css/font-awesome.css">
   <link rel="stylesheet" href="/public/css/main.css">
 
   <!-- Scripts -->
@@ -23,6 +22,7 @@
 
   <!-- Styles -->
   <link href='/public/css/mr-style.css' rel="stylesheet">
+  <link href='/public/css/fontawesome.min.css' rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 

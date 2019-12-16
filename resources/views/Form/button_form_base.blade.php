@@ -1,1 +1,1 @@
-<a href="#" type="button" class="@foreach($btn_class as $class){{ ' '.$class }}@endforeach" onclick="mr_popup('{{ $url }}', '{{ $form_size }}')">{{ $btn_name }}</a>
+<a href="#" class="btn @foreach($btn_class as $class){{ ' '.$class }}@endforeach" onclick="mr_popup('{{ $url }}', '{{ $form_size }}')">{{ $btn_name }}</a>
