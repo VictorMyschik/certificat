@@ -36,7 +36,7 @@
           </td>
           <td>{{ $value->getDescription() }}</td>
           <td>
-            <a href="{{ route('office_page',['id'=>$value->id()]) }}"
+            <a href="{{ route('admin_office_page',['id'=>$value->id()]) }}"
                class="btn btn-primary btn-xs mr-border-radius-5">
               <i class="fa fa-eye"></i></a>
             {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$value->id()], '', ['btn btn-info btn-xs fa fa-edit']) !!}

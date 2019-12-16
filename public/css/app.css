@@ -1984,9 +1984,6 @@ pre code {
 
 .table th,
 .table td {
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
 
@@ -3547,13 +3544,6 @@ fieldset:disabled a.btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.7875rem;
   line-height: 1.5;
-  border-radius: 0.2rem;
-}
-
-.btn-xs {
-  padding: 0.25rem 0.4rem;
-  font-size: 0.875rem;
-  line-height: 0.8;
   border-radius: 0.2rem;
 }
 

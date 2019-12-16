@@ -44,10 +44,9 @@ Route::get('/certificate/{number}', 'MrCertificateController@View');
 Route::group(['middleware' => 'auth'], function () {
 
   //// Кабинет пользователя
-  Route::get('/office', "Office\MrOfficeController@View")->name('office');
-  Route::get('/office/personal', "Office\MrOfficeController@personalPage")->name('office_personal_page');
+  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
   Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
-  Route::get('/office/monitoring', "Office\MrOfficeController@monitoringPage")->name('office_monitoring_page');
+  Route::get('/office/finance', "Office\MrOfficeController@financePage")->name('office_finance_page');
   Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');
 
   //// Удаление аккаунта
@@ -97,9 +96,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
   Route::get('/admin/feedback/edit/{id}', "Admin\MrAdminFeedbackController@edit")->name('admin_feedback_edit');
   Route::get('/admin/feedback/edit/read/{id}',
-      "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
+    "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
   Route::match(['get', 'post'], '/admin/feedback/edit/send/{id}',
-      "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
+    "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
   // Пользователи
   Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('users');
@@ -113,7 +112,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Подписка
   Route::get('/admin/subscription', "Admin\MrAdminSubscription@index")->name('admin_subscription');
   Route::get('/admin/subscription/delete/{id}',
-      "Admin\MrAdminSubscription@UnSubscription")->name('un_subscription');
+    "Admin\MrAdminSubscription@UnSubscription")->name('un_subscription');
   Route::post('/admin/subscription/new', "Admin\MrAdminSubscription@NewSubscription")->name('new_subscription');
   // Текстовый редактор
   Route::get('/elfinder/ckeditor', '\Barryvdh\Elfinder\ElfinderController@showCKeditor4');
@@ -175,8 +174,8 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
 
   //// Офисы
-  Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('offices');
-  Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('office_page');
+  Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');
+  Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
   Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
   // Форма для создания пустого офиса
   Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');

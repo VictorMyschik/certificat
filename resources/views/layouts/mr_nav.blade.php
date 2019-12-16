@@ -44,7 +44,7 @@
             <a class="dropdown-item" href="/phpmyadmin">
               PhpMyAdmin
             </a>
-            <a class="dropdown-item" href="{{ route('office') }}">
+            <a class="dropdown-item" href="{{ route('office_page') }}">
               Кабинет USER
             </a>
             <a class="dropdown-item" href="/clear">

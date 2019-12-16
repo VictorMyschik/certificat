@@ -8,7 +8,7 @@
       <div class="d-inline col-md-4 mr-border-radius-5" style="padding: 0">
         <div class="mr-bg-founded mr-border-radius-5">
           <h5 class="margin-l-15 mr-bold">
-            <a href="#" class="btn btn-primary btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a>
+            <a href="/settings" class="btn btn-primary btn-xs mr-color-white">{{ __('mr-t.Изменить') }}</a>
             {{__('mr-t.Тарифные планы')}}
           </h5>
         </div>

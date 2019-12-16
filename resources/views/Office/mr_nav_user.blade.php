@@ -12,14 +12,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
 
-
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('office_personal_page') }}">{{ __('mr-t.Персональные') }}</a>
+          <a class="nav-link mr-bold" href="{{ route('office_page') }}">{{ __('mr-t.Мой офис') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('office_monitoring_page') }}">{{ __('mr-t.Мониторинг') }}</a>
+          <a class="nav-link" href="{{ route('office_finance_page') }}">{{ __('mr-t.Финансы') }}</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="{{ route('office_settings_page') }}">{{ __('mr-t.Настройки') }}</a>
         </li>

@@ -83,4 +83,5 @@ return $translate_arr + [
     'Глобальные скидки' => 'Global discount',
     'Баланс' => 'Balance',
     'Добавить' => 'Add',
+    'Мой офис' => 'My office',
   ];
