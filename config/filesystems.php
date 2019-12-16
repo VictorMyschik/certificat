@@ -58,7 +58,7 @@ return [
         'upload' => [ // Вот он
             'driver' => 'local',
             'root' => public_path().'/uploads',
-            'url' => 'https://'.MrBaseHelper::MR_DOMAIN.'/uploads',
+            'url' => MrBaseHelper::MR_SITE_URL.'/uploads',
             'visibility' => 'public',
         ],
 
