@@ -7,21 +7,22 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <title>{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
+  <title>{{ $page_title ?? \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
 
   <!-- Scripts -->
-  <script type="text/javascript" rel="script" src="{{asset('js/app.js')}}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" rel="script" src="{{asset('js/app.js')}}"></script>
+
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <!-- Styles -->
-  <link href='/public/css/mr-style.css' rel="stylesheet">
   <link href='/public/css/fontawesome.min.css' rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href='/public/css/mr-style.css' rel="stylesheet">
 </head>
 
 <body class="mr-base-bg">

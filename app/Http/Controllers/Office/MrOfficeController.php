@@ -20,6 +20,7 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
+    $out['page_title'] = 'Персональные настройки';
     $out['office'] = $user->getDefaultOffice();
     return View('Office.office_settings_page')->with($out);
   }
@@ -33,6 +34,7 @@ class MrOfficeController extends Controller
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
+    $out['page_title'] = 'Работа с сертификатами';
     $user_in_office = $user->GetUserInOffice();
     $out['monitoring_list'] = $id = MrCertificateMonitoring::GetUserCertificateMonitoringList($user_in_office);
     $out['cache_search'] = MrCertificate::GetCacheSearch($user);
@@ -42,6 +44,7 @@ class MrOfficeController extends Controller
   public function financePage()
   {
     $out = array();
+    $out['page_title'] = 'Финансы';
     $user = MrUser::me();
     $out['office'] = $user->getDefaultOffice();
 

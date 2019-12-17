@@ -49,6 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/office/finance', "Office\MrOfficeController@financePage")->name('office_finance_page');
   Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');
 
+  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('office_user_submit');
+  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
+
   //// Удаление аккаунта
   Route::match(['get', 'post'], '/office/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
   Route::match(['get', 'post'], '/office/delete/submit', "Forms\MrUserDeleteForm@submitForm");
@@ -194,8 +197,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/office/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
 
   // Добавление пользователя в ВО
-  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\Admin\MrAdminOfficeUserEditForm@submitForm")->name('office_user_submit');
-  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\Admin\MrAdminOfficeUserEditForm@getFormBuilder")->name('office_user_edit');
   Route::get('/admin/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
   Route::get('/admin/office/userinoffice/{id}/isadmin', "Admin\MrAdminOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
 

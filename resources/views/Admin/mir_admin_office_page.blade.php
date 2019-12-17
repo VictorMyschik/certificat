@@ -206,7 +206,6 @@
     <div class="d-inline-flex col-md-9 ">
       <hr>
       <h4 class="mr-bold">Статистика</h4>
-
     </div>
   </div>
 @endsection

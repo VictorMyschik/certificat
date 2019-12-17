@@ -21,46 +21,6 @@ abstract class MrBaseHelper extends Controller
   const ADMIN_VIBER = 'viber://chat?number=375297896282';
 
   /**
-   * очистка от инъекций и прочего
-   *
-   * @param array|null $data
-   * @return array
-   */
-  public static function cleaning(array $data = null): array
-  {
-    $clean = array();
-    if($data)
-    {
-      foreach ($data as $key => $value)
-      {
-        $value = trim($value);
-        $value = stripslashes($value);
-        $value = strip_tags($value);
-        $value = htmlspecialchars($value);
-        $clean[$key] = $value;
-      }
-
-      return $clean;
-    }
-
-    if(count($_REQUEST))
-    {
-      foreach ($_REQUEST as $key => $value)
-      {
-        $value = trim($value);
-        $value = stripslashes($value);
-        $value = strip_tags($value);
-        $value = htmlspecialchars($value);
-        $clean[$key] = $value;
-      }
-
-      return $clean;
-    }
-
-    return $clean;
-  }
-
-  /**
    * Генератор коротких ссылок
    *
    * @param null $url
