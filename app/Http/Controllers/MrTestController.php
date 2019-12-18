@@ -13,7 +13,7 @@ class MrTestController extends MtExcelHelperBase
   public function index()
   {
 
-    MrBaseHelper::sendMeByTelegram(789);
+    //MrBaseHelper::sendMeByTelegram(789);
     $out = array();
 
     /*    $excel = self::excel();
@@ -37,6 +37,10 @@ class MrTestController extends MtExcelHelperBase
 
     //$sert = MrCertificate::Search('BY');
     //dd($sert);
-
+    $headers = "Content-type: text/html; charset=UTF8 \r\n";
+    $headers .= "From: " . MrBaseHelper::MR_EMAIL . "\r\n";
+    $message = '1231321323213';
+    $status = mail('mega-ximik@mail.ru', '456', $message, $headers);
+    dd($status);
   }
 }
