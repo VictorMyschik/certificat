@@ -14,6 +14,7 @@ class MrNewUsers extends ORM
   protected static $dbFieldsMap = array(
     'Email',
     'UserID',
+    'OfficeID',
     'IsAdmin',
     // 'WriteDate',
   );
@@ -51,6 +52,16 @@ class MrNewUsers extends ORM
   public function setUserID(int $value)
   {
     return $this->UserID = $value;
+  }
+
+  public function getOffice(): MrOffice
+  {
+    return MrOffice::loadBy($this->OfficeID);
+  }
+
+  public function setOfficeID(int $value)
+  {
+    $this->OfficeID = $value;
   }
 
   public function getIsAdmin(): bool

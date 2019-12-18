@@ -14,6 +14,7 @@ class createmrnewusers extends Migration
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Email',50);
       $table->smallInteger('UserID');
+      $table->smallInteger('OfficeID');
       $table->boolean('IsAdmin')->default(false);
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });

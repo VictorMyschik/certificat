@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Forms;
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Controllers\Helpers\MrBaseHelper;
-use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Controllers\Helpers\MrEmailHelper;
 use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrUser;
 use Illuminate\Http\Request;
@@ -68,25 +68,29 @@ class MrAddOfficeUserForm extends MrFormBase
     $uio = new MrNewUsers();
     $uio->setEmail($v['Email']);
     $uio->setUserID($user->id());
+    $uio->setOfficeID($user->getDefaultOffice()->id());
     $uio->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
 
-    $uio->save_mr();
+    $uio_id = $uio->save_mr();
 
 
     $email_to = $v['Email'];
+    $system = MrBaseHelper::MR_SITE_NAME;
+
+    $link = MrBaseHelper::GetLinkForNewUser($uio_id);
+
     $subject = "Новый пользователь в системе " . MrBaseHelper::MR_SITE_NAME;
     $message =
       <<< HTML
         <body>
         <h3>Здравствуйте!</h3>
-<p>Для аккаунта с адресом {$v['Email']} был предоставлен доступ в Виртуальный Офис {$user->getDefaultOffice()->getName()} в Системе .</p>
-<p>Для входа в Систему {MrBaseHelper::MR_SITE_NAME} вы можете воспользоваться следующей ссылкой:
+<p>Для аккаунта с адресом {$email_to} был предоставлен доступ в Виртуальный Офис {$user->getDefaultOffice()->getName()} в Системе {$system}.</p>
+<p>Для входа в Систему {$system} вы можете воспользоваться следующей ссылкой: {$link}
 </p>
 <p>Если Вы получили данное письмо по ошибке, проигнорируйте его.</p>
         </body>
 HTML;
-    $status = MrBaseHelper::SendEmail($email_to, $subject, $message);
-    MrMessageHelper::SetMessage(true, $status);
+    MrEmailHelper::SendNewUser($email_to, $subject, $message);
     return;
   }
 }

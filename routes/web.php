@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('locale/{locale}', function ($locale) {
   Session::put('locale', $locale);
@@ -40,11 +40,14 @@ Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search
 Route::get('/certificate/{number}', 'MrCertificateController@View');
 
 
+Route::get('/newuser/{id}', 'HomeController@RegistrationNewUser')->name('registration_new_user');
+
+
 //// для авторизованных
 Route::group(['middleware' => 'auth'], function () {
 
   //// Кабинет пользователя
-  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
+  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page')->middleware('verified');
   Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
   Route::get('/office/finance', "Office\MrOfficeController@financePage")->name('office_finance_page');
   Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');

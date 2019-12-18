@@ -11,11 +11,12 @@ use App\Http\Controllers\Controller;
 
 abstract class MrBaseHelper extends Controller
 {
-  const MR_EMAIL = 'allximik@gmail.com';
+  const MR_EMAIL = 'support@cardbox.ml';
   const MR_SITE_NAME = 'SiteName';
   const MR_DOMAIN = 'certificat';
-  const MR_SITE = 'certificat';
+  const MR_SITE = 'SiteName.ml';
   const MR_SITE_URL = 'http://certificat';
+
   const ADMIN_PHONE = '375297896282';
   const ADMIN_TELEGRAM = 'tg://resolve?domain=Allximik50';
   const ADMIN_VIBER = 'viber://chat?number=375297896282';
@@ -113,6 +114,21 @@ abstract class MrBaseHelper extends Controller
       )
     );
     curl_exec($ch);
+  }
+
+  /**
+   * Генерация ссылки для добавления нового пользователя
+   *
+   * @param int $uio_id
+   * @return string
+   */
+  public static function GetLinkForNewUser(int $uio_id)
+  {
+    $link = self::MR_SITE_URL;
+
+    $link .= '/newuser/' . $uio_id;
+
+    return $link;
   }
 }
 
