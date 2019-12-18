@@ -250,6 +250,9 @@ class MrUser extends ORM
    */
   public function IsAdmin(): bool
   {
+    if(!Auth::check())
+      return false;
+
     $admins = array(
       $this->admin_email,
       'valuxin@live.com',

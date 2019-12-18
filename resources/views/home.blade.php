@@ -2,7 +2,12 @@
 
 @section('content')
   <div class="mr-bg-img">
-    @include('layouts.mr_nav')
+    @guest()
+      @include('layouts.mr_nav')
+    @else
+      @include('Office.mr_nav_user')
+    @endguest
+
     <div class="container padding-t-20">
       <div>
         <h1 class="mr-bold">Работаете с сертификатами?</h1>

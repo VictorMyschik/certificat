@@ -47,7 +47,7 @@ Route::get('/newuser/{id}', 'HomeController@RegistrationNewUser')->name('registr
 Route::group(['middleware' => 'auth'], function () {
 
   //// Кабинет пользователя
-  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page')->middleware('verified');
+  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
   Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
   Route::get('/office/finance', "Office\MrOfficeController@financePage")->name('office_finance_page');
   Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');

@@ -2,30 +2,26 @@
   <div class="container">
 
     <a class="navbar-brand" href="{{ url('/') }}">
-      @guest()
-        {{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}
-      @else
         {{ \App\Http\Models\MrUser::me()->getDefaultOffice()->getName() }}
-      @endguest
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link mr-bold" href="{{ route('office_page') }}">{{ __('mr-t.Мой офис') }}</a>
+          <a class="nav-link mr-bold" href="{{ route('office_page') }}"><span class="mr-color-white">{{ __('mr-t.Мой офис') }}</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('office_finance_page') }}">{{ __('mr-t.Финансы') }}</a>
+          <a class="nav-link" href="{{ route('office_finance_page') }}"><span class="mr-color-white">{{ __('mr-t.Финансы') }}</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('office_settings_page') }}">{{ __('mr-t.Настройки') }}</a>
+          <a class="nav-link" href="{{ route('office_settings_page') }}"><span class="mr-color-white">{{ __('mr-t.Настройки') }}</span></a>
         </li>
 
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ __('mr-t.Справочники') }} <span class="caret"></span>
+            <span class="mr-color-white">{{ __('mr-t.Справочники') }}</span><span class="caret"></span>
           </a>
           <a class="dropdown-menu padding-horizontal" href="/reference/country">{{ __('mr-t.Страны мира') }}</a>
         </li>
@@ -33,7 +29,7 @@
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            {{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span>
+            <span class="mr-color-white">{{ mb_strtoupper(app()->getLocale()) }}</span> <span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             @foreach(\App\Http\Models\MrLanguage::GetAll() as $item)
@@ -45,7 +41,17 @@
             @endforeach
           </div>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="{{ route('logout') }}"
+             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <span class="mr-color-white">{{ __('Logout') }}</span>
+          </a>
 
+          <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                style="display: none;">
+            @csrf
+          </form>
+        </li>
       </ul>
     </div>
 
