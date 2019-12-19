@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrSubscription;
 use App\Http\Models\MrUser;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -87,7 +89,7 @@ class MrUserController extends Controller
   /**
    * Change subscription
    *
-   * @return \Illuminate\Http\RedirectResponse
+   * @return RedirectResponse
    */
   public function ToggleSubscription()
   {
@@ -95,7 +97,7 @@ class MrUserController extends Controller
 
     if($user->getIsSubscription())
     {
-      $subsc = MrSubscription::loadBy($user->getEmail(),'Email');
+      $subsc = MrSubscription::loadBy($user->getEmail(), 'Email');
       $subsc->mr_delete();
 
       MrMessageHelper::SetMessage(true, 'Подписка удалена');
@@ -108,9 +110,32 @@ class MrUserController extends Controller
     return back();
   }
 
-  public function UserDelete()
+  /**
+   * Удаление пользователя
+   *
+   * @param Request $request
+   * @return RedirectResponse|Redirector
+   */
+  public function UserDelete(Request $request)
   {
-    $user = MrUser::me();
-    $user->AccountDelete();
+    $id = $request->get('id', null);
+
+    if($id)
+    {
+      $user = MrUser::loadBy($id);
+    }
+    else
+    {
+      $user = MrUser::me();
+    }
+
+    $origin_user = MrUser::me();
+
+    if($user->getDefaultOffice()->id() == $origin_user->getDefaultOffice()->id())
+    {
+      $user->AccountDelete();
+    }
+
+    return redirect('/');
   }
 }

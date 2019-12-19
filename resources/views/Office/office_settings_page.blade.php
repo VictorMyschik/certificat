@@ -162,7 +162,7 @@
         <div class="row col-md-12 padding-0 margin-t-20">
           <div class="d-md-inline col-md-4 mr-middle">
             <h5 class="mr-bold">Личные настройки</h5>
-            <div>{!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
+            <div>{!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn-primary btn-xs fa fa-edit'],'xs') !!}
               {{ $user->GetFullName() }}
             </div>
             <div class="margin-t-5">
@@ -196,7 +196,7 @@
                 <td>ФИО</td>
                 <td>Почта</td>
                 <td>Admin</td>
-                @if($user->IsAdmin())
+                @if($user->GetUserInOffice()->getIsAdmin())
                   <td>#</td>@endif
               </tr>
               </thead>
@@ -206,23 +206,23 @@
                   <td class="padding-horizontal">{{ $user_in_office->getUser()->getName() }}</td>
                   <td class="padding-horizontal">{{ $user_in_office->getUser()->getEmail() }}</td>
                   <td class="padding-horizontal">
-                    @if($user->IsAdmin())
-                      <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
+                    @if($user->GetUserInOffice()->getIsAdmin() && !$user->AdminOnly() && $user->id() == $user_in_office->getUser()->id())
+                      <a href="{{ route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
                          class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-secondary' }} btn-xs mr-border-radius-5">
                         {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь</span>'!!}
-
                       </a>
                     @else
                       {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь</span>'!!}
                     @endif
 
                   </td>
-                  @if($user->IsAdmin())
                     <td>
-                      <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
+                      @if($user->GetUserInOffice()->getIsAdmin() && $user_in_office->getUser()->id() != $user->id())
+                      <a href="{{ route('user_delete',['id'=>$user_in_office->getUser()->id()]) }}"
                          class="btn btn-danger btn-xs mr-border-radius-5"
-                         onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a></td>
-                  @endif
+                         onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a>
+                      @endif
+                    </td>
                 </tr>
               @endforeach
               </tbody>

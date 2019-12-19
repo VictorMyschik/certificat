@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\MrCertificate;
 use App\Http\Models\MrCertificateMonitoring;
 use App\Http\Models\MrUser;
+use App\Http\Models\MrUserInOffice;
+use Illuminate\Http\RedirectResponse;
 
 class MrOfficeController extends Controller
 {
@@ -49,5 +51,27 @@ class MrOfficeController extends Controller
     $out['office'] = $user->getDefaultOffice();
 
     return View('Office.office_finance_page')->with($out);
+  }
+
+  /**
+   * Смена статуса пользователя относительно офиса: админ или пользователь
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function userOfficeIsAdmin(int $id)
+  {
+    $tariff_office = MrUserInOffice::loadBy($id);
+    if($tariff_office->getIsAdmin())
+    {
+      $tariff_office->setIsAdmin(false);
+    }
+    else
+    {
+      $tariff_office->setIsAdmin(true);
+    }
+    $tariff_office->save_mr();
+
+    return back();
   }
 }

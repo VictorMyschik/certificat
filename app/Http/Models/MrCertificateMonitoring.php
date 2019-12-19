@@ -103,9 +103,9 @@ class MrCertificateMonitoring extends ORM
    * @param MrUserInOffice $uio
    * @return MrCertificateMonitoring[]
    */
-  public function GetByUserInOffice(MrUserInOffice $uio)
+  public static function GetByUserInOffice(MrUserInOffice $uio)
   {
-    $list = DB::table(self::$mr_table)->where('UserInOfficeID' . '=', $uio->id())->get();
+    $list = DB::table(self::$mr_table)->where('UserInOfficeID' , '=', $uio->id())->get();
     return parent::LoadArray($list, MrCertificateMonitoring::class);
   }
 }

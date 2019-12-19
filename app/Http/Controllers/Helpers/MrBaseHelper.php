@@ -119,14 +119,14 @@ abstract class MrBaseHelper extends Controller
   /**
    * Генерация ссылки для добавления нового пользователя
    *
-   * @param int $uio_id
+   * @param string $soul
    * @return string
    */
-  public static function GetLinkForNewUser(int $uio_id)
+  public static function GetLinkForNewUser(string $soul)
   {
     $link = self::MR_SITE_URL;
 
-    $link .= '/newuser/' . $uio_id;
+    $link .= '/newuser/' . $soul;
 
     return $link;
   }

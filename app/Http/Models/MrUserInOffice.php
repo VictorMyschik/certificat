@@ -4,7 +4,6 @@
 namespace App\Http\Models;
 
 
-
 class MrUserInOffice extends ORM
 {
   public static $mr_table = 'mr_user_in_office';

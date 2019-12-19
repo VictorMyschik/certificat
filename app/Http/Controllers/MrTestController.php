@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Controllers\Helpers\MtExcelHelperBase;
+use Illuminate\Support\Facades\Hash;
 
 class MrTestController extends MtExcelHelperBase
 {
@@ -13,7 +13,7 @@ class MrTestController extends MtExcelHelperBase
   public function index()
   {
 
-    MrBaseHelper::sendMeByTelegram(789);
+  //  MrBaseHelper::sendMeByTelegram(789);
     $out = array();
 
     /*    $excel = self::excel();
@@ -37,6 +37,7 @@ class MrTestController extends MtExcelHelperBase
 
     //$sert = MrCertificate::Search('BY');
     //dd($sert);
-
+dd(Hash::make(time()));
+$r = '$2y$10$lBZfXf4fF.WDwep7MCpP8uIHIWCINNwuakjh5tzECWhN8IAo1ERXe';
   }
 }

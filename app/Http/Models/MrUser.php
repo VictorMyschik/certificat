@@ -37,7 +37,7 @@ class MrUser extends ORM
   protected function before_delete()
   {
     $subscription = MrSubscription::loadBy($this->getEmail(), 'Email');
-    $subscription->mr_delete();
+    $subscription ? $subscription->mr_delete() : null;
 
     $uio = MrUserInOffice::loadBy($this->id(), 'UserID');
 
@@ -359,5 +359,28 @@ class MrUser extends ORM
     }
 
     return $out;
+  }
+
+  /**
+   * Единственный администратор в В.Офисе
+   */
+  public function AdminOnly()
+  {
+    $office = $this->getDefaultOffice();
+
+    foreach ($office->GetUsers() as $uio)
+    {
+      if($uio->getIsAdmin())
+      {
+        $admins[] = $uio;
+      }
+    }
+
+    if(count($admins) == 1)
+    {
+      return false;
+    }
+
+    return true;
   }
 }

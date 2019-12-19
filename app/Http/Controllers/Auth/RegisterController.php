@@ -100,6 +100,11 @@ class RegisterController extends Controller
     $uio->setUserID($id);
     $uio->save_mr();
 
+    if($new_user)
+    {
+      $new_user->mr_delete();
+    }
+
     return $user;
   }
 

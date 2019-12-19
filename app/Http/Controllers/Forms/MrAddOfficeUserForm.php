@@ -62,7 +62,7 @@ class MrAddOfficeUserForm extends MrFormBase
     }
 
     parent::submitFormBase($request->all());
-
+    $code = md5(time());
     $user = MrUser::me();
 
     $uio = MrNewUsers::loadBy($v['Email'], 'Email') ?: new MrNewUsers();
@@ -70,14 +70,14 @@ class MrAddOfficeUserForm extends MrFormBase
     $uio->setUserID($user->id());
     $uio->setOfficeID($user->getDefaultOffice()->id());
     $uio->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
+    $uio->setCode($code);
 
-    $uio_id = $uio->save_mr();
-
+    $uio->save_mr();
 
     $email_to = $v['Email'];
     $system = MrBaseHelper::MR_SITE_NAME;
 
-    $link = MrBaseHelper::GetLinkForNewUser($uio_id);
+    $link = MrBaseHelper::GetLinkForNewUser($code);
 
     $subject = "Новый пользователь в системе " . MrBaseHelper::MR_SITE_NAME;
     $message =

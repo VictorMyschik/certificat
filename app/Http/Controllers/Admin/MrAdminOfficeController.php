@@ -91,22 +91,6 @@ class MrAdminOfficeController extends Controller
     return back();
   }
 
-  public function userOfficeIsAdmin(int $id)
-  {
-    $tariff_office = MrUserInOffice::loadBy($id);
-    if($tariff_office->getIsAdmin())
-    {
-      $tariff_office->setIsAdmin(false);
-    }
-    else
-    {
-      $tariff_office->setIsAdmin(true);
-    }
-    $tariff_office->save_mr();
-
-    return back();
-  }
-
   public function discountDelete(int $id)
   {
     $discount = MrDiscount::loadBy($id);

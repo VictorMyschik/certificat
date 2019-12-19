@@ -14,6 +14,7 @@ class MrNewUsers extends ORM
   protected static $dbFieldsMap = array(
     'Email',
     'UserID',
+    'Code',
     'OfficeID',
     'IsAdmin',
     // 'WriteDate',
@@ -42,6 +43,16 @@ class MrNewUsers extends ORM
   public function setEmail(string $value)
   {
     $this->Email = $value;
+  }
+
+  public function getCode(): string
+  {
+    return $this->Code;
+  }
+
+  public function setCode(string $value)
+  {
+    $this->Code = $value;
   }
 
   public function getUser(): MrUser

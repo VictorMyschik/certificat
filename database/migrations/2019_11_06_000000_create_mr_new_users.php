@@ -13,6 +13,7 @@ class createmrnewusers extends Migration
     Schema::create('mr_new_users', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Email',50);
+      $table->string('Code',65);
       $table->smallInteger('UserID');
       $table->smallInteger('OfficeID');
       $table->boolean('IsAdmin')->default(false);

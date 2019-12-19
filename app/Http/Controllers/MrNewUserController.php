@@ -8,10 +8,10 @@ use App\Http\Models\MrNewUsers;
 
 class MrNewUserController extends Controller
 {
-  public function RegistrationNewUser(int $id)
+  public function RegistrationNewUser(string $string)
   {
     $out = array();
-    $new_user = MrNewUsers::loadBy($id);
+    $new_user = MrNewUsers::loadBy($string,'Code');
 
     if(!$new_user)
     {

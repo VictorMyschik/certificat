@@ -40,7 +40,7 @@ Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search
 Route::get('/certificate/{number}', 'MrCertificateController@View');
 
 
-Route::get('/newuser/{id}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
+Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
 
 //// для авторизованных
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth','verified']], function () {
   Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
   Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
-  Route::get('/admin/office/userinoffice/{id}/isadmin', "Admin\MrAdminOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
+  Route::get('/office/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
 
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('office_user_submit');
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
