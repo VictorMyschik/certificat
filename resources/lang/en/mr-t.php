@@ -84,4 +84,9 @@ return $translate_arr + [
     'Баланс' => 'Balance',
     'Добавить' => 'Add',
     'Мой офис' => 'My office',
+    'На ваш адрес электронной почты была отправлена новая ссылка для подтверждения.' => 'A fresh verification link has been sent to your email address.',
+    'Проверьте свою электронною почту' => 'Verify Your Email Address',
+    'Прежде чем продолжить, проверьте свою электронную почту на наличие ссылки для подтверждения.' => 'Before proceeding, please check your email for a verification link.',
+    'Если вы не получили письмо' => 'If you did not receive the email',
+    'нажмите здесь, чтобы отправить ещё раз' => 'click here to request another',
   ];

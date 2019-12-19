@@ -44,7 +44,7 @@ Route::get('/newuser/{id}', 'HomeController@RegistrationNewUser')->name('registr
 
 
 //// для авторизованных
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','verified']], function () {
 
   //// Кабинет пользователя
   Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
