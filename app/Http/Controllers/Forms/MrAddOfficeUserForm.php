@@ -65,7 +65,7 @@ class MrAddOfficeUserForm extends MrFormBase
 
     $user = MrUser::me();
 
-    $uio = new MrNewUsers();
+    $uio = MrNewUsers::loadBy($v['Email'], 'Email') ?: new MrNewUsers();
     $uio->setEmail($v['Email']);
     $uio->setUserID($user->id());
     $uio->setOfficeID($user->getDefaultOffice()->id());
