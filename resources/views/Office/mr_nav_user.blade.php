@@ -2,20 +2,23 @@
   <div class="container">
 
     <a class="navbar-brand" href="{{ url('/') }}">
-        {{ \App\Http\Models\MrUser::me()->getDefaultOffice()->getName() }}
+      {{ \App\Http\Models\MrUser::me()->getDefaultOffice()->getName() }}
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link mr-bold" href="{{ route('office_page') }}"><span class="mr-color-white">{{ __('mr-t.Мой офис') }}</span></a>
+          <a class="nav-link mr-bold" href="{{ route('office_page') }}"><span
+                class="mr-color-white">{{ __('mr-t.Мой офис') }}</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('office_finance_page') }}"><span class="mr-color-white">{{ __('mr-t.Финансы') }}</span></a>
+          <a class="nav-link" href="{{ route('office_finance_page') }}"><span
+                class="mr-color-white">{{ __('mr-t.Финансы') }}</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('office_settings_page') }}"><span class="mr-color-white">{{ __('mr-t.Настройки') }}</span></a>
+          <a class="nav-link" href="{{ route('office_settings_page') }}"><span
+                class="mr-color-white">{{ __('mr-t.Настройки') }}</span></a>
         </li>
 
         <li class="nav-item dropdown">
@@ -41,6 +44,28 @@
             @endforeach
           </div>
         </li>
+
+        @if(\App\Http\Models\MrUser::me()->IsAdmin())
+          <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              <span class="mr-color-white">{{ \App\Http\Models\MrUser::me()->getName() }}</span> <span
+                  class="caret"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="nav-link" href="{{ route('admin') }}">
+                Админка
+              </a>
+              <a class="nav-link" href="/phpmyadmin">
+                PhpMyAdmin
+              </a>
+              <a class="nav-link" href="/clear">
+                Очистить кэш
+              </a>
+            </div>
+          </li>
+        @endif
+
         <li class="nav-item dropdown">
           <a class="nav-link" href="{{ route('logout') }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
