@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 class MrUser extends ORM
 {
   private $admin_email = 'allximik50@gmail.com';
-  private $zero_email = 'mega-ximik@mail.ru';
   protected static $className = MrUser::class;
 
   public static $mr_table = 'mr_users';
@@ -35,11 +34,21 @@ class MrUser extends ORM
     return parent::mr_save_object($this);
   }
 
-  public function deleteAll()
+  protected function before_delete()
   {
-    DB::table('users')->WHERE('id', '=', $this->getUserLaravel())->delete();
+    $subscription = MrSubscription::loadBy($this->getEmail(), 'Email');
+    $subscription->mr_delete();
 
-    $this->mr_delete();
+    $uio = MrUserInOffice::loadBy($this->id(), 'UserID');
+
+    foreach (MrCertificateMonitoring::GetByUserInOffice($uio) as $item)
+    {
+      $item->mr_delete();
+    }
+
+    MrCertificateMonitoring::loadBy($uio->id(), 'UserInOfficeID');
+
+    $uio->mr_delete();
   }
 
   /**
@@ -63,6 +72,7 @@ class MrUser extends ORM
   {
     $date = null;
     $date = $this->getUserLaravel()->getEmailVerifiedDate();
+
     return $date;
   }
 

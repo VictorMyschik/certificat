@@ -78,7 +78,7 @@ class MrCertificateMonitoring extends ORM
    * Список сертификатов, загруженных пользователем
    *
    * @param MrUserInOffice $user_in_office
-   * @return array
+   * @return MrCertificate[]
    */
   public static function GetUserCertificateMonitoringList(MrUserInOffice $user_in_office): array
   {
@@ -97,5 +97,15 @@ class MrCertificateMonitoring extends ORM
         return array();
       }
     });
+  }
+
+  /**
+   * @param MrUserInOffice $uio
+   * @return MrCertificateMonitoring[]
+   */
+  public function GetByUserInOffice(MrUserInOffice $uio)
+  {
+    $list = DB::table(self::$mr_table)->where('UserInOfficeID' . '=', $uio->id())->get();
+    return parent::LoadArray($list, MrCertificateMonitoring::class);
   }
 }

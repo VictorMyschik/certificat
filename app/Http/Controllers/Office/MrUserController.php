@@ -107,4 +107,10 @@ class MrUserController extends Controller
 
     return back();
   }
+
+  public function UserDelete()
+  {
+    $user = MrUser::me();
+    $user->AccountDelete();
+  }
 }

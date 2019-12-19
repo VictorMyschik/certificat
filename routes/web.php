@@ -68,9 +68,9 @@ Route::group(['middleware' => ['auth','verified']], function () {
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
 
   //// Удаление аккаунта
-  Route::match(['get', 'post'], '/office/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
-  Route::match(['get', 'post'], '/office/delete/submit', "Forms\MrUserDeleteForm@submitForm");
+  Route::match(['get', 'post'], '/office/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
 
+  // подписка пользователя
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
 });
 

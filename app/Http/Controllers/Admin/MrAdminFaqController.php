@@ -33,8 +33,8 @@ class MrAdminFaqController extends Controller
       {
         $faq = new MrFaq();
       }
-      $text = $request->get('text');
-      $title = $request->get('title');
+      $text = $request->get('Text');
+      $title = $request->get('Title');
 
       $faq->setTitle($title);
       $faq->setText($text);

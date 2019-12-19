@@ -178,7 +178,7 @@
             </div>
 
             <div class="margin-t-20">
-              <a href="" class="mr-color-red"
+              <a href="{{ route('user_delete') }}" class="mr-color-red"
                  onclick="return confirm('Вы уверены? Будет удалён Ваш акаунт вместе со всеми данными! Это действие необратимо!');">
                 Удалить акаунт</a>
             </div>
@@ -221,7 +221,8 @@
                     <td>
                       <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
                          class="btn btn-danger btn-xs mr-border-radius-5"
-                         onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a></td>@endif
+                         onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a></td>
+                  @endif
                 </tr>
               @endforeach
               </tbody>

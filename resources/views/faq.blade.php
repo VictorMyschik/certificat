@@ -30,14 +30,14 @@
     </div>
 
     <div class="margin-t-20">
-      <a data-toggle="collapse" href="#feedback" aria-expanded="true" class=" mr-color-black mr-bold">
+      <a data-toggle="collapse" href="#feedback" aria-expanded="true" class="mr-color-black mr-bold">
         {{ __('mr-t.Обратная связь') }}
         <h3 class="form-group">{{ __('mr-t.Если остались вопросы, напишите нам') }}</h3>
       </a>
 
       {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
 
-      <div id="feedback" class="collapse">
+      <div id="feedback" class="collapse show in">
 
         <form action="/feedback" method="post">
           {{ Form::token() }}
