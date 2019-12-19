@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrGame;
 use App\Http\Models\MrUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +78,7 @@ class MrUserController extends Controller
 
     MrMessageHelper::SetMessage(true, 'Информация о пользователе обновлена');
 
-    return redirect()->route('office_personal_page');
+    return redirect()->route('office_page');
   }
   #endregion
 }
