@@ -54,7 +54,7 @@
                 <td>{{ $user->getUser()->getEmail() }}</td>
                 <td>
                   {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_user_edit',
-                 'Admin\\MrAdminOfficeUserEditForm', ['id' => $user->id()], '',
+                 'MrAddOfficeUserForm', ['id' => $user->id()], '',
                   ['btn', 'btn-primary', 'btn-xs','mr-border-radius-5', 'fa fa-edit'])
                  !!}
                 </td>

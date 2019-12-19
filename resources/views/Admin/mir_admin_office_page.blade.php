@@ -170,7 +170,7 @@
     <div class="d-inline col-md-9 ">
       <hr>
         <h4 class="mr-bold">Пользователи
-          {!! MrBtn::loadForm('office_user_edit', 'Admin\\MrAdminOfficeUserEditForm', ['id' => $office->id()], 'Добавить пользователя', ['btn-primary btn-xs']) !!}
+          {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить пользователя', ['btn-primary btn-xs']) !!}
         </h4>
         <table class="table table-striped table-bordered mr-middle">
           <thead>

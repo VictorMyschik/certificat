@@ -59,6 +59,13 @@ class MrUser extends ORM
     }
   }
 
+  public function getDateVerify(): ?MtDateTime
+  {
+    $date = null;
+    $date = $this->getUserLaravel()->getEmailVerifiedDate();
+    return $date;
+  }
+
   // пользователь Laravel
   public function getUserLaravel(): ?User
   {
@@ -126,7 +133,6 @@ class MrUser extends ORM
   {
     return $this->getDateNullableField('DateLogin');
   }
-
 
   public function setDateLogin()
   {
@@ -251,7 +257,9 @@ class MrUser extends ORM
   public function IsAdmin(): bool
   {
     if(!Auth::check())
+    {
       return false;
+    }
 
     $admins = array(
       $this->admin_email,

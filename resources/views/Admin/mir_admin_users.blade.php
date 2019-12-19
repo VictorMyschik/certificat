@@ -5,19 +5,18 @@
   <div class="container">
     @include('Admin.layouts.page_title')
     <div class="margin-b-15 margin-t-10">
-      {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'Admin\\MrUserEditForm', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
+      {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'MrUserEditForm', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
     </div>
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
       <tr>
         <td class="padding-horizontal">№</td>
-        <td class="padding-horizontal">Login</td>
         <td class="padding-horizontal">ФИО</td>
         <td class="padding-horizontal">Контакты</td>
         <td class="padding-horizontal">Регистрация</td>
         <td class="padding-horizontal">Старт сессии</td>
         <td class="padding-horizontal">Конец сессии</td>
-        <td class="padding-horizontal">Подписка</td>
+        <td class="padding-horizontal">Верификация</td>
         <td class="padding-horizontal">#</td>
       </tr>
       </thead>
@@ -25,7 +24,6 @@
       @foreach($users as $user)
         <tr class="{{ $user->getBlock() ? 'mr-bg-red' : '' }}">
           <td class="padding-horizontal">{{ $user->id() }}</td>
-          <td class="padding-horizontal">{{ $user->getName() }}</td>
           <td class="padding-horizontal">{{ $user->GetFullName() }}</td>
           <td class="padding-horizontal">
             {{ $user->getPhone() }}
@@ -34,14 +32,12 @@
           <td class="padding-horizontal">{{ $user->getDateFirstVisit()->getShortDateShortTime() }}</td>
           <td class="padding-horizontal">{{ $user->getDateLogin()->getShortDateShortTime() }}</td>
           <td class="padding-horizontal">{{ $user->getDateLastVisit()->getShortDateShortTime() }}</td>
+          <td class="padding-horizontal">{{ $user->getDateVerify()?$user->getDateVerify()->getShortDateShortTime():null }}</td>
           <td class="padding-horizontal">
-            {!!  $user->getIsSubscription()?'<div>да</div><div><a class="mr-border-radius-10" href="/unsubscription/'.\App\Http\Models\MrSubscription::loadBy($user->getEmail(),'Email')->getToken().'?return=true"><span class="mr-color-red">отписать</span></a></div>':'<div>нет</div><div><a class="mr-border-radius-10" href="/subscription?return=true&email='.$user->getEmail().'"><span class="mr-color-green-dark">подписать</span></a></div>' !!}
-          </td>
-          <td class="padding-horizontal">
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'Admin\\MrUserEditForm', ['id' => $user->id()], '', ['btn btn-info btn-xs fa fa-edit'],'xs') !!}
+            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn btn-primary btn-xs fa fa-edit'],'xs') !!}
             <a href="/admin/users/delete/{{ $user->id() }}"
-               onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');">
-              <button type="button" class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5"></button>
+               onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');"
+               class="btn btn-danger btn-xs fa fa-trash-alt mr-border-radius-5">
             </a>
           </td>
         </tr>

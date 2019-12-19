@@ -29,7 +29,7 @@ class LoginController extends Controller
     $user->setDateLogin();
     $user->save_mr();
 
-    redirect('/');
+    redirect('/office');
   }
 
   /**

@@ -1,0 +1,1 @@
+@include('auth.register',['email'=>$email,'office'=>$office,'new_user'=>$text])

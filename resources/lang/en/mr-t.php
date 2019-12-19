@@ -89,4 +89,5 @@ return $translate_arr + [
     'Прежде чем продолжить, проверьте свою электронную почту на наличие ссылки для подтверждения.' => 'Before proceeding, please check your email for a verification link.',
     'Если вы не получили письмо' => 'If you did not receive the email',
     'нажмите здесь, чтобы отправить ещё раз' => 'click here to request another',
+    'Все поля обязательны для заполнения' => 'All fields are required',
   ];

@@ -40,11 +40,13 @@ Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search
 Route::get('/certificate/{number}', 'MrCertificateController@View');
 
 
-Route::get('/newuser/{id}', 'HomeController@RegistrationNewUser')->name('registration_new_user');
+Route::get('/newuser/{id}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
 
 //// для авторизованных
 Route::group(['middleware' => ['auth','verified']], function () {
+  Route::match(['get', 'post'], '/users/edit/{id}/submit', "Forms\MrUserEditForm@submitForm")->name('user_form_submit');
+  Route::match(['get', 'post'], '/users/edit/{id}', "Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   //// Кабинет пользователя
   Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
@@ -52,12 +54,24 @@ Route::group(['middleware' => ['auth','verified']], function () {
   Route::get('/office/finance', "Office\MrOfficeController@financePage")->name('office_finance_page');
   Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');
 
+  // форма для редактирования почтовых данных офиса
+  Route::match(['get', 'post'], '/admin/office/po/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
+  Route::match(['get', 'post'], '/admin/office/po/details/edit/{id}', "Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
+
+  // форма для редактирования юридических данных офиса
+  Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
+  Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
+
+  Route::get('/admin/office/userinoffice/{id}/isadmin', "Admin\MrAdminOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
+
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('office_user_submit');
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
 
   //// Удаление аккаунта
   Route::match(['get', 'post'], '/office/delete/', "Forms\MrUserDeleteForm@builderForm")->name('user_delete');
   Route::match(['get', 'post'], '/office/delete/submit', "Forms\MrUserDeleteForm@submitForm");
+
+  Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
 });
 
 
@@ -106,14 +120,12 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/feedback/edit/send/{id}',
     "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
+
   // Пользователи
   Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('users');
   Route::get('/admin/users/unblock/{id}', "Admin\MrAdminUsersController@unblock")->name('users_unblock');
   Route::get('/admin/users/block', "Admin\MrAdminUsersController@setUserBlock")->name('user_block');
   Route::get('/admin/users/delete/{id}', "Admin\MrAdminController@userDeleteForever")->name('user_delete_forever');
-
-  Route::match(['get', 'post'], '/admin/users/edit/{id}/submit', "Forms\Admin\MrUserEditForm@submitForm")->name('user_form_submit');
-  Route::match(['get', 'post'], '/admin/users/edit/{id}', "Forms\Admin\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   // Подписка
   Route::get('/admin/subscription', "Admin\MrAdminSubscription@index")->name('admin_subscription');
@@ -123,6 +135,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Текстовый редактор
   Route::get('/elfinder/ckeditor', '\Barryvdh\Elfinder\ElfinderController@showCKeditor4');
   Route::any('/elfinder/connector', '\Barryvdh\Elfinder\ElfinderController@showConnector')->name('elfinder.connector');
+
   // Логи, железо
   Route::get('/admin/hardware', "Admin\MrAdminHardwareController@index")->name('mir_logs');
   Route::post('/admin/hardware/api', "Admin\MrAdminHardwareController@ApiUpdate")->name('mir_logs_api');
@@ -186,12 +199,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Форма для создания пустого офиса
   Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');
   Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('office_edit');
-  // форма для редактирования почтовых данных офиса
-  Route::match(['get', 'post'], '/admin/office/po/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
-  Route::match(['get', 'post'], '/admin/office/po/details/edit/{id}', "Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
-  // форма для редактирования юридических данных офиса
-  Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
-  Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
+
 
 
   // Добавление тарифа для офиса
@@ -201,7 +209,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Добавление пользователя в ВО
   Route::get('/admin/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
-  Route::get('/admin/office/userinoffice/{id}/isadmin', "Admin\MrAdminOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
+
 
   // Тарифы
   Route::get('/admin/tariffs', "Admin\MrAdminTariffController@List")->name('tariffs');

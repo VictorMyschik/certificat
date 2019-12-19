@@ -2,11 +2,8 @@
 
 @section('content')
   <div class="mr-bg-img">
-    @guest()
-      @include('layouts.mr_nav')
-    @else
-      @include('Office.mr_nav_user')
-    @endguest
+    @include('layouts.mr_nav')
+
 
     <div class="container padding-t-20">
       <div>

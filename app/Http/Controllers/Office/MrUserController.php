@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Models\MrSubscription;
 use App\Http\Models\MrUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,5 +81,30 @@ class MrUserController extends Controller
 
     return redirect()->route('office_page');
   }
+
   #endregion
+
+  /**
+   * Change subscription
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function ToggleSubscription()
+  {
+    $user = MrUser::me();
+
+    if($user->getIsSubscription())
+    {
+      $subsc = MrSubscription::loadBy($user->getEmail(),'Email');
+      $subsc->mr_delete();
+
+      MrMessageHelper::SetMessage(true, 'Подписка удалена');
+    }
+    else
+    {
+      MrSubscription::Subscription($user->getEmail());
+    }
+
+    return back();
+  }
 }

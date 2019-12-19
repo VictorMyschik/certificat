@@ -11,15 +11,16 @@
         @endforeach
 
         <div class="mr-bold mr-middle margin-b-10"
-             style="border-bottom: #0c175b 1px solid">Офис создан: {{ $office->getCreateDate()->GetShortDateShortTime() }}
-         @if($user->IsAdmin()) | Примечание: {{ $office->getDescription() }}@endif()
+             style="border-bottom: #0c175b 1px solid">Офис
+          создан: {{ $office->getCreateDate()->GetShortDateShortTime() }}
+          @if($user->IsAdmin()) | Примечание: {{ $office->getDescription() }}@endif()
         </div>
 
         <div class="row col-md-12 padding-0">
           <div class="d-md-inline-flex col-md-8 mr-middle">
             <div class="">
               <h5 class="mr-bold" style="padding-right: 20px;">
-                {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
+                @if($user->GetUserInOffice()->getIsAdmin()) {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}@endif
                 Контактная информация и лицо с правом подписи
               </h5>
               <div class="margin-b-10">
@@ -69,7 +70,7 @@
             </div>
             <div class="">
               <h5 class="mr-bold margin-b-5">
-                {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+                @if($user->GetUserInOffice()->getIsAdmin()) {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}@endif
                 Юридическая информация
               </h5>
               <table class="margin-b-10">
@@ -161,21 +162,33 @@
         <div class="row col-md-12 padding-0 margin-t-20">
           <div class="d-md-inline col-md-4 mr-middle">
             <h5 class="mr-bold">Личные настройки</h5>
-            <div>{!! MrBtn::loadForm('office_ur_details_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
+            <div>{!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
               {{ $user->GetFullName() }}
             </div>
-            <div class="margin-t-5">{!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
-              Подписка на новости
+            <div class="margin-t-5">
+              @if($user->getIsSubscription())
+                <a class="btn btn-danger btn-xs fa fa-trash-alt"
+                   href="{{ route('toggle_subscription', ['id'=>$user->id()]) }}"></a>
+                Отменить подписку
+              @else
+                <a class="btn btn-success btn-xs fa fa-edit"
+                   href="{{ route('toggle_subscription', ['id'=>$user->id()]) }}"></a>
+                Подписаться на новости
+              @endif
             </div>
 
             <div class="margin-t-20">
-              <a href="" class="mr-color-red" onclick="return confirm('Вы уверены? Будет удалён Ваш акаунт вместе со всеми данными! Это действие необратимо!');">Удалить акаунт</a>
+              <a href="" class="mr-color-red"
+                 onclick="return confirm('Вы уверены? Будет удалён Ваш акаунт вместе со всеми данными! Это действие необратимо!');">
+                Удалить акаунт</a>
             </div>
 
           </div>
           <div class="d-md-inline col-md-8 mr-middle">
             <h5 class="mr-bold">Пользователи
-              {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить', ['btn-primary btn-xs'],'sm') !!}
+              @if($user->GetUserInOffice()->getIsAdmin())
+                {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить', ['btn-primary btn-xs'],'sm') !!}
+              @endif
             </h5>
             <table class="table table-striped table-bordered mr-middle">
               <thead>
@@ -183,7 +196,8 @@
                 <td>ФИО</td>
                 <td>Почта</td>
                 <td>Admin</td>
-                @if($user->IsAdmin())<td>#</td>@endif
+                @if($user->IsAdmin())
+                  <td>#</td>@endif
               </tr>
               </thead>
               <tbody>
@@ -191,16 +205,23 @@
                 <tr>
                   <td class="padding-horizontal">{{ $user_in_office->getUser()->getName() }}</td>
                   <td class="padding-horizontal">{{ $user_in_office->getUser()->getEmail() }}</td>
-                  <td class="padding-horizontal"><a
-                        href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                        class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-secondary' }} btn-xs mr-border-radius-5">{!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь</span>'!!}
+                  <td class="padding-horizontal">
+                    @if($user->IsAdmin())
+                      <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
+                         class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-secondary' }} btn-xs mr-border-radius-5">
+                        {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь</span>'!!}
 
-                    </a>
+                      </a>
+                    @else
+                      {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь</span>'!!}
+                    @endif
+
                   </td>
-                  @if($user->IsAdmin())<td>
-                    <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
-                       class="btn btn-danger btn-xs mr-border-radius-5"
-                       onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a></td>@endif
+                  @if($user->IsAdmin())
+                    <td>
+                      <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
+                         class="btn btn-danger btn-xs mr-border-radius-5"
+                         onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a></td>@endif
                 </tr>
               @endforeach
               </tbody>
