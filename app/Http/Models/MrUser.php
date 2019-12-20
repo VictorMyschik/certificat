@@ -312,13 +312,10 @@ class MrUser extends ORM
    */
   public function AccountDelete()
   {
-    if($user = MrUser::me())
-    {
-      $user_laravel = $user->getUserLaravel();
-      $user->mr_delete();
+    $user_laravel = $this->getUserLaravel();
+    $this->mr_delete();
 
-      User::find($user_laravel->id)->delete();
-    }
+    User::find($user_laravel->id)->delete();
   }
 
   /** ID пользователя-заглушки
@@ -383,4 +380,6 @@ class MrUser extends ORM
 
     return true;
   }
+
+
 }

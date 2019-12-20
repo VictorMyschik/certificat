@@ -357,4 +357,23 @@ class MrOffice extends ORM
 
     return $out;
   }
+
+  /**
+   * Есть ли пользователь в данном ВО
+   *
+   * @param MrUser $user
+   * @return bool
+   */
+  public function getUserInOffice(MrUser $user): bool
+  {
+    foreach ($this->GetUsers() as $item)
+    {
+      if($item->getUser()->id() == $user->id())
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

@@ -44,7 +44,7 @@ Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name
 
 
 //// для авторизованных
-Route::group(['middleware' => ['auth','verified']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/users/edit/{id}/submit', "Forms\MrUserEditForm@submitForm")->name('user_form_submit');
   Route::match(['get', 'post'], '/users/edit/{id}', "Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
@@ -67,8 +67,10 @@ Route::group(['middleware' => ['auth','verified']], function () {
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('office_user_submit');
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
 
-  //// Удаление аккаунта
-  Route::match(['get', 'post'], '/office/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
+  //// Удаление аккаунта по ID
+  Route::get('/office/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
+  // Себя
+  Route::get('/user/delete/', "Office\MrUserController@DeleteSelf")->name('self_delete');
 
   // подписка пользователя
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
@@ -199,7 +201,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Форма для создания пустого офиса
   Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('office_submit');
   Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('office_edit');
-
 
 
   // Добавление тарифа для офиса

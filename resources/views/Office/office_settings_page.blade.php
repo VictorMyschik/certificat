@@ -178,7 +178,7 @@
             </div>
 
             <div class="margin-t-20">
-              <a href="{{ route('user_delete') }}" class="mr-color-red"
+              <a href="{{ route('self_delete') }}" class="mr-color-red"
                  onclick="return confirm('Вы уверены? Будет удалён Ваш акаунт вместе со всеми данными! Это действие необратимо!');">
                 Удалить акаунт</a>
             </div>
