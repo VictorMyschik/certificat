@@ -364,7 +364,7 @@ class MrOffice extends ORM
    * @param MrUser $user
    * @return bool
    */
-  public function getUserInOffice(MrUser $user): bool
+  public function IsUserInOffice(MrUser $user): bool
   {
     foreach ($this->GetUsers() as $item)
     {

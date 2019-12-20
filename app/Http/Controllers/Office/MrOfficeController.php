@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrCertificate;
 use App\Http\Models\MrCertificateMonitoring;
 use App\Http\Models\MrUser;
@@ -21,7 +22,7 @@ class MrOfficeController extends Controller
   {
     $out = array();
     $user = MrUser::me();
-    $out['user'] = $user;
+    $out['me'] = $user;
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $user->getDefaultOffice();
     return View('Office.office_settings_page')->with($out);
@@ -61,16 +62,30 @@ class MrOfficeController extends Controller
    */
   public function userOfficeIsAdmin(int $id)
   {
-    $tariff_office = MrUserInOffice::loadBy($id);
-    if($tariff_office->getIsAdmin())
+    $me = MrUser::me();
+    $uio = MrUserInOffice::loadBy($id);
+
+    if(!$me->GetUserInOffice()->getIsAdmin())
     {
-      $tariff_office->setIsAdmin(false);
+      MrMessageHelper::SetMessage(false, 'Только администры могут менять статус.');
+      return back();
+    }
+
+    if(!$uio || !$me->getDefaultOffice()->IsUserInOffice($uio->getUser()))
+    {
+      MrMessageHelper::SetMessage(false, 'Пользователь не найден.');
+      return back();
+    }
+
+    if($uio->getIsAdmin())
+    {
+      $uio->setIsAdmin(false);
     }
     else
     {
-      $tariff_office->setIsAdmin(true);
+      $uio->setIsAdmin(true);
     }
-    $tariff_office->save_mr();
+    $uio->save_mr();
 
     return back();
   }

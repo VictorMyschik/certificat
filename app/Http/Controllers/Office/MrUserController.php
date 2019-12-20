@@ -135,7 +135,7 @@ class MrUserController extends Controller
 
     $user = MrUser::loadBy($id);
 
-    if(!$user || !$me->getDefaultOffice()->getUserInOffice($user))
+    if(!$user || !$me->getDefaultOffice()->IsUserInOffice($user))
     {
       MrMessageHelper::SetMessage(false, 'Пользователь не найден в ВО.');
       return back();

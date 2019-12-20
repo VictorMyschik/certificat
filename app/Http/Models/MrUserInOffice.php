@@ -56,4 +56,28 @@ class MrUserInOffice extends ORM
   }
 
 
+  /**
+   * Может ли админ сложить полномочия
+   */
+  public function canAdminChange():bool
+  {
+    if($this->getIsAdmin() == false)
+    {
+      return false;
+    }
+
+    foreach ($this->getOffice()->GetUsers() as $uio)
+    {
+      if($this->getUser()->id() == $uio->getUser()->id())
+        continue;
+
+      if($uio->getIsAdmin())
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 }
