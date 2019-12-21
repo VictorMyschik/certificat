@@ -376,4 +376,23 @@ class MrOffice extends ORM
 
     return false;
   }
+
+  /**
+   * Количество администраторов в офисе
+   *
+   * @return int
+   */
+  public function countAdmins(): int
+  {
+    $i = 0;
+    foreach ($this->GetUsers() as $uio)
+    {
+      if($uio->getIsAdmin())
+      {
+        $i++;
+      }
+    }
+
+    return $i;
+  }
 }
