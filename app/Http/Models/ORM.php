@@ -89,24 +89,26 @@ class ORM extends Model
   public function mr_save_object($object): ?int
   {
     $array = array();
-    $diff = array();
 
     foreach (static::$dbFieldsMap as $propertis)
     {
-      if(is_object($object->$propertis))
+      if($object->$propertis)
       {
-        if(!isset($object->$propertis->id))
+        if(is_object($object->$propertis))
         {
-          $array[$propertis] = $object->$propertis;
+          if(!isset($object->$propertis->id))
+          {
+            $array[$propertis] = $object->$propertis;
+          }
+          else
+          {
+            $array[$propertis] = $object->$propertis->id;
+          }
         }
         else
         {
-          $array[$propertis] = $object->$propertis->id;
+          $array[$propertis] = $object->$propertis;
         }
-      }
-      else
-      {
-        $array[$propertis] = $object->$propertis;
       }
     }
 
@@ -118,6 +120,11 @@ class ORM extends Model
       if(count($diff))
       {
         DB::table(static::$mr_table)->where('id', '=', (int)$object->id)->update($diff);
+        //// Запись в лог изменений БД
+        if(!in_array(static::$mr_table, MrBaseLog::$ignoring_tables))
+        {
+          MrBaseLog::SaveData(static::$mr_table, (int)$object->id, $diff);
+        }
       }
 
       $last_id_out = (int)$object->id;
@@ -126,9 +133,13 @@ class ORM extends Model
     {
       $last_id_out = DB::table(static::$mr_table)->insertGetId($array);
       $diff = $array;
+      //// Запись в лог изменений БД
+      if(!in_array(static::$mr_table, MrBaseLog::$ignoring_tables))
+      {
+        MrBaseLog::SaveData(static::$mr_table, $last_id_out, $diff);
+      }
     }
 
-    MrBaseLog::SaveData(static::$mr_table, $last_id_out, $diff);
 
     return $last_id_out;
   }
@@ -151,6 +162,12 @@ class ORM extends Model
       {
         continue;
       }
+
+      if(!isset($modified->attributes[$orgn_key]))
+      {
+        continue;
+      }
+
 
       if($modified->attributes[$orgn_key] instanceof Carbon || $modified->attributes[$orgn_key] instanceof MtDateTime)
       {

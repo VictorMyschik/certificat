@@ -12,7 +12,7 @@ class createmrbaselog extends Migration
   {
     Schema::create('mr_base_log', function (Blueprint $table) {
       $table->Increments('id')->autoIncrement();
-      $table->integer('LogIdentID');
+      $table->integer('LogIdentID')->default(0);
       $table->string('TableName');
       $table->integer('RowId');
       $table->string('Field');

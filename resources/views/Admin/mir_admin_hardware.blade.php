@@ -66,20 +66,20 @@
         <tbody>
         @foreach($logs as $item)
           <tr>
-            <td class="padding-horizontal"
-                style="max-width: 200px; word-wrap: break-word;">{{ $item->id() }}</td>
+            <td class="padding-horizontal">{{ $item->id() }}</td>
             <td class="padding-horizontal"
                 style="max-width: 200px; word-wrap: break-word;">{{ date('d M H:m:s', strtotime($item->getDate())) }}</td>
-            <td class="padding-horizontal"
-                style="max-width: 200px; word-wrap: break-word;">{{ $item->getIp() }}</td>
-            <td class="padding-horizontal"
-                style="max-width: 200px; word-wrap: break-word;"><a href="{{ $item->getReferer() }}"
-                                                                    target="_blank">{{ $item->getReferer() }}</a>
+            <td class="padding-horizontal">{{ $item->getIp() }}</td>
+            <td class="padding-horizontal" style="max-width: 150px; word-wrap: break-word;">
+              <div class="mr-small">{{ $item->getReferer() }}</div>
+              <a href="{{ $item->getReferer() }}" class="btn btn-primary btn-xs" target="_blank">Link</a>
             </td>
-            <td class="padding-horizontal"
-                style="max-width: 200px; word-wrap: break-word;"><a
-                  href="{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_URL.$item->getLink() }}"
-                  target="_blank">{{ $item->getLink() }}</a></td>
+            <td class="padding-horizontal">
+              <div class="mr-small"  style="max-width: 100px; word-wrap: break-word;">{{ $item->getLink() }}</div>
+              <a href="{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_URL.$item->getLink() }}" class="btn btn-primary btn-xs">
+                Link
+              </a>
+            </td>
             <td class="padding-horizontal">{!!
                      $item->getUser()?
                      '<div>'.$item->getUser()->getName().'</div>

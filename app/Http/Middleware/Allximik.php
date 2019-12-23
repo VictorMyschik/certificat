@@ -29,20 +29,25 @@ class Allximik extends Middleware
       $mr_user_id = $mr_user->save_mr();
     }
 
-    $newIdent = new MrLogIdent();
-    $newIdent->setIp($data['IP']);
-    $newIdent->setLink($data['URL']);
-    $newIdent->setReferer($data['Referer']);
-    $newIdent->setUserID($mr_user_id ?? null);
-    $newIdent->setBotID($data['Bot'] ? $data['Bot']->id() : null);
-    $newIdent->setUserAgent($data['UserAgent']);
-    $newIdent->setCity((string)$data['City']);
-    $newIdent->setCountry((string)$data['Country']);
-    $newIdent->setCookie($data['Cookie']);
+    if(!$mr_user->IsAdmin())
+    {
+      $newIdent = new MrLogIdent();
+      $newIdent->setIp($data['IP']);
+      $newIdent->setLink($data['URL']);
+      $newIdent->setReferer($data['Referer']);
+      $newIdent->setUserID($mr_user_id ?? null);
+      $newIdent->setBotID($data['Bot'] ? $data['Bot']->id() : null);
+      $newIdent->setUserAgent($data['UserAgent']);
+      $newIdent->setCity((string)$data['City']);
+      $newIdent->setCountry((string)$data['Country']);
+      $newIdent->setCookie($data['Cookie']);
 
-    $id = $newIdent->save_mr();
+      $id = $newIdent->save_mr();
 
-    return $id;
+      return $id;
+    }
+
+    return null;
   }
 
   public static function getHttpData(): ?array
@@ -51,7 +56,6 @@ class Allximik extends Middleware
     $IP = (string)$_SERVER['REMOTE_ADDR'];
     $Referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
     $URL = (string)$_SERVER['REQUEST_URI'];
-    $UserLanguage = (string)$_SERVER['HTTP_ACCEPT_LANGUAGE'];
     $Method = (string)$_SERVER['REQUEST_METHOD'];
 
     if(!empty($_COOKIE["id_user"]))
@@ -85,7 +89,6 @@ class Allximik extends Middleware
       'Referer' => substr($Referer,0,400),
       'URL' => $URL,
       'Bot' => $bot,
-      'UserLanguage' => $UserLanguage,
       'UserMrCookie' => isset($user) ? $user->id() : null,
       'Method' => $Method,
       'City' => isset($city_id) ? $city_id : null,

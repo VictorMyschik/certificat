@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class MrLogIdent extends ORM
 {
   public static $mr_table = 'mr_log_ident';
-  public static $ident_id = null;
+  public static $ident_id = '0';
   protected static $dbFieldsMap = array(
     'Referer',
     'Link',
@@ -23,6 +23,7 @@ class MrLogIdent extends ORM
     'City',
     'Country',
     'Cookie',
+    'LanguageID',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrLogIdent
@@ -152,14 +153,6 @@ class MrLogIdent extends ORM
   {
     return DB::table(static::$mr_table)->max('ID');
   }
-
-  // Уникальные посетители за текущие сутки по Cookie
-  public static function GetVisitCount(): int
-  {
-    return DB::table(static::$mr_table)
-      ->WHERE('Date', '>', Carbon::now()->setTime('0', '0'))->distinct()->count('Cookie');
-  }
-
 
   /**
    * @param Carbon $date

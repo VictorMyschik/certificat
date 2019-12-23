@@ -51,7 +51,7 @@ class MrTariff extends ORM
     /** @var MrOffice[] $offices */
     foreach ($offices as $item)
     {
-      foreach ($item->GetTariff() as $tariff)
+      foreach ($item->GetTariffs() as $tariff)
       {
         if($this->id() == $tariff->id())
         {

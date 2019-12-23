@@ -24,7 +24,6 @@ class MrArticlesController extends Controller
    */
   protected function getArticle(int $kind): ?MrArticle
   {
-    $out = array();
     $language = self::getLanguage();
     $article = null;
 
