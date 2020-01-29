@@ -12,7 +12,7 @@
     </div>
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td><b>Наименование</b></td>
         <td><b>#</b></td>
       </tr>

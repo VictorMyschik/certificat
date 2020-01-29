@@ -222,7 +222,6 @@
                           <span title="Снять привилегии администратора">{{ $user_in_office->getIsAdmin()?'Администратор':'Пользователь' }}
                                 </span>
                           </a>
-                          </span>
                         @else
                           <span title="Снять привилегии администратора">{{ $user_in_office->getIsAdmin()?'Администратор':'Пользователь' }}
                                 </span>

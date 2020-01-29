@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Forms\Admin;
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrOffice;
 use Illuminate\Http\Request;
+
 /**
  * Форма создания пустого офиса
  */
@@ -15,7 +16,7 @@ class MrAdminOfficeEditForm extends MrFormBase
   protected function builderForm(&$form, $id)
   {
     $office = MrOffice::loadBy($id);
-
+    $form['#title'] = $id ? 'Изменить офис' : 'Создание нового офиса';
     $form['Name'] = array(
       '#type' => 'textfield',
       '#title' => 'Наименование офиса',
@@ -24,10 +25,11 @@ class MrAdminOfficeEditForm extends MrFormBase
     );
 
     $form['Description'] = array(
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => 'Примечание (для себя)',
       '#class' => ['mr-border-radius-5'],
       '#value' => $office ? $office->getDescription() : null,
+      '#rows' => 5,
     );
 
 

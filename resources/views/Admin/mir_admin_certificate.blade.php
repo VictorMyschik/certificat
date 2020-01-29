@@ -9,7 +9,7 @@
     </div>
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td>ID</td>
         <td>Тип</td>
         <td>Номер</td>

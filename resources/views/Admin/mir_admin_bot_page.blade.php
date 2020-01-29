@@ -5,7 +5,7 @@
     @include('Admin.layouts.page_title')
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
       <thead>
-      <tr>
+      <<tr class="mr-bold">
         <td class="padding-horizontal">№</td>
         <td class="padding-horizontal">UserAgent</td>
         <td class="padding-horizontal">Примечание</td>

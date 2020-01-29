@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 abstract class MrBaseHelper extends Controller
 {
   const MR_EMAIL = 'support@cardbox.ml';
-  const MR_SITE_NAME = 'SiteName';
+  const MR_SITE_NAME = 'Certificate';
   const MR_DOMAIN = 'certificat';
   const MR_SITE = 'SiteName.ml';
   const MR_SITE_URL = 'http://certificat';

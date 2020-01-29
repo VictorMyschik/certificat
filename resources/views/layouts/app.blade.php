@@ -7,7 +7,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <title>{{ $page_title ?? \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</title>
+  <title>{{ $page_title ?? MrBaseHelper::MR_SITE_NAME }}</title>
 
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -35,8 +35,6 @@
 
       <div class="d-inline-block align-top">
         <span class="mr-bold">{{ __('mr-t.Обратная связь') }}</span>
-        <script src="https://cardbox.ml/public/js/api/mr_c.js"></script>
-        <div id="contacts"></div>
         <table>
           <tr>
             <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>
@@ -48,8 +46,8 @@
           </tr>
           <tr>
             <td class="fa fa-link"> {{ __('mr-t.Веб сайт') }}:</td>
-            <td><a href="{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_URL }}"
-                   class="margin-l-5">{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE }}</a></td>
+            <td><a href="{{ MrBaseHelper::MR_SITE_URL }}"
+                   class="margin-l-5">{{ MrBaseHelper::MR_SITE }}</a></td>
           </tr>
         </table>
       </div>

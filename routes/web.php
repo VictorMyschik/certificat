@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
 
-  Route::get('/test', "MrTestController@index");
+  Route::match(['get', 'post'],'/test', "MrTestController@index");
   //// Админка
 
   // BACK UP

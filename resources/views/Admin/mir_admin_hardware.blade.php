@@ -51,7 +51,7 @@
     <div class="">
       <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
         <thead>
-        <tr>
+        <tr class="mr-bold">
           <td class="padding-horizontal">№</td>
           <td class="padding-horizontal">Дата/время</td>
           <td class="padding-horizontal">IP</td>

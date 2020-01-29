@@ -5,11 +5,11 @@
   <div class="container">
     @include('Admin.layouts.page_title')
     <div class="margin-b-15 margin-t-10">
-      {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'MrUserEditForm', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
+      {!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
     </div>
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td class="padding-horizontal">№</td>
         <td class="padding-horizontal">ФИО</td>
         <td class="padding-horizontal">Контакты</td>
@@ -34,7 +34,7 @@
           <td class="padding-horizontal">{{ $user->getDateLastVisit()->getShortDateShortTime() }}</td>
           <td class="padding-horizontal">{{ $user->getDateVerify()?$user->getDateVerify()->getShortDateShortTime():null }}</td>
           <td class="padding-horizontal">
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn btn-primary btn-xs fa fa-edit'],'xs') !!}
+            {!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn btn-primary btn-xs fa fa-edit'],'xs') !!}
             <a href="/admin/users/delete/{{ $user->id() }}"
                onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');"
                class="btn btn-danger btn-xs fa fa-trash-alt mr-border-radius-5">
@@ -52,7 +52,7 @@
       <select class="mr-border-radius-10" name="user">
         <option value=0>[не выбрано]</option>
         @foreach($users as $user)
-          @if($user->IsAdmin())
+          @if($user->IsSuperAdmin())
             @continue
           @endif
           <option value="{{ $user->id() }}">{{ $user->getName().' ('.$user->getEmail().')' }}</option>

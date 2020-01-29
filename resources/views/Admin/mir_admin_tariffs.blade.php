@@ -10,7 +10,7 @@
     </div>
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td>ID</td>
         <td>Наименование</td>
         <td>Категория</td>
@@ -30,9 +30,9 @@
           <td>{{ $value->getCost() }}</td>
           <td>{{ $value->getDescription() }}</td>
           <td>
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => $value->id()], '',['btn-primary btn-xs fa fa-edit']) !!}
+            {!! MrBtn::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => $value->id()], '',['btn-primary btn-xs fa fa-edit']) !!}
             <a href="/admin/tariff/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');"
-               class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a></td>
+               class="btn btn-danger btn-xs fa fa-trash-alt"></a></td>
         </tr>
       @endforeach
       </tbody>

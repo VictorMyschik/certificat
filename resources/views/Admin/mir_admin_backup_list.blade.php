@@ -16,7 +16,7 @@
     </div>
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td>№</td>
         <td>Таблица</td>
         <td>Миграции</td>

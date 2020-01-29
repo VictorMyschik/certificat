@@ -29,7 +29,7 @@ class Allximik extends Middleware
       $mr_user_id = $mr_user->save_mr();
     }
 
-    if(!$mr_user->IsAdmin())
+    if(!$mr_user || !$mr_user->IsAdmin())
     {
       $newIdent = new MrLogIdent();
       $newIdent->setIp($data['IP']);
