@@ -14,8 +14,6 @@ class MrCertificate extends ORM
   public static $mr_table = 'mr_certificate';
   public static $className = MrCertificate::class;
 
-  protected $id = 0;
-
   protected static $dbFieldsMap = array(
     'Kind',
     'Number',
@@ -69,12 +67,6 @@ class MrCertificate extends ORM
     {
       $details->mr_delete();
     }
-  }
-
-  public function save_mr()
-  {
-    Cache::forget('certificate' . $this->id());
-    return parent::mr_save_object($this);
   }
 
   public function getKind(): ?int

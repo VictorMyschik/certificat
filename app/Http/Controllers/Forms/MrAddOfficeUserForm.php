@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Forms;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
-use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Controllers\Helpers\MrEmailHelper;
 use App\Http\Models\MrNewUsers;
+use App\Http\Models\MrOffice;
 use App\Http\Models\MrUser;
+use App\Http\Models\MrUserInOffice;
 use Illuminate\Http\Request;
 
 class MrAddOfficeUserForm extends MrFormBase
@@ -36,6 +37,13 @@ class MrAddOfficeUserForm extends MrFormBase
   {
     parent::ValidateBase($out, $v);
 
+    $office = MrOffice::loadBy($v['id']);
+    if(!$office->canEdit())
+    {
+      abort(503, __('mr-t.Нет прав доступа'));
+    }
+
+
     if($v['Email'])
     {
       $regex = '/\S+@\S+\.\S+/';
@@ -62,35 +70,36 @@ class MrAddOfficeUserForm extends MrFormBase
     }
 
     parent::submitFormBase($request->all());
-    $code = md5(time());
-    $user = MrUser::me();
 
-    $uio = MrNewUsers::loadBy($v['Email'], 'Email') ?: new MrNewUsers();
-    $uio->setEmail($v['Email']);
-    $uio->setUserID($user->id());
-    $uio->setOfficeID($user->getDefaultOffice()->id());
-    $uio->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
-    $uio->setCode($code);
+    // Email есть в системе - просто даём доступ и отправляем уведомление
+    if ($has_user = MrUser::LoadUserByEmail($v['Email']))
+    {
+      $uio = new MrUserInOffice();
+      $uio->setUserID($has_user->id());
+      $uio->setOfficeID($id);
+      $uio->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
+      $uio->save_mr();
 
-    $uio->save_mr();
+      MrEmailHelper::SendNewUserRole($id, $v['Email']);
+    }
+    // Иначе отправляем запрос на регистрацию нового пользователя
+    else
+    {
+      $code = md5(time());
+      $user = MrUser::me();
 
-    $email_to = $v['Email'];
-    $system = MrBaseHelper::MR_SITE_NAME;
+      $new_user = MrNewUsers::loadBy((string)$v['Email'], 'Email') ?: new MrNewUsers();
+      $new_user->setEmail((string)$v['Email']);
+      $new_user->setUserID($user->id());
+      $new_user->setOfficeID($id);
+      $new_user->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
+      $new_user->setCode($code);
 
-    $link = MrBaseHelper::GetLinkForNewUser($code);
+      $new_user_id = $new_user->save_mr();
 
-    $subject = "Новый пользователь в системе " . MrBaseHelper::MR_SITE_NAME;
-    $message =
-      <<< HTML
-        <body>
-        <h3>Здравствуйте!</h3>
-<p>Для аккаунта с адресом {$email_to} был предоставлен доступ в Виртуальный Офис {$user->getDefaultOffice()->getName()} в Системе {$system}.</p>
-<p>Для входа в Систему {$system} вы можете воспользоваться следующей ссылкой: {$link}
-</p>
-<p>Если Вы получили данное письмо по ошибке, проигнорируйте его.</p>
-        </body>
-HTML;
-    MrEmailHelper::SendNewUser($email_to, $subject, $message);
+      MrEmailHelper::SendNewUser($new_user_id);
+    }
+
     return;
   }
 }

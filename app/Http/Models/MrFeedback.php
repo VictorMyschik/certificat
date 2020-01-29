@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 class MrFeedback extends ORM
 {
   public static $mr_table = 'mr_feedback';
-
+  public static $className = MrFeedback::class;
+  
   protected static $dbFieldsMap = array(
     'Name',
     'Email',
@@ -20,11 +21,6 @@ class MrFeedback extends ORM
   public static function loadBy($value, $field = 'id'): ?MrFeedback
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   // Текст собщения

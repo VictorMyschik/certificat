@@ -90,4 +90,6 @@ return $translate_arr + [
     'Если вы не получили письмо' => 'If you did not receive the email',
     'нажмите здесь, чтобы отправить ещё раз' => 'click here to request another',
     'Все поля обязательны для заполнения' => 'All fields are required',
+    'Нет прав доступа' => 'Permission forbidden',
+    'Новый пользователь в системе' => 'New user',
   ];

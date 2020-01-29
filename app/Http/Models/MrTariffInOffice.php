@@ -11,6 +11,7 @@ class MrTariffInOffice extends ORM
 {
   public static $mr_table = 'mr_tariff_in_office';
   public static $className = MrTariffInOffice::class;
+
   protected static $dbFieldsMap = array(
     'OfficeID',
     'TariffID',
@@ -20,11 +21,6 @@ class MrTariffInOffice extends ORM
   public static function loadBy($value, $field = 'id'): ?MrTariffInOffice
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   public function before_delete()

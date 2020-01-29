@@ -13,7 +13,6 @@ class MrBaseLog extends ORM
 {
   public static $mr_table = 'mr_base_log';
   public static $className = MrBaseLog::class;
-  protected $id = 0;
 
   public static $ignoring_tables = array(
     'mr_log_ident',
@@ -33,11 +32,6 @@ class MrBaseLog extends ORM
   public static function loadBy($value, $field = 'id'): ?MrBaseLog
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   // Посетитель

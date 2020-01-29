@@ -29,11 +29,6 @@ class MrUser extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
-  }
-
   protected function before_delete()
   {
     $subscription = MrSubscription::loadBy($this->getEmail(), 'Email');
@@ -264,7 +259,7 @@ class MrUser extends ORM
    *
    * @return bool
    */
-  public function IsAdmin(): bool
+  public function IsSuperAdmin(): bool
   {
     if(!Auth::check())
     {
@@ -358,4 +353,15 @@ class MrUser extends ORM
     return $out;
   }
 
+  /**
+   * Загрузка пользователя по Email
+   *
+   * @param string $email
+   * @return MrUser|null
+   */
+  public static function LoadUserByEmail(string $email): ?MrUser
+  {
+    $user = DB::table('users')->where('email', $email)->first(['id']);
+    return self::loadBy($user->id??null);
+  }
 }

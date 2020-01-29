@@ -11,7 +11,6 @@ class MrDiscount extends ORM
 {
   public static $mr_table = 'mr_discount';
   public static $className = MrDiscount::class;
-  protected $id = 0;
 
   protected static $dbFieldsMap = array(
     'OfficeID',
@@ -81,12 +80,6 @@ class MrDiscount extends ORM
   public static function loadBy($value, $field = 'id'): ?MrDiscount
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    Cache::forget('discount_' . $this->OfficeID);
-    return parent::mr_save_object($this);
   }
 
   protected function before_delete()

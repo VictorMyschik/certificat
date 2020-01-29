@@ -10,7 +10,6 @@ class MrFaq extends ORM
 {
   public static $mr_table = 'mr_faq';
   public static $className = MrFaq::class;
-  protected $id = 0;
 
   protected static $dbFieldsMap = array(
     'Title',
@@ -20,11 +19,6 @@ class MrFaq extends ORM
   public static function loadBy($value, $field = 'id'): ?MrFaq
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   // Наименование статьи

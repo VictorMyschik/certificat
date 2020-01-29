@@ -12,7 +12,6 @@ class MrCertificateMonitoring extends ORM
 {
   public static $mr_table = 'mr_certificate_monitoring';
   public static $className = MrCertificateMonitoring::class;
-  protected $id = 0;
 
   protected static $dbFieldsMap = array(
     'UserInOfficeID',
@@ -24,12 +23,6 @@ class MrCertificateMonitoring extends ORM
   public static function loadBy($value, $field = 'id'): ?MrCertificateMonitoring
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    Cache::forget('user_certificate_' . MrUser::me()->id());
-    return parent::mr_save_object($this);
   }
 
   public function before_delete()

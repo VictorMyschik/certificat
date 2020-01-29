@@ -12,6 +12,7 @@ class MrOffice extends ORM
 {
   public static $mr_table = 'mr_office';
   public static $className = MrOffice::class;
+
   protected static $dbFieldsMap = array(
     'Name',
     'Description',
@@ -46,9 +47,24 @@ class MrOffice extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  public function save_mr()
+  public function canEdit(): bool
   {
-    return parent::mr_save_object($this);
+    $me = MrUser::me();
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    foreach ($this->GetUsers() as $uio)
+    {
+      $user = $uio->getUser();
+      if($user->id() == $me->id())
+      {
+        return $uio->getIsAdmin();
+      }
+    }
+
+    return false;
   }
 
   public function canDelete(): bool

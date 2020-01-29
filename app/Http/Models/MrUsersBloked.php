@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 class MrUsersBloked extends ORM
 {
   protected static $mr_table = 'mr_users_bloked';
+  public static $className = MrUsersBloked::class;
+
   protected static $dbFieldsMap = array(
     'UserID',
     'DateFrom',
@@ -19,11 +21,6 @@ class MrUsersBloked extends ORM
   public static function loadBy($value, $field = 'id'): ?MrUsersBloked
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   public function getUser(): ?MrUser

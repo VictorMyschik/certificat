@@ -43,12 +43,6 @@ class MrArticle extends ORM
     return true;
   }
 
-  public function save_mr()
-  {
-    Cache::forget('MrArticles_ids');
-    return parent::mr_save_object($this);
-  }
-
   public function before_delete()
   {
     Cache::forget('MrArticles_ids');

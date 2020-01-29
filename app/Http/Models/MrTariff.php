@@ -9,6 +9,7 @@ class MrTariff extends ORM
 {
   public static $mr_table = 'mr_tariff';
   protected static $className = MrTariff::class;
+
   protected static $dbFieldsMap = array(
     'Name',
     'Measure',
@@ -61,11 +62,6 @@ class MrTariff extends ORM
     }
 
     return true;
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   public static function getCategoryList(): array

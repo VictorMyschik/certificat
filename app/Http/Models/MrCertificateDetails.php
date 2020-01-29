@@ -11,7 +11,6 @@ class MrCertificateDetails extends ORM
 {
   public static $mr_table = 'mr_certificate_details';
   public static $className = MrCertificateDetails::class;
-  protected $id = 0;
 
   protected static $dbFieldsMap = array(
     'CertificateID',
@@ -23,12 +22,6 @@ class MrCertificateDetails extends ORM
   public static function loadBy($value, $field = 'id'): ?MrCertificateDetails
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    Cache::forget('certificate' . $this->CertificateID);
-    return parent::mr_save_object($this);
   }
 
   protected function before_delete()

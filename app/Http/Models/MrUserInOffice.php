@@ -7,7 +7,7 @@ namespace App\Http\Models;
 class MrUserInOffice extends ORM
 {
   public static $mr_table = 'mr_user_in_office';
-  public static $className = MrOffice::class;
+  public static $className = MrUserInOffice::class;
   protected static $dbFieldsMap = array(
     'UserID',
     'OfficeID',
@@ -18,11 +18,6 @@ class MrUserInOffice extends ORM
   public static function loadBy($value, $field = 'id'): ?MrUserInOffice
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
   }
 
   public function getUser(): MrUser

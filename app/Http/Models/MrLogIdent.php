@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class MrLogIdent extends ORM
 {
   public static $mr_table = 'mr_log_ident';
+  public static $className = MrLogIdent::class;
   public static $ident_id = '0';
   protected static $dbFieldsMap = array(
     'Referer',
@@ -29,11 +30,6 @@ class MrLogIdent extends ORM
   public static function loadBy($value, $field = 'id'): ?MrLogIdent
   {
     return parent::loadBy((string)$value, $field);
-  }
-
-  public function save_mr()
-  {
-    return self::$ident_id = parent::mr_save_object($this);
   }
 
   // Дата

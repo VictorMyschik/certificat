@@ -16,9 +16,9 @@ Route::get('locale/{locale}', function ($locale) {
 });
 
 Route::get('/', 'HomeController@index')->name('welcome');
-Route::match(['get', 'post'], '/faq', 'MrFAQController@index');
+Route::match(['get', 'post'], '/faq', 'MrFAQController@index')->name('faq_page');
 
-Route::get('/policy', 'MrArticlesController@ViewPolicy');
+Route::get('/policy', 'MrArticlesController@ViewPolicy')->name('policy_page');
 Route::get('/api', 'MrArticlesController@ViewApi');
 
 // атворизация через соц сети

@@ -30,11 +30,6 @@ class MrNewUsers extends ORM
     return true;
   }
 
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
-  }
-
   public function getEmail(): string
   {
     return $this->Email;

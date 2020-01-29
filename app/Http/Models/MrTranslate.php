@@ -22,11 +22,6 @@ class MrTranslate extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  public function save_mr()
-  {
-    return parent::mr_save_object($this);
-  }
-
   /**
    *  На русском
    *

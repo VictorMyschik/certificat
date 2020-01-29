@@ -29,8 +29,8 @@
 <div id="app">
   @yield('content')
 </div>
-<div class="mr-bg-muted-blue">
-  <div class="container col-md-8 footer mr-middle">
+<div class="mr-bg-muted-blue" >
+  <div class="container col-md-8 mr-middle">
     <div class="padding-t-15">
 
       <div class="d-inline-block align-top">
@@ -38,11 +38,11 @@
         <table>
           <tr>
             <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>
-            <td><a href="tel:+375297896282" class="margin-l-5">+375(29)789-62-82</a></td>
+            <td><a href="tel:{{ MrBaseHelper::ADMIN_PHONE }}" class="margin-l-5">{{ MrBaseHelper::ADMIN_PHONE_FORMAT }}</a></td>
           </tr>
           <tr>
             <td class="fa fa-envelope"> Email:</td>
-            <td><a href="mailto:allximik50@gmail.com" class="margin-l-5">allximik50@gmail.com</a></td>
+            <td><a href="mailto:{{ MrBaseHelper::MR_EMAIL }}" class="margin-l-5">{{ MrBaseHelper::MR_EMAIL }}</a></td>
           </tr>
           <tr>
             <td class="fa fa-link"> {{ __('mr-t.Веб сайт') }}:</td>
@@ -54,14 +54,10 @@
 
       <div class="d-inline-block align-top margin-l-10">
         <span class="mr-bold">{{ __('mr-t.Разделы сайта') }}</span>
-        <li><a class="/faq" href="/faq">FAQ</a></li>
-        <li><a class="/policy" href="/policy">{{ __('mr-t.Политика приватности') }}</a></li>
-        <li><a class="/policy" href="/references">{{ __('mr-t.Справочники') }}</a></li>
+        <li><a class="/faq" href="{{ route('faq_page') }}">FAQ</a></li>
+        <li><a class="/policy" href="{{ route('policy_page') }}">{{ __('mr-t.Политика приватности') }}</a></li>
       </div>
       <div class="d-inline-block align-top margin-l-10">
-        <span class="mr-bold">{{ __('mr-t.Услуги') }}</span>
-        <li><a class="/faq" href="/api">API</a></li>
-        <li><a class="/policy" href="/monitoring">{{ __('mr-t.Мониторинг') }}</a></li>
       </div>
     </div>
 
@@ -69,7 +65,9 @@
 
   </div>
 </div>
+
 <div class="modal fade padding-0" id="mr_modal" role="dialog"></div>
 <script src="/public/js/mr_popup.js"></script>
+<script src="/public/js/mr_elfinder.js" defer></script>
 </body>
 </html>
