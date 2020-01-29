@@ -33,7 +33,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
 
-              @if(\App\Http\Models\MrUser::me()->IsAdmin())
+              @if(\App\Http\Models\MrUser::me()->IsSuperAdmin())
                 <a class="dropdown-item" href="{{ route('admin') }}">
                   Админка
                 </a>

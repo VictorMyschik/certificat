@@ -19,7 +19,6 @@ class MrLogIdent extends ORM
     'Link',
     'Ip',
     'UserID',    // Если из зарегистрированных
-    'BotID', //Известный бот
     'UserAgent', //Браузер пользоваетля
     'City',
     'Country',
@@ -69,23 +68,12 @@ class MrLogIdent extends ORM
   // Зарегестрированный пользователь
   public function getUser(): ?MrUser
   {
-    return $this->GetObject((int)$this->UserID, MrUser::class);
+    return MrUser::loadBy($this->UserID);
   }
 
   public function setUserID(?int $value)
   {
     $this->UserID = $value;
-  }
-
-  // Известный бот
-  public function getBot(): ?MrBotUserAgent
-  {
-    return $this->GetObject((int)$this->BotID, MrBotUserAgent::class);
-  }
-
-  public function setBotID(?int $value)
-  {
-    $this->BotID = $value;
   }
 
   // Ip

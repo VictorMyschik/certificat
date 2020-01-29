@@ -51,7 +51,7 @@
 								{{ Auth::user()->name }} <span class="caret"></span></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            @if(\App\Http\Models\MrUser::me()->IsAdmin())
+            @if(\App\Http\Models\MrUser::me()->IsSuperAdmin())
               <a class="nav-link" href="{{ route('admin') }}">
                 Админка
               </a>

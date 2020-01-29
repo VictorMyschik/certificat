@@ -17,7 +17,6 @@ class createmrlogident extends Migration
       $table->string('Link', 512)->nullable();
       $table->string('Ip', 16);
       $table->mediumInteger('UserID', false, true)->nullable();
-      $table->mediumInteger('BotID', false, true)->nullable();
       $table->string('UserAgent', 800);
       $table->string('City')->nullable();
       $table->string('Country')->nullable();

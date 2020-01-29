@@ -98,30 +98,33 @@ class MrBaseLog extends ORM
   //////////////////////////////////////////////////////////////
   public static function SaveData(string $table, int $id, array $data)
   {
-    if(count($data))
+    if (!in_array($table, MrBaseLog::$ignoring_tables))
     {
-      foreach ($data as $key => $item)
+      if (count($data))
+      {
+        foreach ($data as $key => $item)
+        {
+          $log = new MrBaseLog();
+          $log->setTableName($table);
+          $log->setLogIdentID(MrLogIdent::$ident_id);
+          $log->setRowId($id);
+          $log->setField($key);
+          $log->setValue($item);
+
+          $log->save_mr();
+        }
+      }
+      else
       {
         $log = new MrBaseLog();
         $log->setTableName($table);
         $log->setLogIdentID(MrLogIdent::$ident_id);
         $log->setRowId($id);
-        $log->setField($key);
-        $log->setValue($item);
+        $log->setField('del');
+        $log->setValue('del');
 
         $log->save_mr();
       }
-    }
-    else
-    {
-      $log = new MrBaseLog();
-      $log->setTableName($table);
-      $log->setLogIdentID(MrLogIdent::$ident_id);
-      $log->setRowId($id);
-      $log->setField('del');
-      $log->setValue('del');
-
-      $log->save_mr();
     }
   }
 }

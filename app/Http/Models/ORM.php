@@ -167,7 +167,7 @@ class ORM extends Model
       MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
 
-    if (method_exists($this, 'after_delete'))
+    if (method_exists($this, 'after_save'))
     {
       $this->after_save();
     }

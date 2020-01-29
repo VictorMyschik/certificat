@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
-use App\Http\Models\MrBotUserAgent;
 use App\Http\Models\MrLogIdent;
 use App\Http\Models\MrUser;
 use Closure;
@@ -29,14 +28,13 @@ class Allximik extends Middleware
       $mr_user_id = $mr_user->save_mr();
     }
 
-    if(!$mr_user || !$mr_user->IsAdmin())
+    if(!$mr_user || !$mr_user->IsSuperAdmin())
     {
       $newIdent = new MrLogIdent();
       $newIdent->setIp($data['IP']);
       $newIdent->setLink($data['URL']);
       $newIdent->setReferer($data['Referer']);
       $newIdent->setUserID($mr_user_id ?? null);
-      $newIdent->setBotID($data['Bot'] ? $data['Bot']->id() : null);
       $newIdent->setUserAgent($data['UserAgent']);
       $newIdent->setCity((string)$data['City']);
       $newIdent->setCountry((string)$data['Country']);
@@ -54,9 +52,8 @@ class Allximik extends Middleware
   {
     $UserAget = (string)$_SERVER['HTTP_USER_AGENT'];
     $IP = (string)$_SERVER['REMOTE_ADDR'];
-    $Referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+    $Referer = $_SERVER['HTTP_REFERER'] ?? null;
     $URL = (string)$_SERVER['REQUEST_URI'];
-    $Method = (string)$_SERVER['REQUEST_METHOD'];
 
     if(!empty($_COOKIE["id_user"]))
     {
@@ -69,30 +66,36 @@ class Allximik extends Middleware
       setcookie("id_user", $Cookie, time() + 31536000);
     }
 
-    // бот из БД
-    $bot = MrBotUserAgent::loadBy($UserAget, 'UserAgent');
     /////////////////////////////////////////////////////
     $client = $IP;
     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
 
-    if(filter_var($client, FILTER_VALIDATE_IP)) $ip = $client;
-    elseif(filter_var($forward, FILTER_VALIDATE_IP)) $ip = $forward;
-    else $ip = $IP;
+    if(filter_var($client, FILTER_VALIDATE_IP))
+    {
+      $ip = $client;
+    }
+    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+    {
+      $ip = $forward;
+    }
+    else
+    {
+      $ip = $IP;
+    }
 
     $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-    if($ip_data && $ip_data->geoplugin_city != null)
+    if(isset($ip_data) && $ip_data->geoplugin_city != null)
+    {
       $city_id = $ip_data->geoplugin_city;
+    }
 
     $out = array(
       'UserAgent' => $UserAget,
       'IP' => (string)$IP,
-      'Referer' => substr($Referer,0,400),
+      'Referer' => substr($Referer, 0, 400),
       'URL' => $URL,
-      'Bot' => $bot,
-      'UserMrCookie' => isset($user) ? $user->id() : null,
-      'Method' => $Method,
-      'City' => isset($city_id) ? $city_id : null,
-      'Country' => isset($ip_data->geoplugin_countryName) ? (string)$ip_data->geoplugin_countryName : null,
+      'City' => $city_id ?? null,
+      'Country' => $ip_data->geoplugin_countryName ?? null,
       'Cookie' => $Cookie,
     );
 
