@@ -14,10 +14,10 @@
         </button>
       </a>
     </div>
-    {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    {!! MrMessage::GetMessage() !!}
+    <table class="table table-hover table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td>ID</td>
         <td>Наименование</td>
         <td>Код 1</td>
@@ -41,12 +41,11 @@
           <td>{{ $value->getRounding() }}</td>
           <td>{{ $value->getDescription() }}</td>
           <td>
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_currency_form_edit',
+            {!! MrBtn::loadForm('admin_reference_currency_form_edit',
             'Admin\\MrAdminReferenceCurrencyEditForm', ['id' => $value->id()], '', ['btn', 'btn-primary', 'btn-xs', 'fa', 'fa-edit'],'sm')
             !!}
-            <a href="/admin/reference/currency/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
-              <button type="button" class="btn btn-danger btn-xs mr-border-radius-5"><i class="fa fa-trash"></i>
-              </button>
+            <a href="{{ route('reference_item_delete',['name'=>'currency','id'=>$value->id()]) }}"
+               onclick="return confirm('Вы уверены?');" class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt">
             </a></td>
         </tr>
       @endforeach

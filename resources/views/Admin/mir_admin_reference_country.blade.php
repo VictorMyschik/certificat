@@ -15,7 +15,7 @@
       </a>
     </div>
     {!! MrMessage::GetMessage() !!}
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>ID</td>
@@ -35,12 +35,11 @@
           <td>{{ $value->getNumericCode() }}</td>
           <td>{{ $value->getCode() }}</td>
           <td>
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_reference_country_form_edit',
+            {!! MrBtn::loadForm('admin_reference_country_form_edit',
             'Admin\\MrAdminReferenceCountryEditForm', ['id' => $value->id()], '', ['btn-primary', 'btn-xs', 'fa', 'fa-edit'])
             !!}
-            <a href="/admin/reference/country/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');">
-              <button type="button" class="btn btn-danger btn-xs mr-border-radius-5"><i class="fa fa-trash"></i>
-              </button>
+            <a href="{{ route('reference_item_delete',['name'=>'country','id'=>$value->id()]) }}"
+               onclick="return confirm('Вы уверены?');" class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt">
             </a></td>
         </tr>
       @endforeach

@@ -164,7 +164,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrAdminTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
   //// Справочники
   // Удаление строки
-  Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID");
+  Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
   // Страны мира
   Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry");
   // Переустановка справочника

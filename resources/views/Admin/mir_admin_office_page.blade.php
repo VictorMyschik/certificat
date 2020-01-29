@@ -5,8 +5,11 @@
   <div class="container">
     @include('Admin.layouts.page_title')
     <div class="mr-bold mr-middle margin-b-10"
-         style="border-bottom: #0c175b 1px solid">Офис создан: {{ $office->getCreateDate() }} |
+         style="border-bottom: #0c175b 1px solid">
+      {!! MrBtn::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+      Офис создан: {{ $office->getCreateDate() }} |
       Примечание: {{ $office->getDescription() }}</div>
+
     {!!  MrMessage::GetMessage() !!}
 
     <div class="row padding-0">
@@ -64,7 +67,7 @@
 
         <div class="mr-middle padding-0">
           <h5 class="mr-bold margin-b-5">
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+            {!! MrBtn::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
             Юридическая информация
           </h5>
           <div class="d-sm-inline padding-horizontal">
@@ -107,12 +110,12 @@
         </div>
 
       </div>
-      <div class="d-inline col-md-4 col-sm-12">
+      <div class="d-inline col-md-4 col-sm-12 padding-0">
         <div class="">
           <h4 class="mr-bold">
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_tariffs_edit', 'Admin\\MrAdminOfficeTariffEditForm', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
+            {!! MrBtn::loadForm('office_tariffs_edit', 'Admin\\MrAdminOfficeTariffEditForm', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
             Тарифы</h4>
-          <table id="" class="table table-striped table-bordered mr-middle">
+          <table id="" class="table table-hover table-bordered mr-middle">
             <thead>
             <tr>
               <td>Тариф</td>
@@ -134,9 +137,9 @@
             </tbody>
           </table>
           <h4 class="mr-bold">
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => '0', 'office_id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
+            {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => '0', 'office_id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
             Скидки</h4>
-          <table class="table table-striped table-bordered mr-middle">
+          <table class="table table-hover table-bordered mr-middle">
             <thead>
             <tr>
               <td>Тариф</td>
@@ -156,8 +159,7 @@
                 <td>
                   {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => $discount->id(), 'office_id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
                   <a href="{{ route('discount_delete',['id'=>$discount->id()]) }}"
-                     class="btn btn-danger btn-xs mr-border-radius-5"
-                     onclick="return confirm('Уверены?');"><i class="fa fa-trash"></i></a>
+                     class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt" onclick="return confirm('Уверены?');"></a>
                 </td>
               </tr>
             @endforeach
@@ -166,11 +168,11 @@
         </div>
       </div>
     </div>
-
-    <div class="d-inline col-md-9 ">
-      <hr>
+    <hr>
+    <div class="row padding-0">
+      <div class="d-inline col-md-9 col-sm-12 padding-0">
         <h4 class="mr-bold">Пользователи
-          {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить пользователя', ['btn-primary btn-xs']) !!}
+          {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить пользователя', ['btn-primary btn-xs'],'xs') !!}
         </h4>
         <table class="table table-striped table-bordered mr-middle">
           <thead>
@@ -194,18 +196,19 @@
               </td>
               <td>
                 <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
-                   class="btn btn-danger btn-xs mr-border-radius-5"
-                   onclick="return confirm('Уверены?');"><i class="fa fa-trash-alt"></i></a></td>
+                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
+                   onclick="return confirm('Уверены?');"></a></td>
             </tr>
           @endforeach
           </tbody>
         </table>
-    </div>
+      </div>
 
 
-    <div class="d-inline-flex col-md-9 ">
-      <hr>
-      <h4 class="mr-bold">Статистика</h4>
+      <div class="d-inline-flex col-md-3 ">
+        <hr>
+        <h4 class="mr-bold">Статистика</h4>
+      </div>
     </div>
   </div>
 @endsection

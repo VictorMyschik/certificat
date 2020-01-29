@@ -36,14 +36,7 @@ class MrAdminOfficeController extends Controller
     $out = array();
     $office = MrOffice::loadBy($id);
 
-    if($office)
-    {
-      $title = 'Редактирование ВО ' . $office->getName();
-    }
-    else
-    {
-      $title = 'Создание нового ВО';
-    }
+    $title = $office->getName();
 
     $out['page_title'] = $title;
     $out['office'] = $office;
