@@ -18,7 +18,7 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
     $form['NameRus'] = array(
       '#type' => 'textfield',
       '#title' => 'Наименование',
-      '#value' => $country ? $country->getNameEng() : null,
+      '#value' => $country ? $country->getNameRus() : null,
     );
 
     $form['NameEng'] = array(

@@ -8,7 +8,7 @@ class createmrcountry extends Migration
 {
   public function up()
   {
-    Schema::create('mr_country', function (Blueprint $table) {
+    Schema::create('mr_countries', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
       $table->string('NameRus')->nullable();
       $table->string('NameEng')->nullable();
@@ -24,6 +24,6 @@ class createmrcountry extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_country');
+    Schema::dropIfExists('mr_countries');
   }
 }

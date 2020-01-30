@@ -6,7 +6,7 @@
     @include('Admin.layouts.page_title')
     <div class="mr-bold mr-middle margin-b-10"
          style="border-bottom: #0c175b 1px solid">
-      {!! MrBtn::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+      {!! MrBtn::loadForm('admin_office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
       Офис создан: {{ $office->getCreateDate() }} |
       Примечание: {{ $office->getDescription() }}</div>
 
@@ -159,7 +159,8 @@
                 <td>
                   {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => $discount->id(), 'office_id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
                   <a href="{{ route('discount_delete',['id'=>$discount->id()]) }}"
-                     class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt" onclick="return confirm('Уверены?');"></a>
+                     class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
+                     onclick="return confirm('Уверены?');"></a>
                 </td>
               </tr>
             @endforeach

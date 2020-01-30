@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
  */
 class MrCountry extends ORM
 {
-  public static $mr_table = 'mr_country';
+  public static $mr_table = 'mr_countries';
   public static $className = MrCountry::class;
 
   protected static $dbFieldsMap = array(

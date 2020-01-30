@@ -23,8 +23,7 @@ class MrAdminBackUpController extends Controller
     foreach ($file_migrations_list as $item)
     {
       $class_name = '';
-      $table_name = self::getTableNameFromFileName($item);
-      foreach (explode('_', $table_name) as $item_2)
+      foreach (explode('_', self::getTableNameFromFileName($item)) as $item_2)
       {
         $class_name .= substr_replace($item_2, mb_strtoupper(substr($item_2, 0, 1)), 0, 1);
       }
@@ -34,9 +33,10 @@ class MrAdminBackUpController extends Controller
       {
         $object = "App\\Http\\Models\\" . $class_name;
         $tables[] = array(
-          'Name' => $table_name,
+          'Name' => $object::$mr_table,
           'FileName' => $item,
-          'has' => isset(self::$tables[$table_name]),
+          'has' => isset(self::$tables[$object::$mr_table]),
+
           'count_rows' => $object::getCount(),
         );
       }
@@ -81,7 +81,7 @@ class MrAdminBackUpController extends Controller
   }
 
   public static $tables = array(
-    'mr_currency' => array(
+    'mr_currencies' => array(
       array('Code' => '784', 'TextCode' => 'AED', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Дирхам (ОАЭ)', 'Rounding' => '2', 'Description' => ''
       ),
       array('ID' => '2', 'Code' => '971', 'TextCode' => 'AFN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Афгани', 'Rounding' => '2', 'Description' => ''),

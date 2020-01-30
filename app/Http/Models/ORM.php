@@ -17,11 +17,33 @@ class ORM extends Model
   protected static $className;
   protected $id = 0;
 
+  /**
+   * @return array ::$className[]
+   */
   public static function GetAll()
   {
     $list_id = DB::table(static::$mr_table)->get(['*']);
 
     return self::LoadArray($list_id, static::$className);
+  }
+
+  /**
+   * @param int $count
+   * @return mixed
+   */
+  public static function GetAllPaginate(int $count = 10)
+  {
+    $list = static::$className::paginate($count)->onEachSide(1);
+    $data = array();
+    foreach ($list->items() as $item)
+    {
+      $data[] = $item->attributes;
+    }
+
+    $out['items'] = self::LoadArray($data, static::$className);
+    $out['links'] = $list->links();
+
+    return $out;
   }
 
   /**
@@ -47,7 +69,7 @@ class ORM extends Model
    *
    * @param $out
    * @param string $class_name
-   * @return object
+   * @return self::$class_name
    */
   public static function convertToMr($out, string $class_name = null): object
   {
@@ -67,11 +89,11 @@ class ORM extends Model
 
     foreach (static::$dbFieldsMap as $properties)
     {
-      if ($this->$properties)
+      if($this->$properties)
       {
-        if (is_object($this->$properties))
+        if(is_object($this->$properties))
         {
-          if (!isset($this->$properties->id))
+          if(!isset($this->$properties->id))
           {
             $out[$properties] = $this->$properties;
           }
@@ -99,7 +121,7 @@ class ORM extends Model
    */
   public static function loadBy(string $value, string $field = 'id')
   {
-    if ($field == 'id')
+    if($field == 'id')
     {
       $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
         return DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
@@ -110,7 +132,7 @@ class ORM extends Model
       $out = DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
     }
 
-    if ($out)
+    if($out)
     {
       $mr_object = self::convertToMr($out);
 
@@ -145,13 +167,13 @@ class ORM extends Model
   {
     $array = $this->convertMrToArray();
 
-    if ($this->id)
+    if($this->id)
     {
       $origin = self::loadBy($this->id);
 
       $array = self::equals($origin, $this);
 
-      if (count($array))
+      if(count($array))
       {
         DB::table(static::$mr_table)->where('id', '=', (int)$this->id)->update($array);
         // Запись в лог изменений БД
@@ -167,7 +189,7 @@ class ORM extends Model
       MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
 
-    if (method_exists($this, 'after_save'))
+    if(method_exists($this, 'after_save'))
     {
       $this->after_save();
     }
@@ -191,26 +213,26 @@ class ORM extends Model
 
     foreach ($origin->attributes as $orgn_key => $orgn_value)
     {
-      if (in_array((string)$orgn_key, array('WriteDate', 'DateLastVisit')))
+      if(in_array((string)$orgn_key, array('WriteDate', 'DateLastVisit')))
       {
         continue;
       }
 
-      if (!isset($modified->attributes[$orgn_key]))
+      if(!isset($modified->attributes[$orgn_key]))
       {
         continue;
       }
 
 
-      if ($modified->attributes[$orgn_key] instanceof Carbon || $modified->attributes[$orgn_key] instanceof MtDateTime)
+      if($modified->attributes[$orgn_key] instanceof Carbon || $modified->attributes[$orgn_key] instanceof MtDateTime)
       {
         $or = new Carbon($orgn_value);
-        if ($modified->attributes[$orgn_key]->format('Y-m-d H:i:s') !== $or->format('Y-m-d H:i:s'))
+        if($modified->attributes[$orgn_key]->format('Y-m-d H:i:s') !== $or->format('Y-m-d H:i:s'))
         {
           $out[$orgn_key] = $modified->attributes[$orgn_key];
         }
       }
-      elseif ($modified->attributes[$orgn_key] != $orgn_value)
+      elseif($modified->attributes[$orgn_key] != $orgn_value)
       {
         $out[$orgn_key] = $modified->attributes[$orgn_key];
       }
@@ -221,18 +243,18 @@ class ORM extends Model
 
   public function mr_delete(): bool
   {
-    if (method_exists($this, 'before_delete'))
+    if(method_exists($this, 'before_delete'))
     {
       $this->before_delete();
     }
 
-    if ($this->getTable() && $this->id())
+    if($this->getTable() && $this->id())
     {
       DB::table(static::$mr_table)->delete($this->id());
 
       MrBaseLog::SaveData(static::$mr_table, $this->id(), []);
 
-      if (method_exists($this, 'after_delete'))
+      if(method_exists($this, 'after_delete'))
       {
         $this->after_delete();
       }
@@ -262,13 +284,13 @@ class ORM extends Model
    */
   protected function setDateNullableField($value, $field)
   {
-    if ($value)
+    if($value)
     {
-      if ($value instanceof MtDateTime)
+      if($value instanceof MtDateTime)
       {
         //nothing to do
       }
-      elseif ($value instanceof \DateTime)
+      elseif($value instanceof \DateTime)
       {
         $value = new MtDateTime($value->format(MtDateTime::MYSQL_DATETIME));
       }
@@ -294,11 +316,11 @@ class ORM extends Model
 
     foreach (static::$dbFieldsMap as $properties)
     {
-      if ($this->$properties)
+      if($this->$properties)
       {
-        if (is_object($this->$properties))
+        if(is_object($this->$properties))
         {
-          if (!isset($this->$properties->id))
+          if(!isset($this->$properties->id))
           {
             $array[$properties] = $this->$properties;
           }

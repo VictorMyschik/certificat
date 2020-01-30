@@ -13,8 +13,8 @@ class MrUser extends ORM
 {
   private $admin_email = 'allximik50@gmail.com';
   protected static $className = MrUser::class;
-
   public static $mr_table = 'mr_users';
+
   protected static $dbFieldsMap = array(
     'UserLaravelID',
     'DateFirstVisit',

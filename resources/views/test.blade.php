@@ -3,7 +3,7 @@
 @section('content')
   @include('layouts.mr_nav')
   <div class="container">
-    @include('layouts.Elements.table')
+    {!! $table !!}
   </div>
 @endsection
 

@@ -40,15 +40,13 @@ class Allximik extends Middleware
       $newIdent->setCountry((string)$data['Country']);
       $newIdent->setCookie($data['Cookie']);
 
-      $id = $newIdent->save_mr();
-
-      return $id;
+      return $newIdent->save_mr();
     }
 
     return null;
   }
 
-  public static function getHttpData(): ?array
+  public static function getHttpData(): array
   {
     $UserAget = (string)$_SERVER['HTTP_USER_AGENT'];
     $IP = (string)$_SERVER['REMOTE_ADDR'];
@@ -89,7 +87,7 @@ class Allximik extends Middleware
       $city_id = $ip_data->geoplugin_city;
     }
 
-    $out = array(
+    return array(
       'UserAgent' => $UserAget,
       'IP' => (string)$IP,
       'Referer' => substr($Referer, 0, 400),
@@ -98,7 +96,5 @@ class Allximik extends Middleware
       'Country' => $ip_data->geoplugin_countryName ?? null,
       'Cookie' => $Cookie,
     );
-
-    return $out;
   }
 }

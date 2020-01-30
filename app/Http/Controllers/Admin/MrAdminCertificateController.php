@@ -15,7 +15,7 @@ class MrAdminCertificateController extends Controller
   public function View()
   {
     $out = array();
-    $out['page_title'] = 'Сертыфикаты';
+    $out['page_title'] = 'Сертификаты';
     $out['countries'] = array();
     $out['list'] = MrCertificate::GetAll();
 

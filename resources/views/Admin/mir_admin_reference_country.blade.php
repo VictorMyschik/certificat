@@ -15,35 +15,6 @@
       </a>
     </div>
     {!! MrMessage::GetMessage() !!}
-    <table class="table table-hover table-striped table-bordered mr-middle">
-      <thead>
-      <tr class="mr-bold">
-        <td>ID</td>
-        <td>Наименование</td>
-        <td>English</td>
-        <td>Код 1</td>
-        <td>Код 2</td>
-        <td>#</td>
-      </tr>
-      <thead>
-      <tbody>
-      @foreach($list as $value)
-        <tr>
-          <td>{{ $value->id() }}</td>
-          <td>{{ $value->getNameRus() }}</td>
-          <td>{{ $value->getNameEng() }}</td>
-          <td>{{ $value->getNumericCode() }}</td>
-          <td>{{ $value->getCode() }}</td>
-          <td>
-            {!! MrBtn::loadForm('admin_reference_country_form_edit',
-            'Admin\\MrAdminReferenceCountryEditForm', ['id' => $value->id()], '', ['btn-primary', 'btn-xs', 'fa', 'fa-edit'])
-            !!}
-            <a href="{{ route('reference_item_delete',['name'=>'country','id'=>$value->id()]) }}"
-               onclick="return confirm('Вы уверены?');" class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt">
-            </a></td>
-        </tr>
-      @endforeach
-      </tbody>
-    </table>
+    {!! $table !!}
   </div>
 @endsection

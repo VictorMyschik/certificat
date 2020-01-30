@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class MrOffice extends ORM
 {
-  public static $mr_table = 'mr_office';
+  public static $mr_table = 'mr_offices';
   public static $className = MrOffice::class;
 
   protected static $dbFieldsMap = array(

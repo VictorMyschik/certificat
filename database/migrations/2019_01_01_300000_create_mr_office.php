@@ -10,7 +10,7 @@ class createmroffice extends Migration
 {
   public function up()
   {
-    Schema::create('mr_office', function (Blueprint $table) {
+    Schema::create('mr_offices', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Name');//Полное наименование
       $table->string('UNP', 10)->nullable();
@@ -50,6 +50,6 @@ class createmroffice extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_office');
+    Schema::dropIfExists('mr_offices');
   }
 }

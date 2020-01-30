@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Controllers\TableControllers\MrOfficeTableController;
 use App\Http\Models\MrDiscount;
 use App\Http\Models\MrOffice;
 use App\Http\Models\MrTariffInOffice;
@@ -19,9 +20,10 @@ class MrAdminOfficeController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Виртуальные офисы';
-
     $out['list'] = MrOffice::GetAll();
 
+    $list = MrOffice::GetAllPaginate(10);
+    $out['table'] = MrOfficeTableController::buildTable($list);
     return View('Admin.mir_admin_office')->with($out);
   }
 

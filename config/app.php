@@ -227,6 +227,7 @@ return [
     'MrBtn' => App\Http\Controllers\Forms\FormBase\MrForm::class,
     'MrMessage' => App\Http\Controllers\Helpers\MrMessageHelper::class,
     'MrBaseHelper' => App\Http\Controllers\Helpers\MrBaseHelper::class,
+    'MrLink' => App\Http\Controllers\Forms\FormBase\MrLink::class,
   ],
 
 ];

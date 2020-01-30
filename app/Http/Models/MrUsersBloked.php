@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class MrUsersBloked extends ORM
 {
-  protected static $mr_table = 'mr_users_bloked';
+  public static $mr_table = 'mr_users_bloked';
   public static $className = MrUsersBloked::class;
 
   protected static $dbFieldsMap = array(

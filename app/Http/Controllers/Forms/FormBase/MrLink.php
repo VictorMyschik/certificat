@@ -1,0 +1,22 @@
+<?php
+
+
+namespace App\Http\Controllers\Forms\FormBase;
+
+
+use App\Http\Controllers\Controller;
+
+class MrLink extends Controller
+{
+  public static function open(string $route_name, array $arguments, ?string $text, ?string $class)
+  {
+    $out = array();
+
+    $out['url'] = $route_name;
+    $out['arguments'] = $arguments;
+    $out['text'] = $text ?? '';
+    $out['class'] = $class ?? '';
+
+    return View('layouts.Elements.link')->with($out);
+  }
+}

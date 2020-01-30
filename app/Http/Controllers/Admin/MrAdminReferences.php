@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Controllers\TableControllers\MrCountryTableController;
+use App\Http\Controllers\TableControllers\MrCurrencyTableController;
 use App\Http\Models\MrCountry;
 use App\Http\Models\MrCurrency;
 use Illuminate\Contracts\View\Factory;
@@ -24,6 +26,9 @@ class MrAdminReferences extends Controller
     $out['page_title'] = 'Справочник стран мира';
     $out['list'] = MrCountry::GetAll();
 
+    $list = MrCountry::GetAllPaginate(50);
+    $out['table'] = MrCountryTableController::buildTable($list);
+
     return View('Admin.mir_admin_reference_country')->with($out);
   }
 
@@ -31,7 +36,9 @@ class MrAdminReferences extends Controller
   {
     $out = array();
     $out['page_title'] = 'Справочник Валют';
-    $out['list'] = MrCurrency::GetAll();
+
+    $list = MrCurrency::GetAllPaginate(50);
+    $out['table'] = MrCurrencyTableController::buildTable($list);
 
     return View('Admin.mir_admin_reference_currency')->with($out);
   }
@@ -70,18 +77,6 @@ class MrAdminReferences extends Controller
   }
 
   /**
-   * Переустановка справочника валют
-   *
-   * @return RedirectResponse
-   */
-  public function RebuildCurrency()
-  {
-    MrAdminBackUpController::MrCurrencyData();
-
-    return back();
-  }
-
-  /**
    * Удаление строки из справочника по ID
    *
    * @param string $reference
@@ -93,7 +88,7 @@ class MrAdminReferences extends Controller
     $pref = 'Mr';
     $l = substr($reference, 0, 1);
 
-    $class_name = substr_replace($reference, mb_strtoupper($l), 0,1);
+    $class_name = substr_replace($reference, mb_strtoupper($l), 0, 1);
 
     $class_name = "App\\Http\\Models\\" . $pref . $class_name;
 

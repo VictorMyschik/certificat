@@ -8,7 +8,7 @@ use App\Http\Controllers\Helpers\MtDateTime;
 
 class MrCurrency extends ORM
 {
-  public static $mr_table = 'mr_currency';
+  public static $mr_table = 'mr_currencies';
   public static $className = MrCurrency::class;
 
   protected static $dbFieldsMap = array(

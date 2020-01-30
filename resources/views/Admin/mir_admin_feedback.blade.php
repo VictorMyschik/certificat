@@ -3,7 +3,7 @@
   @include('Admin.layouts.nav_bar')
   <div class="container">
     @include('Admin.layouts.page_title')
-    {!!  \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
+    {!!  MrMessage::GetMessage() !!}
     <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
