@@ -47,7 +47,7 @@ class MrUserInOffice extends ORM
 
   public function setIsAdmin(bool $value)
   {
-    return $this->IsAdmin = $value;
+    return $this->IsAdmin = (bool)$value;
   }
 
 

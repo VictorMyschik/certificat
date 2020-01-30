@@ -4,7 +4,7 @@
     <button type="button" class="close" data-dismiss="modal">x</button>
     <h4>{{ $form['#title'] }}</h4>
     <hr>
-
+    <div id="errors"></div>
     @foreach($form as $key => $items)
 
       @if(isset($items['#type']))

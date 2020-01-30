@@ -64,7 +64,7 @@ HTML;
     $site_url = MrBaseHelper::MR_SITE_URL;
     $link_login = "<a href='{$site_url}/login'>Вход</a>";
     $user = MrUser::me();
-    $subject = __('mr-t.Новый участник чеклиста в системе') . ' ' . MrBaseHelper::MR_SITE_NAME;
+    $subject = __('mr-t.Предоставление доступа к системе') . ' ' . MrBaseHelper::MR_SITE_NAME;
     $checklist = MrOffice::loadBy($id);
     $message_text = <<< HTML
         <body>

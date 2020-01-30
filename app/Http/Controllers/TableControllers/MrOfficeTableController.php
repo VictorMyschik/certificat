@@ -25,10 +25,10 @@ class MrOfficeTableController extends MrTableController
       $admins = '';
       foreach ($item->GetUsers() as $admin)
       {
-        $admins .= $admin->getUser()->GetFullName();
+        $admins .= '<div>'.$admin->getUser()->GetFullName().'</div>';
       }
 
-      $row[] = $item->GetUsers();
+      $row[] = $admins;
 
       $row[] = $item->GetTariffs();
       $row[] = $item->getDescription();

@@ -185,14 +185,29 @@
           </tr>
           </thead>
           <tbody>
+          @foreach($office->GetNewUsers() as $new_user)
+            <tr>
+              <td class="padding-horizontal"></td>
+              <td class="padding-horizontal">{{ $new_user->getEmail() }}</td>
+              <td class="padding-horizontal">
+                <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
+                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">{!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
+                </a>
+              </td>
+              <td>
+                <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
+                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
+                   onclick="return confirm('Уверены?');"></a></td>
+            </tr>
+          @endforeach
+
           @foreach($office->GetUsers() as $user_in_office)
             <tr>
               <td class="padding-horizontal">{{ $user_in_office->getUser()->getName() }}</td>
               <td class="padding-horizontal">{{ $user_in_office->getUser()->getEmail() }}</td>
-              <td class="padding-horizontal"><a
-                    href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                    class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">{!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
-
+              <td class="padding-horizontal">
+                <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
+                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">{!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
                 </a>
               </td>
               <td>

@@ -10,7 +10,7 @@
   @foreach($table['#rows'] as $row)
     <tr>
       @foreach($row as $item)
-        <td>{{$item}}</td>
+        <td>{!! $item !!}</td>
       @endforeach
     </tr>
   @endforeach

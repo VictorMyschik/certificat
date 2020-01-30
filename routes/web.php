@@ -74,6 +74,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
   // подписка пользователя
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
+
+  //
+  Route::get('/office/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
 });
 
 

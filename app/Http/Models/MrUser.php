@@ -362,6 +362,6 @@ class MrUser extends ORM
   public static function LoadUserByEmail(string $email): ?MrUser
   {
     $user = DB::table('users')->where('email', $email)->first(['id']);
-    return self::loadBy($user->id??null);
+    return MrUser::loadBy($user->id??null,'UserLaravelID');
   }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrCertificate;
 use App\Http\Models\MrCertificateMonitoring;
+use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrUser;
 use App\Http\Models\MrUserInOffice;
 use Illuminate\Http\RedirectResponse;
@@ -86,6 +87,19 @@ class MrOfficeController extends Controller
       $uio->setIsAdmin(true);
     }
     $uio->save_mr();
+
+    return back();
+  }
+
+  public function NewUserDelete(int $id)
+  {
+    $new_user = MrNewUsers::loadBy($id);
+    if(!$new_user->canDelete())
+    {
+      abort('503', __('mr-t.Нарушение доступа'));
+    }
+
+    $new_user->mr_delete();
 
     return back();
   }

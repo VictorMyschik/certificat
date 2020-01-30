@@ -411,4 +411,13 @@ class MrOffice extends ORM
 
     return $i;
   }
+
+  /**
+   * Список приглашённых но ещё не добавленных пользователей
+   */
+  public function GetNewUsers(): array
+  {
+    $list = DB::table()->where('OfficeID', $this->id())->get();
+    return parent::LoadArray($list, MrNewUsers::class);
+  }
 }

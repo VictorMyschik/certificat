@@ -45,6 +45,34 @@
       </tbody>
     </table>
 
+    <table class="table table-hover table-striped table-bordered mr-middle">
+      <thead>
+      <tr class="mr-bold">
+        <td>ID</td>
+        <td>Email</td>
+        <td>Автор</td>
+        <td>Офис</td>
+        <td>Админ</td>
+        <td>Дата</td>
+        <td>#</td>
+      </thead>
+      <tbody>
+      @foreach($new_users as $new_user)
+        <tr>
+          <td>{{ $new_user->id() }}</td>
+          <td>{{ $new_user->getEmail() }}</td>
+          <td>{{ $new_user->getUser()->GetFullname() }}</td>
+          <td>{{ $new_user->getOffice()->getName() }}</td>
+          <td>{{ $new_user->getIsAdmin()?'Админ':'Пользователь' }}</td>
+          <td>{{ $new_user->getWriteDate()->getShortDateShortTime() }}</td>
+          <td>
+            {{ MrLink::open('new_user_delete', ['id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt') }}
+          </td>
+        </tr>
+      @endforeach
+      </tbody>
+    </table>
+
     <div class="row col-md-12 d-inline-block">
       <h4>Блокировка пользователя</h4>
       {{ Form::open(['url'=>'/admin/users/block','method' => 'get', 'enctype'=>'multipart/form-data', 'files' => false]) }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrUser;
 use App\Http\Models\MrUsersBloked;
 use Carbon\Carbon;
@@ -19,6 +20,7 @@ class MrAdminUsersController extends Controller
     $out = array();
     $out['page_title'] = 'Пользователи';
     $out['users'] = MrUser::GetAll();
+    $out['new_users'] = $new = MrNewUsers::GetAll();
     $out['users_blocked'] = MrUsersBloked::GetAllBlocked();
     $out['history'] = MrUsersBloked::GetAll();
 

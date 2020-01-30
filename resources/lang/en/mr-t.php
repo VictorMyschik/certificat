@@ -92,4 +92,6 @@ return $translate_arr + [
     'Все поля обязательны для заполнения' => 'All fields are required',
     'Нет прав доступа' => 'Permission forbidden',
     'Новый пользователь в системе' => 'New user',
+    'Предоставление доступа к системе'=>'Permission to system',
+    'Нарушение доступа'=>'Access violation',
   ];

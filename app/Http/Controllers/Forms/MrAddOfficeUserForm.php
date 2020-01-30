@@ -73,13 +73,15 @@ class MrAddOfficeUserForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
+    $is_admin = isset($v['IsAdmin']) ? $v['IsAdmin'] : false;
+
     // Email есть в системе - просто даём доступ и отправляем уведомление
     if ($has_user = MrUser::LoadUserByEmail($v['Email']))
     {
       $uio = new MrUserInOffice();
       $uio->setUserID($has_user->id());
       $uio->setOfficeID($id);
-      $uio->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
+      $uio->setIsAdmin((bool)$is_admin);
       $uio->save_mr();
 
       MrEmailHelper::SendNewUserRole($id, $v['Email']);
@@ -94,7 +96,7 @@ class MrAddOfficeUserForm extends MrFormBase
       $new_user->setEmail((string)$v['Email']);
       $new_user->setUserID($user->id());
       $new_user->setOfficeID($id);
-      $new_user->setIsAdmin((bool)(isset($v['IsAdmin']) && $v['IsAdmin']));
+      $new_user->setIsAdmin((bool)$is_admin);
       $new_user->setCode($code);
 
       $new_user_id = $new_user->save_mr();

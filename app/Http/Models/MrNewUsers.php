@@ -83,6 +83,6 @@ class MrNewUsers extends ORM
   // Дата создания/обновления записи
   public function getWriteDate(): MtDateTime
   {
-    return $this->getDateNullableField($this->WriteDate);
+    return $this->getDateNullableField('WriteDate');
   }
 }

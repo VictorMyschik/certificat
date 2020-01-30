@@ -6,8 +6,10 @@ $('#mr-form').submit(function (e)
   for (let name in arr)
   {
     $("input[name=" + arr[name].split('=')[0] + "]").css({"border-color": "",});
-    $("#" + arr[name].split('=')[0]).text('').removeClass('margin-l-10');
+    $("#" + arr[name].split('=')[0]).text('');
   }
+
+  $('#errors').html('');
 
   $.ajax({
     type: $form.attr('method'),
@@ -21,7 +23,7 @@ $('#mr-form').submit(function (e)
         for (let key in response)
         {
           $("input[name=" + key + "]").css({"border-color": "red",});
-          $("#" + key).text(response[key]).css({"color": "red",}).addClass('margin-l-10');
+          $("#" + key).text(response[key]).css({"color": "red",});
         }
       } else
       {

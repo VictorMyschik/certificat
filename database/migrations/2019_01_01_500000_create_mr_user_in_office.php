@@ -14,7 +14,7 @@ class createmruserinoffice extends Migration
       $table->increments('id')->autoIncrement();
       $table->integer('UserID');
       $table->integer('OfficeID');
-      $table->boolean('IsAdmin');
+      $table->boolean('IsAdmin')->default(false);
       $table->timestamp('CreateDate')->default(DB::raw('CURRENT_TIMESTAMP'));
     });
   }
