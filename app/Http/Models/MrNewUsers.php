@@ -27,7 +27,29 @@ class MrNewUsers extends ORM
 
   public function canDelete(): bool
   {
-    return true;
+    return $this->canEdit();
+  }
+
+  public function canEdit(): bool
+  {
+    $me = MrUser::me();
+
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    foreach ($this->getOffice()->GetUsers() as $uio)
+    {
+      $user = $uio->getUser();
+
+      if($user->id() == $me->id() && $uio->getIsAdmin())
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public function getEmail(): string

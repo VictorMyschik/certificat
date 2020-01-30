@@ -190,57 +190,7 @@
                 {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить', ['btn-primary btn-xs'],'sm') !!}
               @endif
             </h5>
-            <table class="table table-striped table-bordered mr-middle">
-              <thead>
-              <tr>
-                <td>ФИО</td>
-                <td>Почта</td>
-                <td>Admin</td>
-                <td>#</td>
-              </tr>
-              </thead>
-              <tbody>
-              @foreach($office->GetUsers() as $user_in_office)
-                <tr>
-                  <td class="padding-horizontal">{{ $user_in_office->getUser()->getName() }}</td>
-                  <td class="padding-horizontal">{{ $user_in_office->getUser()->getEmail() }}</td>
-                  <td class="padding-horizontal">
-                    @if(!$me->GetUserInOffice()->getIsAdmin())
-                      <span title="Снять привилегии администратора">{{ $user_in_office->getIsAdmin()?'Администратор':'Пользователь' }}
-                                </span>
-                    @else
-                      @if($me->GetUserInOffice()->id() != $user_in_office->id())
-                        <a href="{{ route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                           class="btn btn-primary btn-xs mr-border-radius-5 mr-middle">
-                          <span title="Снять привилегии администратора">{{ $user_in_office->getIsAdmin()?'Администратор':'Пользователь' }}
-                                </span>
-                        </a>
-                      @else
-                        @if($office->countAdmins() > 1)
-                          <a href="{{ route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                             class="btn btn-primary btn-xs mr-border-radius-5 mr-middle">
-                          <span title="Снять привилегии администратора">{{ $user_in_office->getIsAdmin()?'Администратор':'Пользователь' }}
-                                </span>
-                          </a>
-                        @else
-                          <span title="Снять привилегии администратора">{{ $user_in_office->getIsAdmin()?'Администратор':'Пользователь' }}
-                                </span>
-                        @endif
-                      @endif
-                    @endif
-
-                  </td>
-                  <td>
-                    @if($me->GetUserInOffice()->getIsAdmin() && $user_in_office->getUser()->id() != $me->id())
-                      <a href="{{ route('user_delete',['id'=>$user_in_office->getUser()->id()]) }}"
-                         class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
-                         onclick="return confirm('Уверены?');"></a>
-                    @endif
-                  </td>
-                </tr>
-              @endforeach
-              </tbody>
-            </table>
+            {!! $user_in_office !!}
           </div>
         </div>
       </div>

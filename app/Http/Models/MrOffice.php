@@ -67,6 +67,22 @@ class MrOffice extends ORM
     return false;
   }
 
+  public function canView(): bool
+  {
+    $me = MrUser::me();
+
+    foreach ($this->GetUsers() as $uio)
+    {
+      $user = $uio->getUser();
+      if($user->id() == $me->id())
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public function canDelete(): bool
   {
     return true;

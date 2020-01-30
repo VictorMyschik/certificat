@@ -63,6 +63,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
   Route::get('/office/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
+  Route::get('/office/userinoffice/{id}/isadmin', "Office\MrOfficeController@NewUserOfficeIsAdmin")->name('new_user_office_toggle_admin');
+
 
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('office_user_submit');
   Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
@@ -75,7 +77,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // подписка пользователя
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
 
-  //
+  // Удалить приглашённого пользователя
   Route::get('/office/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
 });
 
