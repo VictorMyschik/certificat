@@ -18,9 +18,9 @@
     <div class="margin-b-15 margin-t-10">
       {!! MrBtn::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => '0'], 'Добавить перевод',['btn-primary btn-sm']) !!}
     </div>
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td class="padding-horizontal">№</td>
         <td class="padding-horizontal">Русский</td>
         <td class="padding-horizontal">Язык</td>
@@ -36,10 +36,10 @@
           <td class="padding-horizontal">{{ $word->getLanguage()->getName() }}</td>
           <td class="padding-horizontal">{{ $word->getTranslate() }}</td>
           <td class="padding-horizontal">
-            {!!  MrBtn::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => $word->id()],'',['btn-info btn-sm fa fa-edit']) !!}
+            {!!  MrBtn::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => $word->id()],'',['btn-primary btn-xs fa fa-edit']) !!}
             <a href="/admin/language/word/{{$word->id()}}/delete"
-               onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');">
-              <button type="button" class="btn btn-danger btn-sm fa fa-trash mr-border-radius-5"></button>
+               onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');"
+               class="btn btn-danger btn-xs fa fa-trash-alt mr-border-radius-5">
             </a>
           </td>
         </tr>

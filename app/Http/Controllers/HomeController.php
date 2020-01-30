@@ -17,6 +17,6 @@ class HomeController extends Controller
 
     $out = array();
 
-    //return View('home')->with($out);
+    return View('home')->with($out);
   }
 }

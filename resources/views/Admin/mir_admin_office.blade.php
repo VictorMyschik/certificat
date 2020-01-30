@@ -8,7 +8,7 @@
     <div class="margin-b-15 margin-t-10">
       {!! MrBtn::loadForm('office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>'0'], 'Создать пустой офис', ['btn btn-primary btn-xs']) !!}
     </div>
-    <table class="table table-hover mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>ID</td>

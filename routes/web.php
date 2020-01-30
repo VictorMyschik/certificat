@@ -81,38 +81,17 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 Route::group(['middleware' => 'is_admin'], function () {
 
   Route::match(['get', 'post'],'/test', "MrTestController@index");
-  //// Админка
-
-  // BACK UP
-  Route::get('/admin/hardware/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_list');
-
-  Route::get('/admin/hardware/backup/refresh/{table_name}', function ($table_name) {
-    Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
-    Cache::forget(MrAdminBackUpController::getTableNameFromFileName($table_name) . '_count_rows');
-    MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
-    return back();
-  })->name('migration_refresh_table');
-
-  Route::get('/admin/hardware/backup/save/{table_name}', "Admin\MrAdminBackUpController@SaveDataFromTable")->name('save_table_data');
-  Route::get('/admin/hardware/backup/recovery/{table_name}', "Admin\MrAdminBackUpController@RecoveryDataToTable")->name('recovery_table_data');
-
-
-  Route::get('/admin/hardware/backup/migrate/', function () {
-    Artisan::call('migrate');
-    return back();
-  })->name('artisan_migrate');
-
 
   Route::get('/admin', "Admin\MrAdminController@index")->name('admin');
   // FAQ
-  Route::match(['get', 'post'], '/admin/faq', "Admin\MrAdminFaqController@list")->name('faq');
-  Route::match(['get', 'post'], '/admin/faq/edit/{id}', "Admin\MrAdminFaqController@edit")->name('edit_faq');
-  Route::get('/admin/faq/delete/{id}', "Admin\MrAdminFaqController@delete")->name('delete_faq');
+  Route::match(['get', 'post'], '/admin/faq', "Admin\MrAdminFaqController@list")->name('admin_faq');
+  Route::match(['get', 'post'], '/admin/faq/edit/{id}', "Admin\MrAdminFaqController@edit")->name('admin_faq_edit');
+  Route::get('/admin/faq/delete/{id}', "Admin\MrAdminFaqController@delete")->name('admin_faq_delete');
 
   // Статьи
-  Route::get('/admin/articles', "Admin\MrAdminArticlesController@list")->name('article_list');
-  Route::match(['get', 'post'], '/admin/article/edit/{id}', "Admin\MrAdminArticlesController@edit")->name('article_edit');
-  Route::get('/admin/article/delete/{id}', "Admin\MrAdminArticlesController@delete")->name('article_delete');
+  Route::get('/admin/articles', "Admin\MrAdminArticlesController@list")->name('admin_article_page');
+  Route::match(['get', 'post'], '/admin/article/edit/{id}', "Admin\MrAdminArticlesController@edit")->name('admin_article_edit');
+  Route::get('/admin/article/delete/{id}', "Admin\MrAdminArticlesController@delete")->name('admin_article_delete');
 
   // Сообщения от пользователей
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
@@ -123,8 +102,9 @@ Route::group(['middleware' => 'is_admin'], function () {
     "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
 
+
   // Пользователи
-  Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('users');
+  Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('admin_users');
   Route::get('/admin/users/unblock/{id}', "Admin\MrAdminUsersController@unblock")->name('users_unblock');
   Route::get('/admin/users/block', "Admin\MrAdminUsersController@setUserBlock")->name('user_block');
   Route::get('/admin/users/delete/{id}', "Admin\MrAdminController@userDeleteForever")->name('user_delete_forever');
@@ -138,22 +118,18 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/elfinder/ckeditor', '\Barryvdh\Elfinder\ElfinderController@showCKeditor4');
   Route::any('/elfinder/connector', '\Barryvdh\Elfinder\ElfinderController@showConnector')->name('elfinder.connector');
 
-  // Логи, железо
-  Route::get('/admin/hardware', "Admin\MrAdminHardwareController@index")->name('mir_logs');
-  Route::post('/admin/hardware/api', "Admin\MrAdminHardwareController@ApiUpdate")->name('mir_logs_api');
-  Route::get('/admin/hardware/delete', "Admin\MrAdminHardwareController@DeleteLogIdent")->name('mir_logs_delete');
-  Route::get('/admin/hardware/addbot', "Admin\MrAdminHardwareController@AddBot")->name('mir_logs_add_bot');
-  Route::get('/admin/hardware/bot', "Admin\MrAdminHardwareController@botPage")->name('bot_page');
-  Route::get('/admin/hardware/bot/delete/{id}', "Admin\MrAdminHardwareController@DelBot")->name('bot_del');
-  Route::post('/admin/hardware/bot/add/{id}/{text}', "Admin\MrAdminHardwareController@AddBot")->name('bot_del');
 
+  //// Логи, железо
+  Route::get('/admin/system', "Admin\MrAdminSystemController@index")->name('admin_logs');
+  Route::post('/admin/system/api', "Admin\MrAdminSystemController@ApiUpdate")->name('admin_logs_api');
+  Route::get('/admin/system/delete', "Admin\MrAdminSystemController@DeleteLogIdent")->name('admin_logs_delete');
   // Лог изменений БД
-  Route::get('/admin/hardware/dblog', "Admin\MrAdminHardwareController@ViewDbLog")->name('db_log_list');
-  Route::get('/admin/hardware/dblog/delete/{id}', "Admin\MrAdminHardwareController@deleteDbLog")->name('delete_bd_log');
+  Route::get('/admin/system/dblog', "Admin\MrAdminSystemController@ViewDbLog")->name('admin_db_log_page');
+  Route::get('/admin/system/dblog/delete/{id}', "Admin\MrAdminSystemController@deleteDbLog")->name('delete_bd_log');
   //// Перевод сайта на другие языки
-  Route::get('/admin/language', "Admin\MrAdminLanguageController@List")->name('language_list');
+  Route::get('/admin/language', "Admin\MrAdminLanguageController@List")->name('admin_language_list');
   // Добавить новый язык
-  Route::get('/admin/language/add', "Admin\MrAdminLanguageController@Add")->name('language_add');
+  Route::get('/admin/language/add', "Admin\MrAdminLanguageController@Add")->name('admin_language_add');
   // Форма редактирования языка
   Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "Forms\Admin\MrAdminLanguageEditForm@submitForm")->name('admin_language_edit_submit');
   Route::match(['get', 'post'], '/admin/language/edit/{id}', "Forms\Admin\MrAdminLanguageEditForm@getFormBuilder")->name('admin_language_edit_form');
@@ -162,6 +138,27 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Форма редактирования перевода
   Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrAdminTranslateWordEditForm@submitForm")->name('translate_word_submit');
   Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrAdminTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
+
+
+  //// BACK UP
+  Route::get('/admin/system/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_page');
+
+  Route::get('/admin/system/backup/refresh/{table_name}', function ($table_name) {
+    Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
+    Cache::forget(MrAdminBackUpController::getTableNameFromFileName($table_name) . '_count_rows');
+    MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
+    return back();
+  })->name('migration_refresh_table');
+
+  Route::get('/admin/system/backup/save/{table_name}', "Admin\MrAdminBackUpController@SaveDataFromTable")->name('save_table_data');
+  Route::get('/admin/system/backup/recovery/{table_name}', "Admin\MrAdminBackUpController@RecoveryDataToTable")->name('recovery_table_data');
+
+  Route::get('/admin/system/backup/migrate/', function () {
+    Artisan::call('migrate');
+    return back();
+  })->name('artisan_migrate');
+
+
   //// Справочники
   // Удаление строки
   Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
@@ -181,6 +178,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}/submit', "Forms\Admin\MrAdminReferenceCurrencyEditForm@submitForm")->name('admin_reference_currency_form_submit');
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}', "Forms\Admin\MrAdminReferenceCurrencyEditForm@getFormBuilder")->name('admin_reference_currency_form_edit');
 
+
   //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
   Route::get('/admin/certificate/details/{id}', "Admin\MrAdminCertificateController@CertificateDetails");
@@ -193,6 +191,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
   Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
+
 
   //// Офисы
   Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');
@@ -233,7 +232,7 @@ Route::get('/clear', function () {
   Artisan::call('route:clear');
 
   return back();
-});
+})->name('clear');
 
 //// 404
 Route::get('{all}', 'MrError404Controller@indexView')->name('404');

@@ -3,9 +3,9 @@
   @include('Admin.layouts.nav_bar')
   <div class="container">
     @include('Admin.layouts.page_title')
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
-      <<tr class="mr-bold">
+      <tr class="mr-bold">
         <td class="padding-horizontal">№</td>
         <td class="padding-horizontal">UserAgent</td>
         <td class="padding-horizontal">Примечание</td>

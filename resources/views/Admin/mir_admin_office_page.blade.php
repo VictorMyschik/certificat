@@ -139,9 +139,9 @@
           <h4 class="mr-bold">
             {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => '0', 'office_id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
             Скидки</h4>
-          <table class="table table-hover table-bordered mr-middle">
+          <table class="table table-hover table-striped table-bordered mr-middle">
             <thead>
-            <tr>
+            <tr class="mr-bold">
               <td>Тариф</td>
               <td>Дата с</td>
               <td>Дата по</td>

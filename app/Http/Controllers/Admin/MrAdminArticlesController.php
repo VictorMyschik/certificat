@@ -52,7 +52,7 @@ class MrAdminArticlesController extends Controller
 
       $id = $article->save_mr();
       MrMessageHelper::SetMessage(true, 'Сохранено');
-      return redirect()->route('article_edit', ['id' => $id]);
+      return redirect()->route('admin_article_edit', ['id' => $id]);
     }
 
     $article = MrArticle::loadBy($id);
@@ -94,7 +94,7 @@ class MrAdminArticlesController extends Controller
     $out['form'] = $form;
     $out['article'] = $article;
 
-    return View('Admin.mir_admin_articles_edit')->with($out);
+    return View('Admin.mir_admin_article_edit')->with($out);
   }
 
   public function delete(int $id)

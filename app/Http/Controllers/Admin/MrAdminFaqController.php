@@ -29,6 +29,7 @@ class MrAdminFaqController extends Controller
     $faq = MrFaq::loadBy($id);
     if($request->getMethod() == 'POST')
     {
+
       if(!$faq)
       {
         $faq = new MrFaq();
@@ -40,7 +41,7 @@ class MrAdminFaqController extends Controller
       $faq->setText($text);
       $id = $faq->save_mr();
 
-      return redirect('/admin/faq');
+      return redirect()->route('admin_faq');
     }
 
     $form = array();
@@ -62,6 +63,7 @@ class MrAdminFaqController extends Controller
 
     return View('Admin.mir_admin_faq_edit')->with($out);
   }
+
 
   /**
    * Удаление по id

@@ -4,12 +4,12 @@
   <div class="container">
     @include('Admin.layouts.page_title')
     <div class="margin-b-15 margin-t-10">
-      <a href="{{ route('article_edit',['id'=>'0']) }}" title="Создать новую запись"
-         class="btn btn-info btn-sm mr-border-radius-5">
+      <a href="{{ route('admin_article_edit',['id'=>'0']) }}" title="Создать новую запись"
+         class="btn btn-primary btn-xs mr-border-radius-5">
         new
       </a>
     </div>
-    <table class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>Тип</td>
@@ -25,14 +25,14 @@
           <td>{{ $article->getLanguage()?$article->getLanguage()->getName():'RU' }}</td>
           <td>{!! $article->getIsPublic()?'<span class="mr-color-green">public</span>':'<span class="mr-color-red">no</span>' !!}</td>
           <td>
-            <a href="{{ route('article_edit',['id'=>$article->id()]) }}" title="Редактировать"
-               class="btn btn-info btn-sm mr-border-radius-5">
+            <a href="{{ route('admin_article_edit',['id'=>$article->id()]) }}" title="Редактировать"
+               class="btn btn-primary btn-xs mr-border-radius-5">
               <i class="fas fa-edit"></i>
             </a>
-            <a href="{{ route('article_delete',['id'=>$article->id()]) }}" title="Создать новую запись"
-               class="btn btn-danger btn-sm mr-border-radius-5"
+            <a href="{{ route('admin_article_delete',['id'=>$article->id()]) }}" title="Создать новую запись"
+               class="btn btn-danger btn-xs mr-border-radius-5"
                onclick="return confirm('Будет удалена статья. Продолжить?');">
-              <span class="fa fa-trash"></span>
+              <span class="fa fa-trash-alt"></span>
             </a>
           </td>
         </tr>

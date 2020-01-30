@@ -13,12 +13,6 @@
       {{ Form::token() }}
       <textarea name="text" class="textarea" id="editor1"
                 title="Contents">{{ $message->getSendMessage() }}</textarea>
-      <script>
-        CKEDITOR.replace('editor1', {
-          filebrowserBrowseUrl: '/elfinder/ckeditor'
-        });
-      </script>
-
       <br>
       <button type="submit" class="btn btn-primary btn-xs  mr-border-radius-5">Отправить</button>
     </form>

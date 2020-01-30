@@ -10,10 +10,10 @@
   <title>{{ $page_title ?? MrBaseHelper::MR_SITE_NAME }}</title>
 
   <!-- Scripts -->
+  <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" rel="script" src="{{asset('js/app.js')}}"></script>
-
+  <script type="text/javascript" defer rel="script" src="{{asset('js/app.js')}}"></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">

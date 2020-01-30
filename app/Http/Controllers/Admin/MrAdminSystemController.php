@@ -7,15 +7,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Models\MrBaseLog;
-use App\Http\Models\MrBotUserAgent;
 use App\Http\Models\MrLogIdent;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\View\View;
 
-class MrAdminHardwareController extends Controller
+class MrAdminSystemController extends Controller
 {
   public function index(Request $request)
   {
@@ -53,31 +50,10 @@ class MrAdminHardwareController extends Controller
     $type = $_COOKIE['type'] ?? null;
     $out['logs'] = MrLogIdent::GetAllLast($last_week, $type);
     $out['date'] = $date_name;
-    // Выделение памяти
-    $out['memory'] = self::getMemory();
-    $out['memory_pic'] = self::getPicMemory();
 
     return View('Admin.mir_admin_hardware')->with($out);
   }
 
-  public function ApiUpdate(): array
-  {
-    $out = array();
-    $out['memory'] = self::getMemory();
-    $out['memory_pic'] = self::getPicMemory();
-
-    return $out;
-  }
-
-  public static function getMemory(): string
-  {
-    return (memory_get_usage(true) / 1024) . ' KB';
-  }
-
-  public static function getPicMemory(): string
-  {
-    return (memory_get_peak_usage(true) / 1024) . ' KB';
-  }
 
   public static function setType(string $type)
   {
@@ -96,50 +72,6 @@ class MrAdminHardwareController extends Controller
     return back();
   }
 
-  /**
-   * Добавление бота в аблицу ботов
-   *
-   * @param $id
-   * @param $text
-   * @return void
-   */
-  public function AddBot($id, $text)
-  {
-    $log = MrLogIdent::loadBy($id);
-
-    $bot = new MrBotUserAgent();
-    $bot->setUserAgent($log->getUserAgent());
-    $bot->setDescription($text);
-    $bot->save_mr();
-  }
-
-  /**
-   * Страница ботов
-   *
-   * @return Factory|View
-   */
-  public function botPage()
-  {
-    $out = array();
-    $out['page_title'] = 'Страница отслеживания роботов';
-    $out['bots'] = MrBotUserAgent::GetAll();
-
-    return View('Admin.mir_admin_bot_page')->with($out);
-  }
-
-  /**
-   * Удаление бота из таблицы ботов
-   *
-   * @param int $id
-   * @return RedirectResponse
-   */
-  public function DelBot(int $id)
-  {
-    $log = MrBotUserAgent::loadBy($id);
-    $log->mr_delete();
-
-    return back();
-  }
 
   public function ViewDbLog()
   {

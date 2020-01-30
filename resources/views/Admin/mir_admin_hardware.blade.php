@@ -3,44 +3,26 @@
   @include('Admin.layouts.nav_bar')
   <div class="container">
     @include('Admin.layouts.page_title')
-    <div class="margin-b-20 margin-t-15" style="color: white">
-      <a href="/admin/hardware" style="color: white">
+    <div class="margin-b-20 margin-t-15">
+      <a href="/admin/system" style="color: white">
         <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">день</button>
       </a>
-      <a href="/admin/hardware?date=week">
+      <a href="/admin/system?date=week">
         <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">неделя</button>
       </a>
-      <a href="/admin/hardware?date=month">
+      <a href="/admin/system?date=month">
         <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
           месяц
         </button>
       </a>
-      <a href="/admin/hardware?date=year">
+      <a href="/admin/system?date=year">
         <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
           год
         </button>
       </a>
 
 
-      <a href="/admin/hardware?type=user" class="margin-l-20">
-        <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
-          User
-        </button>
-      </a>
-
-      <a href="/admin/hardware?type=bot">
-        <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
-          Bot
-        </button>
-      </a>
-
-      <a href="/admin/hardware?type=all">
-        <button type="button" class="btn btn-primary btn-sm mr-border-radius-5">
-          Все
-        </button>
-      </a>
-
-      <a href="/admin/hardware/delete" onclick="return confirm('Уверены?')">
+      <a href="/admin/system/delete" onclick="return confirm('Уверены?')">
         <button type="button" class="btn btn-primary btn-sm mr-border-radius-5 pull-right">
           Очистить всё
         </button>
@@ -49,7 +31,7 @@
 
     <span class="margin-l-20">{!! $date !!} ({{ count($logs) }})</span>
     <div class="">
-      <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+      <table class="table table-hover table-striped table-bordered mr-middle">
         <thead>
         <tr class="mr-bold">
           <td class="padding-horizontal">№</td>
@@ -71,26 +53,14 @@
                 style="max-width: 200px; word-wrap: break-word;">{{ date('d M H:m:s', strtotime($item->getDate())) }}</td>
             <td class="padding-horizontal">{{ $item->getIp() }}</td>
             <td class="padding-horizontal" style="max-width: 150px; word-wrap: break-word;">
-              <div class="mr-small">{{ $item->getReferer() }}</div>
-              <a href="{{ $item->getReferer() }}" class="btn btn-primary btn-xs" target="_blank">Link</a>
+              <a href="{{ $item->getReferer() }}" target="_blank">{{ $item->getReferer() }}</a>
             </td>
-            <td class="padding-horizontal">
-              <div class="mr-small"  style="max-width: 100px; word-wrap: break-word;">{{ $item->getLink() }}</div>
-              <a href="{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_URL.$item->getLink() }}" class="btn btn-primary btn-xs">
-                Link
-              </a>
-            </td>
+            <td class="padding-horizontal"><a href="{{ MrBaseHelper::MR_SITE_URL.$item->getLink() }}" class="">{{ $item->getLink() }}</a></td>
             <td class="padding-horizontal">{!!
                      $item->getUser()?
                      '<div>'.$item->getUser()->getName().'</div>
                       <div>'.$item->getUser()->getEmail().'</div>'
-                     :($item->getBot()
-                    ?
-                    $item->getBot()->getDescription()
-                    :
-              '<button type="button" class="btn btn-primary btn-sm mr-border-radius-5" onclick="mr_edit('.$item->id().')">
-                bot
-              </button>')
+                     : null
             !!}</td>
             <td class="padding-horizontal">{{ $item->getUserAgent() }}</td>
             <td class="padding-horizontal">{{ $item->getCookie() }}</td>

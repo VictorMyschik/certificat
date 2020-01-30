@@ -14,7 +14,7 @@
         <a class="btn btn-danger btn-xs mr-border-radius-5" href="#">Refresh</a> пересоздаст таблицу из кода PHP. Все данные будут <span class="mr-color-red">удалены</span>.
       </div>
     </div>
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>№</td>

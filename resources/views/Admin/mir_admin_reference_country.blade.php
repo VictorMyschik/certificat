@@ -15,7 +15,7 @@
       </a>
     </div>
     {!! MrMessage::GetMessage() !!}
-    <table class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>ID</td>

@@ -10,7 +10,7 @@
     {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
     <h4 class="margin-t-10">Сертификат: {{ $certificate->GetFullName() }}</h4>
     <hr>
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>ID</td>

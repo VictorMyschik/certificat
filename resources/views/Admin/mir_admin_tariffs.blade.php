@@ -8,7 +8,7 @@
     <div class="margin-b-15 margin-t-10">
       {!! MrBtn::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => '0'], 'Новый тариф',['btn-success btn-xs']) !!}
     </div>
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td>ID</td>

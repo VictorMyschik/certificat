@@ -29,12 +29,12 @@
             Сайт<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/admin/users">Пользователи</a>
-            <a class="dropdown-item" href="/admin/language">Переводчик</a>
-            <a class="dropdown-item" href="/admin/faq">FAQ</a>
-            <a class="dropdown-item" href="/admin/feedback">Обратная связь</a>
-            <a class="dropdown-item" href="/admin/articles">Статьи</a>
-            <a class="dropdown-item" href="/admin/subscription">Подписка</a>
+            <a class="dropdown-item" href="{{route('admin_users')}}">Пользователи</a>
+            <a class="dropdown-item" href="{{route('admin_language_list')}}">Переводчик</a>
+            <a class="dropdown-item" href="{{route('admin_faq')}}">FAQ</a>
+            <a class="dropdown-item" href="{{route('admin_feedback_list')}}">Обратная связь</a>
+            <a class="dropdown-item" href="{{route('admin_article_page')}}">Статьи</a>
+            <a class="dropdown-item" href="{{route('admin_subscription')}}">Подписка</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -43,14 +43,13 @@
             Системные<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/admin/hardware">Лог посещений</a>
-            <a class="dropdown-item" href="/admin/hardware/bot">Bot фильтр</a>
-            <a class="dropdown-item" href="/admin/hardware/dblog">Лог БД</a>
-            <a class="dropdown-item" href="/admin/hardware/backup">BACK UP</a>
+            <a class="dropdown-item" href="{{route('admin_logs')}}">Лог посещений</a>
+            <a class="dropdown-item" href="{{route('admin_db_log_page') }}">Лог БД</a>
+            <a class="dropdown-item" href="{{route('admin_backup_page')}}">BACK UP</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/clear"> Очистить кэш</a>
+          <a class="nav-link" href="{{route('clear')}}"> Очистить кэш</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/phpmyadmin" target="_blank"> PhpMyAdmin</a>

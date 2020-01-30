@@ -7,7 +7,7 @@
     <div class="margin-b-15 margin-t-10">
       {!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
     </div>
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
         <td class="padding-horizontal">№</td>
@@ -69,9 +69,9 @@
       {!! Form::close() !!}
     </div>
 
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
+    <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
-      <tr>
+      <tr class="mr-bold">
         <td class="padding-horizontal">№</td>
         <td class="padding-horizontal">Имя</td>
         <td class="padding-horizontal">Email</td>
