@@ -16,6 +16,8 @@ class MrAddOfficeUserForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {
+    $form['#title'] = 'Добавить пользователя в ВО';
+
     $form['Email'] = array(
       '#type' => 'email',
       '#title' => 'Email',
