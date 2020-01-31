@@ -60,7 +60,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/admin/office/{office_id}/ur/details/edit/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
   Route::match(['get', 'post'], '/admin/office/{office_id}/ur/details/edit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
+  // Смена статуса пользователя в офисе
   Route::get('/office/{office_id}/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
+  // Смена статуса приглашённого пользователя
   Route::get('/office/{office_id}/newuserinoffice/{id}/isadmin', "Office\MrOfficeController@NewUserOfficeIsAdmin")->name('new_user_office_toggle_admin');
 
 

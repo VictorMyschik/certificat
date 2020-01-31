@@ -20,6 +20,11 @@ class MrUserInOffice extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
+  public function canDelete(): bool
+  {
+    return $this->catEdit();
+  }
+
   public function catEdit()
   {
     $me = MrUser::me();

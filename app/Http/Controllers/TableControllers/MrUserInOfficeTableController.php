@@ -23,7 +23,7 @@ class MrUserInOfficeTableController extends MrTableController
     foreach ($new_users as $new_user)
     {
       $row = array();
-      /** @var MrUserInOffice $item */
+      /** @var MrUserInOffice $new_user */
       $row[] = '<span class="mr-bold mr-color-green">' . __('mr-t.Новый') . '</span> ' . $new_user->getEmail();
 
       // Привилегии приглашённого пользователя

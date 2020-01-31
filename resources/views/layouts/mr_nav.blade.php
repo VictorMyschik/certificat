@@ -2,17 +2,26 @@
   <div class="container">
     @php
       use App\Http\Models\MrUser;
-      $def_office_id = MrUser::me()->getDefaultOffice()->id();
+      $user = MrUser::me();
+      $offices = array();
+      if($user)
+        $offices = $user->GetUserOffices();
     @endphp
+
     <a class="navbar-brand" href="{{ url('/') }}">
       {{MrBaseHelper::MR_SITE_NAME}}
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link mr-bold" href="{{ route('office_page',['office_id'=>$def_office_id]) }}"><span
-                class="mr-color-white">{{ MrUser::me()->getDefaultOffice()->getName() }}</span></a>
+        <li class="nav-item dropdown">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="mr-color-white">Офисы</span><span class="caret"></span>
+          </a>
+          @foreach($offices as $office)
+            <a class="dropdown-menu padding-horizontal" href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
+          @endforeach
         </li>
 
         <li class="nav-item dropdown">
@@ -52,11 +61,11 @@
                 </a>
               @endif
 
-              <a class="nav-link" href="{{ route('office_settings_page', ['office_id'=>$def_office_id]) }}">{{ __('mr-t.Настройки') }}</a>
+              <a class="nav-link"
+                 href="">{{ __('mr-t.Настройки') }}</a>
 
               <a class="nav-link" href="{{ route('logout') }}"
-                 onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST"

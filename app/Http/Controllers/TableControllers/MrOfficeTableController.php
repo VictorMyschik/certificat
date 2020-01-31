@@ -30,7 +30,12 @@ class MrOfficeTableController extends MrTableController
 
       $row[] = $admins;
 
-      $row[] = $item->GetTariffs();
+      $tariffs_out = '';
+      foreach($item->GetTariffs() as $t)
+      {
+        $tariffs_out .= $t->getTariff()->GetFullName();
+      }
+      $row[] = $tariffs_out;
       $row[] = $item->getDescription();
 
       $open = MrLink::open(

@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 
+use App\Http\Controllers\Helpers\MrCacheHelper;
 use App\Http\Controllers\Helpers\MtDateTime;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -321,36 +322,17 @@ class MrUser extends ORM
     return self::loadBy(2);
   }
 
-  public static function SelectList()
-  {
-    $out = array();
-    foreach (self::GetAll() as $user)
-    {
-      $out[$user->id()] = $user->GetFullName();
-    }
-    return $out;
-  }
-
   /**
    * @return MrUserInOffice|null
    */
-  public function GetUserInOffice(): ?MrUserInOffice
+  public function GetUserOffices(): array
   {
-    $out = null;
-
-    $id = Cache::rememberForever('MrUserInOffice' . $this->id(), function () {
-      return DB::table(MrUserInOffice::$mr_table)
-        ->where('UserID', '=', $this->id())
-        ->where('OfficeID', '=', $this->getDefaultOffice()->id())
-        ->pluck('id');
+    return MrCacheHelper::GetCachedObjectList('user_offices' . '|' . $this->id(),MrOffice::$className, function () {
+      return DB::table(MrOffice::$mr_table)
+        ->leftJoin(MrUserInOffice::$mr_table, MrUserInOffice::$mr_table . '.OfficeID', '=', MrOffice::$mr_table . '.id')
+        ->where(MrUserInOffice::$mr_table . '.UserID', $this->id())
+        ->pluck(MrOffice::$mr_table . '.id')->toArray();
     });
-
-    if(count($id))
-    {
-      $out = MrUserInOffice::loadBy($id[0]);
-    }
-
-    return $out;
   }
 
   /**
@@ -362,6 +344,8 @@ class MrUser extends ORM
   public static function LoadUserByEmail(string $email): ?MrUser
   {
     $user = DB::table('users')->where('email', $email)->first(['id']);
-    return MrUser::loadBy($user->id??null,'UserLaravelID');
+    return MrUser::loadBy($user->id ?? null, 'UserLaravelID');
   }
+
+
 }

@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Office;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Http\Models\MrCertificate;
-use App\Http\Models\MrCertificateMonitoring;
 use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrOffice;
 use App\Http\Models\MrUser;
@@ -44,28 +43,17 @@ class MrOfficeController extends Controller
 
   /**
    * Главная страница ВО
-   *
+   * @param int $id
+   * @return Factory|View
    */
-  public function officePage()
+  public function officePage(int $id)
   {
     $out = array();
     $user = MrUser::me();
     $out['user'] = $user;
     $out['page_title'] = 'Работа с сертификатами';
-    $user_in_office = $user->GetUserInOffice();
-    $out['monitoring_list'] = $id = MrCertificateMonitoring::GetUserCertificateMonitoringList($user_in_office);
     $out['cache_search'] = MrCertificate::GetCacheSearch($user);
     return View('Office.office_page')->with($out);
-  }
-
-  public function financePage()
-  {
-    $out = array();
-    $out['page_title'] = 'Финансы';
-    $user = MrUser::me();
-    $out['office'] = $user->getDefaultOffice();
-
-    return View('Office.office_finance_page')->with($out);
   }
 
   /**
@@ -96,7 +84,7 @@ class MrOfficeController extends Controller
 
     $uio->save_mr();
 
-    return redirect()->route('office_settings_page', ['office_id' => $office_id]);
+    return back();
   }
 
   public function UserInOfficeDelete(int $id)
@@ -138,6 +126,7 @@ class MrOfficeController extends Controller
    * Удалить приглашённого пользователя
    *
    * @param int $id
+   * @param int $office_id
    * @return RedirectResponse
    */
   public function NewUserDelete(int $id)
