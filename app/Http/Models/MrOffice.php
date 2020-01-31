@@ -430,6 +430,7 @@ class MrOffice extends ORM
 
   /**
    * Список приглашённых но ещё не добавленных пользователей
+   * @return MrNewUsers[]
    */
   public function GetNewUsers(): array
   {

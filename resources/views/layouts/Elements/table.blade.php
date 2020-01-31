@@ -1,5 +1,5 @@
-<table class="table table-hover table-striped table-bordered mr-middle">
-  <thead>
+<table class="table table-hover table-bordered mr-middle">
+  <thead class="mr-bg-footer">
   <tr class="mr-bold">
     @foreach($table['#header'] as $row)
       <td>{{$row}}</td>

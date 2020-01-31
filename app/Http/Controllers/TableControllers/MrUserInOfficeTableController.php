@@ -5,12 +5,15 @@ namespace App\Http\Controllers\TableControllers;
 
 
 use App\Http\Controllers\Forms\FormBase\MrLink;
+use App\Http\Models\MrOffice;
+use App\Http\Models\MrUser;
 use App\Http\Models\MrUserInOffice;
 
 class MrUserInOfficeTableController extends MrTableController
 {
-  public static function buildTable(array $has_users, array $new_users)
+  public static function buildTable(array $has_users, array $new_users, MrOffice $office)
   {
+    $me = MrUser::me();
     $header = array(
       __('mr-t.Пользователь'), __('mr-t.Привилегии'), '#'
     );
@@ -21,20 +24,31 @@ class MrUserInOfficeTableController extends MrTableController
     {
       $row = array();
       /** @var MrUserInOffice $item */
-      $row[] = $new_user->getUser()->GetFullName();
+      $row[] = '<span class="mr-bold mr-color-green">' . __('mr-t.Новый') . '</span> ' . $new_user->getEmail();
 
-      // привилегии приглашённого пользователя
-      $privileges = $new_user->getIsAdmin() ? 'Администратор' : 'Пользователь';
-      $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-edit');
-      //$row[] = array($privileges, $btn_edit);
+      // Привилегии приглашённого пользователя
+      $privileges = $new_user->getIsAdmin() ? __('mr-t.Администратор') : __('mr-t.Пользователь');
+      $btn_edit = null;
+      if($new_user->canEdit())
+      {
+        $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-edit');
+      }
+      $row[] = array($privileges, $btn_edit);
+
       // удалить
-      //$row[] = MrLink::open('new_user_delete', ['id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-trash-alt');
+      if($new_user->canDelete())
+      {
+        $delete_new_user = MrLink::open('new_user_delete', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt');
+      }
+
+      $row[] = $delete_new_user ?? null;
 
 
       $rows[] = $row;
     }
 
 
+    // Пользователи в офисе
     foreach ($has_users as $item)
     {
       $row = array();
@@ -42,11 +56,25 @@ class MrUserInOfficeTableController extends MrTableController
       $row[] = $item->getUser()->GetFullName();
 
       // привилегии пользователя
-      $privileges = $item->getIsAdmin() ? 'Администратор' : 'Пользователь';
-      //$btn_edit = MrLink::open('user_office_toggle_admin', ['office_id'=>$item->getOffice()->id(),'id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-edit');
+      $privileges = $item->getIsAdmin() ? '<span class="mr-color-green">' . __('mr-t.Администратор') . '</span>' : __('mr-t.Пользователь');
+
+      //// удалить
+      $btn_edit = null;
+      if($item->getEdit())
+      {
+        if($item->canAdminChange())
+        {
+          $btn_edit = MrLink::open('user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-edit');
+        }
+
+        // Себя удалить нельзя
+        if($me->id() != $item->getUser()->id())
+        {
+          $delete = MrLink::open('user_delete', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt');
+        }
+      }
       $row[] = array($privileges, $btn_edit);
-      // удалить
-     // $row[] = MrLink::open('user_delete', ['id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-trash-alt');
+      $row[] = $delete ?? null;
 
       $rows[] = $row;
     }

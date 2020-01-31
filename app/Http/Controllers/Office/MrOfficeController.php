@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Http\Models\MrCertificate;
 use App\Http\Models\MrCertificateMonitoring;
@@ -39,7 +38,7 @@ class MrOfficeController extends Controller
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $office;
 
-    $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers());
+    $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
     return View('Office.office_settings_page')->with($out);
   }
 
@@ -72,52 +71,48 @@ class MrOfficeController extends Controller
   /**
    * Смена статуса пользователя относительно офиса: админ или пользователь
    *
+   * @param int $office_id
    * @param int $id
    * @return RedirectResponse
    */
-  public function userOfficeIsAdmin(int $id)
+  public function userOfficeIsAdmin(int $office_id, int $id)
   {
-    $me = MrUser::me();
     $uio = MrUserInOffice::loadBy($id);
+    $office = MrOffice::loadBy($office_id);
 
-    if(!$me->GetUserInOffice()->getIsAdmin())
+    if(!$office || !$office->canEdit() || !$uio || $uio->getOffice()->id() != $office->id())
     {
-      MrMessageHelper::SetMessage(false, 'Только администры могут менять статус.');
-      return back();
-    }
-
-    if(!$uio || !$me->getDefaultOffice()->IsUserInOffice($uio->getUser()))
-    {
-      MrMessageHelper::SetMessage(false, 'Пользователь не найден.');
-      return back();
+      mr_access_violation();
     }
 
     if($uio->getIsAdmin())
     {
-      $uio->setIsAdmin(false);
+      $uio->setIsAdmin(0);
     }
     else
     {
-      $uio->setIsAdmin(true);
+      $uio->setIsAdmin(1);
     }
+
     $uio->save_mr();
 
-    return back();
+    return redirect()->route('office_settings_page', ['office_id' => $office_id]);
   }
 
   /**
    * Поменять привилегии у приглашённого пользователя
    *
+   * @param int $office_id
    * @param int $id
    * @return RedirectResponse
    */
-  public function NewUserOfficeIsAdmin(int $id)
+  public function NewUserOfficeIsAdmin(int $office_id, int $id)
   {
     $new_user = MrNewUsers::loadBy($id);
 
     if(!$new_user->canEdit())
     {
-      abort('503', __('mr-t.Нарушение доступа'));
+      mr_access_violation();
     }
 
     $new_user->setIsAdmin($new_user->getIsAdmin() ? false : true);
@@ -137,7 +132,7 @@ class MrOfficeController extends Controller
     $new_user = MrNewUsers::loadBy($id);
     if(!$new_user->canDelete())
     {
-      abort('503', __('mr-t.Нарушение доступа'));
+      mr_access_violation();
     }
 
     $new_user->mr_delete();

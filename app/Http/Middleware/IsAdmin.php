@@ -17,7 +17,7 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
         if ($mr_user = MrUser::me()) {
-            if (!$mr_user->IsAdmin()) {
+            if (!$mr_user->IsSuperAdmin()) {
                 return redirect('/');
             }
         } else {

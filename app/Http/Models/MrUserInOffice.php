@@ -20,6 +20,26 @@ class MrUserInOffice extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
+  public function getEdit()
+  {
+    $me = MrUser::me();
+
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    foreach ($this->getOffice()->GetUsers() as $uio)
+    {
+      if($uio->getUser()->id() == $me->id() && $uio->getIsAdmin())
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public function getUser(): MrUser
   {
     return MrUser::loadBy($this->UserID);
@@ -40,21 +60,21 @@ class MrUserInOffice extends ORM
     return $this->OfficeID = $value;
   }
 
-  public function getIsAdmin(): bool
+  public function getIsAdmin()
   {
     return $this->IsAdmin;
   }
 
-  public function setIsAdmin(bool $value)
+  public function setIsAdmin($value)
   {
-    return $this->IsAdmin = (bool)$value;
+    return $this->IsAdmin = $value;
   }
 
 
   /**
    * Может ли админ сложить полномочия
    */
-  public function canAdminChange():bool
+  public function canAdminChange(): bool
   {
     if($this->getIsAdmin() == false)
     {
@@ -64,7 +84,9 @@ class MrUserInOffice extends ORM
     foreach ($this->getOffice()->GetUsers() as $uio)
     {
       if($this->getUser()->id() == $uio->getUser()->id())
+      {
         continue;
+      }
 
       if($uio->getIsAdmin())
       {
@@ -74,5 +96,4 @@ class MrUserInOffice extends ORM
 
     return false;
   }
-
 }

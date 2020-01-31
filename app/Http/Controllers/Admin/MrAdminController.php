@@ -15,7 +15,7 @@ class MrAdminController extends Controller
 {
   public function index()
   {
-    if(!MrUser::me()->IsAdmin())
+    if(!MrUser::me()->IsSuperAdmin())
     {
       return back();
     }
@@ -26,7 +26,7 @@ class MrAdminController extends Controller
     $data->connect('localhost');
 
     $redis_info = $data->info();
-    $data->select(1);
+    $data->select(3);
 
     $out['Redis'] = array(
       'used_memory' => MtStringUtils::formatSize($redis_info['used_memory']),

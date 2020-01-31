@@ -20,9 +20,8 @@
             <div class="">
               <h5 class="mr-bold" style="padding-right: 20px;">
                 @if($me->GetUserInOffice()->getIsAdmin())
-                  {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
-                @endif
-                Контактная информация и лицо с правом подписи
+                  {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['office_id'=> $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
+                @endif Контактная информация и лицо с правом подписи
               </h5>
               <div class="margin-b-10">
                 <div><span class="mr-bold">Лицо:</span>
@@ -72,7 +71,7 @@
             <div class="">
               <h5 class="mr-bold margin-b-5">
                 @if($me->GetUserInOffice()->getIsAdmin())
-                  {!! MrBtn::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}@endif
+                  {!! MrBtn::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['office_id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}@endif
                 Юридическая информация
               </h5>
               <table class="margin-b-10">
@@ -116,7 +115,7 @@
           </div>
 
           <div class="d-md-inline col-md-4 mr-middle">
-            <h5 class="mr-bold">Тарифы</h5>
+            <h5 class="mr-bold">{{__('mr-t.Тарифы')}}</h5>
             <div>
               <table class="table table-striped table-bordered mr-middle">
                 <thead class="mr-bold">

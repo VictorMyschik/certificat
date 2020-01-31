@@ -10,7 +10,7 @@
     <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
       <tr class="mr-bold">
-        <td class="padding-horizontal">№</td>
+        <td class="padding-horizontal">ID</td>
         <td class="padding-horizontal">ФИО</td>
         <td class="padding-horizontal">Контакты</td>
         <td class="padding-horizontal">Регистрация</td>
@@ -66,7 +66,7 @@
           <td>{{ $new_user->getIsAdmin()?'Админ':'Пользователь' }}</td>
           <td>{{ $new_user->getWriteDate()->getShortDateShortTime() }}</td>
           <td>
-            {{ MrLink::open('new_user_delete', ['id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt') }}
+            {{ MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt') }}
           </td>
         </tr>
       @endforeach

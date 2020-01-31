@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class MrAdminOfficePostDetailsEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $office_id)
   {
-    $office = MrOffice::loadBy($id);
+    $office = MrOffice::loadBy($office_id);
 
     $form['CountryID'] = array(
       '#type' => 'select',

@@ -74,7 +74,7 @@ class MrCacheHelper extends Cache
    */
   public static function GetCachedObjectByID(int $id, string $table, callable $object)
   {
-    $cache_key = $table . '_' . $id;
+    $cache_key = $table . '|' . $id;
     return Cache::rememberForever($cache_key, function () use ($object) {
       return $object();
     });
