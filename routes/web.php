@@ -49,36 +49,34 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/users/edit/{id}', "Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   //// Кабинет пользователя
-  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
-  Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
-  Route::get('/office/finance', "Office\MrOfficeController@financePage")->name('office_finance_page');
-  Route::post('/office/personal/edit', "Office\MrUserController@Edit")->name('data_user_edit');
+  Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
+  Route::get('/office/{office_id}/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
 
   // форма для редактирования почтовых данных офиса
-  Route::match(['get', 'post'], '/admin/office/po/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
-  Route::match(['get', 'post'], '/admin/office/po/details/edit/{id}', "Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/po/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/po/details/edit/{id}', "Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
 
   // форма для редактирования юридических данных офиса
-  Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
-  Route::match(['get', 'post'], '/admin/office/ur/details/edit/{id}', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/ur/details/edit/{id}/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/ur/details/edit/{id}', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
-  Route::get('/office/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
-  Route::get('/office/userinoffice/{id}/isadmin', "Office\MrOfficeController@NewUserOfficeIsAdmin")->name('new_user_office_toggle_admin');
+  Route::get('/office/{office_id}/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
+  Route::get('/office/{office_id}/userinoffice/{id}/isadmin', "Office\MrOfficeController@NewUserOfficeIsAdmin")->name('new_user_office_toggle_admin');
 
 
-  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('office_user_submit');
-  Route::match(['get', 'post'], '/admin/office/officeuser/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('office_user_edit');
+  // Добавление нового пользователя
+  Route::match(['get', 'post'], 'office/{office_id}/user/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('add_office_user_submit');
+  Route::match(['get', 'post'], 'office/{office_id}/user/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('add_office_user_edit');
 
   //// Удаление аккаунта по ID
-  Route::get('/office/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
+  Route::get('/office/{office_id}/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
   // Себя
   Route::get('/user/delete/', "Office\MrUserController@DeleteSelf")->name('self_delete');
 
   // подписка пользователя
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
-
   // Удалить приглашённого пользователя
-  Route::get('/office/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
+  Route::get('/office/{office_id}/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
 });
 
 
@@ -199,21 +197,21 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   //// Офисы
-  Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');
-  Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
-  Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
+  Route::get('/admin/office/{office_id}s', "Admin\MrAdminOfficeController@List")->name('admin_offices');
+  Route::get('/admin/office/{office_id}/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
+  Route::get('/admin/office/{office_id}/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
   // Форма для создания пустого офиса
-  Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('admin_office_submit');
-  Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('admin_office_edit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('admin_office_submit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('admin_office_edit');
 
 
   // Добавление тарифа для офиса
-  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
-  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
-  Route::get('/admin/office/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
+  Route::get('/admin/office/{office_id}/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
 
   // Добавление пользователя в ВО
-  Route::get('/admin/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
+  Route::get('/admin/office/{office_id}/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
 
 
   // Тарифы
@@ -224,8 +222,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Скидки
   Route::get('/admin/discount/delete/{id}', "Admin\MrAdminOfficeController@discountDelete")->name('discount_delete');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/discount/edit/{id}/submit', "Forms\Admin\MrAdminOfficeDiscountEditForm@submitForm")->name('office_discount_submit');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/discount/edit/{id}', "Forms\Admin\MrAdminOfficeDiscountEditForm@getFormBuilder")->name('office_discount_edit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/{office_id}/discount/edit/{id}/submit', "Forms\Admin\MrAdminOfficeDiscountEditForm@submitForm")->name('office_discount_submit');
+  Route::match(['get', 'post'], '/admin/office/{office_id}/{office_id}/discount/edit/{id}', "Forms\Admin\MrAdminOfficeDiscountEditForm@getFormBuilder")->name('office_discount_edit');
 });
 
 

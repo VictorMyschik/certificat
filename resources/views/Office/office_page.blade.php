@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  @include('Office.mr_nav_user')
+  @include('layouts.mr_nav')
   <div class="container col-md-9 col-sm-12">
     <div class="row padding-horizontal">
 

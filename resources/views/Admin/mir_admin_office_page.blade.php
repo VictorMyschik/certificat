@@ -191,7 +191,8 @@
               <td class="padding-horizontal">{{ $new_user->getEmail() }}</td>
               <td class="padding-horizontal">
                 <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">{!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
+                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">
+                  {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
                 </a>
               </td>
               <td>
@@ -207,7 +208,8 @@
               <td class="padding-horizontal">{{ $user_in_office->getUser()->getEmail() }}</td>
               <td class="padding-horizontal">
                 <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">{!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
+                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">
+                  {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
                 </a>
               </td>
               <td>

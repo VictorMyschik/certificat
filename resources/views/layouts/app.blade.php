@@ -47,7 +47,7 @@
           <tr>
             <td class="fa fa-link"> {{ __('mr-t.Веб сайт') }}:</td>
             <td><a href="{{ MrBaseHelper::MR_SITE_URL }}"
-                   class="margin-l-5">{{ MrBaseHelper::MR_SITE }}</a></td>
+                   class="margin-l-5">{{ MrBaseHelper::MR_SITE_NAME }}</a></td>
           </tr>
         </table>
       </div>

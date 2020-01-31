@@ -228,6 +228,7 @@ return [
     'MrMessage' => App\Http\Controllers\Helpers\MrMessageHelper::class,
     'MrBaseHelper' => App\Http\Controllers\Helpers\MrBaseHelper::class,
     'MrLink' => App\Http\Controllers\Forms\FormBase\MrLink::class,
+    'MrUser' => \App\Http\Models\MrUser::class,
   ],
 
 ];

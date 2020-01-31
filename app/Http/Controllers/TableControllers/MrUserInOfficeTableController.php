@@ -12,7 +12,7 @@ class MrUserInOfficeTableController extends MrTableController
   public static function buildTable(array $has_users, array $new_users)
   {
     $header = array(
-      'Пользователь', 'Привилегии', '#'
+      __('mr-t.Пользователь'), __('mr-t.Привилегии'), '#'
     );
 
     $rows = array();
@@ -25,16 +25,15 @@ class MrUserInOfficeTableController extends MrTableController
 
       // привилегии приглашённого пользователя
       $privileges = $new_user->getIsAdmin() ? 'Администратор' : 'Пользователь';
-      $btn_edit = MrLink::open('new_user_office_toggle_admin', ['id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-edit');
-
-      $row[] = array($privileges, $btn_edit);
-
+      $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-edit');
+      //$row[] = array($privileges, $btn_edit);
       // удалить
-      $row[] = MrLink::open('new_user_delete', ['id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-trash-alt');
+      //$row[] = MrLink::open('new_user_delete', ['id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-trash-alt');
 
 
       $rows[] = $row;
     }
+
 
     foreach ($has_users as $item)
     {
@@ -44,13 +43,10 @@ class MrUserInOfficeTableController extends MrTableController
 
       // привилегии пользователя
       $privileges = $item->getIsAdmin() ? 'Администратор' : 'Пользователь';
-      $btn_edit = MrLink::open('user_office_toggle_admin', ['id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-edit');
-
+      //$btn_edit = MrLink::open('user_office_toggle_admin', ['office_id'=>$item->getOffice()->id(),'id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-edit');
       $row[] = array($privileges, $btn_edit);
-
       // удалить
-      $row[] = MrLink::open('user_delete', ['id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-trash-alt');
-
+     // $row[] = MrLink::open('user_delete', ['id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-trash-alt');
 
       $rows[] = $row;
     }

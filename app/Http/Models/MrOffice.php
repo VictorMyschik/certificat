@@ -433,7 +433,7 @@ class MrOffice extends ORM
    */
   public function GetNewUsers(): array
   {
-    $list = DB::table()->where('OfficeID', $this->id())->get();
+    $list = DB::table(MrNewUsers::$mr_table)->where('OfficeID', $this->id())->get();
     return parent::LoadArray($list, MrNewUsers::class);
   }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('layouts.mr_nav')
+	@include('layouts.mr_nav')
 <div class="container">
 	<div class="margin-t-20 margin-b-20">
 		<h3>{{ __('mr-t.Документ' )}}: {{ $certificate->getKindName().' '.$certificate->GetFullName() }}</h3>

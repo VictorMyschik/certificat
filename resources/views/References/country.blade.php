@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('layouts.mr_nav')
+  @include('layouts.mr_nav')
 <div class="container">
   <div class="row justify-content-center padding-t-10">
 

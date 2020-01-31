@@ -1,18 +1,26 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm mr-bg-muted-blue">
   <div class="container">
-
+    @php
+      use App\Http\Models\MrUser;
+      $def_office_id = MrUser::me()->getDefaultOffice()->id();
+    @endphp
     <a class="navbar-brand" href="{{ url('/') }}">
-      <span class="mr-color-white">{{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}</span>
+      {{MrBaseHelper::MR_SITE_NAME}}
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Right Side Of Navbar -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/references"><span class="mr-color-white">{{ __('mr-t.Справочники') }}</span></a>
+          <a class="nav-link mr-bold" href="{{ route('office_page',['office_id'=>$def_office_id]) }}"><span
+                class="mr-color-white">{{ MrUser::me()->getDefaultOffice()->getName() }}</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/faq"><span class="mr-color-white">FAQ</span></a>
+
+        <li class="nav-item dropdown">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="mr-color-white">{{ __('mr-t.Справочники') }}</span><span class="caret"></span>
+          </a>
+          <a class="dropdown-menu padding-horizontal" href="/reference/country">{{ __('mr-t.Страны мира') }}</a>
         </li>
 
         @guest
@@ -21,7 +29,8 @@
           </li>
           @if (Route::has('register'))
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('register') }}"><span class="mr-color-white">{{ __('Register') }}</span></a>
+              <a class="nav-link" href="{{ route('register') }}"><span
+                    class="mr-color-white">{{ __('Register') }}</span></a>
             </li>
           @endif
         @else
@@ -31,32 +40,25 @@
 								{{ Auth::user()->name }} <span class="caret"></span></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-
-              @if(\App\Http\Models\MrUser::me()->IsSuperAdmin())
-                <a class="dropdown-item" href="{{ route('admin') }}">
+              @if(MrUser::me()->IsSuperAdmin())
+                <a class="nav-link" href="{{ route('admin') }}">
                   Админка
                 </a>
-                <a class="dropdown-item" href="/phpmyadmin">
+                <a class="nav-link" href="/phpmyadmin">
                   PhpMyAdmin
                 </a>
-                <a class="dropdown-item" href="{{ route('office_page') }}">
-                  Кабинет USER
-                </a>
-                <a class="dropdown-item" href="/clear">
+                <a class="nav-link" href="/clear">
                   Очистить кэш
                 </a>
-              @else
-                <a class="dropdown-item" href="{{ route('office_page') }}">
-                  Кабинет
-                </a>
               @endif
-              <a class="dropdown-item" href="{{ route('logout') }}"
+
+              <a class="nav-link" href="{{ route('office_settings_page', ['office_id'=>$def_office_id]) }}">{{ __('mr-t.Настройки') }}</a>
+
+              <a class="nav-link" href="{{ route('logout') }}"
                  onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
               </a>
-
               <form id="logout-form" action="{{ route('logout') }}" method="POST"
                     style="display: none;">
                 @csrf
@@ -65,10 +67,10 @@
           </li>
         @endguest
 
-        <li class="nav-item dropdown border mr-border-radius-5">
+        <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-color-white">
-								{{ mb_strtoupper(app()->getLocale()) }} <span class="caret"></span></span>
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <span class="mr-color-white">{{ mb_strtoupper(app()->getLocale()) }}</span> <span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             @foreach(\App\Http\Models\MrLanguage::GetAll() as $item)

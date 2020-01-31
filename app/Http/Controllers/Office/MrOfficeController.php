@@ -13,14 +13,16 @@ use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrOffice;
 use App\Http\Models\MrUser;
 use App\Http\Models\MrUserInOffice;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class MrOfficeController extends Controller
 {
   /**
    * Настроки ВО, отчёты и прочие инструменты
    * @param int $id
-   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   * @return Factory|View
    */
   public function settingsPage(int $id)
   {

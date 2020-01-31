@@ -17,5 +17,5 @@
   </tbody>
 </table>
 <div>
-{!! $table['#links'] !!}
+{!! $table['#links']??null !!}
 </div>

@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class MrTableController extends Controller
 {
-  public static function renderTable($header, $rows, $list)
+  public static function renderTable($header, $rows, $list = null)
   {
     $rows_out = array();
 
@@ -25,10 +25,11 @@ class MrTableController extends Controller
       $rows_out[] = $row;
     }
 
+    $links = $list['links'] ?? null;
     $list = array(
       '#header' => $header,
       '#rows' => $rows_out,
-      '#links' => $list['links']
+      '#links' => $links,
     );
 
     return View('layouts.Elements.table', ['table' => $list]);

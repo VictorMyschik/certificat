@@ -27,7 +27,7 @@ class MrFormBase extends Controller
 
     $out['url'] = route($route_name, $data);
     $out['form_size'] = $form_size;
-    $out['btn_name'] = $btn_name ?? 'Изменить';
+    $out['btn_name'] = $btn_name ?? __('mr-t.Изменить');
 
     $base_class_btn = array();
 
@@ -53,7 +53,7 @@ class MrFormBase extends Controller
     $route_parameters = Route::getFacadeRoot()->current()->parameters();
 
     $form = array();
-    $form['#title'] = Route::getFacadeRoot()->current()->parameters()['id'] ? "Редактировать" : 'Создать';
+    $form['#title'] = Route::getFacadeRoot()->current()->parameters()['id'] ? __('mr-t.Изменить') : __('mr-t.Создать');
     $this->builderForm($form, $route_parameters['id'], $route_parameters);
 
     // Получеине роута для сохранения
@@ -65,8 +65,8 @@ class MrFormBase extends Controller
 
     $form['#url'] = route(implode($route_submit, '_'), $route_parameters);
 
-    $form['#btn_success'] = 'Сохранить';
-    $form['#btn_cancel'] = 'Отменить';
+    $form['#btn_success'] = __('mr-t.Сохранить');
+    $form['#btn_cancel'] = __('mr-t.Отменить');
     $out['form'] = $form;
 
     return View('Form.BaseForm.form_templates')->with($out);
