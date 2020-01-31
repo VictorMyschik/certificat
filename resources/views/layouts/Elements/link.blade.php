@@ -1,1 +1,1 @@
-<a href="{{ route($url,$arguments) }}" class="{{ $class }}">{{ $text }}</a>
+<a title="{{ $title }}" href="{{ route($url,$arguments) }}" class="{{ $class }}">{{ $text }}</a>

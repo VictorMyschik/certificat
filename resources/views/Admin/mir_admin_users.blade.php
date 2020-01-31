@@ -11,6 +11,7 @@
       <thead>
       <tr class="mr-bold">
         <td class="padding-horizontal">ID</td>
+        <td class="padding-horizontal">Офис</td>
         <td class="padding-horizontal">ФИО</td>
         <td class="padding-horizontal">Контакты</td>
         <td class="padding-horizontal">Регистрация</td>
@@ -24,20 +25,25 @@
       @foreach($users as $user)
         <tr class="{{ $user->getBlock() ? 'mr-bg-red' : '' }}">
           <td class="padding-horizontal">{{ $user->id() }}</td>
-          <td class="padding-horizontal">{{ $user->GetFullName() }}</td>
+          <td class="padding-horizontal">{{ $user->getDefaultOffice()->getName() }}</td>
+          <td class="padding-horizontal">{{ $user->getName() }}</td>
           <td class="padding-horizontal">
             {{ $user->getPhone() }}
             {{ $user->getEmail() }}
           </td>
-          <td class="padding-horizontal">{{ $user->getDateFirstVisit()->getShortDateShortTime() }}</td>
-          <td class="padding-horizontal">{{ $user->getDateLogin()->getShortDateShortTime() }}</td>
-          <td class="padding-horizontal">{{ $user->getDateLastVisit()->getShortDateShortTime() }}</td>
-          <td class="padding-horizontal">{{ $user->getDateVerify()?$user->getDateVerify()->getShortDateShortTime():null }}</td>
+          <td class="padding-horizontal"
+              title="{{ $user->getDateFirstVisit()->getShortDateFullTime() }}">{{ $user->getDateFirstVisit()->getShortDate() }}</td>
+          <td class="padding-horizontal"
+              title="{{ $user->getDateLogin()->getShortDateFullTime() }}">{{ $user->getDateLogin()->getShortDate() }}</td>
+          <td class="padding-horizontal"
+              title="{{ $user->getDateLastVisit()->getShortDateFullTime() }}">{{ $user->getDateLastVisit()->getShortDate() }}</td>
+          <td class="padding-horizontal"
+              title="{{ $user->getDateVerify()?$user->getDateVerify()->getShortDateShortTime():null }}">{{ $user->getDateVerify()?$user->getDateVerify()->getShortDate():null }}</td>
           <td class="padding-horizontal">
             {!! MrBtn::loadForm('user_form_edit', 'MrUserEditForm', ['id' => $user->id()], '', ['btn btn-primary btn-xs fa fa-edit'],'xs') !!}
             <a href="/admin/users/delete/{{ $user->id() }}"
                onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');"
-               class="btn btn-danger btn-xs fa fa-trash-alt mr-border-radius-5">
+               class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5">
             </a>
           </td>
         </tr>
@@ -66,7 +72,9 @@
           <td>{{ $new_user->getIsAdmin()?'Админ':'Пользователь' }}</td>
           <td>{{ $new_user->getWriteDate()->getShortDateShortTime() }}</td>
           <td>
-            {{ MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt') }}
+            {{ MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash','Удалить') }}
+            {!! MrLink::open('resend_message_for_new_user', ['new_user_id' => $new_user->id()],'','btn btn-primary btn-xs fa fa-mail-reply','Переотправить') !!}
+            <i class="fa fa-mail-reply"></i>
           </td>
         </tr>
       @endforeach

@@ -159,7 +159,7 @@
                 <td>
                   {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => $discount->id(), 'office_id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
                   <a href="{{ route('discount_delete',['id'=>$discount->id()]) }}"
-                     class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
+                     class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
                      onclick="return confirm('Уверены?');"></a>
                 </td>
               </tr>
@@ -197,7 +197,7 @@
               </td>
               <td>
                 <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
-                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
+                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
                    onclick="return confirm('Уверены?');"></a></td>
             </tr>
           @endforeach
@@ -214,7 +214,7 @@
               </td>
               <td>
                 <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
-                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"
+                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
                    onclick="return confirm('Уверены?');"></a></td>
             </tr>
           @endforeach

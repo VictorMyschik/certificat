@@ -68,6 +68,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], 'office/{office_id}/user/edit/{id}/submit', "Forms\MrAddOfficeUserForm@submitForm")->name('add_office_user_submit');
   Route::match(['get', 'post'], 'office/{office_id}/user/edit/{id}', "Forms\MrAddOfficeUserForm@getFormBuilder")->name('add_office_user_edit');
 
+  // Переотправить письмо со ссылкой для приглашённого пользователя
+  Route::get('/office/{new_user_id}/resend', "Office\MrUserController@ResendForNewUser")->name('resend_message_for_new_user');
+
+
   //// Удаление аккаунта по ID
   Route::get('/office/{office_id}/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
   // Себя

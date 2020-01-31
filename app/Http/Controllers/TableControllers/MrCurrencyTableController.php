@@ -38,7 +38,7 @@ class MrCurrencyTableController extends MrTableController
       );
 
       $delete = MrLink::open(
-        'reference_item_delete', ['name' => 'currency', 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt'
+        'reference_item_delete', ['name' => 'currency', 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash'
       );
 
       $row[] = array($edit, $delete);

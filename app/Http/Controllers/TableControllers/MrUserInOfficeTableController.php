@@ -38,7 +38,7 @@ class MrUserInOfficeTableController extends MrTableController
       // удалить
       if($new_user->canDelete())
       {
-        $delete_new_user = MrLink::open('new_user_delete', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt');
+        $delete_new_user = MrLink::open('new_user_delete', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash');
       }
 
       $row[] = $delete_new_user ?? null;
@@ -70,7 +70,7 @@ class MrUserInOfficeTableController extends MrTableController
         // Себя удалить нельзя
         if($me->id() != $item->getUser()->id())
         {
-          $delete = MrLink::open('user_delete', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash-alt');
+          $delete = MrLink::open('user_delete', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash');
         }
       }
       $row[] = array($privileges, $btn_edit);

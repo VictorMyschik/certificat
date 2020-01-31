@@ -25,7 +25,7 @@
           <td class="padding-horizontal">{{ $value->getSendMessage() ? 'Да': 'Нет' }}</td>
           <td>
             <a href="/admin/feedback/edit/{{ $value->id() }}" class="btn btn-primary btn-sm mr-border-radius-5 fa fa-edit"></a>
-            <a href="/admin/feedback/delete/{{ $value->id() }}" onclick="return confirm('Уверены?');" class="btn btn-danger btn-sm mr-border-radius-5 fa fa-trash-alt"></a></td>
+            <a href="/admin/feedback/delete/{{ $value->id() }}" onclick="return confirm('Уверены?');" class="btn btn-danger btn-sm mr-border-radius-5 fa fa-trash"></a></td>
         </tr>
       @endforeach
       </tbody>

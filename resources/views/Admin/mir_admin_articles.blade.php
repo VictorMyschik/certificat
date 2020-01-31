@@ -27,12 +27,12 @@
           <td>
             <a href="{{ route('admin_article_edit',['id'=>$article->id()]) }}" title="Редактировать"
                class="btn btn-primary btn-xs mr-border-radius-5">
-              <i class="fas fa-edit"></i>
+              <i class="fa fa-edit"></i>
             </a>
             <a href="{{ route('admin_article_delete',['id'=>$article->id()]) }}" title="Создать новую запись"
                class="btn btn-danger btn-xs mr-border-radius-5"
                onclick="return confirm('Будет удалена статья. Продолжить?');">
-              <span class="fa fa-trash-alt"></span>
+              <span class="fa fa-trash"></span>
             </a>
           </td>
         </tr>

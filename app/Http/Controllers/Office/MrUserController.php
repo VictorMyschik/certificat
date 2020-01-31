@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\MrEmailHelper;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrSubscription;
 use App\Http\Models\MrUser;
 use Illuminate\Http\RedirectResponse;
@@ -158,5 +160,18 @@ class MrUserController extends Controller
     $user = MrUser::me();
     $user->AccountDelete();
     return redirect('/');
+  }
+
+  /**
+   * Переотправить письмо со ссылкой для приглашённого пользователя
+   * @param int $new_user_id
+   */
+  public function ResendForNewUser(int $new_user_id)
+  {
+    $new_user = MrNewUsers::loadBy($new_user_id);
+    if(!$new_user || !$new_user->canEdit())
+    {
+      MrEmailHelper::ReSendNewUser($new_user);
+    }
   }
 }

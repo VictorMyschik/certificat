@@ -23,7 +23,7 @@ class MrEmailHelper extends Controller
 
     $regex = '/\S+@\S+\.\S+/';
 
-    if (!preg_match($regex, $email_to))
+    if(!preg_match($regex, $email_to))
     {
       return false;
     }
@@ -41,10 +41,10 @@ class MrEmailHelper extends Controller
 HTML;
 
     $data = array(
-        'user' => $user,
-        'subject' => $subject,
-        'message_text' => $message_text,
-        'email_to' => $email_to,
+      'user' => $user,
+      'subject' => $subject,
+      'message_text' => $message_text,
+      'email_to' => $email_to,
     );
 
     SendReminderEmail::dispatch($data);
@@ -55,7 +55,7 @@ HTML;
   /**
    * Отправка почты для нового пользователя добавленного из уже зарегистрированных
    *
-   * @param int $id Checklist
+   * @param int $id Office
    * @param string $email
    */
   public static function SendNewUserRole(int $id, string $email)
@@ -77,12 +77,20 @@ HTML;
 HTML;
 
     $data = array(
-        'user' => $user,
-        'subject' => $subject,
-        'message_text' => $message_text,
-        'email_to' => $email,
+      'user' => $user,
+      'subject' => $subject,
+      'message_text' => $message_text,
+      'email_to' => $email,
     );
 
     SendReminderEmail::dispatch($data);
+  }
+
+  public static function ReSendNewUser(MrNewUsers $user)
+  {
+    if(MrUser::LoadUserByEmail($user->getEmail()))
+    {
+      self::SendNewUserRole($user->getOffice()->id(), $user->getEmail());
+    }
   }
 }

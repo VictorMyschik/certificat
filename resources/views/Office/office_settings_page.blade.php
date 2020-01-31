@@ -168,7 +168,7 @@
             </div>
             <div class="margin-t-5">
               @if($me->getIsSubscription())
-                <a class="btn btn-danger btn-xs fa fa-trash-alt"
+                <a class="btn btn-danger btn-xs fa fa-trash"
                    href="{{ route('toggle_subscription', ['id'=>$me->id()]) }}"></a>
                 {{ __('mr-t.Отменить подписку') }}
               @else

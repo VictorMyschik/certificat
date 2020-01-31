@@ -21,7 +21,7 @@
             <a href="{{ route('admin_faq_edit',['id'=>$value->id()]) }}"
                class="btn btn-primary btn-xs mr-border-radius-5 fa fa-edit"></a>
             <a href="{{ route('admin_faq_delete',['id'=>$value->id()]) }}" onclick="return confirm('Вы уверены?');"
-               class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash-alt"></a>
+               class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"></a>
           </td>
         </tr>
       @endforeach

@@ -32,7 +32,7 @@
           <td>
             {!! MrBtn::loadForm('tariff_edit', 'Admin\\MrAdminTariffEditForm', ['id' => $value->id()], '',['btn-primary btn-xs fa fa-edit']) !!}
             <a href="/admin/tariff/delete/{{ $value->id() }}" onclick="return confirm('Вы уверены?');"
-               class="btn btn-danger btn-xs fa fa-trash-alt"></a></td>
+               class="btn btn-danger btn-xs fa fa-trash"></a></td>
         </tr>
       @endforeach
       </tbody>

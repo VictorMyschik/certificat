@@ -36,7 +36,7 @@ class MrNewUsers extends ORM
 
     if($me->IsSuperAdmin())
     {
-      //return true;
+      return true;
     }
 
     foreach ($this->getOffice()->GetUsers() as $uio)

@@ -39,7 +39,7 @@
             {!!  MrBtn::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => $word->id()],'',['btn-primary btn-xs fa fa-edit']) !!}
             <a href="/admin/language/word/{{$word->id()}}/delete"
                onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');"
-               class="btn btn-danger btn-xs fa fa-trash-alt mr-border-radius-5">
+               class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5">
             </a>
           </td>
         </tr>

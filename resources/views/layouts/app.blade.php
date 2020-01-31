@@ -6,21 +6,17 @@
   <!--<link rel="shortcut icon" href="/public/images/other/favicon.ico">-->
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <title>{{ $page_title ?? MrBaseHelper::MR_SITE_NAME }}</title>
 
   <!-- Scripts -->
   <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" defer rel="script" src="{{asset('js/app.js')}}"></script>
-
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <!-- Styles -->
-  <link href='/public/css/fontawesome.min.css' rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href='/public/css/mr-style.css' rel="stylesheet">
 </head>
