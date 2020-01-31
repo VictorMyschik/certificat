@@ -72,8 +72,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::get('/office/{new_user_id}/resend', "Office\MrUserController@ResendForNewUser")->name('resend_message_for_new_user');
 
 
-  //// Удаление аккаунта по ID
-  Route::get('/office/{office_id}/user/delete/', "Office\MrUserController@UserDelete")->name('user_delete');
+  //// Удаление пользователя из ВО
+  Route::get('/office/userinoffice/{id}/delete/', "Office\MrOfficeController@UserInOfficeDelete")->name('user_in_office_delete');
   // Себя
   Route::get('/user/delete/', "Office\MrUserController@DeleteSelf")->name('self_delete');
 
@@ -201,21 +201,21 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   //// Офисы
-  Route::get('/admin/office/{office_id}s', "Admin\MrAdminOfficeController@List")->name('admin_offices');
-  Route::get('/admin/office/{office_id}/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
-  Route::get('/admin/office/{office_id}/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
+  Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');
+  Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
+  Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
   // Форма для создания пустого офиса
-  Route::match(['get', 'post'], '/admin/office/{office_id}/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('admin_office_submit');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('admin_office_edit');
+  Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrAdminOfficeEditForm@submitForm")->name('admin_office_submit');
+  Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrAdminOfficeEditForm@getFormBuilder")->name('admin_office_edit');
 
 
   // Добавление тарифа для офиса
-  Route::match(['get', 'post'], '/admin/office/{office_id}/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
+  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
+  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
   Route::get('/admin/office/{office_id}/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
 
   // Добавление пользователя в ВО
-  Route::get('/admin/office/{office_id}/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
+  Route::get('/admin/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
 
 
   // Тарифы

@@ -32,7 +32,6 @@ class MrAdminOfficeEditForm extends MrFormBase
       '#rows' => 5,
     );
 
-
     return $form;
   }
 

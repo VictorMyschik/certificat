@@ -36,7 +36,6 @@ class MrAdminBackUpController extends Controller
           'Name' => $object::$mr_table,
           'FileName' => $item,
           'has' => isset(self::$tables[$object::$mr_table]),
-
           'count_rows' => $object::getCount(),
         );
       }

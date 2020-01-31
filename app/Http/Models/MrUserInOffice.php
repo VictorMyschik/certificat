@@ -20,7 +20,7 @@ class MrUserInOffice extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  public function getEdit()
+  public function catEdit()
   {
     $me = MrUser::me();
 
@@ -76,6 +76,11 @@ class MrUserInOffice extends ORM
    */
   public function canAdminChange(): bool
   {
+    if($this->getUser()->IsSuperAdmin())
+    {
+      return true;
+    }
+
     if($this->getIsAdmin() == false)
     {
       return false;

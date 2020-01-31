@@ -60,7 +60,7 @@ class MrUserInOfficeTableController extends MrTableController
 
       //// удалить
       $btn_edit = null;
-      if($item->getEdit())
+      if($item->catEdit())
       {
         if($item->canAdminChange())
         {
@@ -68,11 +68,12 @@ class MrUserInOfficeTableController extends MrTableController
         }
 
         // Себя удалить нельзя
-        if($me->id() != $item->getUser()->id())
+        if($me->id() != $item->getUser()->id() || $item->getUser()->IsSuperAdmin())
         {
-          $delete = MrLink::open('user_delete', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash');
+          $delete = MrLink::open('user_in_office_delete', ['id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash');
         }
       }
+
       $row[] = array($privileges, $btn_edit);
       $row[] = $delete ?? null;
 

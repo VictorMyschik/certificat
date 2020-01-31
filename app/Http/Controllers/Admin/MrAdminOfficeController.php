@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Controllers\TableControllers\MrOfficeTableController;
+use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Http\Models\MrDiscount;
 use App\Http\Models\MrOffice;
 use App\Http\Models\MrTariffInOffice;
@@ -43,6 +44,8 @@ class MrAdminOfficeController extends Controller
     $out['page_title'] = $title;
     $out['office'] = $office;
 
+
+    $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
     return View('Admin.mir_admin_office_page')->with($out);
   }
 

@@ -16,7 +16,6 @@
       <div class="d-inline-flex col-md-8 padding-0 mr-middle">
         <div class="">
           <h5 class="mr-bold">
-            {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
             Контактная информация и лицо с правом подписи
           </h5>
 
@@ -67,7 +66,6 @@
 
         <div class="mr-middle padding-0">
           <h5 class="mr-bold margin-b-5">
-            {!! MrBtn::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
             Юридическая информация
           </h5>
           <div class="d-sm-inline padding-horizontal">
@@ -129,7 +127,7 @@
                 <td class="padding-horizontal">{{ $tariff->getTariff()->getName() }}</td>
                 <td class="padding-horizontal">{{ $tariff->getCreateDate()->getShortDate() }}</td>
                 <td>
-                  <a href="{{ route('tariff_office_delete',['id'=>$tariff->id()]) }}"
+                  <a href="{{ route('tariff_office_delete',['office_id' => $office->id(),'id'=>$tariff->id()]) }}"
                      class="btn btn-danger btn-xs mr-border-radius-5"
                      onclick="return confirm('Уверены?');"><i class="fa fa-trash"></i></a></td>
               </tr>
@@ -172,54 +170,16 @@
     <hr>
     <div class="row padding-0">
       <div class="d-inline col-md-9 col-sm-12 padding-0">
-        <h4 class="mr-bold">Пользователи
-          {!! MrBtn::loadForm('office_user_edit', 'MrAddOfficeUserForm', ['id' => $office->id()], 'Добавить пользователя', ['btn-primary btn-xs'],'xs') !!}
-        </h4>
-        <table class="table table-striped table-bordered mr-middle">
-          <thead>
-          <tr>
-            <td>ФИО</td>
-            <td>Почта</td>
-            <td>Admin</td>
-            <td>#</td>
-          </tr>
-          </thead>
-          <tbody>
-          @foreach($office->GetNewUsers() as $new_user)
-            <tr>
-              <td class="padding-horizontal"></td>
-              <td class="padding-horizontal">{{ $new_user->getEmail() }}</td>
-              <td class="padding-horizontal">
-                <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">
-                  {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
-                </a>
-              </td>
-              <td>
-                <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
-                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
-                   onclick="return confirm('Уверены?');"></a></td>
-            </tr>
-          @endforeach
+        <h5 class="mr-bold">{{__('mr-t.Пользователи')}}
+          @if($office->canEdit())
+            <span title="{{ __('mr-t.Добавить нового пользователя') }}">
+                {!! MrBtn::loadForm('add_office_user_edit', 'MrAddOfficeUserForm', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-xs'],'sm') !!}
+                </span>
+          @endif
+        </h5>
+        {!! $user_in_office !!}
 
-          @foreach($office->GetUsers() as $user_in_office)
-            <tr>
-              <td class="padding-horizontal">{{ $user_in_office->getUser()->getName() }}</td>
-              <td class="padding-horizontal">{{ $user_in_office->getUser()->getEmail() }}</td>
-              <td class="padding-horizontal">
-                <a href="{{  route('user_office_toggle_admin',['id'=>$user_in_office->id()]) }}"
-                   class="btn {{ $user_in_office->getIsAdmin() ?'btn-success':'btn-danger' }} btn-xs mr-border-radius-5">
-                  {!! $user_in_office->getIsAdmin()?'<span title="Выключить">Администратор <i class="fa fa-check"></i></span>':'<span title="Выключить">Пользователь <i title="Включить" class="fa fa-check"></i></span>'!!}
-                </a>
-              </td>
-              <td>
-                <a href="{{ route('user_office_delete',['id'=>$user_in_office->id()]) }}"
-                   class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
-                   onclick="return confirm('Уверены?');"></a></td>
-            </tr>
-          @endforeach
-          </tbody>
-        </table>
+
       </div>
 
 

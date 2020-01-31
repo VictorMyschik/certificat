@@ -69,7 +69,7 @@ class MrOfficeController extends Controller
   }
 
   /**
-   * Смена статуса пользователя относительно офиса: админ или пользователь
+   * Смена статуса пользователя в ВО: админ или пользователь
    *
    * @param int $office_id
    * @param int $id
@@ -97,6 +97,19 @@ class MrOfficeController extends Controller
     $uio->save_mr();
 
     return redirect()->route('office_settings_page', ['office_id' => $office_id]);
+  }
+
+  public function UserInOfficeDelete(int $id)
+  {
+    $uio = MrUserInOffice::loadBy($id);
+    if(!$uio->catEdit())
+    {
+      mr_access_violation();
+    }
+
+    $uio->mr_delete();
+
+    return back();
   }
 
   /**

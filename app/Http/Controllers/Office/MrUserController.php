@@ -113,44 +113,6 @@ class MrUserController extends Controller
   }
 
   /**
-   * Удаление пользователя по ID
-   *
-   * @param Request $request
-   * @return RedirectResponse|Redirector
-   */
-  public function UserDelete(Request $request)
-  {
-    $id = (int)$request->get('id', null);
-
-    if(!$id)
-    {
-      return redirect()->route('404');
-    }
-
-    $me = MrUser::me();
-
-    if(!$me->GetUserInOffice()->getIsAdmin())
-    {
-      MrMessageHelper::SetMessage(false, 'Только администратор может удалить пользоваетля.');
-      return back();
-    }
-
-    $user = MrUser::loadBy($id);
-
-    if(!$user || !$me->getDefaultOffice()->IsUserInOffice($user))
-    {
-      MrMessageHelper::SetMessage(false, 'Пользователь не найден в ВО.');
-      return back();
-    }
-    else
-    {
-      $user->AccountDelete();
-    }
-
-    return back();
-  }
-
-  /**
    * Удаление себя
    *
    * @return RedirectResponse|Redirector
