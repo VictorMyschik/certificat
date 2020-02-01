@@ -8,16 +8,16 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+  /*
+  |--------------------------------------------------------------------------
+  | Login Controller
+  |--------------------------------------------------------------------------
+  |
+  | This controller handles authenticating users for the application and
+  | redirecting them to your home screen. The controller uses a trait
+  | to conveniently provide its functionality to your applications.
+  |
+  */
 
   use AuthenticatesUsers;
 
@@ -28,8 +28,14 @@ class LoginController extends Controller
     $user = MrUser::me();
     $user->setDateLogin();
     $user->save_mr();
-
-    redirect()->route('office_page');
+    if($def_office = $user->getDefaultOffice())
+    {
+      redirect()->route('office_page', ['office_id' => $def_office->id()]);
+    }
+    else
+    {
+      redirect('/');
+    }
   }
 
   /**

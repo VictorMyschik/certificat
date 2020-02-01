@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
-use App\Http\Models\MrCertificate;
 use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrOffice;
 use App\Http\Models\MrUser;
@@ -19,17 +18,13 @@ class MrOfficeController extends Controller
 {
   /**
    * Настроки ВО, отчёты и прочие инструменты
-   * @param int $id
+   * @param int $office_id
    * @return Factory|View
    */
-  public function settingsPage(int $id)
+  public function settingsPage(int $office_id)
   {
+    $office = parent::has_permission($office_id);
     $user = MrUser::me();
-    $office = MrOffice::loadBy($id);
-    if(!$office || !$office->canView())
-    {
-      abort(503, __('mr-t.Нет прав доступа'));
-    }
 
     $out = array();
 
@@ -43,16 +38,14 @@ class MrOfficeController extends Controller
 
   /**
    * Главная страница ВО
-   * @param int $id
+   * @param int $office_id
    * @return Factory|View
    */
-  public function officePage(int $id)
+  public function officePage(int $office_id)
   {
+    $office = parent::has_permission($office_id);
+
     $out = array();
-    $user = MrUser::me();
-    $out['user'] = $user;
-    $out['page_title'] = 'Работа с сертификатами';
-    $out['cache_search'] = MrCertificate::GetCacheSearch($user);
     return View('Office.office_page')->with($out);
   }
 

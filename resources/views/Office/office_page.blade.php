@@ -27,48 +27,11 @@
           </a>
 
           <div id="menu_1" class="collapse padding-horizontal mr-middle">
-            @if(count($cache_search))
-              @foreach($cache_search as $key => $cache_certificate)
-                <li>{{ $key . $cache_certificate }}</li>
-              @endforeach
-            @else
-              <div class="padding-l-15"><i>история пуста</i></div>
-            @endif
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row margin-t-15 border-top padding-horizontal">
-      <h5>Мои сертификаты</h5>
-      <table class="border mr-middle col-md-12">
-        <thead>
-        <tr>
-          <td>ID</td>
-          <td>Номер</td>
-          <td>Дата с</td>
-          <td>Дата по</td>
-          <td>Статус</td>
-          <td>Пользователь</td>
-          <td>#</td>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($monitoring_list as $certificate)
-          <tr>
-            <td>{{ $certificate->id }}</td>
-            <td>{{ $certificate->Number }}</td>
-            <td>{{ $certificate->DateFrom }}</td>
-            <td>{{ $certificate->DateTo }}</td>
-            <td>{{ $certificate->Status }}</td>
-            <td>{{ $certificate->Status }}</td>
-            <td></td>
-            <td></td>
-          </tr>
-        @endforeach
-        </tbody>
-      </table>
-    </div>
 
   </div>
 

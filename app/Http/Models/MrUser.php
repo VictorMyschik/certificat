@@ -47,20 +47,32 @@ class MrUser extends ORM
     $uio->mr_delete();
   }
 
+
+  private static $me = null;
+
   /**
-   * Проверяет, авторизован-ли пользователь
+   * Проверяет, авторизован ли пользователь
    *
    * @return MrUser|null
    */
   public static function me(): ?MrUser
   {
-    if(Auth::check())
+    if($me = self::$me)
     {
-      return MrUser::loadBy(Auth::id(), 'UserLaravelID');
+      return $me;
     }
     else
     {
-      return null;
+      if(Auth::check())
+      {
+        $me = MrUser::loadBy(Auth::id(), 'UserLaravelID');
+
+        return $me;
+      }
+      else
+      {
+        return null;
+      }
     }
   }
 
@@ -323,11 +335,11 @@ class MrUser extends ORM
   }
 
   /**
-   * @return MrUserInOffice|null
+   * @return MrOffice[]
    */
   public function GetUserOffices(): array
   {
-    return MrCacheHelper::GetCachedObjectList('user_offices' . '|' . $this->id(),MrOffice::$className, function () {
+    return MrCacheHelper::GetCachedObjectList('user_offices' . '|' . $this->id(), MrOffice::$className, function () {
       return DB::table(MrOffice::$mr_table)
         ->leftJoin(MrUserInOffice::$mr_table, MrUserInOffice::$mr_table . '.OfficeID', '=', MrOffice::$mr_table . '.id')
         ->where(MrUserInOffice::$mr_table . '.UserID', $this->id())

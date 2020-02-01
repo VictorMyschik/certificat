@@ -70,6 +70,10 @@ class MrOffice extends ORM
   public function canView(): bool
   {
     $me = MrUser::me();
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
 
     foreach ($this->GetUsers() as $uio)
     {

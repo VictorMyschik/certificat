@@ -104,10 +104,11 @@ return $translate_arr + [
     'Отменить подписку' => 'Cancel subscribe',
     'Подписаться на новости' => 'Subscribe',
     'Удалить акаунт' => 'Account delete',
-    'Офис создан' => 'Office crate',
+    'Офис создан' => 'Office crated',
     'Тарифы' => 'Tariffs',
     'Новый' => 'New',
     'Пользователь не найден' => 'User not found',
     'Только администры могут менять статус' => 'Please go back to the office administrator',
     'Доступ запрещён' => 'Access violation',
+    'Создать офис' => 'Office crated',
   ];

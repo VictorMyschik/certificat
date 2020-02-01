@@ -5,7 +5,10 @@
       $user = MrUser::me();
       $offices = array();
       if($user)
+      {
         $offices = $user->GetUserOffices();
+        $default_office = $user->getDefaultOffice();
+      }
     @endphp
 
     <a class="navbar-brand" href="{{ url('/') }}">
@@ -14,16 +17,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-color-white">Офисы</span><span class="caret"></span>
-          </a>
-          @foreach($offices as $office)
-            <a class="dropdown-menu padding-horizontal" href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
-          @endforeach
-        </li>
-
+        @if(count($offices))
+          <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-color-white">Офисы</span><span class="caret"></span>
+            </a>
+            @foreach($offices as $office)
+              <a class="dropdown-menu padding-horizontal"
+                 href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
+            @endforeach
+          </li>
+        @else
+          <li class="nav-item">
+            {!! MrBtn::loadForm('admin_office_edit', 'Admin\\MrAdminOfficeEditForm', ['id'=>'0'], 'Создать пустой офис', ['btn btn-primary btn-xs']) !!}
+          </li>
+        @endif
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,10 +69,10 @@
                   Очистить кэш
                 </a>
               @endif
-
-              <a class="nav-link"
-                 href="">{{ __('mr-t.Настройки') }}</a>
-
+              @if(isset($default_office))
+                <a class="nav-link"
+                   href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>
+              @endif
               <a class="nav-link" href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
