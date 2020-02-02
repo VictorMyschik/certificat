@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 /**
  * Форма создания пустого офиса
  */
-class MrAdminOfficeEditForm extends MrFormBase
+class MrOfficeEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {
     $office = MrOffice::loadBy($id);
-    $form['#title'] = $id ? 'Изменить офис' : 'Создание нового офиса';
+    $form['#title'] = $id ? 'Переименовать офис' : 'Создание нового офиса';
+
     $form['Name'] = array(
       '#type' => 'textfield',
       '#title' => 'Наименование офиса',

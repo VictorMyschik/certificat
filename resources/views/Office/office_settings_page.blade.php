@@ -11,7 +11,10 @@
         @endforeach
         <h5 class="mr-bold">{{$office->getName()}}</h5>
         <div class="mr-bold mr-middle margin-b-10"
-             style="border-bottom: #0c175b 1px solid">{{__('mr-t.Офис создан')}}: {{ $office->getCreateDate()->GetShortDateShortTime() }}
+             style="border-bottom: #0c175b 1px solid">
+          <a onclick="mr_popup('{{ route('admin_office_edit',['id'=>$office->id()]) }}'); return false;"><span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
+          {{__('mr-t.Офис создан')}}
+          : {{ $office->getCreateDate()->GetShortDateShortTime() }}
           @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: {{ $office->getDescription() }}@endif()
         </div>
 
@@ -21,7 +24,7 @@
               <h5 class="mr-bold" style="padding-right: 20px;">
                 @if($office->canEdit())
                   {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['id'=> $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
-                @endif Контактная информация и  <br>лицо с правом подписи
+                @endif Контактная информация и <br>лицо с правом подписи
               </h5>
               <div class="margin-b-10">
                 <div><span class="mr-bold">Лицо с правом подписи:</span>
@@ -159,7 +162,7 @@
             </div>
           </div> <!--тарифы и скидки-->
         </div>
-
+        <hr>
         <div class="row col-md-12 padding-0 margin-t-20">
           <div class="d-md-inline col-md-4 mr-middle">
             <h5 class="mr-bold">{{__('mr-t.Личные настройки')}}</h5>

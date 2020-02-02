@@ -111,4 +111,5 @@ return $translate_arr + [
     'Только администры могут менять статус' => 'Please go back to the office administrator',
     'Доступ запрещён' => 'Access violation',
     'Создать офис' => 'Office crated',
+    'Переименовать офис' => 'Office rename',
   ];

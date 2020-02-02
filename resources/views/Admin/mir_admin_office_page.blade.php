@@ -6,7 +6,7 @@
     @include('Admin.layouts.page_title')
     <div class="mr-bold mr-middle margin-b-10"
          style="border-bottom: #0c175b 1px solid">
-      {!! MrBtn::loadForm('admin_office_edit', 'Admin\\MrAdminOfficeEditForm', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+      {!! MrBtn::loadForm('admin_office_edit', 'Admin\\MrOfficeEditForm', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
       Офис создан: {{ $office->getCreateDate() }} |
       Примечание: {{ $office->getDescription() }}</div>
 
