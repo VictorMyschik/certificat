@@ -15,7 +15,7 @@ class MrTariffInOffice extends ORM
   protected static $dbFieldsMap = array(
     'OfficeID',
     'TariffID',
-    //'CreateDate',
+    //'WriteDate',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrTariffInOffice
@@ -25,10 +25,25 @@ class MrTariffInOffice extends ORM
 
   public function before_delete()
   {
-    foreach($this->getOffice()->GetDiscount() as $discount)
+    foreach ($this->getOffice()->GetDiscount() as $discount)
     {
       if($discount->getTariff()->id() == $this->getTariff()->id())
+      {
         $discount->mr_delete();
+      }
+    }
+  }
+
+  public function canEdit()
+  {
+    $me = MrUser::me();
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+    else
+    {
+      return false;
     }
   }
 
@@ -52,19 +67,19 @@ class MrTariffInOffice extends ORM
     $this->TariffID = $value;
   }
 
-  public function getCreateDate():MtDateTime
+  public function getWriteDate(): MtDateTime
   {
-    return MtDateTime::fromValue($this->CreateDate);
+    return parent::getDateNullableField('WriteDate');
   }
 
   /////////////////////////////////////////////////////////////////
   public function GetDiscountList()
   {
-   $list = DB::table(MrDiscount::$mr_table)
-      ->where('OfficeID','=',$this->getOffice()->id())
-      ->where('TariffID','=',$this->getTariff()->id())
+    $list = DB::table(MrDiscount::$mr_table)
+      ->where('OfficeID', '=', $this->getOffice()->id())
+      ->where('TariffID', '=', $this->getTariff()->id())
       ->get();
 
-   return parent::LoadArray($list, MrDiscount::class);
+    return parent::LoadArray($list, MrDiscount::class);
   }
 }

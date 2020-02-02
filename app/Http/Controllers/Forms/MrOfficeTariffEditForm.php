@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms\Admin;
+namespace App\Http\Controllers\Forms;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
@@ -10,7 +10,7 @@ use App\Http\Models\MrTariff;
 use App\Http\Models\MrTariffInOffice;
 use Illuminate\Http\Request;
 
-class MrAdminOfficeTariffEditForm extends MrFormBase
+class MrOfficeTariffEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
   {

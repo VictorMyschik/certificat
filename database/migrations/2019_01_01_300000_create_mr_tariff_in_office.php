@@ -14,7 +14,7 @@ class createmrtariffinoffice extends Migration
       $table->Increments('id')->autoIncrement();
       $table->integer('OfficeID');
       $table->integer('TariffID');
-      $table->timestamp('CreateDate')->default(DB::raw('CURRENT_TIMESTAMP'));
+      $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP'));
     });
   }
 

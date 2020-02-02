@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\MrOfficeTariffTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrOffice;
+use App\Http\Models\MrTariffInOffice;
 use App\Http\Models\MrUser;
 use App\Http\Models\MrUserInOffice;
 use Illuminate\Contracts\View\Factory;
@@ -31,7 +33,7 @@ class MrOfficeController extends Controller
     $out['me'] = $user;
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $office;
-
+    $out['tariffs'] = MrOfficeTariffTableController::buildTable($office->GetTariffs());
     $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
     return View('Office.office_settings_page')->with($out);
   }
@@ -131,6 +133,27 @@ class MrOfficeController extends Controller
     }
 
     $new_user->mr_delete();
+
+    return back();
+  }
+
+  public function DeleteTariffFromOffice(int $office_id, int $id)
+  {
+    $user = MrUser::me();
+    if(!$user->IsSuperAdmin())
+    {
+      mr_access_violation();
+    }
+
+    $tariff_in_office = MrTariffInOffice::loadBy($id);
+    $office = MrOffice::loadBy($office_id);
+    foreach ($office->GetTariffs() as $tariff)
+    {
+      if($tariff->id() == $tariff_in_office->id())
+      {
+        $tariff_in_office->mr_delete();
+      }
+    }
 
     return back();
   }

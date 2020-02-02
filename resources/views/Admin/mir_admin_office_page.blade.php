@@ -111,7 +111,7 @@
       <div class="d-inline col-md-4 col-sm-12 padding-0">
         <div class="">
           <h4 class="mr-bold">
-            {!! MrBtn::loadForm('office_tariffs_edit', 'Admin\\MrAdminOfficeTariffEditForm', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
+            {!! MrBtn::loadForm('office_tariffs_edit', 'MrOfficeTariffEditForm', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
             Тарифы</h4>
           <table id="" class="table table-hover table-bordered mr-middle">
             <thead>

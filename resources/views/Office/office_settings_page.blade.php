@@ -12,7 +12,8 @@
         <h5 class="mr-bold">{{$office->getName()}}</h5>
         <div class="mr-bold mr-middle margin-b-10"
              style="border-bottom: #0c175b 1px solid">
-          <a onclick="mr_popup('{{ route('admin_office_edit',['id'=>$office->id()]) }}'); return false;"><span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
+          <a onclick="mr_popup('{{ route('admin_office_edit',['id'=>$office->id()]) }}'); return false;"><span
+                class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
           {{__('mr-t.Офис создан')}}
           : {{ $office->getCreateDate()->GetShortDateShortTime() }}
           @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: {{ $office->getDescription() }}@endif()
@@ -118,25 +119,12 @@
           </div>
 
           <div class="d-md-inline col-md-4 mr-middle">
-            <h5 class="mr-bold">{{__('mr-t.Тарифы')}}</h5>
-            <div>
-              <table class="table table-striped table-bordered mr-middle">
-                <thead class="mr-bold">
-                <tr>
-                  <td>Тариф</td>
-                  <td>Добавлен</td>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($office->GetTariffs() as $tariff)
-                  <tr>
-                    <td class="padding-horizontal">{{ $tariff->getTariff()->getName() }}</td>
-                    <td class="padding-horizontal">{{ $tariff->getCreateDate()->getShortDate() }}</td>
-                  </tr>
-                @endforeach
-                </tbody>
-              </table>
-            </div>
+            <h5 class="mr-bold">
+              @if($me->IsSuperAdmin())
+                {!! MrBtn::loadForm('office_tariffs_edit', 'MrOfficeTariffEditForm', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs'],'xs') !!}
+              @endif
+              {{__('mr-t.Тарифы')}}</h5>
+            <div>{!! $tariffs !!}</div>
             <h5 class="mr-bold">{{__('mr-t.Скидки')}}</h5>
             <div>
               <table class="table table-striped table-bordered mr-middle">

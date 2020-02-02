@@ -14,7 +14,7 @@ class MrUserInOffice extends ORM
     'UserID',
     'OfficeID',
     'IsAdmin',
-    //'CreateDate'
+    //'WriteDate'
   );
 
   public static function loadBy($value, $field = 'id'): ?MrUserInOffice

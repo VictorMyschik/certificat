@@ -73,6 +73,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // Переотправить письмо со ссылкой для приглашённого пользователя
   Route::get('/office/{new_user_id}/resend', "Office\MrUserController@ResendForNewUser")->name('resend_message_for_new_user');
 
+  // удалить тариф из офиса
+  Route::get('/office/{office_id}/tariff_delete/{id}', "Office\MrOfficeController@DeleteTariffFromOffice")->name('delete_tariff_from_office');
+
 
   //// Удаление пользователя из ВО
   Route::get('/office/userinoffice/{id}/delete/', "Office\MrOfficeController@UserInOfficeDelete")->name('user_in_office_delete');
@@ -212,8 +215,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   // Добавление тарифа для офиса
-  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\Admin\MrAdminOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
-  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\Admin\MrAdminOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
+  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\MrOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
+  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\MrOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
   Route::get('/admin/office/{office_id}/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
 
   // Добавление пользователя в ВО
