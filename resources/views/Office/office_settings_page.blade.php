@@ -20,14 +20,14 @@
             <div class="">
               <h5 class="mr-bold" style="padding-right: 20px;">
                 @if($office->canEdit())
-                  {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['office_id'=> $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
-                @endif Контактная информация и лицо с правом подписи
+                  {!! MrBtn::loadForm('office_po_details_edit', 'Admin\\MrAdminOfficePostDetailsEditForm', ['id'=> $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
+                @endif Контактная информация и  <br>лицо с правом подписи
               </h5>
               <div class="margin-b-10">
-                <div><span class="mr-bold">Лицо:</span>
-                  <span>{{ $office->getPersonPost() }}</span>
-                  <span class="margin-l-10">{{ $office->getPersonFIO()?:'-' }}</span>
-                  <span title="на оновании">{{ $office->getPersonSign()?' ('.$office->getPersonSign().')':null }}</span>
+                <div><span class="mr-bold">Лицо с правом подписи:</span>
+                  <div>{{ $office->getPersonPost() }}</div>
+                  <div class="">{{ $office->getPersonFIO()?:'-' }}</div>
+                  <div title="на оновании">{{ $office->getPersonSign()?' ('.$office->getPersonSign().')':null }}</div>
                 </div>
               </div>
               <table class="margin-b-10 col-md-12">
@@ -71,7 +71,7 @@
             <div class="">
               <h5 class="mr-bold margin-b-5">
                 @if($office->canEdit())
-                  {!! MrBtn::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['office_id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}@endif
+                  {!! MrBtn::loadForm('office_ur_details_edit', 'Admin\\MrAdminOfficeURDetailsEditForm', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}@endif
                 Юридическая информация
               </h5>
               <table class="margin-b-10">

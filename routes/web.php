@@ -53,12 +53,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::get('/office/{office_id}/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
 
   // форма для редактирования почтовых данных офиса
-  Route::match(['get', 'post'], '/admin/office/{office_id}/po/details/edit/submit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/po/details/edit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
+  Route::match(['get', 'post'], '/admin/office/{id}/po/details/edit/submit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
+  Route::match(['get', 'post'], '/admin/office/{id}/po/details/edit', "Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
 
   // форма для редактирования юридических данных офиса
-  Route::match(['get', 'post'], '/admin/office/{office_id}/ur/details/edit/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/ur/details/edit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
+  Route::match(['get', 'post'], '/admin/office/{id}/ur/details/edit/submit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
+  Route::match(['get', 'post'], '/admin/office/{id}/ur/details/edit', "Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
   // Смена статуса пользователя в офисе
   Route::get('/office/{office_id}/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');

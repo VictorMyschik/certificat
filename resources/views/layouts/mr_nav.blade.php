@@ -39,7 +39,7 @@
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-color-white">
-								{{ Auth::user()->name }} <span class="caret"></span></span>
+								{{ $user->getDefaultOffice() ? $user->getDefaultOffice()->getName() : $user->getName() }} <span class="caret"></span></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               @if(MrUser::me()->IsSuperAdmin())
@@ -73,16 +73,12 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-color-white">Офисы</span><span class="caret"></span>
             </a>
-            @if(count($offices))
-              @foreach($offices as $office)
-                <a class="dropdown-menu padding-horizontal"
-                   href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
-              @endforeach
-            @else
-              {!! MrLink::open('admin_office_edit', ['id' => 0],'','mr-bolddropdown-menu padding-horizontal mr-color-white','Создать пустой офис') !!}
-            @endif
+            @foreach($offices as $office)
+              <a class="dropdown-menu padding-horizontal"
+                 href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
+            @endforeach
+            <span onclick="mr_popup('{{ route('admin_office_edit',['id'=>0]) }}'); return false;">{!! MrLink::open('admin_office_edit', ['id' => 0],'Создать пустой офис','dropdown-menu padding-horizontal') !!}</span>
           </li>
-
         @endguest
 
         <li class="nav-item dropdown">

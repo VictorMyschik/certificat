@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Forms\Admin;
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Http\Models\MrOffice;
+use App\Http\Models\MrUser;
+use App\Http\Models\MrUserInOffice;
 use Illuminate\Http\Request;
 
 /**
@@ -70,8 +72,16 @@ class MrAdminOfficeEditForm extends MrFormBase
 
     $office->setName($v['Name']);
     $office->setDescription($v['Description'] ?: null);
-    $office->save_mr();
+    $office_id = $office->save_mr();
 
+    if(!$id)
+    {
+      $uio = new MrUserInOffice();
+      $uio->setUserID(MrUser::me()->id());
+      $uio->setOfficeID($office_id);
+      $uio->setIsAdmin(true);
+      $uio->save_mr();
+    }
 
     return;
   }

@@ -4,6 +4,8 @@
 namespace App\Http\Models;
 
 
+use Illuminate\Support\Facades\Cache;
+
 class MrUserInOffice extends ORM
 {
   public static $mr_table = 'mr_user_in_office';
@@ -43,6 +45,20 @@ class MrUserInOffice extends ORM
     }
 
     return false;
+  }
+
+  public function after_save()
+  {
+    // $this->getUser()->flash();
+
+    Cache::forget('user_offices' . '|' . $this->getUser()->id());
+  }
+
+  public function after_delete()
+  {
+    // $this->getUser()->flash();
+
+    Cache::forget('user_offices' . '|' . $this->getUser()->id());
   }
 
   public function getUser(): MrUser
