@@ -17,22 +17,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        @if(count($offices))
-          <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-color-white">Офисы</span><span class="caret"></span>
-            </a>
-            @foreach($offices as $office)
-              <a class="dropdown-menu padding-horizontal"
-                 href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
-            @endforeach
-          </li>
-        @else
-          <li class="nav-item">
-            {!! MrBtn::loadForm('admin_office_edit', 'Admin\\MrAdminOfficeEditForm', ['id'=>'0'], 'Создать пустой офис', ['btn btn-primary btn-xs']) !!}
-          </li>
-        @endif
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,6 +67,22 @@
               </form>
             </div>
           </li>
+
+          <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-color-white">Офисы</span><span class="caret"></span>
+            </a>
+            @if(count($offices))
+              @foreach($offices as $office)
+                <a class="dropdown-menu padding-horizontal"
+                   href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
+              @endforeach
+            @else
+              {!! MrLink::open('admin_office_edit', ['id' => 0],'','mr-bolddropdown-menu padding-horizontal mr-color-white','Создать пустой офис') !!}
+            @endif
+          </li>
+
         @endguest
 
         <li class="nav-item dropdown">
