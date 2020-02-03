@@ -112,4 +112,5 @@ return $translate_arr + [
     'Доступ запрещён' => 'Access violation',
     'Создать офис' => 'Office crated',
     'Переименовать офис' => 'Office rename',
+    'Личная страница' => 'Personal page',
   ];

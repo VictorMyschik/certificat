@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/users/edit/{id}/submit', "Forms\MrUserEditForm@submitForm")->name('user_form_submit');
   Route::match(['get', 'post'], '/users/edit/{id}', "Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
+  // Личная страница
+  Route::get('/office/{office_id}', "Office\MrUserController@PersonalPage")->name('personal_page');
+
   //// Кабинет пользователя
   Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
   Route::get('/office/{office_id}/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');

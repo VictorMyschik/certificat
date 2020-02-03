@@ -57,6 +57,8 @@
               @if(isset($default_office) && $default_office->canView())
                 <a class="nav-link"
                    href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>
+              @else
+                <a class="nav-link" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
               @endif
               <a class="nav-link" href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -78,7 +80,8 @@
               <a class="dropdown-menu padding-horizontal"
                  href="{{route('office_page',['office_id'=>$office->id()])}}">{{ $office->getName() }}</a>
             @endforeach
-            <span onclick="mr_popup('{{ route('admin_office_edit',['id'=>0]) }}'); return false;">{!! MrLink::open('admin_office_edit', ['id' => 0],'Создать пустой офис','dropdown-menu padding-horizontal') !!}</span>
+            <span onclick="mr_popup('{{ route('admin_office_edit',['id'=>0]) }}'); return false;">
+              {!! MrLink::open('admin_office_edit', ['id' => 0],'Создать пустой офис','dropdown-menu padding-horizontal') !!}</span>
           </li>
         @endguest
 

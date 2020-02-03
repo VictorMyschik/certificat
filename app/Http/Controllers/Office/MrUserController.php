@@ -23,6 +23,14 @@ use Illuminate\Validation\Rule;
  */
 class MrUserController extends Controller
 {
+  public function PersonalPage()
+  {
+    $out = array();
+
+
+    return View('user_page')->with($out);
+  }
+
   #region Panel
   public function View()
   {
