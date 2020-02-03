@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 
 use App\Http\Controllers\Helpers\MtDateTime;
+use App\Http\Models\MrLanguage;
 use App\Http\Models\MrLogIdent;
 use App\Http\Models\MrUser;
 use Closure;
@@ -39,6 +40,7 @@ class Allximik extends Middleware
       $newIdent->setCity((string)$data['City']);
       $newIdent->setCountry((string)$data['Country']);
       $newIdent->setCookie($data['Cookie']);
+      $newIdent->setLanguageID($data['Language']);
 
       return $newIdent->save_mr();
     }
@@ -81,6 +83,8 @@ class Allximik extends Middleware
       $ip = $IP;
     }
 
+    $language = MrLanguage::getCurrentLanguage();
+
     $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
     if(isset($ip_data) && $ip_data->geoplugin_city != null)
     {
@@ -95,6 +99,7 @@ class Allximik extends Middleware
       'City' => $city_id ?? null,
       'Country' => $ip_data->geoplugin_countryName ?? null,
       'Cookie' => $Cookie,
+      'Language' => $language->id(),
     );
   }
 }

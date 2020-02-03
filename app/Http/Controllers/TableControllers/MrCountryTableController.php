@@ -34,7 +34,6 @@ class MrCountryTableController extends MrTableController
 
       $edit = MrForm::loadForm(
         'admin_reference_country_form_edit',
-        'Admin\\MrAdminReferenceCurrencyEditForm',
         ['id' => $item->id()],
         '', ['btn btn-primary btn-xs fa fa-edit']
       );

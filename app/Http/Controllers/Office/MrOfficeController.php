@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Office;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\MrDiscountTableController;
 use App\Http\Controllers\TableControllers\MrOfficeTariffTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Http\Models\MrNewUsers;
@@ -35,11 +36,13 @@ class MrOfficeController extends Controller
     $out['office'] = $office;
     $out['tariffs'] = MrOfficeTariffTableController::buildTable($office->GetTariffs());
     $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
+    $out['discounts'] = MrDiscountTableController::buildTable($office->GetDiscount());
     return View('Office.office_settings_page')->with($out);
   }
 
   /**
    * Главная страница ВО
+   *
    * @param int $office_id
    * @return Factory|View
    */
@@ -82,6 +85,12 @@ class MrOfficeController extends Controller
     return back();
   }
 
+  /**
+   * Удаление пользователя из офиса
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
   public function UserInOfficeDelete(int $id)
   {
     $uio = MrUserInOffice::loadBy($id);
@@ -90,7 +99,22 @@ class MrOfficeController extends Controller
       mr_access_violation();
     }
 
+    // Очистка из getDefaultOffice
+    $user = $uio->getUser();
+
+    if($uio->getOffice()->equals($user->getDefaultOffice()))
+    {
+      $user->setDefaultOfficeID(null);
+
+    }
+
     $uio->mr_delete();
+    $user->save_mr();
+
+    if(!MrUser::me()->getDefaultOffice())
+    {
+      return redirect('/');
+    }
 
     return back();
   }

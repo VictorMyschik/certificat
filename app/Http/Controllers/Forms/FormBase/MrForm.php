@@ -6,12 +6,22 @@ namespace App\Http\Controllers\Forms\FormBase;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use Illuminate\Support\Facades\Route;
 
 class MrForm extends Controller
 {
-  public static function loadForm(string $route_name, string $class_name, array $data, $btn_name = null, $btn_class = array(), string $form_size = 'lg')
+  public static function loadForm(string $route_name, array $data, $btn_name = null, $btn_class = array(), string $form_size = 'lg')
   {
-    $object = "App\\Http\\Controllers\\Forms\\" . $class_name;
+    $action = null;
+    foreach (Route::getRoutes() as $route)
+    {
+      if(isset($route->action['as']) && $route->action['as'] == 'office_discount_edit')
+      {
+        $action = $route->action['controller'];
+      }
+    }
+
+    $object = substr($action, 0, strpos($action, '@'));
 
     return $object::getFormBase($route_name, $data, $btn_name, $btn_class, $form_size);
   }

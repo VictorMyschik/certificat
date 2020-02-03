@@ -39,7 +39,8 @@
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="mr-color-white">
-								{{ $user->getDefaultOffice() ? $user->getDefaultOffice()->getName() : $user->getName() }} <span class="caret"></span></span>
+								{{ $user->getDefaultOffice() ? $user->getDefaultOffice()->getName() : $user->getName() }} <span
+                    class="caret"></span></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               @if(MrUser::me()->IsSuperAdmin())
@@ -53,7 +54,7 @@
                   Очистить кэш
                 </a>
               @endif
-              @if(isset($default_office))
+              @if(isset($default_office) && $default_office->canView())
                 <a class="nav-link"
                    href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>
               @endif
@@ -92,7 +93,7 @@
                 @continue
               @endif
               <a href="{{ url('/locale/'.mb_strtolower($item->getName())) }}" class="dropdown-item">
-                <i class="nav-item  fa fa-language"></i> {{ $item->getName(). ' - '. $item->getDescription() }}</a>
+                <i class="nav-item fa fa-language"></i> {{ $item->getName(). ' - '. $item->getDescription() }}</a>
             @endforeach
           </div>
         </li>

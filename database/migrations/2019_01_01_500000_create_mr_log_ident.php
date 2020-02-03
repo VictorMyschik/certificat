@@ -21,6 +21,7 @@ class createmrlogident extends Migration
       $table->string('City')->nullable();
       $table->string('Country')->nullable();
       $table->string('Cookie')->nullable();
+      $table->tinyInteger('LanguageID')->nullable();
     });
   }
 

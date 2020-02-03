@@ -48,6 +48,18 @@ class MrLanguage extends ORM
   }
 
   ////////////////////////////////////////////////////////////////////////
+  /**
+   * Текущий язык
+   *
+   * @return static
+   */
+  public static function getCurrentLanguage(): self
+  {
+    $locate = app()->getLocale();
+
+    return MrLanguage::loadBy($locate, 'Name');
+  }
+
   public static function SelectList()
   {
     $out = array();

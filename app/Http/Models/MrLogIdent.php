@@ -2,6 +2,7 @@
 
 namespace App\Http\Models;
 
+use App\Http\Controllers\Helpers\MtDateTime;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -31,16 +32,15 @@ class MrLogIdent extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  // Дата
-  public function getDate(): Carbon
+  public function after_save()
   {
-    try
-    {
-      return new Carbon($this->Date);
-    } catch (\Exception $e)
-    {
-      dd($e);
-    }
+    self::$ident_id = $this->id();
+  }
+
+  // Дата
+  public function getDate(): MtDateTime
+  {
+    return $this->getDateNullableField('Date');
   }
 
   // Источник перехода
@@ -129,6 +129,17 @@ class MrLogIdent extends ORM
   public function setCookie(?string $value)
   {
     $this->Cookie = $value;
+  }
+
+  // Cookie
+  public function getLanguage(): ?MrLanguage
+  {
+    return MrLanguage::loadBy($this->LanguageID);
+  }
+
+  public function setLanguageID(?int $value)
+  {
+    $this->LanguageID = $value;
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////

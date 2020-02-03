@@ -4,7 +4,6 @@ namespace App\Http\Models;
 
 use App\Http\Controllers\Helpers\MrCacheHelper;
 use App\Http\Controllers\Helpers\MtDateTime;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -89,23 +88,20 @@ class ORM extends Model
 
     foreach (static::$dbFieldsMap as $properties)
     {
-      if($this->$properties)
+      if(is_object($this->$properties))
       {
-        if(is_object($this->$properties))
-        {
-          if(!isset($this->$properties->id))
-          {
-            $out[$properties] = $this->$properties;
-          }
-          else
-          {
-            $out[$properties] = $this->$properties->id;
-          }
-        }
-        else
+        if(!isset($this->$properties->id))
         {
           $out[$properties] = $this->$properties;
         }
+        else
+        {
+          $out[$properties] = $this->$properties->id;
+        }
+      }
+      else
+      {
+        $out[$properties] = $this->$properties;
       }
     }
 
@@ -126,6 +122,7 @@ class ORM extends Model
       $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
         return DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
       });
+
     }
     else
     {
@@ -135,9 +132,9 @@ class ORM extends Model
     if($out)
     {
       $mr_object = self::convertToMr($out);
-
       // Вставка имени кэшированного объекта
       $mr_object->CachedKey = (string)(static::$mr_table . '|' . $mr_object->id());
+      $mr_object->original = $out;
 
       return $mr_object;
     }
@@ -169,9 +166,7 @@ class ORM extends Model
 
     if($this->id)
     {
-      $origin = self::loadBy($this->id);
-
-      $array = self::equals($origin, $this);
+      $array = $this->equals_data();
 
       if(count($array))
       {
@@ -202,39 +197,18 @@ class ORM extends Model
   /**
    * Отбор данных для сохранения
    *
-   * @param object $origin
-   * @param object $modified
    * @return array
-   * @throws \Exception
    */
-  private static function equals(object $origin, object $modified): array
+  public function equals_data(): array
   {
     $out = array();
-
-    foreach ($origin->attributes as $orgn_key => $orgn_value)
+    $attributes = $this->attributes;
+    $attributes['id'] = $this->id();
+    foreach ($this->original as $key => $property)
     {
-      if(in_array((string)$orgn_key, array('WriteDate', 'DateLastVisit')))
+      if($attributes[$key] != $property)
       {
-        continue;
-      }
-
-      if(!isset($modified->attributes[$orgn_key]))
-      {
-        continue;
-      }
-
-
-      if($modified->attributes[$orgn_key] instanceof Carbon || $modified->attributes[$orgn_key] instanceof MtDateTime)
-      {
-        $or = new Carbon($orgn_value);
-        if($modified->attributes[$orgn_key]->format('Y-m-d H:i:s') !== $or->format('Y-m-d H:i:s'))
-        {
-          $out[$orgn_key] = $modified->attributes[$orgn_key];
-        }
-      }
-      elseif($modified->attributes[$orgn_key] != $orgn_value)
-      {
-        $out[$orgn_key] = $modified->attributes[$orgn_key];
+        $out[$key] = $attributes[$key];
       }
     }
 
@@ -338,5 +312,36 @@ class ORM extends Model
 
     $last_id_out = DB::table(static::$mr_table)->insertGetId($array);
     return static::$className::loadBy($last_id_out);
+  }
+
+  /**
+   * Сравнивает два объекта по ID и наименованию класса
+   *
+   * @param object $object
+   * @return bool
+   */
+  public function equals(?object $object): bool
+  {
+    if(!is_object($object) || !$object)
+    {
+      return false;
+    }
+
+    if($this->id() == $object->id())
+    {
+      if($this::$className == $object::$className)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public function flash()
+  {
+    $id = $this->id();
+    $table_name = $this::$mr_table;
+    Cache::forget($table_name . '|' . $id);
   }
 }

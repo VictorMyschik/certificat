@@ -49,15 +49,12 @@ class MrUserInOffice extends ORM
 
   public function after_save()
   {
-    // $this->getUser()->flash();
-
+    $this->getUser()->flash();
     Cache::forget('user_offices' . '|' . $this->getUser()->id());
   }
 
   public function after_delete()
   {
-    // $this->getUser()->flash();
-
     Cache::forget('user_offices' . '|' . $this->getUser()->id());
   }
 

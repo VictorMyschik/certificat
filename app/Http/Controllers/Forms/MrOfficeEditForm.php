@@ -77,11 +77,16 @@ class MrOfficeEditForm extends MrFormBase
 
     if(!$id)
     {
+      $user = MrUser::me();
+
       $uio = new MrUserInOffice();
-      $uio->setUserID(MrUser::me()->id());
+      $uio->setUserID($user->id());
       $uio->setOfficeID($office_id);
       $uio->setIsAdmin(true);
       $uio->save_mr();
+
+      $user->setDefaultOfficeID($office_id);
+      $user->save_mr();
     }
 
     return;

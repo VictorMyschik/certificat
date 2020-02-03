@@ -26,7 +26,7 @@ class MrOfficeTariffTableController extends MrTableController
 
       if($item->canEdit())
       {
-        $edit = MrForm::loadForm('office_tariffs_edit', 'MrOfficeTariffEditForm', ['id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit'], 'xs');
+        $edit = MrForm::loadForm('office_tariffs_edit', ['id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit'], 'xs');
 
         $delete = MrLink::open(
           'delete_tariff_from_office', ['office_id' => $item->getOffice()->id(), 'id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash'
