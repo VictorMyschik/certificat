@@ -17,7 +17,7 @@ class MrEmailHelper extends Controller
     $system = MrBaseHelper::MR_SITE_NAME;
     $subject = __('mr-t.Новый пользователь в системе') . ' ' . MrBaseHelper::MR_SITE_NAME;
     $new_user = MrNewUsers::loadBy($id);
-    $link = MrBaseHelper::GetLinkForNewUser($new_user->getCode());
+    $link = MrNewUsers::GetLinkForNewUser($new_user->getCode());
 
     $email_to = $new_user->getEmail();
 

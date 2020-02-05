@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Office;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrEmailHelper;
 use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Controllers\Helpers\MrTelegramHelper;
 use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrSubscription;
 use App\Http\Models\MrUser;
@@ -26,15 +27,10 @@ class MrUserController extends Controller
   public function PersonalPage()
   {
     $out = array();
-
+    $out['user'] = MrUser::me();
+    $out['page_title'] = __('mr-t.Личная страница');
 
     return View('user_page')->with($out);
-  }
-
-  #region Panel
-  public function View()
-  {
-
   }
 
   public function Edit(Request $request)
@@ -94,7 +90,27 @@ class MrUserController extends Controller
     return redirect()->route('office_page');
   }
 
-  #endregion
+  /**
+   * Отправка кода для подключения акаунта Телеграм к системе
+   *
+   * @param Request $request
+   * @return bool
+   */
+  public function sendTelegramCode(Request $request): bool
+  {
+    $name = $request->get('name');
+    if(!$name)
+    {
+      abort('403','Некорректный логин');
+    }
+
+
+
+    MrTelegramHelper::sendCode($name);
+
+
+    return true;
+  }
 
   /**
    * Change subscription

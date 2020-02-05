@@ -13,6 +13,7 @@ class createmruser extends Migration
     Schema::create('mr_users', function (Blueprint $table) {
       $table->increments('id')->autoIncrement();
       $table->integer('UserLaravelID')->unique();
+      $table->string('Telegram')->unique();
       $table->dateTime('DateFirstVisit');
       $table->dateTime('DateLogin')->nullable();
       $table->integer('DefaultOfficeID')->nullable();

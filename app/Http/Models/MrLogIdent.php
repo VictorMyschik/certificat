@@ -144,9 +144,15 @@ class MrLogIdent extends ORM
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
-  public static function getMaxRowId(): int
+  public function GetFullLocation(): ?string
   {
-    return DB::table(static::$mr_table)->max('ID');
+    $r = '';
+
+    $r .= $this->getCity();
+    $r .= strlen($r) ? ' ' : '';
+    $r .= $this->getCountry();
+
+    return $r;
   }
 
   /**

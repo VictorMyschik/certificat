@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/users/edit/{id}', "Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   // Личная страница
-  Route::get('/office/{office_id}', "Office\MrUserController@PersonalPage")->name('personal_page');
+  Route::get('/personal', "Office\MrUserController@PersonalPage")->name('personal_page');
 
   //// Кабинет пользователя
   Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
@@ -78,6 +78,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
   // удалить тариф из офиса
   Route::get('/office/{office_id}/tariff_delete/{id}', "Office\MrOfficeController@DeleteTariffFromOffice")->name('delete_tariff_from_office');
+
+  //// Telegram Оповещение
+  //Форма добавления нового аккаунта телеграм
+  Route::match(['get', 'post'], 'personal/telegram/edit/{id}/submit', "Forms\User\MrUserTelegramEditForm@submitForm")->name('user_telegram_submit');
+  Route::match(['get', 'post'], 'personal/telegram/edit/{id}', "Forms\User\MrUserTelegramEditForm@getFormBuilder")->name('user_telegram_edit');
+  // отправка кода подтверждения
+  Route::match(['get', 'post'],'/telegram/send/code', "Office\MrUserController@sendTelegramCode")->name('send_telegram_code');
 
 
   //// Удаление пользователя из ВО

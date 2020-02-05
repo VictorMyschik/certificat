@@ -15,7 +15,6 @@ class MrUserEditForm extends MrFormBase
   protected function builderForm(&$form, $id)
   {
     $user = MrUser::loadBy($id);
-
     $form['Login'] = array(
       '#type' => 'textfield',
       '#title' => 'Login',

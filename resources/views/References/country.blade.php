@@ -4,9 +4,7 @@
   @include('layouts.mr_nav')
 <div class="container">
   <div class="row justify-content-center padding-t-10">
-
     <h4>{{$reference_name}}</h4>
-
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered mr-middle">
       <thead>
       <tr>

@@ -139,27 +139,9 @@
         <div class="row col-md-12 padding-0 margin-t-20">
           <div class="d-md-inline col-md-4 mr-middle">
             <h5 class="mr-bold">{{__('mr-t.Личные настройки')}}</h5>
-            <div>{!! MrBtn::loadForm('user_form_edit', ['id' => $me->id()], '', ['btn-primary btn-xs fa fa-edit'],'xs') !!}
+            <div>{!! \App\Http\Controllers\Forms\FormBase\MrLink::open('personal_page', [],'', 'btn-primary btn-xs fa fa-eye') !!}
               {{ $me->GetFullName() }}
             </div>
-            <div class="margin-t-5">
-              @if($me->getIsSubscription())
-                <a class="btn btn-danger btn-xs fa fa-trash"
-                   href="{{ route('toggle_subscription', ['id'=>$me->id()]) }}"></a>
-                {{ __('mr-t.Отменить подписку') }}
-              @else
-                <a class="btn btn-success btn-xs fa fa-edit"
-                   href="{{ route('toggle_subscription', ['id'=>$me->id()]) }}"></a>
-                {{__('mr-t.Подписаться на новости')}}
-              @endif
-            </div>
-
-            <div class="margin-t-20">
-              <a href="{{ route('self_delete') }}" class="mr-color-red"
-                 onclick="return confirm('Вы уверены? Будет удалён Ваш акаунт вместе со всеми данными! Это действие необратимо!');">
-                {{__('mr-t.Удалить акаунт')}}</a>
-            </div>
-
           </div>
           <div class="d-md-inline col-md-8 mr-middle">
             <h5 class="mr-bold">{{__('mr-t.Пользователи')}}
@@ -174,10 +156,7 @@
         </div>
       </div>
 
-      <div class="mr-middle border-top">
-        <div>{{ __('mr-t.Дата регистрации') }}: {{ $me->getDateFirstVisit()->format('d.m.Y') }}</div>
-        <div>{{ __('mr-t.Последний визит') }}: {{ $me->getDateLogin()->format('d.m.Y') }}</div>
-      </div>
+
     </div>
   </div>
 @endsection

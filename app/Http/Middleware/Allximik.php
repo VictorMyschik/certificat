@@ -29,21 +29,19 @@ class Allximik extends Middleware
       $mr_user_id = $mr_user->save_mr();
     }
 
-    if(!$mr_user || !$mr_user->IsSuperAdmin())
-    {
-      $newIdent = new MrLogIdent();
-      $newIdent->setIp($data['IP']);
-      $newIdent->setLink($data['URL']);
-      $newIdent->setReferer($data['Referer']);
-      $newIdent->setUserID($mr_user_id ?? null);
-      $newIdent->setUserAgent($data['UserAgent']);
-      $newIdent->setCity((string)$data['City']);
-      $newIdent->setCountry((string)$data['Country']);
-      $newIdent->setCookie($data['Cookie']);
-      $newIdent->setLanguageID($data['Language']);
+    $newIdent = new MrLogIdent();
+    $newIdent->setIp($data['IP']);
+    $newIdent->setLink($data['URL']);
+    $newIdent->setReferer($data['Referer']);
+    $newIdent->setUserID($mr_user_id ?? null);
+    $newIdent->setUserAgent($data['UserAgent']);
+    $newIdent->setCity((string)$data['City']);
+    $newIdent->setCountry((string)$data['Country']);
+    $newIdent->setCookie($data['Cookie']);
+    $newIdent->setLanguageID($data['Language']);
 
-      return $newIdent->save_mr();
-    }
+    return $newIdent->save_mr();
+
 
     return null;
   }

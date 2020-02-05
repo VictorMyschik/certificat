@@ -18,6 +18,7 @@ class MrUser extends ORM
 
   protected static $dbFieldsMap = array(
     'UserLaravelID',
+    'Telegram',
     'DateFirstVisit',
     'DateLogin',
     'DateLastVisit',
@@ -28,6 +29,17 @@ class MrUser extends ORM
   public static function loadBy($value, $field = 'id'): ?MrUser
   {
     return parent::loadBy((string)$value, $field);
+  }
+
+  public function canEdit()
+  {
+    $me = self::me();
+    if($me->id() == $this->id() || $me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    return false;
   }
 
   protected function before_delete()
@@ -117,6 +129,17 @@ class MrUser extends ORM
     return $this->getUserLaravel() ? $this->getUserLaravel()->getName() : null;
   }
 
+  // Telegram
+  public function getTelegram(): ?string
+  {
+    return $this->Telegram;
+  }
+
+  public function setTelegram(?string $value)
+  {
+    $this->Telegram = $value;
+  }
+
   // Эл. почта
   public function getEmail(): ?string
   {
@@ -177,7 +200,13 @@ class MrUser extends ORM
   {
     $this->DefaultOfficeID = $value;
   }
+
   //////////////////////////////////////////////////////////////////////////////////
+
+  public function getLogIdent()
+  {
+    return MrLogIdent::loadBy(MrLogIdent::$ident_id);
+  }
 
   /**
    * Подписка на обновления

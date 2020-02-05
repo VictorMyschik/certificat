@@ -4,6 +4,7 @@
 namespace App\Http\Models;
 
 
+use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Controllers\Helpers\MtDateTime;
 
 class MrNewUsers extends ORM
@@ -106,5 +107,20 @@ class MrNewUsers extends ORM
   public function getWriteDate(): MtDateTime
   {
     return $this->getDateNullableField('WriteDate');
+  }
+//////////////////////////////////////////////////////////////////////////////
+  /**
+   * Генерация ссылки для добавления нового пользователя
+   *
+   * @param string $soul
+   * @return string
+   */
+  public static function GetLinkForNewUser(string $soul)
+  {
+    $link = MrBaseHelper::MR_SITE_URL;
+
+    $link .= '/newuser/' . $soul;
+
+    return $link;
   }
 }

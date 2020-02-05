@@ -21,5 +21,7 @@
     <orderEntry type="library" name="ckeditor" level="application" />
     <orderEntry type="library" name="mr_c" level="application" />
     <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="jquery.fancybox" level="application" />
+    <orderEntry type="library" name="popper" level="application" />
   </component>
 </module>

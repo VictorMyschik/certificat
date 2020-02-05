@@ -12,6 +12,7 @@ class MrReferences extends Controller
     'country' => 'Страны мира',
   );
 
+
   public function List()
   {
     $out = array();
@@ -25,9 +26,9 @@ class MrReferences extends Controller
   {
     $out = array();
 
-    if($reference = $this->references[$name])
+    if(isset($this->references[$name]) && ($reference = $this->references[$name]))
     {
-      $out['reference_name'] = $reference;
+      $out['reference_name'] = __('mr-t.' . $reference);
 
       $pref = 'Mr';
       $l = substr($name, 0, 1);
@@ -41,11 +42,13 @@ class MrReferences extends Controller
       }
       else
       {
-        MrMessageHelper::SetMessage(false, 'Справочника нет');
+        MrMessageHelper::SetMessage(false, __('mr-t.Справочник не найден'));
         return back();
       }
+
+      return View('References.' . $name)->with($out);
     }
 
-    return View('References.'.$name)->with($out);
+    abort('404', __('mr-t.Справочник не найден'));
   }
 }

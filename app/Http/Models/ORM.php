@@ -186,6 +186,7 @@ class ORM extends Model
 
     if(method_exists($this, 'after_save'))
     {
+      $this->id = $last_id;
       $this->after_save();
     }
 

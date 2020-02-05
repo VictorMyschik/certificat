@@ -57,9 +57,8 @@
               @if(isset($default_office) && $default_office->canView())
                 <a class="nav-link"
                    href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>
-              @else
-                <a class="nav-link" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
               @endif
+                <a class="nav-link" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
               <a class="nav-link" href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
@@ -74,7 +73,7 @@
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-color-white">Офисы</span><span class="caret"></span>
+              <span class="mr-color-white">{{__('mr-t.Офисы')}}</span><span class="caret"></span>
             </a>
             @foreach($offices as $office)
               <a class="dropdown-menu padding-horizontal"

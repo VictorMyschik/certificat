@@ -82,7 +82,7 @@ return $translate_arr + [
     'Финансы' => 'Finance',
     'Виртуальный офис' => 'Virtual Office',
     'Дата регистрации' => 'Registration date',
-    'Последний визит' => 'Last visit',
+    'Текущий сеанс' => 'Current session',
     'Глобальные скидки' => 'Global discount',
     'Скидки' => 'Discount',
     'Баланс' => 'Balance',
@@ -113,4 +113,9 @@ return $translate_arr + [
     'Создать офис' => 'Office crated',
     'Переименовать офис' => 'Office rename',
     'Личная страница' => 'Personal page',
+    'Справочник не найден' => 'Reference not found',
+    'Изменить параметры входа' => 'Login settings edit',
+    'Telegram оповещение' => 'Telegram alert',
+    'Офисы' => 'Offices',
+    'обязательно' => 'is necessarily',
   ];
