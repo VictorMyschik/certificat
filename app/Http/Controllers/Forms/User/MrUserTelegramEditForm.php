@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Forms\User;
 
 
 use App\Http\Controllers\Forms\FormBase\MrFormBase;
+use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Http\Controllers\Helpers\MrEmailHelper;
 use App\Http\Controllers\Helpers\MrTelegramHelper;
 use App\Http\Models\MrNewUsers;
 use App\Http\Models\MrUser;
 use App\Http\Models\MrUserInOffice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MrUserTelegramEditForm extends MrFormBase
 {
@@ -24,17 +26,22 @@ class MrUserTelegramEditForm extends MrFormBase
 
     $form['#title'] = 'Оповещать в Telegram';
 
+    $code = MrBaseHelper::RandomNumberString(MrTelegramHelper::LENGTH_CODE);
+
+    Cache::remember('telegram_code_' . $user->id(), '3600', function () use ($code) {
+      return $code;
+    });
+
+    $code_out = '<span class="mr-color-green-dark">' . $code . '</span>';
+
     $form[] = MrTelegramHelper::getBotQRCode();
 
-    $form['Telegram_Login'] = array(
-      '#type' => 'textfield',
-      '#title' => 'Telegram Login',
-      '#value' => '',
-    );
+    $boot = '<a href="tg://resolve?domain=" class="text-center">' . MrBaseHelper::TELEGRAM_BOT . '</a>';
+    $form[] = "<h6>Отправьте этот код: {$code_out} нашему роботу {$boot} и впишите ответ ниже</h6>";
 
     $form['Code'] = array(
       '#type' => 'textfield',
-      '#title' => 'Код',
+      '#title' => 'Код ответа',
       '#value' => '',
     );
 
@@ -55,14 +62,7 @@ class MrUserTelegramEditForm extends MrFormBase
     }
 
 
-    if(!$v['Telegram_Login'])
-    {
-      $out['Telegram_Login'] = 'Telegram Login ' . __('mr-t.обязательно');
-    }
-    else
-    {
-      $out['Email'] = 'Email обязателен';
-    }
+
 
     return $out;
   }

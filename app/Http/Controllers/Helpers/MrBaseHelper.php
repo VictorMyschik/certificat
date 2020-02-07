@@ -48,7 +48,7 @@ abstract class MrBaseHelper extends Controller
   }
 
 
-  public static function RandomString($length = 10)
+  public static function RandomString($length = 10): string
   {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -59,6 +59,19 @@ abstract class MrBaseHelper extends Controller
     }
     return $randomString;
   }
+
+  public static function RandomNumberString($length = 5): string
+  {
+    $characters = '0123456789';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++)
+    {
+      $randomString .= $characters[rand(0, 9)];
+    }
+
+    return $randomString;
+  }
+
   //regex for phone 'Phone' => ["nullable", "regex:/^\+375\((17|29|33|44)\)[0-9]{3}-[0-9]{2}-[0-9]{2}$/"],
   /*
     <script type="text/javascript">
@@ -70,7 +83,7 @@ abstract class MrBaseHelper extends Controller
 
   public static function GetQRCode()
   {
-    return ;
+    return;
   }
 }
 

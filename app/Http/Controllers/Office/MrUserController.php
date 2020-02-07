@@ -15,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -98,15 +99,23 @@ class MrUserController extends Controller
    */
   public function sendTelegramCode(Request $request): bool
   {
-    $name = $request->get('name');
-    if(!$name)
+    $user = MrUser::me();
+    if(!$user)
     {
-      abort('403','Некорректный логин');
+      mr_access_violation();
     }
 
+    if(!$code = $request->get('name'))
+    {
+      abort('403', 'Не найдены данные');
+    }
 
+    if(strlen($code) != MrTelegramHelper::LENGTH_CODE)
+    {
+      abort('403', __('mr-t.Неверный формат'));
+    }
 
-    MrTelegramHelper::sendCode($name);
+    Cache::remember('telegram_code_' . $user->id());
 
 
     return true;

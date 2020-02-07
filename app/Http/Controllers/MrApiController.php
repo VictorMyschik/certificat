@@ -5,32 +5,11 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Models\MrCertificate;
-use App\Http\Models\MrLanguage;
-use App\Http\Models\MrPolicy;
 use App\Http\Models\MrUser;
 use Illuminate\Http\Request;
 
 class MrApiController extends Controller
 {
-  public function ViewApi()
-  {
-    $out = array();
-
-    $locate = app()->getLocale();
-    $language = MrLanguage::loadBy($locate, 'Name');
-
-    $policy = MrApi::loadBy($language->id(), 'LanguageID');
-
-    if(!$policy)
-    {
-      $policy = MrPolicy::loadBy('ru', 'LanguageID');
-    }
-
-    $out['policy'] = $policy;
-
-    return View('api')->with($out);
-  }
-
   /**
    * Живой поиск
    *
@@ -54,5 +33,15 @@ class MrApiController extends Controller
 
 
     return $out;
+  }
+
+  /**
+   * Получение данных от телеграм
+   * @param Request $request
+   * @return bool
+   */
+  public function TelegramWebHook(Request $request)
+  {
+    return true;
   }
 }

@@ -42,6 +42,8 @@ Route::get('/certificate/{number}', 'MrCertificateController@View');
 
 Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
+// Приём данных с Telegram
+Route::match(['get', 'post'],'/telegram/webhook', 'MrApiController@TelegramWebHook')->name('telegram_web_hook');
 
 //// для авторизованных
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -83,8 +85,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   //Форма добавления нового аккаунта телеграм
   Route::match(['get', 'post'], 'personal/telegram/edit/{id}/submit', "Forms\User\MrUserTelegramEditForm@submitForm")->name('user_telegram_submit');
   Route::match(['get', 'post'], 'personal/telegram/edit/{id}', "Forms\User\MrUserTelegramEditForm@getFormBuilder")->name('user_telegram_edit');
-  // отправка кода подтверждения
-  Route::match(['get', 'post'],'/telegram/send/code', "Office\MrUserController@sendTelegramCode")->name('send_telegram_code');
 
 
   //// Удаление пользователя из ВО

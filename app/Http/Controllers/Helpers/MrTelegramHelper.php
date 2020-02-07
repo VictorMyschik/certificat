@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 class MrTelegramHelper extends Controller
 {
+  const LENGTH_CODE = 4;
+
   public static function sendMeByTelegram($text)
   {
     // сюда нужно вписать токен вашего бота
