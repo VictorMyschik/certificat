@@ -21,9 +21,14 @@
 
     <hr>
     <div class=" d-md-flex d-sm-flex justify-content-center">
-      <button type="submit" id="mr-btn" class="btn btn-primary btn-xs">{{ $form['#btn_success'] }}</button>
-      <button type="button" class="btn btn-danger btn-xs margin-l-5"
-              data-dismiss="modal">{{ $form['#btn_cancel'] }}</button>
+      @if(!isset($form['#btn_info']))
+        <button type="submit" id="mr-btn" class="btn btn-primary btn-xs">{{ $form['#btn_success'] }}</button>
+        <button type="button" class="btn btn-danger btn-xs margin-l-5"
+                data-dismiss="modal">{{ $form['#btn_cancel'] }}</button>
+      @else
+        <button type="button" class="btn btn-success btn-xs margin-l-5"
+                data-dismiss="modal">{{ $form['#btn_info'] }}</button>
+      @endif
     </div>
   </form>
 </div>

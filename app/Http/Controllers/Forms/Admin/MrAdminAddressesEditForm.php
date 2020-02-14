@@ -83,15 +83,15 @@ class MrAdminAddressesEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $country = MrAddresses::loadBy($id) ?: new MrAddresses();
+    $address = MrAddresses::loadBy($id) ?: new MrAddresses();
 
-    $country->setCity($v['City']);
-    $country->setBuilding($v['Building']);
-    $country->setAddress($v['Address']);
-    $country->setLat($v['Lat']);
-    $country->setLon($v['Lon']);
-    $country->setCountryID($v['CountryID']);
-    $country->save_mr();
+    $address->setCity($v['City']);
+    $address->setBuilding($v['Building']);
+    $address->setAddress($v['Address']);
+    $address->setLat($v['Lat']);
+    $address->setLon($v['Lon']);
+    $address->setCountryID($v['CountryID']);
+    $address->save_mr();
 
     return;
   }

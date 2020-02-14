@@ -43,7 +43,7 @@ Route::get('/certificate/{number}', 'MrCertificateController@View');
 Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
 // Приём данных с Telegram
-Route::match(['get', 'post'],'/telegram/webhook', 'MrApiController@TelegramWebHook')->name('telegram_web_hook');
+Route::match(['get', 'post'], '/telegram/webhook', 'MrApiController@TelegramWebHook')->name('telegram_web_hook');
 
 //// для авторизованных
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
 
-  Route::match(['get', 'post'],'/test', "MrTestController@index");
+  Route::match(['get', 'post'], '/test', "MrTestController@index");
 
   Route::get('/admin', "Admin\MrAdminController@index")->name('admin');
   // FAQ
@@ -195,8 +195,13 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   Route::get('/admin/reference/country/{id}', "Admin\MrAdminReferences@ViewAddresses")->name('admin_reference_country_cities_page');
   // Адрес
-  Route::match(['get', 'post'], '/admin/country/{country_id}/address/{id}/submit', "Forms\Admin\MrAdminAddressesEditForm@submitForm")->name('admin_address_form_submit');
-  Route::match(['get', 'post'], '/admin/country/{country_id}/address/{id}', "Forms\Admin\MrAdminAddressesEditForm@getFormBuilder")->name('admin_address_form_edit');
+  Route::match(['get', 'post'], '/admin/country/address/{id}/submit', "Forms\Admin\MrAdminAddressesEditForm@submitForm")->name('admin_address_form_submit');
+  Route::match(['get', 'post'], '/admin/country/address/{id}', "Forms\Admin\MrAdminAddressesEditForm@getFormBuilder")->name('admin_address_form_edit');
+
+  // Гугл карты
+  Route::get('/map/address/{id}/submit', "Forms\MrMapPopupInfoForm@getFormBuilder")->name('address_map_popup_submit');
+  Route::get('/map/address/{id}', "Forms\MrMapPopupInfoForm@getFormBuilder")->name('address_map_popup_edit');
+
   // Удаление адреса
   Route::get('/admin/address/{id}/delete', "Admin\MrAdminReferences@AddressDelete")->name('address_delete');
 

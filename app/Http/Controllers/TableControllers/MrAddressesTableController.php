@@ -36,15 +36,14 @@ class MrAddressesTableController extends MrTableController
       $row[] = $item->getLat();
       $row[] = $item->getLon();
 
-      $edit = MrForm::loadForm('admin_address_form_edit', ['country_id' => $item->getCountry()->id(), 'id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit'], 'xs');
+      $edit = MrForm::loadForm('admin_address_form_edit', ['id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit'], 'xs');
 
       $delete = MrLink::open(
         'address_delete', ['id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash'
       );
 
-      $open = MrLink::open(
-        'admin_reference_country_cities_page', ['id' => $item->id()], '', 'btn btn-success btn-xs fa fa-map'
-      );
+      // гугл карты
+      $open = MrForm::loadForm('address_map_popup_edit', ['id' => $item->id()], '', ['btn btn-success btn-xs fa fa-map']);
 
       $row[] = array($open, $edit, $delete);
 

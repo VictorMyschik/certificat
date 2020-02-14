@@ -38,10 +38,11 @@ class MrApiController extends Controller
   /**
    * Получение данных от телеграм
    * @param Request $request
-   * @return bool
+   * @return null
    */
   public function TelegramWebHook(Request $request)
   {
-    return true;
+
+    return null;
   }
 }

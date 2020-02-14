@@ -94,4 +94,17 @@ class MrAddresses extends ORM
     $this->Lon = $value;
   }
 
+////////////////////////////////////////////////////////////
+
+  public function GetFullAddress()
+  {
+    $r = '';
+    $r .= '(' . $this->getCountry()->getContinentShortName() . ')';
+    $r .= ' ' . $this->getCountry()->getName();
+    $r .= ' ' . $this->getCity();
+    $r .= ' ';
+    $r .= $this->getAddress();
+
+    return $r;
+  }
 }

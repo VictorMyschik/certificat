@@ -11,7 +11,7 @@
     <span title="столица">{{ $country->getCapital() }}</span>
     <hr>
     <div class="margin-b-15 margin-t-10">
-      {!! MrBtn::loadForm('admin_address_form_edit', ['country_id'=>$country->id(), 'id' => '0'], 'Новый', ['btn-success', 'btn-xs'], 'xs') !!}
+      {!! MrBtn::loadForm('admin_address_form_edit', ['id' => '0'], 'Новый', ['btn-success', 'btn-xs'], 'xs') !!}
       <a href="{{ route('reference_country') }}" onclick="return confirm('Вы уверены?');"></a>
     </div>
     {!! MrMessage::GetMessage() !!}
