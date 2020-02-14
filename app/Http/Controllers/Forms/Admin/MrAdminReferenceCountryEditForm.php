@@ -15,28 +15,46 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
     $form['#title'] = $id ? "Редактирование" : 'Создать';
     $country = MrCountry::loadBy($id);
 
-    $form['NameRus'] = array(
+    $form['Name'] = array(
       '#type' => 'textfield',
       '#title' => 'Наименование',
-      '#value' => $country ? $country->getNameRus() : null,
+      '#value' => $country ? $country->getName() : null,
+      '#attributes' => ['maxlength' => 50],
     );
 
-    $form['NameEng'] = array(
+    $form['ISO3166alpha2'] = array(
       '#type' => 'textfield',
-      '#title' => 'На английском',
-      '#value' => $country ? $country->getNameEng() : null,
+      '#title' => 'ISO-3166 alpha2',
+      '#value' => $country ? $country->getISO3166alpha2() : null,
+      '#attributes' => ['maxlength' => 3],
     );
 
-    $form['Code'] = array(
+    $form['ISO3166alpha3'] = array(
       '#type' => 'textfield',
-      '#title' => 'Буквенный код',
-      '#value' => $country ? $country->getCode() : null,
+      '#title' => 'ISO-3166 alpha3',
+      '#value' => $country ? $country->getISO3166alpha3() : null,
+      '#attributes' => ['maxlength' => 3],
     );
 
-    $form['NumericCode'] = array(
+    $form['ISO3166numeric'] = array(
       '#type' => 'textfield',
-      '#title' => 'Цифровой код',
-      '#value' => $country ? $country->getNumericCode() : null,
+      '#title' => 'ISO-3166 numeric',
+      '#value' => $country ? $country->getISO3166numeric() : null,
+      '#attributes' => ['maxlength' => 3],
+    );
+
+    $form['Capital'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Столица',
+      '#value' => $country ? $country->getCapital() : null,
+      '#attributes' => ['maxlength' => 50],
+    );
+
+    $form['Continent'] = array(
+      '#type' => 'select',
+      '#title' => 'Континент',
+      '#default_value' => $country ? $country->getContinent() : 0,
+      '#value' => MrCountry::getContinentList(),
     );
 
     return $form;
@@ -46,10 +64,7 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
   protected static function validateForm(array $v)
   {
     parent::ValidateBase($out, $v);
-    if(!$v['Code'])
-    {
-      $out['Code'] = 'Буквенный код обязателен';
-    }
+    parent::allRequestNeed($out, $v);
 
     return $out;
   }
@@ -58,7 +73,7 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
   {
     $v = $request->all();
 
-    $errors = self::validateForm($v + ['id' => $id]);
+    $errors = self::validateForm($v);
     if(count($errors))
     {
       return $errors;
@@ -67,10 +82,13 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
     parent::submitFormBase($request->all());
 
     $country = MrCountry::loadBy($id) ?: new MrCountry();
-    $country->setCode($v['Code']);
-    $country->setNumericCode($v['NumericCode'] ?: null);
-    $country->setNameRus($v['NameRus']);
-    $country->setNameEng($v['NameEng']);
+
+    $country->setName($v['Name']);
+    $country->setISO3166alpha2($v['ISO3166alpha2']);
+    $country->setISO3166alpha3($v['ISO3166alpha3'] ?: null);
+    $country->setISO3166numeric($v['ISO3166numeric']);
+    $country->setCapital($v['Capital']);
+    $country->setContinent($v['Continent']);
     $country->save_mr();
 
     return;

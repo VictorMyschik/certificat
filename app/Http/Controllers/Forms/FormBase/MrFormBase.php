@@ -54,7 +54,7 @@ class MrFormBase extends Controller
 
     $form = array();
     $form['#title'] = isset(Route::getFacadeRoot()->current()->parameters()['id']) ? __('mr-t.Изменить') : __('mr-t.Создать');
-    $this->builderForm($form, $route_parameters['id']??null, $route_parameters);
+    $this->builderForm($form, $route_parameters['id'] ?? null, $route_parameters);
 
     // Получеине роута для сохранения
     $route_referer_name = Route::getFacadeRoot()->current()->action['as'];
@@ -65,7 +65,7 @@ class MrFormBase extends Controller
 
     $form['#url'] = route(implode($route_submit, '_'), $route_parameters);
 
-    if (!isset($form['#btn_info']))
+    if(!isset($form['#btn_info']))
     {
       $form['#btn_success'] = __('mr-t.Сохранить');
       $form['#btn_cancel'] = __('mr-t.Отменить');
@@ -90,16 +90,27 @@ class MrFormBase extends Controller
 
   }
 
-  protected static function validateHalper(?string $value, string $field, int $max_langth, array &$errors): array
+  protected static function validateHelper(?string $value, string $field, int $max_langth, array &$errors): array
   {
-    if ($value)
+    if($value)
     {
-      if (strlen($value) > $max_langth)
+      if(strlen($value) > $max_langth)
       {
         $errors[$field] = 'Поле ' . $field . ' не должно превышать ' . $max_langth . ' символов.';
       }
     }
 
     return $errors;
+  }
+
+  protected static function allRequestNeed(&$out, array $v)
+  {
+    foreach ($v as $key => $item)
+    {
+      if(!$item)
+      {
+        $out[$key] = "Не заполнено поле {$key}";
+      }
+    }
   }
 }

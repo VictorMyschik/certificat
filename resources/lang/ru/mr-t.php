@@ -3,7 +3,7 @@
 
 use App\Http\Models\MrTranslate;
 
-$translate_arr = MrTranslate::GetAllRusWords();
+$translate_arr = MrTranslate::GetWords('RU');
 
 return $translate_arr + [
     'Моя почта' => 'Моя почта',

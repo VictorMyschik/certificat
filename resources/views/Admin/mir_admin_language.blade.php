@@ -6,7 +6,7 @@
     @include('Admin.layouts.page_title')
     <div class="d-inline-block">
       <h4>Список языков <span title="Редактировать">
-       {!!  MrBtn::loadForm('admin_language_edit_form', "Admin\\MrAdminLanguageEditForm", ['id' => '0'],'Добавить язык', ['btn-primary', 'btn-sm']) !!}</span>
+       {!!  MrBtn::loadForm('admin_language_edit_form', ['id' => '0'],'Добавить язык', ['btn-primary', 'btn-sm']) !!}</span>
       </h4>
       {!!  MrMessage::GetMessage() !!}
       @foreach($languages as $language)
@@ -16,7 +16,7 @@
     </div>
 
     <div class="margin-b-15 margin-t-10">
-      {!! MrBtn::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => '0'], 'Добавить перевод',['btn-primary btn-sm']) !!}
+      {!! MrBtn::loadForm('translate_word_edit', ['id' => '0'], 'Добавить перевод',['btn-primary btn-sm']) !!}
     </div>
     <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
@@ -36,7 +36,7 @@
           <td class="padding-horizontal">{{ $word->getLanguage()->getName() }}</td>
           <td class="padding-horizontal">{{ $word->getTranslate() }}</td>
           <td class="padding-horizontal">
-            {!!  MrBtn::loadForm('translate_word_edit', 'Admin\\MrAdminTranslateWordEditForm', ['id' => $word->id()],'',['btn-primary btn-xs fa fa-edit']) !!}
+            {!!  MrBtn::loadForm('translate_word_edit',  ['id' => $word->id()],'',['btn-primary btn-xs fa fa-edit']) !!}
             <a href="/admin/language/word/{{$word->id()}}/delete"
                onclick="return confirm('Уверены? Будет удален перевод {{ $word->getName() }} с {{ $word->getLanguage()->getName() }} языка.');"
                class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5">

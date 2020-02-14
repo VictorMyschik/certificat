@@ -1,3 +1,4 @@
+<div class="mr-bold">Записей: {{count($table['#rows'])}}</div>
 <table class="table table-hover table-bordered mr-middle">
   <thead class="mr-bg-footer">
   <tr class="mr-bold">

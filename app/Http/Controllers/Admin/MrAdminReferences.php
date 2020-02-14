@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Http\Controllers\TableControllers\MrAddressesTableController;
 use App\Http\Controllers\TableControllers\MrCountryTableController;
 use App\Http\Controllers\TableControllers\MrCurrencyTableController;
+use App\Http\Models\MrAddresses;
 use App\Http\Models\MrCountry;
 use App\Http\Models\MrCurrency;
 use Illuminate\Contracts\View\Factory;
@@ -49,29 +50,8 @@ class MrAdminReferences extends Controller
    */
   public function RebuildCountry()
   {
+    MrCountry::AllDelete();
     MrCountry::RebuildReference();
-
-    $text_number_codes = array(
-      'RU' => '643',
-      'KG' => '417',
-      'KZ' => '398',
-      'BY' => '112',
-      'AM' => '051',
-    );
-
-    foreach ($text_number_codes as $key => $value)
-    {
-      $country = MrCountry::loadBy($key, 'Code');
-      if($country)
-      {
-        $country->setNumericCode($value);
-        $country->save_mr();
-      }
-      else
-      {
-        MrMessageHelper::SetMessage(false, 'Не все цифровые коды были добавлены');
-      }
-    }
 
     return back();
   }
@@ -99,4 +79,36 @@ class MrAdminReferences extends Controller
     return back();
   }
 
+  /**
+   * Справочник городов в стране
+   *
+   * @param int $id
+   * @return Factory|View
+   */
+  public function ViewAddresses($id = 1)
+  {
+    $country = MrCountry::loadBy($id);
+
+    $out = array();
+    $out['page_title'] = 'Справочник адресов';
+
+    $out['table'] = MrAddressesTableController::buildTable($country->GetAddresses());
+    $out['country'] = $country;
+    return View('Admin.mir_admin_addresses')->with($out);
+  }
+
+  public function AddressDelete(int $id)
+  {
+    $address = MrAddresses::loadBy($id);
+
+    if(!$address->canView())
+    {
+      mr_access_violation();
+    }
+
+    $address->mr_delete();
+
+
+    return back();
+  }
 }

@@ -185,12 +185,21 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Удаление строки
   Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
   // Страны мира
-  Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry");
+  Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry")->name('admin_addresses_page');
+
   // Переустановка справочника
   Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry")->name('reference_country');
   // Форма редактирования справочника стран
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "Forms\Admin\MrAdminReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "Forms\Admin\MrAdminReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
+
+  Route::get('/admin/reference/country/{id}', "Admin\MrAdminReferences@ViewAddresses")->name('admin_reference_country_cities_page');
+  // Адрес
+  Route::match(['get', 'post'], '/admin/country/{country_id}/address/{id}/submit', "Forms\Admin\MrAdminAddressesEditForm@submitForm")->name('admin_address_form_submit');
+  Route::match(['get', 'post'], '/admin/country/{country_id}/address/{id}', "Forms\Admin\MrAdminAddressesEditForm@getFormBuilder")->name('admin_address_form_edit');
+  // Удаление адреса
+  Route::get('/admin/address/{id}/delete', "Admin\MrAdminReferences@AddressDelete")->name('address_delete');
+
 
   // Валюты мира
   Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency");
