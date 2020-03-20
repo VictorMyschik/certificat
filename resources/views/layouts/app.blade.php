@@ -22,10 +22,10 @@
 </head>
 
 <body class="mr-base-bg">
-<div id="app">
+<div id="app" style="height: 90vh; min-height: 90vh;">
   @yield('content')
 </div>
-<div class="mr-bg-muted-blue" >
+<div class="mr-bg-muted-blue">
   <div class="container col-md-8 mr-middle">
     <div class="padding-t-15">
 
@@ -34,7 +34,8 @@
         <table>
           <tr>
             <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>
-            <td><a href="tel:{{ MrBaseHelper::ADMIN_PHONE }}" class="margin-l-5">{{ MrBaseHelper::ADMIN_PHONE_FORMAT }}</a></td>
+            <td><a href="tel:{{ MrBaseHelper::ADMIN_PHONE }}"
+                   class="margin-l-5">{{ MrBaseHelper::ADMIN_PHONE_FORMAT }}</a></td>
           </tr>
           <tr>
             <td class="fa fa-envelope"> Email:</td>
@@ -61,7 +62,6 @@
 
   </div>
 </div>
-
 <div class="modal fade padding-0" id="mr_modal" role="dialog"></div>
 <script src="/public/js/mr_popup.js"></script>
 <script src="/public/js/mr_elfinder.js" defer></script>
