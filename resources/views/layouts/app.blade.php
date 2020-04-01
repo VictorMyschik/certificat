@@ -22,44 +22,45 @@
 </head>
 
 <body class="mr-base-bg">
-<div id="app" style="height: 90vh; min-height: 90vh;">
+<div id="app" class="mr-main-div">
   @yield('content')
-</div>
-<div class="mr-bg-muted-blue">
-  <div class="container col-md-8 mr-middle">
-    <div class="padding-t-15">
+  <div class="mr-bg-muted-blue">
+    <div class="container mr-middle">
+      <div class="p-t-15">
 
-      <div class="d-inline-block align-top">
-        <span class="mr-bold">{{ __('mr-t.Обратная связь') }}</span>
-        <table>
-          <tr>
-            <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>
-            <td><a href="tel:{{ MrBaseHelper::ADMIN_PHONE }}"
-                   class="margin-l-5">{{ MrBaseHelper::ADMIN_PHONE_FORMAT }}</a></td>
-          </tr>
-          <tr>
-            <td class="fa fa-envelope"> Email:</td>
-            <td><a href="mailto:{{ MrBaseHelper::MR_EMAIL }}" class="margin-l-5">{{ MrBaseHelper::MR_EMAIL }}</a></td>
-          </tr>
-          <tr>
-            <td class="fa fa-link"> {{ __('mr-t.Веб сайт') }}:</td>
-            <td><a href="{{ MrBaseHelper::MR_SITE_URL }}"
-                   class="margin-l-5">{{ MrBaseHelper::MR_SITE_NAME }}</a></td>
-          </tr>
-        </table>
+        <div class="d-inline-block align-top">
+          <span class="mr-bold">{{ __('mr-t.Обратная связь') }}</span>
+          <table>
+            <tr>
+              <td class="fa fa-phone"> {{ __('mr-t.Телефон') }}:</td>
+              <td><a href="tel:{{ MrBaseHelper::ADMIN_PHONE }}"
+                     class="m-l-5">{{ MrBaseHelper::ADMIN_PHONE_FORMAT }}</a></td>
+            </tr>
+            <tr>
+              <td class="fa fa-envelope"> Email:</td>
+              <td><a href="mailto:{{ MrBaseHelper::MR_EMAIL }}" class="m-l-5">{{ MrBaseHelper::MR_EMAIL }}</a></td>
+            </tr>
+            <tr>
+              <td class="fa fa-link"> {{ __('mr-t.Веб сайт') }}:</td>
+              <td><a href="{{ MrBaseHelper::MR_SITE_URL }}"
+                     class="m-l-5">{{ MrBaseHelper::MR_SITE }}</a></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="d-inline-block align-top m-l-10">
+          <span class="mr-bold">{{ __('mr-t.Разделы сайта') }}</span>
+          <ul>
+            <li><a class="/faq" href="{{ route('faq_page') }}">FAQ</a></li>
+            <li><a class="/policy" href="{{ route('policy_page') }}">{{ __('mr-t.Политика приватности') }}</a></li>
+          </ul>
+        </div>
+        <div class="d-inline-block align-top m-l-10">
+        </div>
       </div>
 
-      <div class="d-inline-block align-top margin-l-10">
-        <span class="mr-bold">{{ __('mr-t.Разделы сайта') }}</span>
-        <li><a class="/faq" href="{{ route('faq_page') }}">FAQ</a></li>
-        <li><a class="/policy" href="{{ route('policy_page') }}">{{ __('mr-t.Политика приватности') }}</a></li>
-      </div>
-      <div class="d-inline-block align-top margin-l-10">
-      </div>
+      <div class="text-center mr-middle mr-color-seryj">Copyright {{ date('Y') }}</div>
     </div>
-
-    <div class="text-center mr-middle mr-color-seryj">Copyright {{ date('Y') }}</div>
-
   </div>
 </div>
 <div class="modal fade padding-0" id="mr_modal" role="dialog"></div>

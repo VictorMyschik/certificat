@@ -27,7 +27,7 @@ Route::post('/ulogin', 'UloginController@login');
 // Подписка
 Route::match(['get', 'post'], '/subscription', "MrSubscriptionController@Subscription");
 Route::match(['get', 'post'], '/unsubscription/{token}', "MrSubscriptionController@UnSubscription");
-Route::post('/feedback', "MrFAQController@Feedback");
+Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 
 //// Справочники
 Route::get('/references', 'MrReferences@List');

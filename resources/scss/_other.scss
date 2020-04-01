@@ -21,30 +21,6 @@
   text-align: right;
 }
 
-
-.mr-sumbit-success {
-  border-radius: 5px;
-  @include responsiveText(12px, 15px);
-  background-image: url("/public/images/other/bg-btn.jpg");
-  color: darkgreen;
-}
-
-.mr-sumbit-cancel {
-  border-radius: 5px;
-  @include responsiveText(12px, 15px);
-  background-image: url("/public/images/other/bg-btn.jpg");
-  color: darkred;
-}
-
-
-.mr-btn-user-top-menu {
-  @include responsiveText(15px, 20px);
-  border-radius: 5px;
-  background-image: url("/public/images/other/bg-btn.jpg");
-  color: darkgreen;
-  line-height: 0.9em;
-}
-
 .mr-social-icon {
   width: 50px;
 }
@@ -57,19 +33,23 @@
   width: 15px;
 }
 
-.mr-language-icon {
-  border: #0d152a 1px solid;
-  padding-left: 5px;
-  padding-right: 5px;
-  background-image: url("/public/images/other/bg-btn.jpg");
-  color: #00A000;
+.mr-bg-img {
+
 }
 
-.mr-bg-img {
-  background-image: url('/public/images/background/background.jpg');
-  height: 100vh;
-  min-height: 100%;
+.mr-main-div {
+  min-height: 100vh;
   background-repeat: repeat;
+  //background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+}
+
+.mr-main-div-img {
+  background-image: url('/public/images/background/background.jpg');
+  min-height: 100vh;
+  background-repeat: repeat;
+  //background-attachment: fixed;
   background-size: cover;
   background-position: center center;
 }
@@ -107,7 +87,7 @@
 }
 
 .mr-bg-muted-blue {
-  background-color: rgba(10, 6, 93, 0.2);
+  background-color: rgba(12, 6, 147, 0.2);
 }
 
 .mr-bg-muted-blue-light {
@@ -120,4 +100,15 @@
 
 .mr-base-bg {
   background-image: url("/public/images/background/base_bg.png");
+}
+
+.mr_tr_hover {
+  &:hover {
+    background: #08061d;
+    color: #fff;
+  }
+}
+
+.mr-btn-primary{
+  color: #ff5900;
 }

@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="mr-bg-img">
+  <div class="mr-main-div-img">
     @include('layouts.mr_nav')
 
-
-    <div class="container padding-t-20">
+    <div class="container p-t-20">
       <div>
         <h1 class="mr-bold">Работаете с сертификатами?</h1>
 

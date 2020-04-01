@@ -5,9 +5,6 @@
 .mr-color-red {
   color: #e4001d;
 }
-.mr-color-red-dark {
-  color: #a70012;
-}
 
 .mr-color-seryj {
   color: #7c7c7c;
@@ -17,20 +14,16 @@
   color: #e49a0c;
 }
 
+.mr-color-yellow {
+  color: #e4df1e;
+}
+
 .mr-bg-blue {
   background-color: #22defc;
 }
+
 .mr-bg-red {
   background-color: #cc110d;
-}
-
-.mr-bg-head {
-  background-image: url("/public/images/other/bg-btn.jpg");
-}
-
-.mr-bg-btn-body {
-  background-image: url("/public/images/other/bg-btn.jpg");
-  font-weight: bold;
 }
 
 .mr-color-green-dark {
@@ -53,14 +46,22 @@
   color: black;
 }
 
-.mr-bg-footer{
+.mr-bg-footer {
   background-color: rgba(243, 230, 197, 0.4);
 }
 
-.mr-bg-founded{
+.mr-bg-founded {
   background-color: rgba(48, 40, 255, 0.1);
 }
 
 .mr-color-dark-blue {
   color: #0c175b;
+}
+
+.mr_bg_input {
+  background-color: rgba(253, 255, 244, 0.3);
+
+  :hover {
+    background-color: rgba(253, 255, 244, 0.6);
+  }
 }
