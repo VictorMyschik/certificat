@@ -4,10 +4,10 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrBaseLog;
-use App\Http\Models\MrLogIdent;
+use App\Models\MrBaseLog;
+use App\Models\MrLogIdent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;

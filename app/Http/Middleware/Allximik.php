@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 
-use App\Http\Controllers\Helpers\MtDateTime;
-use App\Http\Models\MrLanguage;
-use App\Http\Models\MrLogIdent;
-use App\Http\Models\MrUser;
+use App\Helpers\MrDateTime;
+use App\Models\MrLanguage;
+use App\Models\MrLogIdent;
+use App\Models\MrUser;
 use Closure;
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
@@ -25,7 +25,7 @@ class Allximik extends Middleware
     $data = self::getHttpData();
     if($mr_user = MrUser::me())
     {
-      $mr_user->setDateLastVisit(MtDateTime::now());
+      $mr_user->setDateLastVisit(MrDateTime::now());
       $mr_user_id = $mr_user->save_mr();
     }
 

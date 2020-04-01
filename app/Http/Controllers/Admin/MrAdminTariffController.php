@@ -4,9 +4,9 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrTariff;
+use App\Models\MrTariff;
 
 class MrAdminTariffController extends Controller
 {

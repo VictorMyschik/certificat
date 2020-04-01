@@ -6,7 +6,7 @@ namespace App\Http\Controllers\TableControllers;
 
 use App\Http\Controllers\Forms\FormBase\MrForm;
 use App\Http\Controllers\Forms\FormBase\MrLink;
-use App\Http\Models\MrTariffInOffice;
+use App\Models\MrTariffInOffice;
 
 class MrOfficeTariffTableController extends MrTableController
 {

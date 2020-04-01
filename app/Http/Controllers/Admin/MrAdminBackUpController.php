@@ -4,9 +4,9 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrBackup;
+use App\Models\MrBackup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 

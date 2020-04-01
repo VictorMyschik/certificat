@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrNewUsers;
+use App\Models\MrNewUsers;
 
 class MrNewUserController extends Controller
 {

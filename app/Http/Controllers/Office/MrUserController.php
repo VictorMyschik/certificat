@@ -4,13 +4,13 @@
 namespace App\Http\Controllers\Office;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\MrEmailHelper;
-use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Controllers\Helpers\MrTelegramHelper;
-use App\Http\Models\MrNewUsers;
-use App\Http\Models\MrSubscription;
-use App\Http\Models\MrUser;
+use App\Models\MrNewUsers;
+use App\Models\MrSubscription;
+use App\Models\MrUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;

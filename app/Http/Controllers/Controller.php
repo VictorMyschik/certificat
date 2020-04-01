@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\MrOffice;
-use App\Http\Models\MrUser;
+use App\Models\MrOffice;
+use App\Models\MrUser;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;

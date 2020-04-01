@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Controllers\Helpers\MrMessageHelper;
+use App\Helpers\MrMessageHelper;
 
 class MrReferences extends Controller
 {

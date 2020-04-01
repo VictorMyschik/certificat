@@ -4,8 +4,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrCertificate;
-use App\Http\Models\MrUser;
+use App\Models\MrCertificate;
+use App\Models\MrUser;
 use Illuminate\Http\Request;
 
 class MrApiController extends Controller

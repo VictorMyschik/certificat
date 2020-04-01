@@ -5,7 +5,7 @@ namespace App\Http\Controllers\TableControllers;
 
 
 use App\Http\Controllers\Forms\FormBase\MrLink;
-use App\Http\Models\MrOffice;
+use App\Models\MrOffice;
 
 class MrOfficeTableController extends MrTableController
 {

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm mr-bg-muted-blue">
   <div class="container">
     @php
-      use App\Http\Models\MrUser;
+      use App\Models\MrUser;
       $user = MrUser::me();
       $offices = array();
       if($user)
@@ -90,7 +90,7 @@
             <span class="mr-color-white">{{ mb_strtoupper(app()->getLocale()) }}</span> <span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            @foreach(\App\Http\Models\MrLanguage::GetAll() as $item)
+            @foreach(\App\Models\MrLanguage::GetAll() as $item)
               @if($item->getName() == mb_strtoupper(app()->getLocale()))
                 @continue
               @endif

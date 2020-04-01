@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrCertificate;
+use App\Models\MrCertificate;
 
 class MrCertificateController extends Controller
 {

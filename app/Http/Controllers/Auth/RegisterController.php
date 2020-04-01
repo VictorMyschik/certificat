@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\MrDateTime;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MtDateTime;
-use App\Http\Models\MrUser;
+use App\Models\MrUser;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
@@ -80,8 +80,8 @@ class RegisterController extends Controller
 
     $mr_user = new MrUser();
     $mr_user->setUserLaravelID($user->id);
-    $mr_user->setDateFirstVisit(MtDateTime::now());
-    $mr_user->setDateLastVisit(MtDateTime::now());
+    $mr_user->setDateFirstVisit(MrDateTime::now());
+    $mr_user->setDateLastVisit(MrDateTime::now());
     $mr_user->setDateLogin();
 
     $mr_user->save_mr();

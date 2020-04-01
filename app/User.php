@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\Controllers\Helpers\MtDateTime;
+use App\Helpers\MrDateTime;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -79,8 +79,8 @@ class User extends Authenticatable implements MustVerifyEmail
     $this->update_at = $value;
   }
 
-  public function getEmailVerifiedDate(): ?MtDateTime
+  public function getEmailVerifiedDate(): ?MrDateTime
   {
-    return $this->email_verified_at ? MtDateTime::fromValue($this->email_verified_at) : null;
+    return $this->email_verified_at ? MrDateTime::fromValue($this->email_verified_at) : null;
   }
 }

@@ -6,7 +6,7 @@ namespace App\Http\Controllers\TableControllers;
 
 use App\Http\Controllers\Forms\FormBase\MrForm;
 use App\Http\Controllers\Forms\FormBase\MrLink;
-use App\Http\Models\MrDiscount;
+use App\Models\MrDiscount;
 
 class MrDiscountTableController extends MrTableController
 {

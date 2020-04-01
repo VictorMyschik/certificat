@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Models\MrNewUsers;
-use App\Http\Models\MrUser;
-use App\Http\Models\MrUsersBloked;
+use App\Models\MrNewUsers;
+use App\Models\MrUser;
+use App\Models\MrUsersBloked;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;

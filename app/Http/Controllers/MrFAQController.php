@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Helpers\MrBaseHelper;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrFaq;
-use App\Http\Models\MrFeedback;
+use App\Models\MrFaq;
+use App\Models\MrFeedback;
 use Illuminate\Http\Request;
 
 class MrFAQController extends Controller

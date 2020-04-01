@@ -4,8 +4,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrArticle;
-use App\Http\Models\MrLanguage;
+use App\Models\MrArticle;
+use App\Models\MrLanguage;
 
 class MrArticlesController extends Controller
 {

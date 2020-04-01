@@ -4,11 +4,11 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrDateTime;
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Controllers\Helpers\MtDateTime;
-use App\Http\Models\MrArticle;
-use App\Http\Models\MrLanguage;
+use App\Models\MrArticle;
+use App\Models\MrLanguage;
 use Illuminate\Http\Request;
 
 class MrAdminArticlesController extends Controller
@@ -48,7 +48,7 @@ class MrAdminArticlesController extends Controller
       $article->setKind($v['Kind']);
       $article->setLanguageID($v['LanguageID']);
       $article->setText($v['Text'] ?: null);
-      $article->setDateUpdate(MtDateTime::now());
+      $article->setDateUpdate(MrDateTime::now());
 
       $id = $article->save_mr();
       MrMessageHelper::SetMessage(true, 'Сохранено');

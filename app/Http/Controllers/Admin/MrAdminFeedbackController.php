@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrFeedback;
+use App\Models\MrFeedback;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

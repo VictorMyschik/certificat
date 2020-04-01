@@ -4,11 +4,11 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Forms\FormBase\MrForm;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrLanguage;
-use App\Http\Models\MrPolicy;
+use App\Models\MrLanguage;
+use App\Models\MrPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;

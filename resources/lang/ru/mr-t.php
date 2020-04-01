@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Models\MrTranslate;
+use App\Models\MrTranslate;
 
 $translate_arr = MrTranslate::GetWords('RU');
 

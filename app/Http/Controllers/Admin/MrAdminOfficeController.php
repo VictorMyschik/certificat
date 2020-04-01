@@ -4,14 +4,14 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
 use App\Http\Controllers\TableControllers\MrOfficeTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
-use App\Http\Models\MrDiscount;
-use App\Http\Models\MrOffice;
-use App\Http\Models\MrTariffInOffice;
-use App\Http\Models\MrUserInOffice;
+use App\Models\MrDiscount;
+use App\Models\MrOffice;
+use App\Models\MrTariffInOffice;
+use App\Models\MrUserInOffice;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 

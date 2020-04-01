@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Helpers\MtExcelHelperBase;
-use App\Http\Models\MrOffice;
+use App\Models\MrOffice;
 
 class MrTestController extends MtExcelHelperBase
 {

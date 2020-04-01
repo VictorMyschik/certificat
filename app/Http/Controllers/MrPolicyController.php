@@ -4,8 +4,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrLanguage;
-use App\Http\Models\MrPolicy;
+use App\Models\MrLanguage;
+use App\Models\MrPolicy;
 
 class MrPolicyController extends Controller
 {

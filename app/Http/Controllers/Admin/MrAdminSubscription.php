@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrMessageHelper;
-use App\Http\Models\MrSubscription;
+use App\Models\MrSubscription;
 use Illuminate\Http\Request;
 
 class MrAdminSubscription extends Controller

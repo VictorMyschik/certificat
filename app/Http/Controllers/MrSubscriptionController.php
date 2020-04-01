@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Models\MrSubscription;
+use App\Models\MrSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
