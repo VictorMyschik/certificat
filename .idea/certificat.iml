@@ -7,8 +7,10 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/markbaker/complex" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/markbaker/matrix" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpoffice/phpspreadsheet" />
@@ -20,7 +22,5 @@
     <orderEntry type="library" name="ckeditor" level="application" />
     <orderEntry type="library" name="mr_c" level="application" />
     <orderEntry type="library" name="all" level="application" />
-    <orderEntry type="library" name="jquery.fancybox" level="application" />
-    <orderEntry type="library" name="popper" level="application" />
   </component>
 </module>

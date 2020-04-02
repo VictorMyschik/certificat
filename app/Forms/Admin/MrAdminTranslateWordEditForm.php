@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 
 class MrAdminTranslateWordEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
-
-    $word = MrTranslate::loadBy($id);
+    $word = MrTranslate::loadBy($args['id']);
 
     $form['Name'] = array(
       '#type' => 'textfield',

@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 
 class MrAdminCertificateEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
-
-    $certificate = MrCertificate::loadBy($id);
+    $certificate = MrCertificate::loadBy($args['id']);
 
     $form['Kind'] = array(
       '#type' => 'select',

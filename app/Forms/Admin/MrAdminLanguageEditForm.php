@@ -12,8 +12,6 @@ class MrAdminLanguageEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $form['#title'] = $args['id'] ? "Редактирование" : 'Создать';
-
     $language = MrLanguage::loadBy($args['id']);
 
     $form['Delete'] = array(

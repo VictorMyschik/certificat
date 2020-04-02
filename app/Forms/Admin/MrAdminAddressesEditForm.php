@@ -13,9 +13,6 @@ class MrAdminAddressesEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id, $args)
   {
-    $form['#title'] = $args['id'] ? "Редактирование" : 'Создать';
-
-
     $address = MrAddresses::loadBy($args['id']);
 
     $form['CountryID'] = array(

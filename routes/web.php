@@ -49,7 +49,7 @@ Route::match(['get', 'post'], '/telegram/webhook', 'MrApiController@TelegramWebH
 //// для авторизованных
 Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/users/edit/{id}/submit', "Forms\MrUserEditForm@submitForm")->name('user_form_submit');
-  Route::match(['get', 'post'], '/users/edit/{id}', "Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
+  Route::match(['get', 'post'], '/users/edit/{id}', "\App\Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   // Личная страница
   Route::get('/personal', "Office\MrUserController@PersonalPage")->name('personal_page');
@@ -151,13 +151,13 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Добавить новый язык
   Route::get('/admin/language/add', "Admin\MrAdminLanguageController@Add")->name('admin_language_add');
   // Форма редактирования языка
-  Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "Forms\Admin\MrAdminLanguageEditForm@submitForm")->name('admin_language_edit_submit');
-  Route::match(['get', 'post'], '/admin/language/edit/{id}', "Forms\Admin\MrAdminLanguageEditForm@getFormBuilder")->name('admin_language_edit_form');
+  Route::match(['get', 'post'], '/admin/language/edit/{id}/submit', "\App\Forms\Admin\MrAdminLanguageEditForm@submitForm")->name('admin_language_edit_submit');
+  Route::match(['get', 'post'], '/admin/language/edit/{id}', "\App\Forms\Admin\MrAdminLanguageEditForm@getFormBuilder")->name('admin_language_edit_form');
   // Удалить перевод слов(а)
   Route::get('/admin/language/word/{id}/delete', "Admin\MrAdminLanguageController@translatedWordDelete")->name('translate_word_delete');
   // Форма редактирования перевода
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "Forms\Admin\MrAdminTranslateWordEditForm@submitForm")->name('translate_word_submit');
-  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "Forms\Admin\MrAdminTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}/submit', "\App\Forms\Admin\MrAdminTranslateWordEditForm@submitForm")->name('translate_word_submit');
+  Route::match(['get', 'post'], '/admin/language/word/edit/{id}', "\App\Forms\Admin\MrAdminTranslateWordEditForm@getFormBuilder")->name('translate_word_edit');
 
 
   //// BACK UP

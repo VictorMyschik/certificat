@@ -10,10 +10,9 @@ use Illuminate\Http\Request;
 
 class MrAdminReferenceCurrencyEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
-    $currency = MrCurrency::loadBy($id);
+    $currency = MrCurrency::loadBy($args['id']);
 
     $form['Name'] = array(
       '#type' => 'textfield',

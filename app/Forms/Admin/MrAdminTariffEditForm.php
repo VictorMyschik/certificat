@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class MrAdminTariffEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $tariff = MrTariff::loadBy($id);
+    $tariff = MrTariff::loadBy($args['id']);
 
     $form['Name'] = array(
       '#type' => 'textfield',

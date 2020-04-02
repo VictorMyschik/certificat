@@ -10,9 +10,10 @@ use Illuminate\Http\Request;
 
 class MrAdminOfficeURDetailsEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($id);
+    $office = MrOffice::loadBy($args['id']);
+
     $form[] = '<h3>Юредические данные</h3>';
     $form['URPostalCode'] = array(
       '#type' => 'textfield',

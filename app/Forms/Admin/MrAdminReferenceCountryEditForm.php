@@ -10,10 +10,9 @@ use Illuminate\Http\Request;
 
 class MrAdminReferenceCountryEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
-    $country = MrCountry::loadBy($id);
+    $country = MrCountry::loadBy($args['id']);
 
     $form['Name'] = array(
       '#type' => 'textfield',
