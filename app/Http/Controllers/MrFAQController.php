@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Helpers\MrBaseHelper;
 use App\Helpers\MrMessageHelper;
-use App\Http\Controllers\Helpers\MrBaseHelper;
 use App\Models\MrFaq;
 use App\Models\MrFeedback;
 use Illuminate\Http\Request;

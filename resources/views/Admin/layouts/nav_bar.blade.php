@@ -2,7 +2,7 @@
   <div class="container">
 
     <a class="navbar-brand" href="{{ url('/') }}">
-      {{ \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME }}
+      {{ \App\Helpers\MrBaseHelper::MR_SITE_NAME }}
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

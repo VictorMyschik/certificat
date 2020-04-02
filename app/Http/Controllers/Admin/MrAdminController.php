@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\MtStringUtils;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MtStringUtils;
 use App\Models\MrUser;
 use App\User;
 use Illuminate\Http\RedirectResponse;
