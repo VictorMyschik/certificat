@@ -4,7 +4,7 @@
   <div class="container">
     @include('Admin.layouts.page_title')
     <div class="margin-b-15 margin-t-10">
-      {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_details_form_edit', 'Admin\\MrAdminCertificateDetailsEditForm',
+      {!! \App\Forms\FormBase\MrForm::loadForm('admin_certificate_details_form_edit', 'Admin\\MrAdminCertificateDetailsEditForm',
        ['certificate_id'=>$certificate->id(),'id' => '0'], 'Добавить',['btn btn-info btn-sm']) !!}
     </div>
     {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
@@ -28,7 +28,7 @@
           <td>{{ $value->getValue() }}</td>
           <td>{{ $value->getWriteDate()->format('d.m.Y H:i:s') }}</td>
           <td>
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_details_form_edit', 'Admin\\MrAdminCertificateDetailsEditForm',
+            {!! \App\Forms\FormBase\MrForm::loadForm('admin_certificate_details_form_edit', 'Admin\\MrAdminCertificateDetailsEditForm',
             ['certificate_id'=>$certificate->id(),'id' => $value->id()], '',['btn btn-primary btn-sm fa fa-edit']) !!}
             <a href="/admin/certificate/{{ $certificate->id() }}/details/delete/{{ $value->id() }}"
                onclick="return confirm('Вы уверены?');">

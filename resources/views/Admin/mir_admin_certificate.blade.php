@@ -5,7 +5,7 @@
     @include('Admin.layouts.page_title')
     {!! \App\Http\Controllers\Helpers\MrMessageHelper::GetMessage() !!}
     <div class="margin-b-15 margin-t-10">
-      {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm', ['id'=>'0'], 'Добавить сертификат',['btn btn-info btn-sm']) !!}
+      {!! \App\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm', ['id'=>'0'], 'Добавить сертификат',['btn btn-info btn-sm']) !!}
     </div>
     <table class="table table-hover table-striped table-bordered mr-middle">
       <thead>
@@ -37,7 +37,7 @@
           <td>{{ $certificate->getDescription() }}</td>
           <td>{{ $certificate->getWriteDate()->format('d.m.Y H:i:s') }}</td>
           <td>
-            {!! \App\Http\Controllers\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm',
+            {!! \App\Forms\FormBase\MrForm::loadForm('admin_certificate_form_edit', 'Admin\\MrAdminCertificateEditForm',
             ['id' => $certificate->id()], '',['btn btn-info btn-sm fa fa-edit']) !!}
 
             <a href="/admin/certificate/details/{{ $certificate->id() }}"
