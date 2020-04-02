@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Http\Controllers\Helpers;
+namespace App\Helpers;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Models\MrNewUsers;
-use App\Http\Models\MrOffice;
-use App\Http\Models\MrUser;
 use App\Jobs\SendReminderEmail;
+use App\Models\MrNewUsers;
+use App\Models\MrOffice;
+use App\Models\MrUser;
 
 class MrEmailHelper extends Controller
 {

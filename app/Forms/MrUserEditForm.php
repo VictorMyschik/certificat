@@ -1,11 +1,11 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms;
+namespace App\Forms;
 
 
+use App\Forms\FormBase\MrFormBase;
 use App\Helpers\MrMessageHelper;
-use App\Http\Controllers\Forms\FormBase\MrFormBase;
 use App\Models\MrUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

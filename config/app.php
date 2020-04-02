@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
   /*
@@ -224,10 +225,10 @@ return [
     'URL' => Illuminate\Support\Facades\URL::class,
     'Validator' => Illuminate\Support\Facades\Validator::class,
     'View' => Illuminate\Support\Facades\View::class,
-    'MrBtn' => App\Http\Controllers\Forms\FormBase\MrForm::class,
-    'MrMessage' => App\Http\Controllers\Helpers\MrMessageHelper::class,
-    'MrBaseHelper' => App\Http\Controllers\Helpers\MrBaseHelper::class,
-    'MrLink' => App\Http\Controllers\Forms\FormBase\MrLink::class,
+    'MrBtn' => App\Forms\FormBase\MrForm::class,
+    'MrMessage' => App\Helpers\MrMessageHelper::class,
+    'MrBaseHelper' => App\Helpers\MrBaseHelper::class,
+    'MrLink' => App\Forms\FormBase\MrLink::class,
     'MrUser' => \App\Models\MrUser::class,
   ],
 

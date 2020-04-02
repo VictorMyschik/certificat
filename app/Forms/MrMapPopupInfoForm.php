@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms;
+namespace App\Forms;
 
 
-use App\Http\Controllers\Forms\FormBase\MrFormBase;
+use App\Forms\FormBase\MrFormBase;
 use App\Models\MrAddresses;
 
 class MrMapPopupInfoForm extends MrFormBase

@@ -1,13 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms\User;
+namespace App\Forms\User;
 
 
-use App\Http\Controllers\Forms\FormBase\MrFormBase;
-use App\Http\Controllers\Helpers\MrBaseHelper;
-use App\Http\Controllers\Helpers\MrEmailHelper;
-use App\Http\Controllers\Helpers\MrTelegramHelper;
+use App\Forms\FormBase\MrFormBase;
+use App\Helpers\MrBaseHelper;
+use App\Helpers\MrTelegramHelper;
 use App\Models\MrNewUsers;
 use App\Models\MrUser;
 use App\Models\MrUserInOffice;

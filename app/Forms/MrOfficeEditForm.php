@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Forms\Admin;
 
 
-use App\Http\Controllers\Forms\FormBase\MrFormBase;
+use App\Forms\FormBase\MrFormBase;
 use App\Models\MrOffice;
 use App\Models\MrUser;
 use App\Models\MrUserInOffice;
