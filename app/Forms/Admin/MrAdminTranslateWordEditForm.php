@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms\Admin;
+namespace App\Forms\Admin;
 
 
 use App\Forms\FormBase\MrFormBase;

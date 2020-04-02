@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-  @include('Admin.layouts.nav_bar')
-  <div class="container">
-    @include('Admin.layouts.page_title')
+  <div class="mr-main-div">
+    @include('Admin.layouts.nav_bar')
+    <div class="container m-t-10">
+      @include('Admin.layouts.page_title')
       <div class="card-body padding-horizontal">
         <div class="d-inline col-md-6">
           <h4 class="mr-bold">Redis</h4>
@@ -28,4 +29,5 @@
         </div>
       </div>
     </div>
+  </div>
 @endsection

@@ -15,7 +15,7 @@ class MrForm extends Controller
     $action = null;
     foreach (Route::getRoutes() as $route)
     {
-      if(isset($route->action['as']) && $route->action['as'] == 'office_discount_edit')
+      if(isset($route->action['as']) && $route->action['as'] == $route_name)
       {
         $action = $route->action['controller'];
       }
@@ -63,7 +63,7 @@ class MrForm extends Controller
     if(count($errors))
     {
       $out = implode('<br>', $errors);
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, $out);
+      MrMessageHelper::SetMessage(false, $out);
     }
 
     return $errors;

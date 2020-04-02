@@ -6,8 +6,8 @@
     @include('Admin.layouts.page_title')
     <div class="mr-bold mr-middle margin-b-10"
          style="border-bottom: #0c175b 1px solid">
-      {!! MrBtn::loadForm('admin_office_edit', 'Admin\\MrOfficeEditForm', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
-      Офис создан: {{ $office->getCreateDate() }} |
+      {!! MrBtn::loadForm('admin_office_edit', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+      Офис создан:  |
       Примечание: {{ $office->getDescription() }}</div>
 
     {!!  MrMessage::GetMessage() !!}
@@ -111,7 +111,6 @@
       <div class="d-inline col-md-4 col-sm-12 padding-0">
         <div class="">
           <h4 class="mr-bold">
-            {!! MrBtn::loadForm('office_tariffs_edit', 'MrOfficeTariffEditForm', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
             Тарифы</h4>
           <table id="" class="table table-hover table-bordered mr-middle">
             <thead>
@@ -135,7 +134,6 @@
             </tbody>
           </table>
           <h4 class="mr-bold">
-            {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => '0', 'office_id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs']) !!}
             Скидки</h4>
           <table class="table table-hover table-striped table-bordered mr-middle">
             <thead>
@@ -155,7 +153,6 @@
                 <td>{{ $discount->getDateTo()->getShortDate() }}</td>
                 <td>{!! $discount->getAmount().'<div>('.$discount->getKindName().')</div>' !!}</td>
                 <td>
-                  {!! MrBtn::loadForm('office_discount_edit', 'Admin\\MrAdminOfficeDiscountEditForm', ['id' => $discount->id(), 'office_id' => $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
                   <a href="{{ route('discount_delete',['id'=>$discount->id()]) }}"
                      class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
                      onclick="return confirm('Уверены?');"></a>
@@ -173,15 +170,12 @@
         <h5 class="mr-bold">{{__('mr-t.Пользователи')}}
           @if($office->canEdit())
             <span title="{{ __('mr-t.Добавить нового пользователя') }}">
-                {!! MrBtn::loadForm('add_office_user_edit', 'MrAddOfficeUserForm', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-xs'],'sm') !!}
+                {!! MrBtn::loadForm('add_office_user_edit', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-xs'],'sm') !!}
                 </span>
           @endif
         </h5>
         {!! $user_in_office !!}
-
-
       </div>
-
 
       <div class="d-inline-flex col-md-3 ">
         <hr>

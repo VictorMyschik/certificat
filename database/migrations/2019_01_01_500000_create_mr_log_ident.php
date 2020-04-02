@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class createmrlogident extends Migration
+class CreateMrLogIdent extends Migration
 {
   public function up()
   {

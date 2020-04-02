@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class createmrarticles extends Migration
+class CreateMrArticles extends Migration
 {
   public function up()
   {

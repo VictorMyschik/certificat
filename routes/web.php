@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MrAdminBackUpController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -77,9 +78,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
   // Переотправить письмо со ссылкой для приглашённого пользователя
   Route::get('/office/{new_user_id}/resend', "Office\MrUserController@ResendForNewUser")->name('resend_message_for_new_user');
-
-  // удалить тариф из офиса
-  Route::get('/office/{office_id}/tariff_delete/{id}', "Office\MrOfficeController@DeleteTariffFromOffice")->name('delete_tariff_from_office');
 
   //// Telegram Оповещение
   //Форма добавления нового аккаунта телеграм
@@ -262,8 +260,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 //// Системные
 Route::get('/clear', function () {
+  Log::debug('CLEARED');
   Artisan::call('cache:clear');
-  Artisan::call('config:cache');
   Artisan::call('view:clear');
   Artisan::call('route:clear');
 

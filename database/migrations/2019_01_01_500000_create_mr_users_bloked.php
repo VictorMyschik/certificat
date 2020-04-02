@@ -5,11 +5,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class createmrusersbloked extends Migration
+class CreateMrUsersBlocked extends Migration
 {
   public function up()
   {
-    Schema::create('mr_users_bloked', function (Blueprint $table) {
+    Schema::create('mr_users_blocked', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
       $table->integer('UserID');
       $table->string('Description', 8000)->nullable();
@@ -25,6 +25,6 @@ class createmrusersbloked extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_users_bloked');
+    Schema::dropIfExists('mr_users_blocked');
   }
 }

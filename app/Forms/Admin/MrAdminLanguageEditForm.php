@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Forms\Admin;
+namespace App\Forms\Admin;
 
 
 use App\Forms\FormBase\MrFormBase;
@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class MrAdminLanguageEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $form['#title'] = $id ? "Редактирование" : 'Создать';
+    $form['#title'] = $args['id'] ? "Редактирование" : 'Создать';
 
-    $language = MrLanguage::loadBy($id);
+    $language = MrLanguage::loadBy($args['id']);
 
     $form['Delete'] = array(
       '#type' => 'checkbox',

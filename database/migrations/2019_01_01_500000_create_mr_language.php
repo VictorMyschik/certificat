@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class createmrlanguage extends Migration
+class CreateMrLanguage extends Migration
 {
   public function up()
   {

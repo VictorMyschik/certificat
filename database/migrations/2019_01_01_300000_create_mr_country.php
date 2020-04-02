@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class createmrcountry extends Migration
+class CreateMrCountry extends Migration
 {
   public function up()
   {

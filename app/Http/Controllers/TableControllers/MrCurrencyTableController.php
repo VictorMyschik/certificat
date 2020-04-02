@@ -30,8 +30,7 @@ class MrCurrencyTableController extends MrTableController
       $row[] = $item->getRounding();
       $row[] = $item->getDescription();
 
-      $edit = MrForm::loadForm(
-        'admin_reference_currency_form_edit', ['id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit']
+      $edit = MrForm::loadForm('admin_reference_currency_form_edit', ['id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit']
       );
 
       $delete = MrLink::open(

@@ -15,7 +15,6 @@
             Проект<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/admin/tariffs">Тарифы</a>
             <a class="dropdown-item" href="/admin/offices">Офисы</a>
             <a class="dropdown-item" href="/admin/certificate">Сертификаты</a>
             <a class="dropdown-item" href="/admin/reference/country">Страны мира</a>

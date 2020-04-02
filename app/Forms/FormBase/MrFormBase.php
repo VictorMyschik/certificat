@@ -54,7 +54,7 @@ class MrFormBase extends Controller
 
     $form = array();
     $form['#title'] = isset(Route::getFacadeRoot()->current()->parameters()['id']) ? __('mr-t.Изменить') : __('mr-t.Создать');
-    $this->builderForm($form, $route_parameters['id'] ?? null, $route_parameters);
+    $this->builderForm($form, $route_parameters);
 
     // Получеине роута для сохранения
     $route_referer_name = Route::getFacadeRoot()->current()->action['as'];
