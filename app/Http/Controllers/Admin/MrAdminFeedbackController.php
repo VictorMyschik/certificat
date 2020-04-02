@@ -85,7 +85,7 @@ class MrAdminFeedbackController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Раздел не найден');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Раздел не найден');
     }
 
     return Redirect::route('admin_feedback_list');

@@ -33,9 +33,9 @@ class MrAdminBackUpController extends Controller
         $class_name .= substr_replace($item_2, mb_strtoupper(substr($item_2, 0, 1)), 0, 1);
       }
 
-      if(class_exists("App\\Http\\Models\\" . $class_name))
+      if(class_exists("App\\Models\\" . $class_name))
       {
-        $object = "App\\Http\\Models\\" . $class_name;
+        $object = "App\\Models\\" . $class_name;
         $tables[] = array(
           'Name' => $object::$mr_table,
           'FileName' => $item,
@@ -77,7 +77,7 @@ class MrAdminBackUpController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Данных для восстановления в коде не найдены.');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Данных для восстановления в коде не найдены.');
     }
 
     return back();

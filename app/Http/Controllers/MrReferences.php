@@ -33,7 +33,7 @@ class MrReferences extends Controller
       $pref = 'Mr';
       $l = substr($name, 0, 1);
       $class_name = str_replace($l, mb_strtoupper($l), $name);
-      $class_name = "App\\Http\\Models\\" . $pref . $class_name;
+      $class_name = "App\\Models\\" . $pref . $class_name;
 
       if(class_exists($class_name))
       {
@@ -42,7 +42,7 @@ class MrReferences extends Controller
       }
       else
       {
-        MrMessageHelper::SetMessage(false, __('mr-t.Справочник не найден'));
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, __('mr-t.Справочник не найден'));
         return back();
       }
 

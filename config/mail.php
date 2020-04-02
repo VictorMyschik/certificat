@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', \App\Http\Controllers\Helpers\MrBaseHelper::MR_SITE_NAME),
+        'name' => env('MAIL_FROM_NAME', \App\Helpers\MrBaseHelper::MR_SITE_NAME),
     ],
 
     /*

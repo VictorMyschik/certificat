@@ -77,7 +77,7 @@ class MrAdminPolicyController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Запись не найдена');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Запись не найдена');
     }
 
 

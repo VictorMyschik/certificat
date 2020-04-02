@@ -32,13 +32,13 @@ class MrAdminArticlesController extends Controller
 
       if(!$v['Kind'])
       {
-        MrMessageHelper::SetMessage(false,' Тип обязателен');
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR,' Тип обязателен');
         return back()->withInput($v);
       }
 
       if(!$v['LanguageID'])
       {
-        MrMessageHelper::SetMessage(false,' Язык обязателен');
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR,' Язык обязателен');
         return back()->withInput($v);
       }
 

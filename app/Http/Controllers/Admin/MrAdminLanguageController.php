@@ -35,7 +35,7 @@ class MrAdminLanguageController extends Controller
     {
       if($language = MrLanguage::loadBy($name))
       {
-        MrMessageHelper::SetMessage(false, 'Такой язык уже добавлен');
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Такой язык уже добавлен');
       }
       else
       {
@@ -48,7 +48,7 @@ class MrAdminLanguageController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Не указано наименование нового языка');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Не указано наименование нового языка');
     }
 
     return redirect('/admin/language');
@@ -64,7 +64,7 @@ class MrAdminLanguageController extends Controller
     else
     {
 
-      MrMessageHelper::SetMessage(false, "Слово в БД не найдено id={$id}");
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, "Слово в БД не найдено id={$id}");
     }
 
     return redirect('/admin/language');

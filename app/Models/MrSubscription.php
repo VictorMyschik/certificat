@@ -79,7 +79,7 @@ class MrSubscription extends ORM
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Такой Email уже имеется');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Такой Email уже имеется');
     }
   }
 

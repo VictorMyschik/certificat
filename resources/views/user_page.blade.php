@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="mr-main-div p-t-">
+  <div class="mr-main-div">
     @include('layouts.mr_nav')
     <div class="container m-t-10">
       <h5 class="mr-bold">{{__('mr-t.Личная страница')}}</h5>

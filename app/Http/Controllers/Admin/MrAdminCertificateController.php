@@ -60,7 +60,7 @@ class MrAdminCertificateController extends Controller
       }
     }
 
-    MrMessageHelper::SetMessage(false, 'Инфо о сертификате не найдено.');
+    MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Инфо о сертификате не найдено.');
     return back();
   }
 

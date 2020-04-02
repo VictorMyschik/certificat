@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Helpers\MrBaseHelper;
+use App\Helpers\MrBaseHelper;
 
 return [
 

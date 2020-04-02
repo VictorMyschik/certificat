@@ -103,7 +103,7 @@ class MrAdminSystemController extends Controller
       }
       else
       {
-        MrMessageHelper::SetMessage(false, "Запись ID{$id} удалена");
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, "Запись ID{$id} удалена");
       }
     }
 

@@ -31,7 +31,7 @@ class MrAdminTariffController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Удаление нефозможно, есть офисы, подключенные на этот тариф');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Удаление нефозможно, есть офисы, подключенные на этот тариф');
     }
     return back();
   }

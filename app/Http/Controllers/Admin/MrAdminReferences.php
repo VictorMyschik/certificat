@@ -70,7 +70,7 @@ class MrAdminReferences extends Controller
 
     $class_name = substr_replace($reference, mb_strtoupper($l), 0, 1);
 
-    $class_name = "App\\Http\\Models\\" . $pref . $class_name;
+    $class_name = "App\\Models\\" . $pref . $class_name;
 
     /** @var object $class_name */
     $row = $class_name::loadBy($id);

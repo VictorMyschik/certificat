@@ -54,7 +54,7 @@ class MrAdminOfficeController extends Controller
     $office = MrOffice::loadBy($id);
     if(!$office)
     {
-      MrMessageHelper::SetMessage(false, 'Офис не найден');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Офис не найден');
       return back();
     }
 
@@ -66,7 +66,7 @@ class MrAdminOfficeController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Офис не найден');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Офис не найден');
       return back();
     }
   }
