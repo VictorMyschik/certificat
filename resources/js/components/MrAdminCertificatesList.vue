@@ -3,7 +3,7 @@
     <table class="table table-hover table-striped table-bordered">
       <thead class="mr-bold mr-bg-table-header">
       <tr>
-        <td v-for="head_name in table_header">{{head_name}}</td>
+        <td v-for="(head_name,h_key ) in table_header"><span v-on:click="getResults(h_key)">{{head_name}}</span></td>
       </tr>
       </thead>
       <tbody class="mr-middle">
@@ -24,25 +24,39 @@
       return {
         table_body: {},
         table_header: [],
+        mr_key: 'id',
+        way: 'ASC',
       }
     },
 
     mounted() {
-      // Fetch initial results
       this.getResults();
     },
 
     methods: {
-      // Our method to GET results from a Laravel endpoint
       getResults(page = 1) {
-        axios.get('/certificates?page=' + page).then(response => {
+
+        if (this.way === 'ASC') {
+          this.way = 'DESC';
+        } else {
+          this.way = 'ASC';
+        }
+
+        let mr_key = '';
+        let param = '&' + mr_key + '=' + this.way;
+
+        axios.get('/certificates?page=' + page + param).then(response => {
 
           console.log(response);
 
           this.table_body = response.data.body;
           this.table_header = response.data.header;
         });
-      }
+      },
+
+      mr_show(mr_key) {
+        this.header_key = mr_key;
+      },
     }
 
   }

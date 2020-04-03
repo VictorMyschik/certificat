@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 
 class ORM extends Model
@@ -24,7 +25,13 @@ class ORM extends Model
       $fields[] = '*';
     }
 
-    return DB::table(self::getTableName())->select($fields);
+    Route::getFacadeRoot()->current();
+
+
+    $field_name = 'id';
+    $sort = 'DESC';
+
+    return DB::table(self::getTableName())->select($fields)->orderBy($field_name, $sort);
   }
 
   public static function getTableName(): string
