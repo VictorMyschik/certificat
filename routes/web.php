@@ -233,8 +233,8 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
 
   // Форма для создания пустого офиса
-  Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "Forms\Admin\MrOfficeEditForm@submitForm")->name('admin_office_submit');
-  Route::match(['get', 'post'], '/admin/office/edit/{id}', "Forms\Admin\MrOfficeEditForm@getFormBuilder")->name('admin_office_edit');
+  Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "App\Forms\Admin\MrOfficeEditForm@submitForm")->name('admin_office_submit');
+  Route::match(['get', 'post'], '/admin/office/edit/{id}', "App\Forms\Admin\MrOfficeEditForm@getFormBuilder")->name('admin_office_edit');
 
   // Добавление тарифа для офиса
   Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\MrOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');

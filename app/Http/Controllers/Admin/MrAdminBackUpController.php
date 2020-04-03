@@ -33,9 +33,12 @@ class MrAdminBackUpController extends Controller
         $class_name .= substr_replace($item_2, mb_strtoupper(substr($item_2, 0, 1)), 0, 1);
       }
 
+
+
       if(class_exists("App\\Models\\" . $class_name))
       {
         $object = "App\\Models\\" . $class_name;
+        //dd($object::$mr_table);
         $tables[] = array(
           'Name' => $object::$mr_table,
           'FileName' => $item,
@@ -85,8 +88,7 @@ class MrAdminBackUpController extends Controller
 
   public static $tables = array(
     'mr_currencies' => array(
-      array('Code' => '784', 'TextCode' => 'AED', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Дирхам (ОАЭ)', 'Rounding' => '2', 'Description' => ''
-      ),
+      array('ID' => '1', 'Code' => '784', 'TextCode' => 'AED', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Дирхам (ОАЭ)', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '2', 'Code' => '971', 'TextCode' => 'AFN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Афгани', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '3', 'Code' => '008', 'TextCode' => 'ALL', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Лек', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '4', 'Code' => '051', 'TextCode' => 'AMD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Армянский драм', 'Rounding' => '2', 'Description' => ''),
@@ -103,8 +105,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '15', 'Code' => '056', 'TextCode' => 'BEF', 'DateFrom' => NULL, 'DateTo' => '2016-12-31 00:00:00', 'Name' => 'Бельгийский франк', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '16', 'Code' => '975', 'TextCode' => 'BGN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Болгарский лев', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '17', 'Code' => '048', 'TextCode' => 'BHD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Бахрейнский динар', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '18', 'Code' => '108', 'TextCode' => 'BIF', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Бурундийский франк', 'Rounding' => '2', 'Description' => ' ', '
-'),
+      array('ID' => '18', 'Code' => '108', 'TextCode' => 'BIF', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Бурундийский франк', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '19', 'Code' => '060', 'TextCode' => 'BMD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Бермудский доллар', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '20', 'Code' => '096', 'TextCode' => 'BND', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Брунейский доллар', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '21', 'Code' => '068', 'TextCode' => 'BOB', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Боливиано', 'Rounding' => '2', 'Description' => ''),
@@ -112,7 +113,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '23', 'Code' => '044', 'TextCode' => 'BSD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Багамский доллар', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '24', 'Code' => '064', 'TextCode' => 'BTN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Нгултрум', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '25', 'Code' => '072', 'TextCode' => 'BWP', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Пула', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '26', 'Code' => '974', 'TextCode' => 'BYR', 'DateFrom' => NULL, 'DateTo' => '2016-06-30 00:00:00', 'Name' => 'Белорусский рубль <1>', 'Rounding' => '0', 'Description' => '<1> Применяется для денежных средств, уплаченных до 30 июня 2016 г. включительно.'),
+      array('ID' => '26', 'Code' => '974', 'TextCode' => 'BYR', 'DateFrom' => NULL, 'DateTo' => '2016-06-30 00:00:00', 'Name' => 'Белорусский рубль <1>', 'Rounding' => '0', 'Description' => 'Применяется для денежных средств, уплаченных до 30 июня 2016 г. включительно.'),
       array('ID' => '27', 'Code' => '933', 'TextCode' => 'BYN', 'DateFrom' => '2016-07-01 00:00:00', 'DateTo' => NULL, 'Name' => 'Белорусский рубль', 'Rounding' => '2', 'Description' => 'новый, с 1.07.2016'),
       array('ID' => '28', 'Code' => '084', 'TextCode' => 'BZD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Белизский доллар', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '29', 'Code' => '124', 'TextCode' => 'CAD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Канадский доллар', 'Rounding' => '2', 'Description' => ''),
@@ -137,9 +138,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '48', 'Code' => '232', 'TextCode' => 'ERN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Накфа ', 'Rounding' => '2', 'Description' => '(Эритрея)'),
       array('ID' => '49', 'Code' => '724', 'TextCode' => 'ESP', 'DateFrom' => NULL, 'DateTo' => '2016-12-31 00:00:00', 'Name' => 'Испанская песета', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '50', 'Code' => '230', 'TextCode' => 'ETB', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Эфиопский быр', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '51', 'Code' => '978', 'TextCode' => 'EUR', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Евро', 'Rounding' => '2', 'Description' => '(Единая европейская валюта)
-
-'),
+      array('ID' => '51', 'Code' => '978', 'TextCode' => 'EUR', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Евро', 'Rounding' => '2', 'Description' => '(Единая европейская валюта)'),
       array('ID' => '52', 'Code' => '246', 'TextCode' => 'FIM', 'DateFrom' => NULL, 'DateTo' => '2016-12-31 00:00:00', 'Name' => 'Финляндская марка', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '53', 'Code' => '242', 'TextCode' => 'FJD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Доллар Фиджи', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '54', 'Code' => '238', 'TextCode' => 'FKP', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Фунт Фолклендских островов', 'Rounding' => '2', 'Description' => ''),
@@ -183,9 +182,9 @@ class MrAdminBackUpController extends Controller
       array('ID' => '92', 'Code' => '144', 'TextCode' => 'LKR', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Шри-Ланкийская рупия', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '93', 'Code' => '430', 'TextCode' => 'LRD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Либерийский доллар', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '94', 'Code' => '426', 'TextCode' => 'LSL', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Лоти ', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '95', 'Code' => '440', 'TextCode' => 'LTL', 'DateFrom' => NULL, 'DateTo' => '2018-06-23 00:00:00', 'Name' => 'Литовский лит <3>', 'Rounding' => '2', 'Description' => '<3> Не применяется с 1 января 2015 г.'),
+      array('ID' => '95', 'Code' => '440', 'TextCode' => 'LTL', 'DateFrom' => NULL, 'DateTo' => '2018-06-23 00:00:00', 'Name' => 'Литовский лит <3>', 'Rounding' => '2', 'Description' => 'Не применяется с 1 января 2015 г.'),
       array('ID' => '96', 'Code' => '442', 'TextCode' => 'LUF', 'DateFrom' => NULL, 'DateTo' => '2016-12-31 00:00:00', 'Name' => 'Люксембургский франк', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '97', 'Code' => '428', 'TextCode' => 'LVL', 'DateFrom' => NULL, 'DateTo' => '2014-01-14 00:00:00', 'Name' => 'Латвийский лат <2>', 'Rounding' => '2', 'Description' => '<2> Не применяется с 15 января 2014 г.'),
+      array('ID' => '97', 'Code' => '428', 'TextCode' => 'LVL', 'DateFrom' => NULL, 'DateTo' => '2014-01-14 00:00:00', 'Name' => 'Латвийский лат <2>', 'Rounding' => '2', 'Description' => 'Не применяется с 15 января 2014 г.'),
       array('ID' => '98', 'Code' => '434', 'TextCode' => 'LYD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Ливийский динар', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '99', 'Code' => '504', 'TextCode' => 'MAD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Марокканский дирхам', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '100', 'Code' => '498', 'TextCode' => 'MDL', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Молдавский лей', 'Rounding' => '2', 'Description' => ''),
@@ -194,8 +193,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '103', 'Code' => '104', 'TextCode' => 'MMK', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Кьят', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '104', 'Code' => '496', 'TextCode' => 'MNT', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Тугрик', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '105', 'Code' => '446', 'TextCode' => 'MOP', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Патака', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '106', 'Code' => '478', 'TextCode' => 'MRO', 'DateFrom' => NULL, 'DateTo' => '2018-06-23 00:00:00', 'Name' => 'Угия <4>', 'Rounding' => '2', 'Description' => 'Мавританская 
-<4> Не применяется с 1 января 2018 г.'),
+      array('ID' => '106', 'Code' => '478', 'TextCode' => 'MRO', 'DateFrom' => NULL, 'DateTo' => '2018-06-23 00:00:00', 'Name' => 'Угия <4>', 'Rounding' => '2', 'Description' => 'Мавританская Не применяется с 1 января 2018 г.'),
       array('ID' => '107', 'Code' => '480', 'TextCode' => 'MUR', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Маврикийская рупия', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '108', 'Code' => '462', 'TextCode' => 'MVR', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Руфия', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '109', 'Code' => '454', 'TextCode' => 'MWK', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Малавийская квача', 'Rounding' => '2', 'Description' => ''),
@@ -246,9 +244,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '154', 'Code' => '949', 'TextCode' => 'TRY', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Турецкая лира', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '155', 'Code' => '780', 'TextCode' => 'TTD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Доллар Тринидада и Тобаго', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '156', 'Code' => '901', 'TextCode' => 'TWD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Новый Тайваньский доллар', 'Rounding' => '2', 'Description' => ''),
-      array('ID' => '157', 'Code' => '834', 'TextCode' => 'TZS', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Танзанийский шиллинг', 'Rounding' => '2', 'Description' => '
-
-'),
+      array('ID' => '157', 'Code' => '834', 'TextCode' => 'TZS', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Танзанийский шиллинг', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '158', 'Code' => '980', 'TextCode' => 'UAH', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Гривна', 'Rounding' => '2', 'Description' => 'Украинская '),
       array('ID' => '159', 'Code' => '800', 'TextCode' => 'UGX', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Угандийский шиллинг', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '160', 'Code' => '840', 'TextCode' => 'USD', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Доллар США', 'Rounding' => '2', 'Description' => ''),

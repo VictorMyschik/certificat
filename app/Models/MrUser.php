@@ -14,7 +14,7 @@ class MrUser extends ORM
 {
   private $admin_email = 'allximik50@gmail.com';
   protected static $className = MrUser::class;
-  public static $mr_table = 'mr_users';
+  public static $mr_table = 'mr_user';
 
   protected static $dbFieldsMap = array(
     'UserLaravelID',
@@ -230,11 +230,11 @@ class MrUser extends ORM
   /**
    * Блокировка аккаунта
    *
-   * @return MrUsersBloked|null
+   * @return MrUserBlocked|null
    */
-  public function getBlock(): ?MrUsersBloked
+  public function getBlock(): ?MrUserBlocked
   {
-    $list = MrUsersBloked::GetAllBlocked();
+    $list = MrUserBlocked::GetAllBlocked();
     foreach ($list as $item)
     {
       if($this->id == $item->getUser()->id())

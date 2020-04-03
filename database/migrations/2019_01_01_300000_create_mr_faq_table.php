@@ -5,14 +5,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrLanguage extends Migration
+class CreateMrFaqTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_language', function (Blueprint $table) {
+    Schema::create('mr_faq', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
-      $table->string('Name');
-      $table->string('Description')->nullable();
+      $table->string('Title')->unique();
+      $table->string('Text', 8000);
     });
   }
 
@@ -23,6 +23,6 @@ class CreateMrLanguage extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_language');
+    Schema::dropIfExists('mr_faq');
   }
 }

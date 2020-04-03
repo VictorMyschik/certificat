@@ -5,14 +5,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrFaq extends Migration
+class CreateMrFeedbackTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_faq', function (Blueprint $table) {
+    Schema::create('mr_feedback', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
-      $table->string('Title')->unique();
+      $table->string('Name');
+      $table->string('Email');
       $table->string('Text', 8000);
+      $table->dateTime('Date');
     });
   }
 
@@ -23,6 +25,6 @@ class CreateMrFaq extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_faq');
+    Schema::dropIfExists('mr_feedback');
   }
 }

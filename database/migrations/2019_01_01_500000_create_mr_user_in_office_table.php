@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrUserInOffice extends Migration
+class CreateMrUserInOfficeTable extends Migration
 {
   public function up()
   {

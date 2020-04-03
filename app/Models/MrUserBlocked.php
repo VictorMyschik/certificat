@@ -6,10 +6,10 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class MrUsersBloked extends ORM
+class MrUserBlocked extends ORM
 {
-  public static $mr_table = 'mr_users_bloked';
-  public static $className = MrUsersBloked::class;
+  public static $mr_table = 'mr_user_blocked';
+  public static $className = MrUserBlocked::class;
 
   protected static $dbFieldsMap = array(
     'UserID',
@@ -18,7 +18,7 @@ class MrUsersBloked extends ORM
     'Description',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrUsersBloked
+  public static function loadBy($value, $field = 'id'): ?MrUserBlocked
   {
     return parent::loadBy((string)$value, $field);
   }

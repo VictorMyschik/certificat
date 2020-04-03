@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\MrNewUsers;
 use App\Models\MrUser;
-use App\Models\MrUsersBloked;
+use App\Models\MrUserBlocked;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -21,8 +21,8 @@ class MrAdminUsersController extends Controller
     $out['page_title'] = 'Пользователи';
     $out['users'] = MrUser::GetAll();
     $out['new_users'] = $new = MrNewUsers::GetAll();
-    $out['users_blocked'] = MrUsersBloked::GetAllBlocked();
-    $out['history'] = MrUsersBloked::GetAll();
+    $out['users_blocked'] = MrUserBlocked::GetAllBlocked();
+    $out['history'] = MrUserBlocked::GetAll();
 
     return View('Admin.mir_admin_users')->with($out);
   }
@@ -45,7 +45,7 @@ class MrAdminUsersController extends Controller
     $description = $request->get('description');
     $date = new Carbon($date_to . ' ' . $time_to);
 
-    $blocks = MrUsersBloked::GetAllBlocked();
+    $blocks = MrUserBlocked::GetAllBlocked();
     foreach ($blocks as $z)
     {
       if($z->getUser()->id() == $user)
@@ -54,7 +54,7 @@ class MrAdminUsersController extends Controller
       }
     }
     if(!isset($block))
-      $block = new MrUsersBloked();
+      $block = new MrUserBlocked();
 
     $block->setUserID((int)$user);
     $block->setDateFrom();
@@ -67,7 +67,7 @@ class MrAdminUsersController extends Controller
 
   public function unblock(int $id)
   {
-    $users = MrUsersBloked::loadBy($id);
+    $users = MrUserBlocked::loadBy($id);
 
     $users->setDateTo(new Carbon());
     $users->save_mr();

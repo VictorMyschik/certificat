@@ -6,14 +6,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrUser extends Migration
+class CreateMrUserTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_users', function (Blueprint $table) {
+    Schema::create('mr_user', function (Blueprint $table) {
       $table->increments('id')->autoIncrement();
       $table->integer('UserLaravelID')->unique();
-      $table->string('Telegram')->unique();
+      $table->string('Telegram')->unique()->nullable();
       $table->dateTime('DateFirstVisit');
       $table->dateTime('DateLogin')->nullable();
       $table->integer('DefaultOfficeID')->nullable();
@@ -30,6 +30,6 @@ class CreateMrUser extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_users');
+    Schema::dropIfExists('mr_user');
   }
 }

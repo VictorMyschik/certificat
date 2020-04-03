@@ -6,16 +6,17 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrEmailLog extends Migration
+class CreateMrNewUsersTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_email_log', function (Blueprint $table) {
-      $table->increments('id')->autoIncrement();
-      $table->integer('UserID');
-      $table->string('Email');
-      $table->string('Title');
-      $table->text('Text')->nullable();
+    Schema::create('mr_new_users', function (Blueprint $table) {
+      $table->smallIncrements('id')->autoIncrement();
+      $table->string('Email',50);
+      $table->string('Code',65);
+      $table->smallInteger('UserID');
+      $table->smallInteger('OfficeID');
+      $table->boolean('IsAdmin')->default(false);
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
   }
@@ -27,6 +28,6 @@ class CreateMrEmailLog extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_email_log');
+    Schema::dropIfExists('mr_new_users');
   }
 }

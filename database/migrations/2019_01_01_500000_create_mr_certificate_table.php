@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Сведения о документе
  */
-class CreateMrCertificate extends Migration
+class CreateMrCertificateTable extends Migration
 {
   public function up()
   {

@@ -11,9 +11,10 @@ class CreateMrCommunicateTable extends Migration
   {
     Schema::create('mr_communicate', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
+      $table->tinyInteger('KindObject')->default(0);//К чему привязан
+      $table->bigInteger('ObjectID');//ID объекта
       $table->tinyInteger('Kind')->default(0);// Тип: телефон, email, факс...
-      $table->tinyInteger('')
-
+      $table->string('Address');
     });
   }
 

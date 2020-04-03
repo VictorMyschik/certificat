@@ -62,7 +62,7 @@ class ORM extends Model
    */
   public static function getCount(): int
   {
-    return static::$className::count();
+    return DB::table(static::$mr_table)->count();
   }
 
   /**
