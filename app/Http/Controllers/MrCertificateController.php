@@ -4,10 +4,16 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Controllers\TableControllers\MrCertificateTableController;
 use App\Models\MrCertificate;
 
 class MrCertificateController extends Controller
 {
+  public function list()
+  {
+    return MrCertificateTableController::buildTable(2);
+  }
+
   public function View(string $number)
   {
     $certificate = MrCertificate::loadBy($number, 'Number');

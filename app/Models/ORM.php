@@ -17,6 +17,21 @@ class ORM extends Model
   protected static $className;
   protected $id = 0;
 
+  public static function Select(array $fields = array())
+  {
+    if(!count($fields))
+    {
+      $fields[] = '*';
+    }
+
+    return DB::table(self::getTableName())->select($fields);
+  }
+
+  public static function getTableName(): string
+  {
+    return static::$mr_table;
+  }
+
   /**
    * @return array ::$className[]
    */
@@ -33,14 +48,16 @@ class ORM extends Model
    */
   public static function GetAllPaginate(int $count = 10)
   {
-    $list = static::$className::paginate($count)->onEachSide(1);
+    $list = DB::table(static::$mr_table)->paginate($count);
+
     $data = array();
 
     foreach ($list->items() as $item)
     {
-      $data[] = $item->attributes;
-    }
+      $data[] = $item;
 
+    }
+    //dd($data);
     $out['items'] = self::LoadArray($data, static::$className);
     $out['links'] = $list->links();
 
@@ -90,9 +107,9 @@ class ORM extends Model
 
     foreach (static::$dbFieldsMap as $properties)
     {
-      if (is_object($this->$properties))
+      if(is_object($this->$properties))
       {
-        if (!isset($this->$properties->id))
+        if(!isset($this->$properties->id))
         {
           $out[$properties] = $this->$properties;
         }
@@ -119,7 +136,7 @@ class ORM extends Model
    */
   public static function loadBy(string $value, string $field = 'id')
   {
-    if ($field == 'id')
+    if($field == 'id')
     {
       $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
         return DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
@@ -130,7 +147,7 @@ class ORM extends Model
       $out = DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
     }
 
-    if ($out)
+    if($out)
     {
       $mr_object = self::convertToMr($out);
 
@@ -166,11 +183,11 @@ class ORM extends Model
   {
     $array = $this->convertMrToArray();
 
-    if ($this->id)
+    if($this->id)
     {
       $array = $this->equals_data();
 
-      if (count($array))
+      if(count($array))
       {
         DB::table(static::$mr_table)->where('id', '=', (int)$this->id)->update($array);
         // Запись в лог изменений БД
@@ -186,7 +203,7 @@ class ORM extends Model
       //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
 
-    if (method_exists($this, 'after_save'))
+    if(method_exists($this, 'after_save'))
     {
       $this->id = $last_id;
       $this->after_save();
@@ -209,7 +226,7 @@ class ORM extends Model
     $attributes['id'] = $this->id();
     foreach ($this->original as $key => $property)
     {
-      if ($attributes[$key] != $property)
+      if($attributes[$key] != $property)
       {
         $out[$key] = $attributes[$key];
       }
@@ -220,18 +237,18 @@ class ORM extends Model
 
   public function mr_delete(): bool
   {
-    if (method_exists($this, 'before_delete'))
+    if(method_exists($this, 'before_delete'))
     {
       $this->before_delete();
     }
 
-    if ($this->getTable() && $this->id())
+    if($this->getTable() && $this->id())
     {
       DB::table(static::$mr_table)->delete($this->id());
 
       MrBaseLog::SaveData(static::$mr_table, $this->id(), []);
 
-      if (method_exists($this, 'after_delete'))
+      if(method_exists($this, 'after_delete'))
       {
         $this->after_delete();
       }
@@ -261,9 +278,9 @@ class ORM extends Model
    */
   protected function setDateNullableField($value, $field)
   {
-    if ($value)
+    if($value)
     {
-      if ($value instanceof \DateTime)
+      if($value instanceof \DateTime)
       {
         $value = new MrDateTime($value->format(MrDateTime::MYSQL_DATETIME));
       }
@@ -289,11 +306,11 @@ class ORM extends Model
 
     foreach (static::$dbFieldsMap as $properties)
     {
-      if ($this->$properties)
+      if($this->$properties)
       {
-        if (is_object($this->$properties))
+        if(is_object($this->$properties))
         {
-          if (!isset($this->$properties->id))
+          if(!isset($this->$properties->id))
           {
             $array[$properties] = $this->$properties;
           }
@@ -321,14 +338,14 @@ class ORM extends Model
    */
   public function equals(?object $object): bool
   {
-    if (!is_object($object) || !$object)
+    if(!is_object($object) || !$object)
     {
       return false;
     }
 
-    if ($this->id() == $object->id())
+    if($this->id() == $object->id())
     {
-      if ($this::$className == $object::$className)
+      if($this::$className == $object::$className)
       {
         return true;
       }

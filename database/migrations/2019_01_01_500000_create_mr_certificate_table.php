@@ -19,7 +19,7 @@ class CreateMrCertificateTable extends Migration
       $table->string('Number');//Регистрационный номер документа
       $table->date('DateFrom');//Дата начала срока действия
       $table->date('DateTo')->nullable();//Дата окончания срока действия
-      $table->string('CountryID');//Страна
+      $table->integer('CountryID');//Страна
       $table->tinyInteger('Status')->default(0);//Статус действия | Действует
 
       $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин

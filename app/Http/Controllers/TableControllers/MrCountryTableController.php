@@ -37,9 +37,7 @@ class MrCountryTableController extends MrTableController
       $row[] = $item->getISO3166numeric();
 
       $edit = MrForm::loadForm(
-        'admin_reference_country_form_edit',
-        ['id' => $item->id()],
-        '', ['btn btn-primary btn-xs fa fa-edit'],'sm'
+        'admin_reference_country_form_edit', ['id' => $item->id()],'', ['btn btn-primary btn-xs fa fa-edit'],'sm'
       );
 
       $delete = MrLink::open(

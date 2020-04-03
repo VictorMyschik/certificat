@@ -1,9 +1,8 @@
 @extends('layouts.app')
-
 @section('content')
   <div class="mr-main-div">
     @include('Admin.layouts.nav_bar')
-    <div class="container m-t-10">
+    <div class="container m-t-10">dw
       @include('Admin.layouts.page_title')
       <div class="card-body padding-horizontal">
         <div class="d-inline col-md-6">

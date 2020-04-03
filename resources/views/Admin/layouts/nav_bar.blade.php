@@ -2,7 +2,7 @@
   <div class="container">
 
     <a class="navbar-brand" href="{{ url('/') }}">
-      {{ \App\Helpers\MrBaseHelper::MR_SITE_NAME }}
+      {{ MrBaseHelper::MR_SITE_NAME }}
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -42,17 +42,15 @@
             Системные<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{route('clear')}}">Очистить кэш</a>
+            <a class="dropdown-item m-b-15" href="/phpmyadmin">PhpMyAdmin</a>
+
             <a class="dropdown-item" href="{{route('admin_logs')}}">Лог посещений</a>
             <a class="dropdown-item" href="{{route('admin_db_log_page') }}">Лог БД</a>
             <a class="dropdown-item" href="{{route('admin_backup_page')}}">BACK UP</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('clear')}}"> Очистить кэш</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/phpmyadmin" target="_blank"> PhpMyAdmin</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

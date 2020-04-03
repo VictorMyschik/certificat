@@ -34,11 +34,14 @@ class MrDateTime extends \DateTime
     if ($from)
       $r .= $from->format('d.m.Y');
 
-    if (strlen($r))
-      $r .= ' - ';
+
 
     if ($to)
+    {
+      if (strlen($r))
+        $r .= ' - ';
       $r .= $to->format('d.m.Y');
+    }
 
     return $r;
   }

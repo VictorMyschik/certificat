@@ -13,7 +13,7 @@ class MrCertificate extends ORM
 {
   public static $mr_table = 'mr_certificate';
   public static $className = MrCertificate::class;
-
+  protected $table = 'mr_certificate';
   protected static $dbFieldsMap = array(
     'Kind',
     'Number',
