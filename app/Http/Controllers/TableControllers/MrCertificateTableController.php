@@ -6,19 +6,16 @@ namespace App\Http\Controllers\TableControllers;
 
 use App\Helpers\MrDateTime;
 use App\Models\MrCertificate;
-use Illuminate\Support\Collection;
 
 class MrCertificateTableController extends MrTableController
 {
   public static function buildTable(int $on_page)
   {
-    $data = MrCertificate::Select(['id'])->paginate($on_page);
+    $body = MrCertificate::Select(['id'])->paginate($on_page);
 
+    $collections = $body->getCollection();
 
-    /** @var Collection $collections */
-    $collections = $data->getCollection();
-
-    foreach ($data->getCollection() as $model)
+    foreach ($body->getCollection() as $model)
     {
       $item = MrCertificate::loadBy($model->id);
 
@@ -31,21 +28,22 @@ class MrCertificateTableController extends MrTableController
     }
 
     $header = array(
-     'id'=>'ID',
-     'number'=>'Регистрационный номер документа',
-     'country'=>'Страна',
-     'kind_name'=>'Вид документа',
-     'dates'=>'Срок действия',
-     'status'=>'Статус действия',
+      'id' => 'ID',
+      'number' => 'Регистрационный номер документа',
+      'country' => 'Страна',
+      'kind_name' => 'Вид документа',
+      'dates' => 'Срок действия',
+      'status' => 'Статус действия',
     );;
 
 
-    $collections->prepend($header);
+    $body->setCollection($collections);
 
-    $data->setCollection($collections);
+    $out = array(
+      'header' => $header,
+      'body' => $body
+    );
 
-
-
-    return $data;
+    return $out;
   }
 }

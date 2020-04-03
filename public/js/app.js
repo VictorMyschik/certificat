@@ -1863,7 +1863,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       // Our data object that holds the Laravel paginator data
-      laravelData: {}
+      table_body: {}
     };
   },
   mounted: function mounted() {
@@ -1877,7 +1877,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get('/test?page=' + page).then(function (response) {
-        _this.laravelData = response.data;
+        _this.table_body = response.data;
       });
     }
   }
@@ -37291,14 +37291,14 @@ var render = function() {
             [
               _c(
                 "ul",
-                _vm._l(_vm.laravelData.data, function(post) {
+                _vm._l(_vm.table_body.data, function(post) {
                   return _c("li", { key: post.id }, [_vm._v("@json(post)")])
                 }),
                 0
               ),
               _vm._v(" "),
               _c("pagination", {
-                attrs: { data: _vm.laravelData },
+                attrs: { data: _vm.table_body },
                 on: { "pagination-change-page": _vm.getResults }
               })
             ],

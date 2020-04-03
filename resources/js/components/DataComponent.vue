@@ -25,7 +25,7 @@
     data() {
       return {
         // Our data object that holds the Laravel paginator data
-        laravelData: {},
+        table_body: {},
       }
     },
 
