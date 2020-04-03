@@ -1,13 +1,8 @@
 <template>
   <div>
     <table class="table table-hover table-striped table-bordered">
-      <thead>
-      <tr class="mr-bold">
-        <td v-for="head_name in laravelData.data" :key="head_name.id">{{ head_name }}</td>
-      </tr>
-      </thead>
       <tbody class="mr-middle">
-      <tr v-for="td in laravelData.data">
+      <tr :class="mrBold:index == 0" v-for="(td,index) in laravelData.data">
         <td v-for="item in td">{{item}}</td>
       </tr>
       </tbody>
@@ -48,5 +43,7 @@
 </script>
 
 <style scoped>
-
+.mr_bold{
+  font-weight: bold;
+}
 </style>
