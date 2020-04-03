@@ -62,6 +62,21 @@
             @csrf
           </form>
         </li>
+        <li class="nav-item dropdown">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle border mr-border-radius-5" href="#" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            {{ mb_strtoupper(app()->getLocale()) }}<span class="caret"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            @foreach(\App\Models\MrLanguage::GetAll() as $item)
+              @if($item->getName() == mb_strtoupper(app()->getLocale()))
+                @continue
+              @endif
+              <a href="{{ url('/locale/'.mb_strtolower($item->getName())) }}" class="dropdown-item">
+                <i class="nav-item fa fa-language"></i> {{ $item->getName(). ' - '. $item->getDescription() }}</a>
+            @endforeach
+          </div>
+        </li>
       </ul>
     </div>
 

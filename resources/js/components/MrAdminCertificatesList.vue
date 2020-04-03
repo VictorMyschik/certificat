@@ -1,7 +1,7 @@
 <template>
   <div>
     <table class="table table-hover table-striped table-bordered">
-      <thead class="mr-bold">
+      <thead class="mr-bold mr-bg-table-header">
       <tr>
         <td v-for="head_name in table_header">{{head_name}}</td>
       </tr>
@@ -52,4 +52,5 @@
   .mr_bold {
     font-weight: bold;
   }
+
 </style>
