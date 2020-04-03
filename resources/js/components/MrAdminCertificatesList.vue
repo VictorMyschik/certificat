@@ -2,7 +2,7 @@
   <div>
     <table class="table table-hover table-striped table-bordered">
       <tbody class="mr-middle">
-      <tr :class="mrBold:index == 0" v-for="(td,index) in laravelData.data">
+      <tr v-bind:class="{ mr_bold: index == 0 }" v-for="(td,index) in laravelData.data">
         <td v-for="item in td">{{item}}</td>
       </tr>
       </tbody>
