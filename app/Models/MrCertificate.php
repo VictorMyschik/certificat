@@ -32,8 +32,8 @@ class MrCertificate extends ORM
 
   protected static $kinds = array(
     self::KIND_UNKNOWN => '[не выбрано]', //Активен
-    self::KIND_CERTIFICATE => 'сертификат соответствия', //Активен
-    self::KIND_DECLARATION => 'декларация о соответствии', // Приостановлен
+    self::KIND_CERTIFICATE => 'Сертификат соответствия ТР ЕАЭС', //Активен
+    self::KIND_DECLARATION => 'Декларация о соответствии ТР ЕАЭС', // Приостановлен
   );
 
   public static function getKinds()
@@ -87,7 +87,7 @@ class MrCertificate extends ORM
     }
     else
     {
-      dd('Неизвестный статус');
+      abort('Неизвестный статус');
     }
   }
 

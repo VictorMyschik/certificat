@@ -3,22 +3,31 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Controllers\Helpers\MtExcelHelperBase;
-use App\Models\MrOffice;
-
-class MrTestController extends MtExcelHelperBase
+class MrTestController extends Controller
 {
   public function index()
   {
     $out = array();
+    $arrContextOptions = array(
+      "ssl" => array(
+        "verify_peer" => false,
+        "verify_peer_name" => true,
+      ),
+    );
+    $arrContextOptions = array(
+      'headers' => [
+        'method' => "GET",
+        'Content-Type' => 'application/json',
+        'Host' => 'portal.eaeunion.org',
+      ],
+      'verify' => false,
+      'body' => '{"processCode":"P.TS.01","resourceName":"conformity-docs","disableValidityPeriodDetailsFilter":false,"isHistory":false,"onDateValue":null,"top":100,"skip":80,"orderby":"_id asc"}',
+    );
+    $url = 'https://portal.eaeunion.org/sites/commonprocesses/ru-ru/_vti_bin/Portal.EEC.CDBProxy/Data.svc/GetDocuments';
+    $data = file_get_contents($url, false, stream_context_create($arrContextOptions));
 
-    $user = MrOffice::loadBy(1);
+    $decoded = json_decode($data, true);
 
-    $user->setName(12567563);
-
-    $user->save_mr();
-
-
-    return View('test')->with($out);
+    dd($decoded);
   }
 }
