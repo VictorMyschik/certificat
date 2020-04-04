@@ -3,8 +3,8 @@
     <table class="table table-hover table-striped table-bordered">
       <thead class="mr-bold mr-bg-table-header">
       <tr>
-        <td style="cursor: pointer;" v-on:click="mr_sort_field(h_key)" v-for="(head_name, h_key) in table_header">
-           {{head_name}}
+        <td style="cursor: pointer;" v-on:click="mr_sort_field(header_key)" v-for="(head_name, header_key) in table_header">
+          <i v-if="mr_field === header_key" class="mr-color-green-dark" :class="[mr_sort === 'asc' ? activeClass : errorClass]"></i> {{head_name}}
         </td>
       </tr>
       </thead>
@@ -28,6 +28,8 @@
         table_header: [],
         mr_field: 'id',
         mr_sort: 'asc',
+        activeClass: 'fa fa-arrow-up',
+        errorClass: 'fa fa-arrow-down',
       }
     },
 
@@ -45,7 +47,6 @@
           this.table_header = response.data.header;
         });
       },
-
       mr_sort_field(mr_sort) {
         this.mr_field = mr_sort;
 
@@ -54,7 +55,6 @@
         } else {
           this.mr_sort = 'asc';
         }
-
         this.getResults();
       }
     },
@@ -67,5 +67,4 @@
   .mr_bold {
     font-weight: bold;
   }
-
 </style>
