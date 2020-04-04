@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
 
 
 class ORM extends Model
@@ -25,18 +24,34 @@ class ORM extends Model
       $fields[] = '*';
     }
 
-    Route::getFacadeRoot()->current();
-
-
+    // Base parametrise
     $field_name = 'id';
     $sort = 'DESC';
+
+    foreach (explode('&', request()->getQueryString()) as $item)
+    {
+      $param = explode('=', $item);
+      if($param[0] == 'sort' && ($param[1] == 'asc' || $param[1] == 'desc'))
+      {
+        $sort = $param[1];
+      }
+      elseif($param[0] == 'field' && in_array($param[1], self::getTableFields()))
+      {
+        $field_name = $param[1];
+      }
+    }
 
     return DB::table(self::getTableName())->select($fields)->orderBy($field_name, $sort);
   }
 
-  public static function getTableName(): string
+  private static function getTableName(): string
   {
     return static::$mr_table;
+  }
+
+  private static function getTableFields(): array
+  {
+    return static::$dbFieldsMap;
   }
 
   /**

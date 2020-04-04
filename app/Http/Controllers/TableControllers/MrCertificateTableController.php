@@ -30,10 +30,10 @@ class MrCertificateTableController extends MrTableController
     $header = array(
       'id' => 'ID',
       'Number' => 'Регистрационный номер документа',
-      'Country' => 'Страна',
-      'ind_name' => 'Вид документа',
+      'CountryID' => 'Страна',
+      'Kind' => 'Вид документа',
       'dates' => 'Срок действия',
-      'status' => 'Статус действия',
+      'Status' => 'Статус действия',
     );;
 
 
