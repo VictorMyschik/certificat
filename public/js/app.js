@@ -2325,7 +2325,7 @@ __webpack_require__.r(__webpack_exports__);
   var DATA_API_KEY$1 = '.data-api';
   var JQUERY_NO_CONFLICT$1 = $.fn[NAME$1];
   var ClassName$1 = {
-    ACTIVE: 'active',
+    ACTIVE: 'mr_wait',
     BUTTON: 'btn',
     FOCUS: 'focus'
   };
@@ -2335,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
     DATA_TOGGLE: '[data-toggle="button"]',
     DATA_TOGGLES_BUTTONS: '[data-toggle="buttons"] .btn',
     INPUT: 'input:not([type="hidden"])',
-    ACTIVE: '.active',
+    ACTIVE: '.mr_wait',
     BUTTON: '.btn'
   };
   var Event$1 = {
@@ -2471,7 +2471,7 @@ __webpack_require__.r(__webpack_exports__);
     $(button).toggleClass(ClassName$1.FOCUS, /^focus(in)?$/.test(event.type));
   });
   $(window).on(Event$1.LOAD_DATA_API, function () {
-    // ensure correct active class is set to match the controls' actual values/states
+    // ensure correct mr_wait class is set to match the controls' actual values/states
     // find all checkboxes/readio buttons inside data-toggle groups
     var buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLES_BUTTONS));
 
@@ -2571,7 +2571,7 @@ __webpack_require__.r(__webpack_exports__);
   };
   var ClassName$2 = {
     CAROUSEL: 'carousel',
-    ACTIVE: 'active',
+    ACTIVE: 'mr_wait',
     SLIDE: 'slide',
     RIGHT: 'carousel-item-right',
     LEFT: 'carousel-item-left',
@@ -2581,8 +2581,8 @@ __webpack_require__.r(__webpack_exports__);
     POINTER_EVENT: 'pointer-event'
   };
   var Selector$2 = {
-    ACTIVE: '.active',
-    ACTIVE_ITEM: '.active.carousel-item',
+    ACTIVE: '.mr_wait',
+    ACTIVE_ITEM: '.mr_wait.carousel-item',
     ITEM: '.carousel-item',
     ITEM_IMG: '.carousel-item img',
     NEXT_PREV: '.carousel-item-next, .carousel-item-prev',
@@ -5665,11 +5665,11 @@ __webpack_require__.r(__webpack_exports__);
   var ClassName$8 = {
     DROPDOWN_ITEM: 'dropdown-item',
     DROPDOWN_MENU: 'dropdown-menu',
-    ACTIVE: 'active'
+    ACTIVE: 'mr_wait'
   };
   var Selector$8 = {
     DATA_SPY: '[data-spy="scroll"]',
-    ACTIVE: '.active',
+    ACTIVE: '.mr_wait',
     NAV_LIST_GROUP: '.nav, .list-group',
     NAV_LINKS: '.nav-link',
     NAV_ITEMS: '.nav-item',
@@ -5852,8 +5852,8 @@ __webpack_require__.r(__webpack_exports__);
         $link.closest(Selector$8.DROPDOWN).find(Selector$8.DROPDOWN_TOGGLE).addClass(ClassName$8.ACTIVE);
         $link.addClass(ClassName$8.ACTIVE);
       } else {
-        // Set triggered link as active
-        $link.addClass(ClassName$8.ACTIVE); // Set triggered links parents as active
+        // Set triggered link as mr_wait
+        $link.addClass(ClassName$8.ACTIVE); // Set triggered links parents as mr_wait
         // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
 
         $link.parents(Selector$8.NAV_LIST_GROUP).prev(Selector$8.NAV_LINKS + ", " + Selector$8.LIST_ITEMS).addClass(ClassName$8.ACTIVE); // Handle special case when .nav-link is inside .nav-item
@@ -5962,7 +5962,7 @@ __webpack_require__.r(__webpack_exports__);
   };
   var ClassName$9 = {
     DROPDOWN_MENU: 'dropdown-menu',
-    ACTIVE: 'active',
+    ACTIVE: 'mr_wait',
     DISABLED: 'disabled',
     FADE: 'fade',
     SHOW: 'show'
@@ -5970,11 +5970,11 @@ __webpack_require__.r(__webpack_exports__);
   var Selector$9 = {
     DROPDOWN: '.dropdown',
     NAV_LIST_GROUP: '.nav, .list-group',
-    ACTIVE: '.active',
-    ACTIVE_UL: '> li > .active',
+    ACTIVE: '.mr_wait',
+    ACTIVE_UL: '> li > .mr_wait',
     DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
     DROPDOWN_TOGGLE: '.dropdown-toggle',
-    DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
+    DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .mr_wait'
   };
   /**
    * ------------------------------------------------------------------------
@@ -7693,7 +7693,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// QSA and matchesSelector support
 
-	// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
+	// matchesSelector(:mr_wait) reports false when true (IE9/Opera 11.5)
 	rbuggyMatches = [];
 
 	// qSa(:focus) reports false when true (Chrome 21)
@@ -11362,8 +11362,8 @@ function returnFalse() {
 
 // Support: IE <=9 - 11+
 // focus() and blur() are asynchronous, except when they are no-op.
-// So expect focus to be synchronous when the element is already active,
-// and blur to be synchronous when the element is not already active.
+// So expect focus to be synchronous when the element is already mr_wait,
+// and blur to be synchronous when the element is not already mr_wait.
 // (focus and blur are always synchronous in other supported browsers,
 // this just defines when we can count on it).
 function expectSync( elem, type ) {
@@ -14046,7 +14046,7 @@ jQuery.fn.extend( {
 				hooks.stop.call( this, true );
 			}
 
-			// Look for any active animations, and finish them
+			// Look for any mr_wait animations, and finish them
 			for ( index = timers.length; index--; ) {
 				if ( timers[ index ].elem === this && timers[ index ].queue === type ) {
 					timers[ index ].anim.stop( true );
@@ -15475,8 +15475,8 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 jQuery.extend( {
 
-	// Counter for holding the number of active queries
-	active: 0,
+	// Counter for holding the number of mr_wait queries
+	mr_wait: 0,
 
 	// Last-Modified header cache for next request
 	lastModified: {},
@@ -15761,7 +15761,7 @@ jQuery.extend( {
 		fireGlobals = jQuery.event && s.global;
 
 		// Watch for a new set of requests
-		if ( fireGlobals && jQuery.active++ === 0 ) {
+		if ( fireGlobals && jQuery.mr_wait++ === 0 ) {
 			jQuery.event.trigger( "ajaxStart" );
 		}
 
@@ -15998,7 +15998,7 @@ jQuery.extend( {
 				globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
 
 				// Handle the global AJAX counter
-				if ( !( --jQuery.active ) ) {
+				if ( !( --jQuery.mr_wait ) ) {
 					jQuery.event.trigger( "ajaxStop" );
 				}
 			}
@@ -24160,24 +24160,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'active': true },
-     *   { 'user': 'fred',    'active': false },
-     *   { 'user': 'pebbles', 'active': false }
+     *   { 'user': 'barney',  'mr_wait': true },
+     *   { 'user': 'fred',    'mr_wait': false },
+     *   { 'user': 'pebbles', 'mr_wait': false }
      * ];
      *
-     * _.dropRightWhile(users, function(o) { return !o.active; });
+     * _.dropRightWhile(users, function(o) { return !o.mr_wait; });
      * // => objects for ['barney']
      *
      * // The `_.matches` iteratee shorthand.
-     * _.dropRightWhile(users, { 'user': 'pebbles', 'active': false });
+     * _.dropRightWhile(users, { 'user': 'pebbles', 'mr_wait': false });
      * // => objects for ['barney', 'fred']
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.dropRightWhile(users, ['active', false]);
+     * _.dropRightWhile(users, ['mr_wait', false]);
      * // => objects for ['barney']
      *
      * // The `_.property` iteratee shorthand.
-     * _.dropRightWhile(users, 'active');
+     * _.dropRightWhile(users, 'mr_wait');
      * // => objects for ['barney', 'fred', 'pebbles']
      */
     function dropRightWhile(array, predicate) {
@@ -24201,24 +24201,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'active': false },
-     *   { 'user': 'fred',    'active': false },
-     *   { 'user': 'pebbles', 'active': true }
+     *   { 'user': 'barney',  'mr_wait': false },
+     *   { 'user': 'fred',    'mr_wait': false },
+     *   { 'user': 'pebbles', 'mr_wait': true }
      * ];
      *
-     * _.dropWhile(users, function(o) { return !o.active; });
+     * _.dropWhile(users, function(o) { return !o.mr_wait; });
      * // => objects for ['pebbles']
      *
      * // The `_.matches` iteratee shorthand.
-     * _.dropWhile(users, { 'user': 'barney', 'active': false });
+     * _.dropWhile(users, { 'user': 'barney', 'mr_wait': false });
      * // => objects for ['fred', 'pebbles']
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.dropWhile(users, ['active', false]);
+     * _.dropWhile(users, ['mr_wait', false]);
      * // => objects for ['pebbles']
      *
      * // The `_.property` iteratee shorthand.
-     * _.dropWhile(users, 'active');
+     * _.dropWhile(users, 'mr_wait');
      * // => objects for ['barney', 'fred', 'pebbles']
      */
     function dropWhile(array, predicate) {
@@ -24283,24 +24283,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'active': false },
-     *   { 'user': 'fred',    'active': false },
-     *   { 'user': 'pebbles', 'active': true }
+     *   { 'user': 'barney',  'mr_wait': false },
+     *   { 'user': 'fred',    'mr_wait': false },
+     *   { 'user': 'pebbles', 'mr_wait': true }
      * ];
      *
      * _.findIndex(users, function(o) { return o.user == 'barney'; });
      * // => 0
      *
      * // The `_.matches` iteratee shorthand.
-     * _.findIndex(users, { 'user': 'fred', 'active': false });
+     * _.findIndex(users, { 'user': 'fred', 'mr_wait': false });
      * // => 1
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.findIndex(users, ['active', false]);
+     * _.findIndex(users, ['mr_wait', false]);
      * // => 0
      *
      * // The `_.property` iteratee shorthand.
-     * _.findIndex(users, 'active');
+     * _.findIndex(users, 'mr_wait');
      * // => 2
      */
     function findIndex(array, predicate, fromIndex) {
@@ -24330,24 +24330,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'active': true },
-     *   { 'user': 'fred',    'active': false },
-     *   { 'user': 'pebbles', 'active': false }
+     *   { 'user': 'barney',  'mr_wait': true },
+     *   { 'user': 'fred',    'mr_wait': false },
+     *   { 'user': 'pebbles', 'mr_wait': false }
      * ];
      *
      * _.findLastIndex(users, function(o) { return o.user == 'pebbles'; });
      * // => 2
      *
      * // The `_.matches` iteratee shorthand.
-     * _.findLastIndex(users, { 'user': 'barney', 'active': true });
+     * _.findLastIndex(users, { 'user': 'barney', 'mr_wait': true });
      * // => 0
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.findLastIndex(users, ['active', false]);
+     * _.findLastIndex(users, ['mr_wait', false]);
      * // => 2
      *
      * // The `_.property` iteratee shorthand.
-     * _.findLastIndex(users, 'active');
+     * _.findLastIndex(users, 'mr_wait');
      * // => 0
      */
     function findLastIndex(array, predicate, fromIndex) {
@@ -25281,24 +25281,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'active': true },
-     *   { 'user': 'fred',    'active': false },
-     *   { 'user': 'pebbles', 'active': false }
+     *   { 'user': 'barney',  'mr_wait': true },
+     *   { 'user': 'fred',    'mr_wait': false },
+     *   { 'user': 'pebbles', 'mr_wait': false }
      * ];
      *
-     * _.takeRightWhile(users, function(o) { return !o.active; });
+     * _.takeRightWhile(users, function(o) { return !o.mr_wait; });
      * // => objects for ['fred', 'pebbles']
      *
      * // The `_.matches` iteratee shorthand.
-     * _.takeRightWhile(users, { 'user': 'pebbles', 'active': false });
+     * _.takeRightWhile(users, { 'user': 'pebbles', 'mr_wait': false });
      * // => objects for ['pebbles']
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.takeRightWhile(users, ['active', false]);
+     * _.takeRightWhile(users, ['mr_wait', false]);
      * // => objects for ['fred', 'pebbles']
      *
      * // The `_.property` iteratee shorthand.
-     * _.takeRightWhile(users, 'active');
+     * _.takeRightWhile(users, 'mr_wait');
      * // => []
      */
     function takeRightWhile(array, predicate) {
@@ -25322,24 +25322,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'active': false },
-     *   { 'user': 'fred',    'active': false },
-     *   { 'user': 'pebbles', 'active': true }
+     *   { 'user': 'barney',  'mr_wait': false },
+     *   { 'user': 'fred',    'mr_wait': false },
+     *   { 'user': 'pebbles', 'mr_wait': true }
      * ];
      *
-     * _.takeWhile(users, function(o) { return !o.active; });
+     * _.takeWhile(users, function(o) { return !o.mr_wait; });
      * // => objects for ['barney', 'fred']
      *
      * // The `_.matches` iteratee shorthand.
-     * _.takeWhile(users, { 'user': 'barney', 'active': false });
+     * _.takeWhile(users, { 'user': 'barney', 'mr_wait': false });
      * // => objects for ['barney']
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.takeWhile(users, ['active', false]);
+     * _.takeWhile(users, ['mr_wait', false]);
      * // => objects for ['barney', 'fred']
      *
      * // The `_.property` iteratee shorthand.
-     * _.takeWhile(users, 'active');
+     * _.takeWhile(users, 'mr_wait');
      * // => []
      */
     function takeWhile(array, predicate) {
@@ -26164,20 +26164,20 @@ return jQuery;
      * // => false
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'active': false },
-     *   { 'user': 'fred',   'age': 40, 'active': false }
+     *   { 'user': 'barney', 'age': 36, 'mr_wait': false },
+     *   { 'user': 'fred',   'age': 40, 'mr_wait': false }
      * ];
      *
      * // The `_.matches` iteratee shorthand.
-     * _.every(users, { 'user': 'barney', 'active': false });
+     * _.every(users, { 'user': 'barney', 'mr_wait': false });
      * // => false
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.every(users, ['active', false]);
+     * _.every(users, ['mr_wait', false]);
      * // => true
      *
      * // The `_.property` iteratee shorthand.
-     * _.every(users, 'active');
+     * _.every(users, 'mr_wait');
      * // => false
      */
     function every(collection, predicate, guard) {
@@ -26206,23 +26206,23 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'active': true },
-     *   { 'user': 'fred',   'age': 40, 'active': false }
+     *   { 'user': 'barney', 'age': 36, 'mr_wait': true },
+     *   { 'user': 'fred',   'age': 40, 'mr_wait': false }
      * ];
      *
-     * _.filter(users, function(o) { return !o.active; });
+     * _.filter(users, function(o) { return !o.mr_wait; });
      * // => objects for ['fred']
      *
      * // The `_.matches` iteratee shorthand.
-     * _.filter(users, { 'age': 36, 'active': true });
+     * _.filter(users, { 'age': 36, 'mr_wait': true });
      * // => objects for ['barney']
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.filter(users, ['active', false]);
+     * _.filter(users, ['mr_wait', false]);
      * // => objects for ['fred']
      *
      * // The `_.property` iteratee shorthand.
-     * _.filter(users, 'active');
+     * _.filter(users, 'mr_wait');
      * // => objects for ['barney']
      */
     function filter(collection, predicate) {
@@ -26246,24 +26246,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'age': 36, 'active': true },
-     *   { 'user': 'fred',    'age': 40, 'active': false },
-     *   { 'user': 'pebbles', 'age': 1,  'active': true }
+     *   { 'user': 'barney',  'age': 36, 'mr_wait': true },
+     *   { 'user': 'fred',    'age': 40, 'mr_wait': false },
+     *   { 'user': 'pebbles', 'age': 1,  'mr_wait': true }
      * ];
      *
      * _.find(users, function(o) { return o.age < 40; });
      * // => object for 'barney'
      *
      * // The `_.matches` iteratee shorthand.
-     * _.find(users, { 'age': 1, 'active': true });
+     * _.find(users, { 'age': 1, 'mr_wait': true });
      * // => object for 'pebbles'
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.find(users, ['active', false]);
+     * _.find(users, ['mr_wait', false]);
      * // => object for 'fred'
      *
      * // The `_.property` iteratee shorthand.
-     * _.find(users, 'active');
+     * _.find(users, 'mr_wait');
      * // => object for 'barney'
      */
     var find = createFind(findIndex);
@@ -26670,24 +26670,24 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'age': 36, 'active': false },
-     *   { 'user': 'fred',    'age': 40, 'active': true },
-     *   { 'user': 'pebbles', 'age': 1,  'active': false }
+     *   { 'user': 'barney',  'age': 36, 'mr_wait': false },
+     *   { 'user': 'fred',    'age': 40, 'mr_wait': true },
+     *   { 'user': 'pebbles', 'age': 1,  'mr_wait': false }
      * ];
      *
-     * _.partition(users, function(o) { return o.active; });
+     * _.partition(users, function(o) { return o.mr_wait; });
      * // => objects for [['fred'], ['barney', 'pebbles']]
      *
      * // The `_.matches` iteratee shorthand.
-     * _.partition(users, { 'age': 1, 'active': false });
+     * _.partition(users, { 'age': 1, 'mr_wait': false });
      * // => objects for [['pebbles'], ['barney', 'fred']]
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.partition(users, ['active', false]);
+     * _.partition(users, ['mr_wait', false]);
      * // => objects for [['barney', 'pebbles'], ['fred']]
      *
      * // The `_.property` iteratee shorthand.
-     * _.partition(users, 'active');
+     * _.partition(users, 'mr_wait');
      * // => objects for [['fred'], ['barney', 'pebbles']]
      */
     var partition = createAggregator(function(result, value, key) {
@@ -26782,23 +26782,23 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'active': false },
-     *   { 'user': 'fred',   'age': 40, 'active': true }
+     *   { 'user': 'barney', 'age': 36, 'mr_wait': false },
+     *   { 'user': 'fred',   'age': 40, 'mr_wait': true }
      * ];
      *
-     * _.reject(users, function(o) { return !o.active; });
+     * _.reject(users, function(o) { return !o.mr_wait; });
      * // => objects for ['fred']
      *
      * // The `_.matches` iteratee shorthand.
-     * _.reject(users, { 'age': 40, 'active': true });
+     * _.reject(users, { 'age': 40, 'mr_wait': true });
      * // => objects for ['barney']
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.reject(users, ['active', false]);
+     * _.reject(users, ['mr_wait', false]);
      * // => objects for ['fred']
      *
      * // The `_.property` iteratee shorthand.
-     * _.reject(users, 'active');
+     * _.reject(users, 'mr_wait');
      * // => objects for ['barney']
      */
     function reject(collection, predicate) {
@@ -26930,20 +26930,20 @@ return jQuery;
      * // => true
      *
      * var users = [
-     *   { 'user': 'barney', 'active': true },
-     *   { 'user': 'fred',   'active': false }
+     *   { 'user': 'barney', 'mr_wait': true },
+     *   { 'user': 'fred',   'mr_wait': false }
      * ];
      *
      * // The `_.matches` iteratee shorthand.
-     * _.some(users, { 'user': 'barney', 'active': false });
+     * _.some(users, { 'user': 'barney', 'mr_wait': false });
      * // => false
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.some(users, ['active', false]);
+     * _.some(users, ['mr_wait', false]);
      * // => true
      *
      * // The `_.property` iteratee shorthand.
-     * _.some(users, 'active');
+     * _.some(users, 'mr_wait');
      * // => true
      */
     function some(collection, predicate, guard) {
@@ -29910,24 +29910,24 @@ return jQuery;
      * @example
      *
      * var users = {
-     *   'barney':  { 'age': 36, 'active': true },
-     *   'fred':    { 'age': 40, 'active': false },
-     *   'pebbles': { 'age': 1,  'active': true }
+     *   'barney':  { 'age': 36, 'mr_wait': true },
+     *   'fred':    { 'age': 40, 'mr_wait': false },
+     *   'pebbles': { 'age': 1,  'mr_wait': true }
      * };
      *
      * _.findKey(users, function(o) { return o.age < 40; });
      * // => 'barney' (iteration order is not guaranteed)
      *
      * // The `_.matches` iteratee shorthand.
-     * _.findKey(users, { 'age': 1, 'active': true });
+     * _.findKey(users, { 'age': 1, 'mr_wait': true });
      * // => 'pebbles'
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.findKey(users, ['active', false]);
+     * _.findKey(users, ['mr_wait', false]);
      * // => 'fred'
      *
      * // The `_.property` iteratee shorthand.
-     * _.findKey(users, 'active');
+     * _.findKey(users, 'mr_wait');
      * // => 'barney'
      */
     function findKey(object, predicate) {
@@ -29949,24 +29949,24 @@ return jQuery;
      * @example
      *
      * var users = {
-     *   'barney':  { 'age': 36, 'active': true },
-     *   'fred':    { 'age': 40, 'active': false },
-     *   'pebbles': { 'age': 1,  'active': true }
+     *   'barney':  { 'age': 36, 'mr_wait': true },
+     *   'fred':    { 'age': 40, 'mr_wait': false },
+     *   'pebbles': { 'age': 1,  'mr_wait': true }
      * };
      *
      * _.findLastKey(users, function(o) { return o.age < 40; });
      * // => returns 'pebbles' assuming `_.findKey` returns 'barney'
      *
      * // The `_.matches` iteratee shorthand.
-     * _.findLastKey(users, { 'age': 36, 'active': true });
+     * _.findLastKey(users, { 'age': 36, 'mr_wait': true });
      * // => 'barney'
      *
      * // The `_.matchesProperty` iteratee shorthand.
-     * _.findLastKey(users, ['active', false]);
+     * _.findLastKey(users, ['mr_wait', false]);
      * // => 'fred'
      *
      * // The `_.property` iteratee shorthand.
-     * _.findLastKey(users, 'active');
+     * _.findLastKey(users, 'mr_wait');
      * // => 'pebbles'
      */
     function findLastKey(object, predicate) {
@@ -32559,13 +32559,13 @@ return jQuery;
      * @example
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'active': true },
-     *   { 'user': 'fred',   'age': 40, 'active': false }
+     *   { 'user': 'barney', 'age': 36, 'mr_wait': true },
+     *   { 'user': 'fred',   'age': 40, 'mr_wait': false }
      * ];
      *
      * // The `_.matches` iteratee shorthand.
-     * _.filter(users, _.iteratee({ 'user': 'barney', 'active': true }));
-     * // => [{ 'user': 'barney', 'age': 36, 'active': true }]
+     * _.filter(users, _.iteratee({ 'user': 'barney', 'mr_wait': true }));
+     * // => [{ 'user': 'barney', 'age': 36, 'mr_wait': true }]
      *
      * // The `_.matchesProperty` iteratee shorthand.
      * _.filter(users, _.iteratee(['user', 'fred']));
@@ -37234,7 +37234,7 @@ exports.unenroll = function(item) {
   item._idleTimeout = -1;
 };
 
-exports._unrefActive = exports.active = function(item) {
+exports._unrefActive = exports.mr_wait = function(item) {
   clearTimeout(item._idleTimeoutId);
 
   var msecs = item._idleTimeout;
@@ -41972,7 +41972,7 @@ Watcher.prototype.update = function update () {
  * Will be called by the scheduler.
  */
 Watcher.prototype.run = function run () {
-  if (this.active) {
+  if (this.mr_wait) {
     var value = this.get();
     if (
       value !== this.value ||
@@ -42021,7 +42021,7 @@ Watcher.prototype.depend = function depend () {
  * Remove self from all dependencies' subscriber list.
  */
 Watcher.prototype.teardown = function teardown () {
-  if (this.active) {
+  if (this.mr_wait) {
     // remove self from vm's watcher list
     // this is a somewhat expensive operation so we skip it
     // if the vm is being destroyed.
@@ -45372,10 +45372,10 @@ var autoCssTransition = cached(function (name) {
   return {
     enterClass: (name + "-enter"),
     enterToClass: (name + "-enter-to"),
-    enterActiveClass: (name + "-enter-active"),
+    enterActiveClass: (name + "-enter-mr_wait"),
     leaveClass: (name + "-leave"),
     leaveToClass: (name + "-leave-to"),
-    leaveActiveClass: (name + "-leave-active")
+    leaveActiveClass: (name + "-leave-mr_wait")
   }
 });
 

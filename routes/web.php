@@ -39,7 +39,7 @@ Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search
 
 // Страница инфо о сертификате
 Route::get('/certificate/{number}', 'MrCertificateController@View');
-Route::get('/certificates', 'MrCertificateController@list')->name('certificates_list');
+
 
 
 Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
