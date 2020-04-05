@@ -16,15 +16,23 @@ class MrCertificate extends ORM
   protected $table = 'mr_certificate';
 
   protected static $dbFieldsMap = array(
-    'Kind',
-    'Number',
-    'DateFrom',
-    'DateTo',
-    'CountryID',
-    'Status',
-    'LinkOut',
-    'Description',
-    // 'WriteDate',
+    'id',// $table->bigIncrements('id')->autoIncrement();
+    'Kind',// $table->integer('Kind');//Тип документа
+    'Number',// $table->string('Number');//Регистрационный номер документа
+    'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
+    'DateTo',// $table->date('DateTo')->nullable();//Дата окончания срока действия
+    'CountryID',// $table->integer('CountryID');//Страна
+    'Status',// $table->tinyInteger('Status')->default(0);//Статус действия | Действует
+    'Auditor',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
+    'BlankNumber',// $table->string('BlankNumber', 50)->nullable();//Номер бланка | BY 0008456
+    'DateStatusFrom',// $table->date('DateStatusFrom')->nullable();//Срок действия статуса | c 02.04.2020 по 01.04.2025
+    'DateStatusTo',// $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
+    'DocumentBase',// $table->string('DocumentBase')->nullable();//Документ, на основании которого установлен статус
+    'WhyChange',// $table->string('WhyChange')->nullable();//Причина изменения статуса
+    'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
+    'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
+    'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
+    //'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
   );
 
   const KIND_UNKNOWN = 0;
@@ -135,17 +143,6 @@ class MrCertificate extends ORM
     $this->DateTo = $value;
   }
 
-  // Описание
-  public function getDescription(): ?string
-  {
-    return $this->Description;
-  }
-
-  public function setDescription(?string $value)
-  {
-    $this->Description = $value;
-  }
-
   // Ссылка на оригинал
   public function getLinkOut(): ?string
   {
@@ -158,9 +155,9 @@ class MrCertificate extends ORM
   }
 
   // Дата создания/обновления записи
-  public function getWriteDate(): Carbon
+  public function getWriteDate(): ?MrDateTime
   {
-    return new Carbon($this->WriteDate);
+    return $this->getDateNullableField($this->WriteDate);
   }
 
   // Страна
@@ -174,7 +171,7 @@ class MrCertificate extends ORM
     $this->CountryID = $value;
   }
 
-  // Статус
+  // Статус действия
   public function getStatus(): ?int
   {
     return $this->Status;
@@ -193,8 +190,100 @@ class MrCertificate extends ORM
     }
     else
     {
-      dd('Неизвестный статус');
+      abort('Неизвестный статус');
     }
+  }
+
+  /**
+   * ФИО аудитора
+   *
+   * @return string
+   */
+  public function getAuditor(): string
+  {
+    return $this->Auditor;
+  }
+
+  public function setAuditor(string $value)
+  {
+    $this->Auditor = $value;
+  }
+
+  //Номер бланка | BY 0008456
+  public function getBlankNumber(): ?string
+  {
+    return $this->BlankNumber;
+  }
+
+  public function setBlankNumber(?string $value)
+  {
+    $this->BlankNumber = $value;
+  }
+
+
+  // Срок действия статуса | c 02.04.2020 по 01.04.2025
+  public function getDateStatusFrom(): ?MrDateTime
+  {
+    return $this->getDateNullableField('DateStatusFrom');
+  }
+
+  public function setDateStatusFrom(?$value)
+  {
+    $this->setDateNullableField($value, 'DateStatusFrom');
+  }
+
+  public function getDateStatusTo(): ?MrDateTime
+  {
+    return $this->getDateNullableField('DateStatusTo');
+  }
+
+  public function setDateStatusTo(?$value)
+  {
+    $this->setDateNullableField($value, 'DateStatusTo');
+  }
+
+  // Документ, на основании которого установлен статус
+  public function getDocumentBase(): ?string
+  {
+    return $this->DocumentBase;
+  }
+
+  public function setDocumentBase(?string $value)
+  {
+    return $this->DocumentBase = $value;
+  }
+
+  // Причина изменения статуса
+  public function getWhyChange(): ?string
+  {
+    return $this->WhyChange;
+  }
+
+  public function setWhyChange(?string $value)
+  {
+    return $this->WhyChange = $value;
+  }
+
+  // Схема сертификации (декларирования) | 1с
+  public function getSchemaCertificate(): ?string
+  {
+    return $this->SchemaCertificate;
+  }
+
+  public function setSchemaCertificate(?string $value)
+  {
+    return $this->SchemaCertificate = $value;
+  }
+
+  // Дополнительные сведения
+  public function getDescription(): ?string
+  {
+    return $this->Description;
+  }
+
+  public function setDescription(?string $value)
+  {
+    return $this->Description = $value;
   }
 
   //////////////////////////////////////////////////////////////////////////

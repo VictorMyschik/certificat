@@ -9,7 +9,7 @@ use App\Models\MrCertificate;
 
 class MrCertificateTableController extends MrTableController
 {
-  public static function buildTable(int $on_page)
+  public static function buildTable(int $on_page = 10)
   {
     $body = MrCertificate::Select(['id'])->paginate($on_page);
 

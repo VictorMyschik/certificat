@@ -11,7 +11,7 @@ class MrCertificateController extends Controller
 {
   public function list()
   {
-    return MrCertificateTableController::buildTable(2);
+    return MrCertificateTableController::buildTable();
   }
 
   public function View(string $number)

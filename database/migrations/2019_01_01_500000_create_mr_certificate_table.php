@@ -30,7 +30,7 @@ class CreateMrCertificateTable extends Migration
       $table->string('WhyChange')->nullable();//Причина изменения статуса
 
       $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
-      $table->string('Description', 1000)->nullable();//Примечание для себя
+      $table->string('Description', 1000)->nullable();// Дополнительные сведения
 
       $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи

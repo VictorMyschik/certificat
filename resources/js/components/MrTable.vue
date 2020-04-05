@@ -16,11 +16,10 @@
       </tr>
       </tbody>
     </table>
-
-    <pagination :data="table_body" @pagination-change-page="getResults">
-      <span class="mr-previous" slot="prev-nav">Previous</span>
-      <span class="mr-bg-founded" slot="next-nav">Next</span>
-    </pagination>
+      <pagination :data="table_body" @pagination-change-page="getResults">
+        <span class="" slot="prev-nav">Previous</span>
+        <span class="" slot="next-nav">Next</span>
+      </pagination>
   </div>
 </template>
 
@@ -81,11 +80,11 @@
     background-color: rgba(162, 164, 185, 0.6);
     color: #a2a4b9;
   }
-  .page-link{
+
+  .page-link {
     color: red;
+    padding: 0 0 0 0;
   }
   .mr-previous {
-    background-color: rgba(162, 164, 185, 0.6);
-
   }
 </style>
