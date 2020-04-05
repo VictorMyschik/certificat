@@ -6,8 +6,6 @@ namespace App\Models;
 
 use App\Helpers\MrDateTime;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 class MrCertificate extends ORM
 {
@@ -297,73 +295,5 @@ class MrCertificate extends ORM
     $out .= ')';
 
     return $out;
-  }
-
-  /**
-   * поиск по серитфикатам
-   *
-   * @param string|null $str
-   * @return array|object[]
-   */
-  public static function Search(?string $str)
-  {
-    if(!$str)
-    {
-      return array();
-    }
-
-    $list = DB::table(MrCertificate::$mr_table)
-      ->where('Number', 'LIKE', '%' . $str . '%')
-      ->limit(5)
-      ->get();
-
-    if(count($list))
-    {
-      return self::LoadArray($list, self::class);
-    }
-
-    return array();
-  }
-
-  /**
-   * Массив сведений о сертификате
-   *
-   * @return MrCertificateDetails[]
-   */
-  public function GetDetails(): array
-  {
-    //Cache::forget('certificate' . $this->id());
-    $r = Cache::rememberForever('certificate' . $this->id(), function () {
-      return DB::table(MrCertificateDetails::$mr_table)->WHERE('CertificateID', '=', $this->id())->get();
-    });
-
-    return parent::LoadArray($r, MrCertificateDetails::class);
-  }
-
-  /**
-   * недавно искали
-   * @param MrUser $user
-   * @return mixed
-   */
-  public static function GetCacheSearch(MrUser $user): array
-  {
-    return Cache::get('user_search_' . $user->id(), array());
-  }
-
-  /**
-   * Запись в кэш поиска сертификата
-   *
-   * @param MrCertificate $certificate
-   * @param MrUser $user
-   */
-  public static function SetCacheSearch(MrCertificate $certificate, MrUser $user)
-  {
-    $key = 'user_search_' . $user->id();
-
-    $certificates = Cache::get($key, array());
-    Cache::forget($key);
-    $certificates[$certificate->id()] = $certificate->GetFullName();
-
-    Cache::add($key, $certificates, 3600);
   }
 }
