@@ -18,14 +18,40 @@ class MrAdminBackUpController extends Controller
     $out['page_title'] = 'Бэкап БД';
 
     $file_migrations_list = DB::table('migrations')->pluck('migration')->toArray();
-
     $tables = array();
     foreach ($file_migrations_list as $key => $item)
     {
-      $tables[] = $item;
+      $class_name = substr($item, 25, strlen($item));
+      $class_name = substr($class_name, 0, strlen($class_name) - 6);
+      $class_name_out = '';
+
+      foreach (explode('_', $class_name) as $tmp_str)
+      {
+        $class_name_out .= ucfirst($tmp_str);
+      }
+
+      $object = null;
+      if(class_exists("App\\Models\\" . $class_name_out))
+      {
+        $object = "App\\Models\\" . $class_name_out;
+      }
+      elseif(class_exists("App\\Models\\References\\" . $class_name_out))
+      {
+        $object = "App\\Models\\References\\" . $class_name_out;
+      }
+
+      if($object)
+      {
+        $tables[] = array(
+          //'Name' => $object::$mr_table,
+          //'FileName' => $item,
+          //'has' => false,//isset(self::$tables[$object::$mr_table]),
+          //'count_rows' => $object::getCount(),
+        );
+      }
 
     }
-
+    dd($tables);
     $out['list'] = $tables;
 
     return View('Admin.mir_admin_backup_list')->with($out);
