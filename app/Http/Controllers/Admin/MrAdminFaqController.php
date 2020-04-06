@@ -85,6 +85,6 @@ class MrAdminFaqController extends Controller
     }
 
 
-    return Redirect::route('faq');
+    return back();
   }
 }

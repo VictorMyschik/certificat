@@ -18,7 +18,6 @@ class MrCertificateTableController extends MrTableController
     foreach ($body->getCollection() as $model)
     {
       $item = MrCertificate::loadBy($model->id);
-
       $model->id = $item->id();
       $model->number = $item->getNumber();
       $model->country = $item->getCountry()->getName();

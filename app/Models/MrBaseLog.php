@@ -4,7 +4,7 @@
 namespace App\Models;
 
 
-use Carbon\Carbon;
+use App\Helpers\MrDateTime;
 
 /**
  * Запись всех изменений БД
@@ -13,6 +13,7 @@ class MrBaseLog extends ORM
 {
   public static $mr_table = 'mr_base_log';
   public static $className = MrBaseLog::class;
+  protected $table = 'mr_base_log';
 
   public static $ignoring_tables = array(
     'mr_log_ident',
@@ -46,7 +47,7 @@ class MrBaseLog extends ORM
   }
 
   // Наименование таблицы
-  public function getTableName(): string
+  public function getTName(): string
   {
     return $this->TableName;
   }
@@ -90,17 +91,17 @@ class MrBaseLog extends ORM
   }
 
   // Дата создания/обновления записи
-  public function getWriteDate(): Carbon
+  public function getWriteDate(): MrDateTime
   {
-    return new Carbon($this->WriteDate);
+    return $this->getDateNullableField('WriteDate');
   }
 
   //////////////////////////////////////////////////////////////
   public static function SaveData(string $table, int $id, array $data)
   {
-    if (!in_array($table, MrBaseLog::$ignoring_tables))
+    if(!in_array($table, MrBaseLog::$ignoring_tables))
     {
-      if (count($data))
+      if(count($data))
       {
         foreach ($data as $key => $item)
         {

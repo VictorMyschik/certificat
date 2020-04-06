@@ -1,15 +1,17 @@
 <?php
 
 
-namespace App\Models;
+namespace App\Models\References;
 
 
 use App\Helpers\MrDateTime;
+use App\Models\ORM;
 
 class MrCurrency extends ORM
 {
   public static $mr_table = 'mr_currencies';
   public static $className = MrCurrency::class;
+  protected $table = 'list_currency_table';
 
   protected static $dbFieldsMap = array(
     'Code',
@@ -20,6 +22,11 @@ class MrCurrency extends ORM
     'Rounding',
     'Description'
   );
+
+  public static function getRouteTable()
+  {
+    return 'list_currency_table';
+  }
 
   public static function loadBy($value, $field = 'id'): ?MrCurrency
   {

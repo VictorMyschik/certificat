@@ -22,7 +22,10 @@
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="mr-color-white">{{ __('mr-t.Справочники') }}</span><span class="caret"></span>
           </a>
-          <a class="dropdown-menu padding-horizontal" href="/reference/country">{{ __('mr-t.Страны мира') }}</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="nav-link" href="{{route('references',['name'=>'country'])}}">{{ __('mr-t.Страны мира') }}</a>
+            <a class="nav-link" href="{{route('references',['name'=>'currency'])}}">{{ __('mr-t.Валюты мира') }}</a>
+          </div>
         </li>
 
         @guest
@@ -58,7 +61,7 @@
                 <a class="nav-link"
                    href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>
               @endif
-                <a class="nav-link" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
+              <a class="nav-link" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
               <a class="nav-link" href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}

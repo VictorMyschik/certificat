@@ -5,7 +5,7 @@ namespace App\Forms\Admin;
 
 
 use App\Forms\FormBase\MrFormBase;
-use App\Models\MrCurrency;
+use App\Models\References\MrCurrency;
 use Illuminate\Http\Request;
 
 class MrAdminReferenceCurrencyEditForm extends MrFormBase

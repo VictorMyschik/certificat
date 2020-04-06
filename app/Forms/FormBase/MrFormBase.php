@@ -19,7 +19,7 @@ class MrFormBase extends Controller
    * @param null $btn_name
    * @param array $btn_class
    * @param string $form_size
-   * @return \Illuminate\Contracts\View\View
+   * @return string
    */
   public static function getFormBase($route_name, $data, $btn_name = null, $btn_class = array(), $form_size = 'lg')
   {
@@ -40,7 +40,7 @@ class MrFormBase extends Controller
 
     $out['btn_class'] = $base_class_btn;
 
-    return View::make('Form.button_form_base')->with($out);
+    return View::make('Form.button_form_base')->with($out)->render();
   }
 
   /**

@@ -22,17 +22,20 @@ Route::match(['get', 'post'], '/faq', 'MrFAQController@index')->name('faq_page')
 Route::get('/policy', 'MrArticlesController@ViewPolicy')->name('policy_page');
 Route::get('/api', 'MrArticlesController@ViewApi');
 
-// атворизация через соц сети
-Route::post('/ulogin', 'UloginController@login');
-
 // Подписка
 Route::match(['get', 'post'], '/subscription', "MrSubscriptionController@Subscription");
 Route::match(['get', 'post'], '/unsubscription/{token}', "MrSubscriptionController@UnSubscription");
 Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 
 //// Справочники
-Route::get('/references', 'MrReferences@List');
-Route::get('/reference/{name}', 'MrReferences@View');
+/// универсальная динамческая страница справочкика
+Route::get('/references/{name}', 'MrReferencesController@View')->name('references');
+
+/// API table
+Route::post('/reference/country_table', 'MrReferencesController@ListCountries')->name('list_country_table');
+Route::match(['get', 'post'],'/reference/currency_table', 'MrReferencesController@ListCurrency')->name('list_currency_table');
+
+Route::post('/certificates', 'MrCertificateController@List')->name('certificates_list');
 
 // Поиск
 Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search');
@@ -183,35 +186,24 @@ Route::group(['middleware' => 'is_admin'], function () {
   //// Справочники
   // Удаление строки
   Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
-  // Страны мира
-  Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry")->name('admin_addresses_page');
 
-  // Переустановка справочника
+  Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency")->name('admin_reference_currency_rebuild');
+
+  //// Страны мира
+  Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry")->name('admin_country_page');
+  // Rebuild
   Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry")->name('reference_country');
-  // Форма редактирования справочника стран
+  // Edit
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
 
-  Route::get('/admin/reference/country/{id}', "Admin\MrAdminReferences@ViewAddresses")->name('admin_reference_country_cities_page');
-  // Адрес
-  Route::match(['get', 'post'], '/admin/country/address/{id}/submit', "Forms\Admin\MrAdminAddressesEditForm@submitForm")->name('admin_address_form_submit');
-  Route::match(['get', 'post'], '/admin/country/address/{id}', "Forms\Admin\MrAdminAddressesEditForm@getFormBuilder")->name('admin_address_form_edit');
-
-  // Гугл карты
-  Route::get('/map/address/{id}/submit', "Forms\MrMapPopupInfoForm@getFormBuilder")->name('address_map_popup_submit');
-  Route::get('/map/address/{id}', "Forms\MrMapPopupInfoForm@getFormBuilder")->name('address_map_popup_edit');
-
-  // Удаление адреса
-  Route::get('/admin/address/{id}/delete', "Admin\MrAdminReferences@AddressDelete")->name('address_delete');
-
-
-  // Валюты мира
-  Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency");
-  // Переустановка справочника
-  Route::get('/admin/reference/currency/rebuild', "Admin\MrAdminReferences@RebuildCurrency")->name('reference_currency');
-  // Форма редактирования справочника стран
-  Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}/submit', "Forms\Admin\MrAdminReferenceCurrencyEditForm@submitForm")->name('admin_reference_currency_form_submit');
-  Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}', "Forms\Admin\MrAdminReferenceCurrencyEditForm@getFormBuilder")->name('admin_reference_currency_form_edit');
+  //// Валюты мира
+  Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency")->name('admin_currency_page');
+  // Rebuild
+  Route::get('/admin/reference/currency/rebuild', "Admin\MrAdminReferences@RebuildCurrency")->name('reference_currency_rebuild');
+  // Форма редактирования справочника Валют
+  Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@submitForm")->name('admin_reference_currency_form_submit');
+  Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@getFormBuilder")->name('admin_reference_currency_form_edit');
 
 
   //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ

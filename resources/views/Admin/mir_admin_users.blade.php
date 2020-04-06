@@ -5,7 +5,7 @@
     @include('Admin.layouts.nav_bar')
     <div class="container m-t-10">
       @include('Admin.layouts.page_title')
-      <div class="margin-b-15 margin-t-10">
+      <div class="m-b-10">
         {!! MrBtn::loadForm('user_form_edit', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
       </div>
       <table class="table table-hover table-striped table-bordered mr-middle">

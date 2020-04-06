@@ -9,7 +9,7 @@ use App\Models\MrCertificate;
 
 class MrCertificateController extends Controller
 {
-  public function list()
+  public function List()
   {
     return MrCertificateTableController::buildTable();
   }

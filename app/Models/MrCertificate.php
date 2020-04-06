@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use App\Helpers\MrDateTime;
+use App\Models\References\MrCountry;
 use Carbon\Carbon;
 
 class MrCertificate extends ORM
@@ -225,7 +226,7 @@ class MrCertificate extends ORM
     return $this->getDateNullableField('DateStatusFrom');
   }
 
-  public function setDateStatusFrom(?$value)
+  public function setDateStatusFrom($value)
   {
     $this->setDateNullableField($value, 'DateStatusFrom');
   }
@@ -235,7 +236,7 @@ class MrCertificate extends ORM
     return $this->getDateNullableField('DateStatusTo');
   }
 
-  public function setDateStatusTo(?$value)
+  public function setDateStatusTo($value)
   {
     $this->setDateNullableField($value, 'DateStatusTo');
   }

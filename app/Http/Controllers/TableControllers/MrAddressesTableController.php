@@ -5,22 +5,15 @@ namespace App\Http\Controllers\TableControllers;
 
 
 use App\Forms\FormBase\MrForm;
-use App\Forms\FormBase\MrLink;
+use App\Helpers\MrLink;
 use App\Models\MrAddresses;
 
 class MrAddressesTableController extends MrTableController
 {
-  public static function buildTable($list)
+  public static function buildTable(int $on_page = 10)
   {
     $header = array(
-      'ID',
-      'Страна',
-      'Город',
-      'Строение',
-      'Точный адрес',
-      'Широта',
-      'Долгота',
-      '#',
+
     );
 
     $rows = array();
@@ -28,13 +21,7 @@ class MrAddressesTableController extends MrTableController
     {
       $row = array();
       /** @var MrAddresses $item */
-      $row[] = $item->id();
-      $row[] = $item->getCountry()->getName();
-      $row[] = $item->getCity();
-      $row[] = $item->getBuilding();
-      $row[] = $item->getAddress();
-      $row[] = $item->getLat();
-      $row[] = $item->getLon();
+
 
       $edit = MrForm::loadForm('admin_address_form_edit', ['id' => $item->id()], '', ['btn btn-primary btn-xs fa fa-edit'], 'xs');
 

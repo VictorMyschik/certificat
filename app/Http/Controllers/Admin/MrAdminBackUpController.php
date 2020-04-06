@@ -20,32 +20,9 @@ class MrAdminBackUpController extends Controller
     $file_migrations_list = DB::table('migrations')->pluck('migration')->toArray();
 
     $tables = array();
-    foreach ($file_migrations_list as $item)
+    foreach ($file_migrations_list as $key => $item)
     {
-      $class_name = '';
-      foreach (explode('_', self::getTableNameFromFileName($item)) as $item_2)
-      {
-        if($item_2 == 'table')
-        {
-          continue;
-        }
-
-        $class_name .= substr_replace($item_2, mb_strtoupper(substr($item_2, 0, 1)), 0, 1);
-      }
-
-
-
-      if(class_exists("App\\Models\\" . $class_name))
-      {
-        $object = "App\\Models\\" . $class_name;
-        //dd($object::$mr_table);
-        $tables[] = array(
-          'Name' => $object::$mr_table,
-          'FileName' => $item,
-          'has' => isset(self::$tables[$object::$mr_table]),
-          'count_rows' => $object::getCount(),
-        );
-      }
+      $tables[] = $item;
 
     }
 

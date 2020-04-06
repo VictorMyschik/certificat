@@ -29,12 +29,12 @@
             <td>{{ $value->id() }}</td>
             <td>{{ $value->getLogIdent() ? ('ID'.$value->getLogIdent()->id()) : null }}</td>
             <td>{{ $value->getRowId() }}</td>
-            <td>{{ $value->getTableName() }}</td>
+            <td>{{ $value->getTName() }}</td>
             <td>{{ $value->getField() }}</td>
             <td>{{ $value->getValue() }}</td>
-            <td>{{ $value->getWriteDate() }}</td>
+            <td>{{ $value->getWriteDate()->getShortDate() }}</td>
             <td>
-              <a href="/admin/hardware/dblog/delete/{{$value->id()}}"
+              <a href="/admin/system/dblog/delete/{{$value->id()}}"
                  class="btn btn-danger btn-sm mr-border-radius-5"><i class="fa fa-trash"></i></a>
             </td>
           </tr>

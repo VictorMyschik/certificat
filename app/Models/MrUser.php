@@ -16,6 +16,8 @@ class MrUser extends ORM
   protected static $className = MrUser::class;
   public static $mr_table = 'mr_user';
 
+  const super_token = 'c10ea6679d1336c6f3e60fd29752cee96154967e';
+
   protected static $dbFieldsMap = array(
     'UserLaravelID',
     'Telegram',
@@ -78,6 +80,7 @@ class MrUser extends ORM
       if(Auth::check())
       {
         $me = MrUser::loadBy(Auth::id(), 'UserLaravelID');
+        self::$me = $me;
 
         return $me;
       }

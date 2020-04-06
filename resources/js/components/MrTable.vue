@@ -12,14 +12,19 @@
       </thead>
       <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
       <tr v-for="td in table_body.data">
-        <td v-for="item in td">{{item}}</td>
+        <td v-for="item in td">
+          <div v-if="Array.isArray(item)">
+            <span v-for="small_item in item" v-html="small_item"></span>
+          </div>
+          <div v-else v-html="item"></div>
+        </td>
       </tr>
       </tbody>
     </table>
-      <pagination :data="table_body" @pagination-change-page="getResults">
-        <span class="" slot="prev-nav">Previous</span>
-        <span class="" slot="next-nav">Next</span>
-      </pagination>
+    <pagination :data="table_body" @pagination-change-page="getResults">
+      <span class="" slot="prev-nav">Previous</span>
+      <span class="" slot="next-nav">Next</span>
+    </pagination>
   </div>
 </template>
 
@@ -31,14 +36,13 @@
     data() {
       return {
         mr_wait: false,
-
         table_body: {},
         table_header: [],
-
         mr_field: 'id',
         mr_sort: 'asc',
         arrow_up: 'fa fa-arrow-up',
         arrow_down: 'fa fa-arrow-down',
+        token: '',
       }
     },
 
@@ -54,8 +58,8 @@
         axios.post(this.mr_route + param).then(response => {
               this.table_body = response.data.body;
               this.table_header = response.data.header;
-
-              this.mr_wait = false;
+              this.token =
+                  this.mr_wait = false;
             }
         )
       },
@@ -84,7 +88,5 @@
   .page-link {
     color: red;
     padding: 0 0 0 0;
-  }
-  .mr-previous {
   }
 </style>

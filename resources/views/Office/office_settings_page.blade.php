@@ -140,7 +140,7 @@
           <div class="row col-md-12 p-0 margin-t-20">
             <div class="d-md-inline col-md-4 mr-middle">
               <h5 class="mr-bold">{{__('mr-t.Личные настройки')}}</h5>
-              <div>{!! \App\Forms\FormBase\MrLink::open('personal_page', [],'', 'btn-primary btn-xs fa fa-eye') !!}
+              <div>{!! MrLink::open('personal_page', [],'', 'btn-primary btn-xs fa fa-eye') !!}
                 {{ $me->GetFullName() }}
               </div>
             </div>

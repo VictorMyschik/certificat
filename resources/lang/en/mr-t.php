@@ -118,6 +118,7 @@ return $translate_arr + [
     'Telegram оповещение' => 'Telegram alert',
     'Офисы' => 'Offices',
     'обязательно' => 'is necessarily',
-    'Неправильный формат сообщения'=>'Message format are wrong',
-    'Не найдены данные'=>'Data not found',
+    'Неправильный формат сообщения' => 'Message format are wrong',
+    'Не найдены данные' => 'Data not found',
+    'Валюты мира' => 'Currencies'
   ];

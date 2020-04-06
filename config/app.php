@@ -228,7 +228,7 @@ return [
     'MrBtn' => App\Forms\FormBase\MrForm::class,
     'MrMessage' => App\Helpers\MrMessageHelper::class,
     'MrBaseHelper' => App\Helpers\MrBaseHelper::class,
-    'MrLink' => App\Forms\FormBase\MrLink::class,
+    'MrLink' => App\Helpers\MrLink::class,
     'MrUser' => \App\Models\MrUser::class,
   ],
 

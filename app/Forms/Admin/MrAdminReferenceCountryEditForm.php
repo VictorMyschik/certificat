@@ -5,7 +5,7 @@ namespace App\Forms\Admin;
 
 
 use App\Forms\FormBase\MrFormBase;
-use App\Models\MrCountry;
+use App\Models\References\MrCountry;
 use Illuminate\Http\Request;
 
 class MrAdminReferenceCountryEditForm extends MrFormBase

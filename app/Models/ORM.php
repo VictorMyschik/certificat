@@ -264,7 +264,7 @@ class ORM extends Model
       $this->before_delete();
     }
 
-    if($this->getTable() && $this->id())
+    if(static::$mr_table && $this->id())
     {
       DB::table(static::$mr_table)->delete($this->id());
 

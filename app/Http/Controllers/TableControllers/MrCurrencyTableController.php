@@ -5,8 +5,8 @@ namespace App\Http\Controllers\TableControllers;
 
 
 use App\Forms\FormBase\MrForm;
-use App\Forms\FormBase\MrLink;
-use App\Models\MrCurrency;
+use App\Helpers\MrLink;
+use App\Models\References\MrCurrency;
 
 class MrCurrencyTableController extends MrTableController
 {

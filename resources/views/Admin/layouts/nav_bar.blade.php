@@ -17,8 +17,8 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/admin/offices">Офисы</a>
             <a class="dropdown-item" href="/admin/certificate">Сертификаты</a>
-            <a class="dropdown-item" href="/admin/reference/country">Страны мира</a>
-            <a class="dropdown-item" href="/admin/reference/currency">Валюты мира</a>
+            <a class="dropdown-item" href="{{route('admin_country_page')}}">Страны мира</a>
+            <a class="dropdown-item" href="{{route('admin_currency_page')}}">Валюты мира</a>
           </div>
         </li>
 

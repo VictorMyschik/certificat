@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\References;
 
 use App\Http\Controllers\Admin\MrAdminBackUpController;
+use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Данные берутся с https://www.geonames.org/countries/
- *
  */
 class MrCountry extends ORM
 {
   public static $mr_table = 'mr_countries';
   public static $className = MrCountry::class;
+
+  public static function getRouteTable()
+  {
+    return 'list_country_table';
+  }
 
   protected static $dbFieldsMap = array(
     'Name',
