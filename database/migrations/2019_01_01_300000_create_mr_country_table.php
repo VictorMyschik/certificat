@@ -8,13 +8,13 @@ class CreateMrCountryTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_countries', function (Blueprint $table) {
+    Schema::create('mr_country', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
-      $table->string('Name',50);
-      $table->char('ISO3166alpha2',3);
-      $table->char('ISO3166alpha3',4);
-      $table->char('ISO3166numeric',3);
-      $table->string('Capital',50);
+      $table->string('Name', 50);
+      $table->char('ISO3166alpha2', 3);
+      $table->char('ISO3166alpha3', 4);
+      $table->char('ISO3166numeric', 3);
+      $table->string('Capital', 50);
       $table->tinyInteger('Continent');
     });
   }
@@ -26,6 +26,6 @@ class CreateMrCountryTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_countries');
+    Schema::dropIfExists('mr_country');
   }
 }

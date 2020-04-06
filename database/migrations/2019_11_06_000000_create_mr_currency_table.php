@@ -9,7 +9,7 @@ class CreateMrCurrencyTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_currencies', function (Blueprint $table) {
+    Schema::create('mr_currency', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Code', 3);
       $table->string('TextCode', 3);
@@ -28,6 +28,6 @@ class CreateMrCurrencyTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_currencies');
+    Schema::dropIfExists('mr_currency');
   }
 }
