@@ -1,25 +1,24 @@
 <?php
 
 
-namespace App\Http\Controllers\TableControllers\Admin;
+namespace App\Http\Controllers\TableControllers\Admin\System;
 
 
 use App\Http\Controllers\TableControllers\MrTableController;
-use App\Models\MrFeedback;
+use App\Models\MrSubscription;
 
-class MrAdminDbMrFeedbackTableController extends MrTableController
+class MrAdminDbMrSubscriptionTableController extends MrTableController
 {
   public static function buildTable(int $on_page = 10)
   {
-    $body = MrFeedback::Select()->paginate($on_page);
+    $body = MrSubscription::Select()->paginate($on_page);
 
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Name', 'sort' => 'Name'),
         array('name' => 'Email', 'sort' => 'Email'),
-        array('name' => 'Text', 'sort' => 'Text'),
         array('name' => 'Date', 'sort' => 'Date'),
+        array('name' => 'Token', 'sort' => 'Token'),
       ),
 
       'body' => $body

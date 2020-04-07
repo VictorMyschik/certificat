@@ -16,11 +16,8 @@ class MrAdminCertificateController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Сертификаты';
-    $out['countries'] = array();
-    $out['list'] = MrCertificate::GetAll();
 
-
-    return View('Admin.mir_admin_certificate')->with($out);
+    return View('Admin.Certificate.mir_admin_certificate')->with($out);
   }
 
   /**
@@ -40,47 +37,21 @@ class MrAdminCertificateController extends Controller
   }
 
   /**
-   * Удаление сведения о сертификате
-   *
-   * @param int $certificate_id
-   * @param int $id
-   * @return Factory|View
+   * Страница седений об адресах, таких как Email, Телефон и прочее
    */
-  public function certificateDetailsDelete(int $certificate_id, int $id)
+  public function ViewCommunicate()
   {
-    $certificate = MrCertificate::loadBy($certificate_id);
-    foreach ($certificate->GetDetails() as $details)
-    {
-      if($details->id() == $id)
-      {
-        $details->mr_delete();
-        MrMessageHelper::SetMessage(true, 'Успешно удален.');
+    $out = array();
+    $out['page_title'] = 'Связь';
 
-        return back();
-      }
-    }
-
-    MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Инфо о сертификате не найдено.');
-    return back();
+    return View('Admin.Certificate.mir_admin_certificate_communicate')->with($out);
   }
 
   /**
-   * Сраница сведений о сертификате
-   *
-   * @param int $id
-   * @return Factory|View
+   * Api получение таблицы телефонов и Email-ов
    */
-  public function CertificateDetails(int $id)
+  public function CommunicateList()
   {
-    $certificate = MrCertificate::loadBy($id);
-    $details = $certificate->GetDetails();
 
-    $out = array();
-
-    $out['list'] = $details;
-    $out['page_title'] = 'Дополнительные сведения о сертификате';
-    $out['certificate'] = $certificate;
-
-    return View('Admin.mir_admin_certificate_details')->with($out);
   }
 }

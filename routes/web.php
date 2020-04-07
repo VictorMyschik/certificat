@@ -40,7 +40,6 @@ Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search
 Route::get('/certificate/{number}', 'MrCertificateController@View');
 
 
-
 Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
 // Приём данных с Telegram
@@ -184,38 +183,28 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Удаление строки
   Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
 
-  Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency")->name('admin_reference_currency_rebuild');
-
   //// Страны мира
   Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry")->name('admin_country_page');
-  // Rebuild
-  Route::get('/admin/reference/country/rebuild', "Admin\MrAdminReferences@RebuildCountry")->name('reference_country');
   // Edit
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
 
   //// Валюты мира
   Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency")->name('admin_currency_page');
-  // Rebuild
-  Route::get('/admin/reference/currency/rebuild', "Admin\MrAdminReferences@RebuildCurrency")->name('reference_currency_rebuild');
   // Форма редактирования справочника Валют
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@submitForm")->name('admin_reference_currency_form_submit');
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@getFormBuilder")->name('admin_reference_currency_form_edit');
 
 
-  //// Проект СЕРТИФИКАТЫ СООТВЕТСТВИЯ
+  #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
-  Route::get('/admin/certificate/details/{id}', "Admin\MrAdminCertificateController@CertificateDetails");
-  // Форма редактированиея сведения о сертификате
-  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}/submit', "Forms\Admin\MrAdminCertificateDetailsEditForm@submitForm")->name('admin_certificate_details_form_submit');
-  Route::match(['get', 'post'], '/admin/certificate/{certificate_id}/details/edit/{id}', "Forms\Admin\MrAdminCertificateDetailsEditForm@getFormBuilder")->name('admin_certificate_details_form_edit');
-  // Форма добавления нового сертификата
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}/submit', "\App\Forms\Admin\MrAdminCertificateEditForm@submitForm")->name('admin_certificate_form_submit');
-  Route::match(['get', 'post'], '/admin/certificate/edit/{id}', "\App\Forms\Admin\MrAdminCertificateEditForm@getFormBuilder")->name('admin_certificate_form_edit');
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
-  Route::get('/admin/certificate/{certificate_id}/details/delete/{id}', "Admin\MrAdminCertificateController@certificateDetailsDelete");
 
+  // Email Phone...
+  Route::get('/admin/certificate/communicate', "Admin\MrAdminCertificateController@ViewCommunicate")->name('communicate_page');
+
+  #endregion
 
   //// Офисы
   Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');

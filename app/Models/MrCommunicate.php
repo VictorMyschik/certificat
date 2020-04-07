@@ -17,10 +17,10 @@ class MrCommunicate extends ORM
     'Address',
   );
 
-  const KIND_OBJECT_CERTIFICATE = 1;
+  const KIND_OBJECT_MANUFACTURER = 1;
 
   protected static $kind_object_list = array(
-    self::KIND_OBJECT_CERTIFICATE => 'MrCertificate',
+    self::KIND_OBJECT_MANUFACTURER => 'MrManufacturer',
   );
 
   public function getKindObject(): int
@@ -44,6 +44,12 @@ class MrCommunicate extends ORM
   public static function getKinds()
   {
     return self::$kinds;
+  }
+
+
+  public static function loadBy($value, $field = 'id'): ?MrCommunicate
+  {
+    return parent::loadBy((string)$value, $field);
   }
 
   public function getKind(): int

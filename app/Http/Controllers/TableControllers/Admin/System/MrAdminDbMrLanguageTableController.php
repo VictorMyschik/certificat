@@ -1,11 +1,10 @@
 <?php
 
 
-namespace App\Http\Controllers\TableControllers\Admin;
+namespace App\Http\Controllers\TableControllers\Admin\System;
 
 
 use App\Http\Controllers\TableControllers\MrTableController;
-use App\Models\MrBaseLog;
 use App\Models\MrLanguage;
 
 class MrAdminDbMrLanguageTableController extends MrTableController

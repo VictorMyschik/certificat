@@ -16,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 //// Справочники
 Route::match(['get', 'post'], '/reference/country_table', 'MrReferencesController@ListCountries')->name('list_country_table');
 Route::match(['get', 'post'], '/reference/currency_table', 'MrReferencesController@ListCurrency')->name('list_currency_table');
+
+// BackUp
 Route::match(['get', 'post'], '/admin/system/backup/table/{table_name}', 'Admin\MrAdminBackUpController@GetTable')->name('list_db_table_table');
+
+// Certificates
+Route::match(['get', 'post'], '/admin/certificate/communicate', 'MrAdminCertificateController@CommunicateList')->name('list_communicate_table');
+
 
 
 //// Прочее

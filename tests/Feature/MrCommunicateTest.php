@@ -20,7 +20,7 @@ class MrCommunicateTest extends TestCase
 
     $communicate = new MrCommunicate();
     //'KindObject'
-    $KindObject = MrCommunicate::KIND_OBJECT_CERTIFICATE;
+    $KindObject = MrCommunicate::KIND_OBJECT_MANUFACTURER;
     $communicate->setKindObject($KindObject);
     //'ObjectID'
     $ObjectID = rand(1, 100000);

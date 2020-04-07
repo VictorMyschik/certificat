@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\TableControllers\Admin\MrAdminBackupTableController;
+use App\Http\Controllers\TableControllers\Admin\System\MrAdminBackupTableController;
 use App\Models\MrBackup;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -78,9 +78,9 @@ class MrAdminBackUpController extends Controller
 
     if(isset($arr[$table_name]))
     {
-      if(class_exists("App\\Http\\Controllers\\TableControllers\\Admin\\" . $arr[$table_name], true))
+      if(class_exists("App\\Http\\Controllers\\TableControllers\\Admin\\System\\" . $arr[$table_name], true))
       {
-        $object = "App\\Http\\Controllers\\TableControllers\\Admin\\" . $arr[$table_name];
+        $object = "App\\Http\\Controllers\\TableControllers\\Admin\\System\\" . $arr[$table_name];
         return $object::buildTable(50);
       }
     }

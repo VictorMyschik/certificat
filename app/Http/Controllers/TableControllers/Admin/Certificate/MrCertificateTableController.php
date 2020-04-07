@@ -1,10 +1,11 @@
 <?php
 
 
-namespace App\Http\Controllers\TableControllers;
+namespace App\Http\Controllers\TableControllers\Admin\Certificate;
 
 
 use App\Helpers\MrDateTime;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrCertificate;
 
 class MrCertificateTableController extends MrTableController
