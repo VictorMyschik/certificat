@@ -58,6 +58,9 @@ class MrAdminBackUpController extends Controller
     $arr = array(
       'mr_faq' => 'MrAdminDbMrFaqTableController',
       'mr_currency' => 'MrAdminDbMrCurrencyTableController',
+      'mr_country' => 'MrAdminDbMrCountryTableController',
+      'mr_base_log' => 'MrAdminDbMrBaseLogTableController',
+      'mr_offices' => 'MrAdminDbMrOfficesTableController',
     );
 
     if(isset($arr[$table_name]))
