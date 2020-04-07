@@ -69,6 +69,7 @@ class MrAdminBackUpController extends Controller
   public function ViewTable(string $table_name)
   {
     $out = array();
+
     $out['page_title'] = 'Таблица ' . $table_name;
     $out['route_name'] = route('list_db_table_table', ['table_name' => $table_name]);
 
@@ -83,7 +84,8 @@ class MrAdminBackUpController extends Controller
   public function GetTable(string $table_name)
   {
     $arr = array(
-      $table_name => 'MrDbMrFaqTableController',
+      'mr_faq' => 'MrDbMrFaqTableController',
+      'mr_currency' => 'MrDbMrCurrencyTableController',
     );
 
     if(isset($arr[$table_name]))
@@ -91,11 +93,14 @@ class MrAdminBackUpController extends Controller
       if(class_exists("App\\Http\\Controllers\\TableControllers\\Admin\\" . $arr[$table_name], true))
       {
         $object = "App\\Http\\Controllers\\TableControllers\\Admin\\" . $arr[$table_name];
-        return $object::buildTable();
+        return $object::buildTable(50);
       }
     }
 
-    return null;
+    return array(
+      'header' => array(),
+      'body' => array(),
+    );
   }
 
   public static function getTableNameFromFileName(string $item)
