@@ -49,25 +49,25 @@ class MrReferencesCountryTableController extends MrTableController
           $edit = MrForm::loadForm('admin_reference_country_form_edit', ['id' => $item->id()], '', ['btn btn-success btn-xs fa fa-edit']),
           $delete = MrLink::open('reference_item_delete',
             ['name' => 'country', 'id' => $item->id()], '',
-            'btn btn-danger btn-xs fa fa-trash-alt',
+            'm-l-5 btn btn-danger btn-xs fa fa-trash-alt',
             'Удалить', ['onclick' => "return confirm('Уверены?');"]),
         );
       }
     }
 
     $header = array(
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Столица', 'sort' => 'Capital'),
+      array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('name' => __('mr-t.Столица'), 'sort' => 'Capital'),
       array('name' => 'ISO-3166 alpha2', 'sort' => 'ISO3166alpha2'),
       array('name' => 'ISO-3166 alpha3', 'sort' => 'ISO3166alpha3'),
       array('name' => 'ISO-3166 numeric', 'sort' => 'ISO3166numeric'),
-      array('name' => 'Континент', 'sort' => 'Continent'),
-      array('name' => 'Флаг', 'sort' => 'Flag')
+      array('name' => __('mr-t.Континент'), 'sort' => 'Continent'),
+      array('name' => __('mr-t.Флаг'), 'sort' => 'Flag')
     );
 
     if($can_edit)
     {
-      $header['#'] = '#';
+      $header[] = array('name' => '#');
     }
 
     $body->setCollection($collections);

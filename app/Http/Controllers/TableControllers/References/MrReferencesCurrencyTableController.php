@@ -44,25 +44,25 @@ class MrReferencesCurrencyTableController extends MrTableController
           $edit = MrForm::loadForm('admin_reference_currency_form_edit', ['id' => $item->id()], '', ['btn btn-success btn-xs fa fa-edit']),
           $delete = MrLink::open('reference_item_delete',
             ['name' => 'currency', 'id' => $item->id()], '',
-            'btn btn-danger btn-xs fa fa-trash-alt',
+            'm-l-5 btn btn-danger btn-xs fa fa-trash-alt',
             'Удалить', ['onclick' => "return confirm('Уверены?');"]),
         );
       }
     }
 
     $header = array(
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Код', 'sort' => 'TextCode'),
-      array('name' => 'Дата с', 'sort' => 'DateFrom'),
-      array('name' => 'Дата по', 'sort' => 'DateTo'),
-      array('name' => 'Цифровой код', 'sort' => 'Code'),
-      array('name' => 'Округление', 'sort' => 'Rounding'),
-      array('name' => 'Примечание', 'sort' => 'Description'),
+      array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('name' => __('mr-t.Код'), 'sort' => 'TextCode'),
+      array('name' => __('mr-t.Дата с'), 'sort' => 'DateFrom'),
+      array('name' => __('mr-t.Дата по'), 'sort' => 'DateTo'),
+      array('name' => __('mr-t.Цифровой код'), 'sort' => 'Code'),
+      array('name' => __('mr-t.Округление'), 'sort' => 'Rounding'),
+      array('name' => __('mr-t.Примечание'), 'sort' => 'Description'),
     );
 
     if($can_edit)
     {
-      $header[] = array('name' => 'Примечание', 'sort' => '#');
+      $header[] = array('name' => '#');
     }
 
     $body->setCollection($collections);

@@ -6,6 +6,13 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Цифровой код' => 'Numeric code',
+    'Округление' => 'Rounding',
+    'Дата с' => 'Date from',
+    'Дата по' => 'Date to',
+    'Код' => 'Code',
+    'Континент' => 'Continent',
+    'Наименование' => 'Name',
     'Запомнить меня' => 'Remember Me',
     'Забыли пароль?' => 'Forgot You Password?',
     'Моя почта' => 'Email',

@@ -15,7 +15,7 @@ class MrFAQController extends Controller
   {
     $out = array();
 
-    $out['list'] = MrFaq::GetAll();
+    $out['list'] = MrFaq::GetByLanguage();
 
     return View('faq')->with($out);
   }
@@ -23,7 +23,7 @@ class MrFAQController extends Controller
   public function Feedback(Request $request)
   {
     // Feedback
-    if($request->get('text') && $request->get('name') && $request->get('email'))
+    if ($request->get('text') && $request->get('name') && $request->get('email'))
     {
       $name = $request->get('name');
       $email = $request->get('email');
@@ -41,7 +41,7 @@ class MrFAQController extends Controller
 
       $site = MrBaseHelper::MR_DOMAIN;
       $telegramm = "$site \n $name \n $email \n $text";
-      MrBaseHelper::sendMeByTelegram($telegramm);
+      //MrBaseHelper::sendMeByTelegram($telegramm);
 
       MrMessageHelper::SetMessage(true, 'Ваше сообщение отправлено');
     }

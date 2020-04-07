@@ -13,6 +13,7 @@ class CreateMrFaqTable extends Migration
       $table->smallIncrements('id')->autoIncrement();
       $table->string('Title')->unique();
       $table->string('Text', 8000);
+      $table->tinyInteger('LanguageID')->default(0);
     });
   }
 

@@ -14,6 +14,7 @@ class MrFaq extends ORM
   protected static $dbFieldsMap = array(
     'Title',
     'Text',
+    'LanguageID',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrFaq
@@ -44,15 +45,21 @@ class MrFaq extends ORM
     $this->Text = $value;
   }
 
-  ///////////////////////////////////////////////////////////////////
-  public static function GetAll()
+  public function getLanguage(): MrLanguage
   {
-    $list = DB::table(static::$mr_table)->get(['id']);
-    $out = array();
-    foreach ($list as $id) {
-      $out[] = MrFaq::loadBy($id->id);
-    }
-    return $out;
+    return MrLanguage::loadBy($this->LanguageID);
   }
 
+  public function setLanguageID(int $value)
+  {
+    $this->LanguageID = $value;
+  }
+
+  ///////////////////////////////////////////////////////////////////
+  public static function GetByLanguage()
+  {
+    $lang = MrLanguage::getCurrentLanguage();
+    $list = DB::table(self::$mr_table)->where('LanguageID', $lang->id())->get();
+    return parent::LoadArray($list, self::class);
+  }
 }

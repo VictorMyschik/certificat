@@ -48,7 +48,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{route('admin_users')}}">Пользователи</a>
             <a class="dropdown-item" href="{{route('admin_language_list')}}">Переводчик</a>
-            <a class="dropdown-item" href="{{route('admin_faq')}}">FAQ</a>
+            <a class="dropdown-item" href="{{route('admin_faq_page')}}">FAQ</a>
             <a class="dropdown-item" href="{{route('admin_feedback_list')}}">Обратная связь</a>
             <a class="dropdown-item" href="{{route('admin_article_page')}}">Статьи</a>
             <a class="dropdown-item" href="{{route('admin_subscription')}}">Подписка</a>

@@ -3,13 +3,16 @@
   <div class="mr-main-div">
     @include('Admin.layouts.nav_bar')
     <div class="container m-t-10">
+      {!! MrLink::open('admin_article_page',[],'Назад','btn btn-success btn-xs') !!}
       @include('Admin.layouts.page_title')
       {!!  MrMessage::GetMessage() !!}
-      <div class="padding-horizontal">
+      <div class="padding-horizontal-0">
         {{ Form::open(['name'=>'article_edit','method' => 'post', 'enctype'=>'multipart/form-data', 'files' => true]) }}
         {{ Form::token() }}
+
         @include('Form.BaseForm.mr_logic_form',['form'=>$form])
-        <div class="col-md-9 col-sm-12 padding-0">
+
+        <div class="container padding-horizontal-0">
           <a href="{{ route('admin_article_page') }}" onclick="return confirm('Отменить?');"
              class="btn btn-xs btn-danger mr-border-radius-5 margin-t-20 margin-b-20">Вернуться</a>
           <button type="submit" class="btn btn-xs btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить

@@ -4,7 +4,7 @@
     @include('Admin.layouts.nav_bar')
     <div class="container m-t-10">
       @include('Admin.layouts.page_title')
-      <div class="margin-b-15 margin-t-10">
+      <div class="m-b-15">
         <a href="{{ route('admin_article_edit',['id'=>'0']) }}" title="Создать новую запись"
            class="btn btn-primary btn-xs mr-border-radius-5">
           new
