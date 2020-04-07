@@ -1,12 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
   <div class="mr-main-div">
     @include('Admin.layouts.nav_bar')
     <div class="container m-t-10">
       @include('Admin.layouts.page_title')
       {!!  MrMessage::GetMessage() !!}
-      <div class="margin-b-15 margin-t-10">
+      <div class="m-b-15">
         {{ Form::open(['url'=>'/admin/subscription/new/','method' => 'post', 'enctype'=>'multipart/form-data', 'files' => false]) }}
         {{ Form::token() }}
         <label>

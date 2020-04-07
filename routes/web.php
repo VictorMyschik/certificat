@@ -31,10 +31,6 @@ Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 /// универсальная динамческая страница справочкика
 Route::get('/references/{name}', 'MrReferencesController@View')->name('references');
 
-/// API table
-Route::post('/reference/country_table', 'MrReferencesController@ListCountries')->name('list_country_table');
-Route::match(['get', 'post'],'/reference/currency_table', 'MrReferencesController@ListCurrency')->name('list_currency_table');
-
 Route::post('/certificates', 'MrCertificateController@List')->name('certificates_list');
 
 // Поиск
@@ -165,6 +161,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   //// BACK UP
+  Route::get('/admin/system/backup/{table_name}', "Admin\MrAdminBackUpController@ViewTable")->name('admin_view_table_page');
   Route::get('/admin/system/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_page');
 
   Route::get('/admin/system/backup/refresh/{table_name}', function ($table_name) {

@@ -12,10 +12,10 @@
         <div><i class="fa fa-info-circle mr-color-green"></i>Кнопка <a class="btn btn-primary btn-xs mr-border-radius-5"
                                                                        href="#">Recovery</a> восстановит данные
         </div>
-        <div><i class="fa fa-info-circle mr-color-green"></i>Кнопка
+        <!--<div><i class="fa fa-info-circle mr-color-green"></i>Кнопка
           <a class="btn btn-danger btn-xs mr-border-radius-5" href="#">Refresh</a> пересоздаст таблицу из кода PHP. Все
           данные будут <span class="mr-color-red">удалены</span>.
-        </div>
+        </div>-->
       </div>
       <table class="table table-hover table-striped table-bordered mr-middle">
         <thead>
@@ -31,7 +31,9 @@
         @foreach($list as $key => $table)
           <tr>
             <td>{{ ++$key }}</td>
-            <td>{{ $table['Name'] }}</td>
+            <td><a title="Просмотр таблицы {{ $table['Name'] }} в новой вкладке"
+                   href="{{route('admin_view_table_page',['table_name'=>$table['Name']])}}">{{ $table['Name'] }}</a>
+            </td>
 
             <td><a class="btn btn-danger btn-xs mr-border-radius-5"
                    onclick="return confirm('Будет переустановлена таблица! Данные будут утеряны! Продолжить?');"

@@ -7,8 +7,10 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Models\MrBackup;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class MrAdminBackUpController extends Controller
 {
@@ -56,6 +58,44 @@ class MrAdminBackUpController extends Controller
     $out['list'] = $tables;
 
     return View('Admin.mir_admin_backup_list')->with($out);
+  }
+
+  /**
+   * Страница просмотра записей в БД
+   *
+   * @param string $table_name
+   * @return Factory|View
+   */
+  public function ViewTable(string $table_name)
+  {
+    $out = array();
+    $out['page_title'] = 'Таблица ' . $table_name;
+    $out['route_name'] = route('list_db_table_table', ['table_name' => $table_name]);
+
+    return View('Admin.mir_admin_table_view')->with($out);
+  }
+
+  /**
+   * Генератор построения таблиц
+   * @param string $table_name
+   * @return array
+   */
+  public function GetTable(string $table_name)
+  {
+    $arr = array(
+      $table_name => 'MrDbMrFaqTableController',
+    );
+
+    if(isset($arr[$table_name]))
+    {
+      if(class_exists("App\\Http\\Controllers\\TableControllers\\Admin\\" . $arr[$table_name], true))
+      {
+        $object = "App\\Http\\Controllers\\TableControllers\\Admin\\" . $arr[$table_name];
+        return $object::buildTable();
+      }
+    }
+
+    return null;
   }
 
   public static function getTableNameFromFileName(string $item)

@@ -1,22 +1,3 @@
-<div class="mr-bold">Записей: {{count($table['#rows'])}}</div>
-<table class="table table-hover table-bordered mr-middle">
-  <thead class="mr-bg-footer">
-  <tr class="mr-bold">
-    @foreach($table['#header'] as $row)
-      <td>{{$row}}</td>
-    @endforeach
-  </tr>
-  </thead>
-  <tbody>
-  @foreach($table['#rows'] as $row)
-    <tr>
-      @foreach($row as $item)
-        <td>{!! $item !!}</td>
-      @endforeach
-    </tr>
-  @endforeach
-  </tbody>
-</table>
 <div>
-{!! $table['#links']??null !!}
+  <mr-table :mr_route="'{{$route_name}}'"></mr-table>
 </div>
