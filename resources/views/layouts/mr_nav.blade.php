@@ -27,7 +27,9 @@
             <a class="nav-link" href="{{route('references',['name'=>'currency'])}}">{{ __('mr-t.Валюты мира') }}</a>
           </div>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('faq_page') }}"><span class="mr-color-white">FAQ</span></a>
+        </li>
         @guest
           <li class="nav-item">
             <a class="nav-link" href="{{ route('login') }}"><span class="mr-color-white">{{ __('Login') }}</span></a>

@@ -144,28 +144,6 @@ class MrCountry extends ORM
     $this->Capital = $value;
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Переустановка справочника стран
-   */
-  public static function RebuildReference()
-  {
-    $data = MrAdminBackUpController::$tables['mr_country'];
-    foreach ($data as $v)
-    {
-      $country = MrCountry::loadBy($v[2], 'ISO3166alpha2') ?: new MrCountry();
-      $country->setName($v[1]);
-      $country->setISO3166alpha2($v[2]);
-      $country->setISO3166alpha3($v[3]);
-      $country->setISO3166numeric($v[4]);
-      $country->setCapital($v[5]);
-      $continent = array_search($v[6], MrCountry::getContinentShortList());
-      $country->setContinent($continent);
-      $country->save_mr();
-    }
-  }
-
   public function getCodeWithName()
   {
     $r = $this->getISO3166alpha3();
@@ -175,47 +153,4 @@ class MrCountry extends ORM
     return $r;
   }
 
-  /**
-   * список стран для выпадушки
-   *
-   * @return mixed
-   */
-  public static function SelectList()
-  {
-    return Cache::rememberForever('country_list', function () {
-      {
-        $out = array();
-        $list = DB::table(MrCountry::$mr_table)->get(['id', 'Code', 'NameRus']);
-        foreach ($list as $country)
-        {
-          $out[$country->id] = $country->Code . ' ' . $country->NameRus;
-        }
-        return $out;
-      }
-    });
-  }
-
-  /**
-   * Список городов для страны
-   *
-   * @return array
-   */
-  public function GetAddresses(): array
-  {
-    $list = DB::table(MrAddresses::$mr_table)->where('CountryID', $this->id())->get();
-    return parent::LoadArray($list, MrAddresses::class);
-  }
-
-  public static function getSelectList()
-  {
-    $out = array();
-    $list = DB::table(self::$mr_table)->get(['id', 'Name']);
-
-    foreach ($list as $item)
-    {
-      $out[$item->id] = $item->Name;
-    }
-
-    return $out;
-  }
 }

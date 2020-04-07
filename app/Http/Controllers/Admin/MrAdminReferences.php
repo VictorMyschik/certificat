@@ -31,7 +31,7 @@ class MrAdminReferences extends Controller
   public function ViewCurrency()
   {
     $out = array();
-    $out['page_title'] = 'Справочник стран мира';
+    $out['page_title'] = 'Справочник валют';
     $out['route_name'] = MrCurrency::getRouteTable();
 
     return View('Admin.References.mir_admin_reference_currency')->with($out);

@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
  */
 class MrOfficeEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($id);
-    $form['#title'] = $id ? 'Переименовать офис' : 'Создание нового офиса';
+    $office = MrOffice::loadBy($args['id']);
+    $form['#title'] = $args['id'] ? 'Переименовать офис' : 'Создание нового офиса';
 
     $form['Name'] = array(
       '#type' => 'textfield',
