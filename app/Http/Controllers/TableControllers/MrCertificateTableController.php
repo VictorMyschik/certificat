@@ -27,12 +27,12 @@ class MrCertificateTableController extends MrTableController
     }
 
     $header = array(
-      'id' => 'ID',
-      'Number' => 'Регистрационный номер документа',
-      'CountryID' => 'Страна',
-      'Kind' => 'Вид документа',
-      'dates' => 'Срок действия',
-      'Status' => 'Статус действия',
+      array('sort' => 'id', 'name' => 'ID'),
+      array('sort' => 'Number', 'name' => 'Регистрационный номер документа'),
+      array('sort' => 'CountryID', 'name' => 'Страна'),
+      array('sort' => 'Kind', 'name' => 'Вид документа'),
+      array('name' => 'Срок действия'),
+      array('sort' => 'Status', 'name' => 'Статус действия'),
     );;
 
 
