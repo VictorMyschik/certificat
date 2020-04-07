@@ -15,6 +15,9 @@ class MrAdminBackupTableController extends MrTableController
   {
     foreach (explode('&', request()->getQueryString()) as $item)
     {
+      $field_name = 'id';
+      $sort = 'DESC';
+
       $param = explode('=', $item);
       if($param[0] == 'sort' && ($param[1] == 'asc' || $param[1] == 'desc'))
       {
@@ -31,7 +34,7 @@ class MrAdminBackupTableController extends MrTableController
 
     $collections = $body->getCollection();
 
-    foreach ($body->getCollection() as $model)
+    foreach ($collections as $model)
     {
       $class_name = substr($model->migration, 25, strlen($model->migration));
       $class_name = substr($class_name, 0, strlen($class_name) - 6);
@@ -64,6 +67,11 @@ class MrAdminBackupTableController extends MrTableController
         $model->recovery = isset(MrAdminBackUpController::$tables[$object::$mr_table]) ? MrLink::open('recovery_table_data', ['table_name' => $object::$mr_table], ' Recovery', 'btn btn-success btn-sm fa fa-edit') : '';
         $model->countRows = $object::getCount();
         unset($model->migration);
+      }
+      else
+      {
+        $model->action = null;
+        $model->recovery = null;
       }
     }
 

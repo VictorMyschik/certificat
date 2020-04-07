@@ -61,6 +61,19 @@ class MrAdminBackUpController extends Controller
       'mr_country' => 'MrAdminDbMrCountryTableController',
       'mr_base_log' => 'MrAdminDbMrBaseLogTableController',
       'mr_offices' => 'MrAdminDbMrOfficesTableController',
+      'mr_language' => 'MrAdminDbMrLanguageTableController',
+      'mr_communicate' => 'MrAdminDbMrCommunicateTableController',
+      'mr_new_users' => 'MrAdminDbMrNewUsersTableController',
+      'mr_user_in_office' => 'MrAdminDbMrUserInOfficeTableController',
+      'mr_user_blocked' => 'MrAdminDbMrUserBlockedTableController',
+      'mr_translate' => 'MrAdminDbMrTranslateTableController',
+      'mr_subscription' => 'MrAdminDbMrSubscriptionTableController',
+      'mr_log_ident' => 'MrAdminDbMrLogIdentTableController',
+      'mr_email_log' => 'MrAdminDbMrEmailLogTableController',
+      'mr_certificate' => 'MrAdminDbMrCertificateTableController',
+      'mr_certificate_monitoring' => 'MrAdminDbMrCertificateMonitoringTableController',
+      'mr_feedback' => 'MrAdminDbMrFeedbackTableController',
+      'mr_user' => 'MrAdminDbMrUserTableController',
     );
 
     if(isset($arr[$table_name]))

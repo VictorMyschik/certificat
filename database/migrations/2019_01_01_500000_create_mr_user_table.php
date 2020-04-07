@@ -18,7 +18,6 @@ class CreateMrUserTable extends Migration
       $table->dateTime('DateLogin')->nullable();
       $table->integer('DefaultOfficeID')->nullable();
       $table->timestamp('DateLastVisit')->default(DB::raw('CURRENT_TIMESTAMP'));
-
       $table->string('Phone', 18)->nullable();
     });
   }

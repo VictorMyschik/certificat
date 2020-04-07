@@ -23,9 +23,9 @@ class MrUser extends ORM
     'Telegram',
     'DateFirstVisit',
     'DateLogin',
+    'DefaultOfficeID',
     'DateLastVisit',
-    'Phone',
-    'DefaultOfficeID'
+    'Phone'
   );
 
   public static function loadBy($value, $field = 'id'): ?MrUser

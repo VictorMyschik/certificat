@@ -31,7 +31,7 @@ class MrCertificate extends ORM
     'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
     'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
     'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
-    //'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
+ ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
   );
 
   const KIND_UNKNOWN = 0;
