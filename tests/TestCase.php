@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
     return array_rand($query);
   }
 
-  protected function randomMachineNameUpper($length = 8): string
+  protected function randomString($length = 8): string
   {
     $characterset = self::abc_string . self::ABC_string;
 

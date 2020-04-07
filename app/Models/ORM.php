@@ -375,7 +375,7 @@ class ORM extends Model
     return false;
   }
 
-  public function flash()
+  public function flush()
   {
     $id = $this->id();
     $table_name = $this::$mr_table;

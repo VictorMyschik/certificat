@@ -36,10 +36,15 @@ class MrCommunicate extends ORM
   const KIND_PHONE = 1;
   const KIND_EMAIL = 2;
 
-  protected static $kinds = array(
+  private static $kinds = array(
     self::KIND_PHONE => 'Телефон',
     self::KIND_EMAIL => 'Email',
   );
+
+  public static function getKinds()
+  {
+    return self::$kinds;
+  }
 
   public function getKind(): int
   {
@@ -48,12 +53,12 @@ class MrCommunicate extends ORM
 
   public function getKindName(): string
   {
-    return self::$kinds[$this->Kind];
+    return self::getKinds()[$this->Kind];
   }
 
   public function setKind(int $value)
   {
-    if(self::$kinds[$this->Kind])
+    if(self::getKinds()[$value])
     {
       $this->Kind = $value;
     }
@@ -63,10 +68,10 @@ class MrCommunicate extends ORM
     }
   }
 
-  // Загрузка объекта
+// Загрузка объекта
   public function getObject(): object
   {
-    $class = $this->getKindObject();
+    $class = $this->Object;
     return $class::loadBy($this->ObjectID);
   }
 
@@ -75,7 +80,7 @@ class MrCommunicate extends ORM
     $this->ObjectID = $value;
   }
 
-  // Адрес
+// Адрес
   public function getAddress(): string
   {
     return $this->Address;

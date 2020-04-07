@@ -38,7 +38,7 @@ class MrCertificateTest extends TestCase
     $kind = array_rand(MrCertificate::getKinds());
     $certificate->setKind($kind);
     //'Number'
-    $Number = self::randomMachineNameUpper(10);
+    $Number = self::randomString(10);
     $certificate->setNumber($Number);
     //'DateFrom'
     $DateFrom = MrDateTime::now();
@@ -53,10 +53,10 @@ class MrCertificateTest extends TestCase
     $Status = array_rand(MrCertificate::getStatuses());
     $certificate->setStatus($Status);
     //'Auditor'
-    $Auditor = self::randomMachineNameUpper(80);
+    $Auditor = self::randomString(80);
     $certificate->setAuditor($Auditor);
     //'BlankNumber'
-    $BlankNumber = self::randomMachineNameUpper(50);
+    $BlankNumber = self::randomString(50);
     $certificate->setBlankNumber($BlankNumber);
     //'DateStatusFrom'
     $DateStatusFrom = MrDateTime::now();
@@ -65,23 +65,23 @@ class MrCertificateTest extends TestCase
     $DateStatusTo = MrDateTime::now();
     $certificate->setDateStatusTo($DateStatusTo);
     //'DocumentBase'
-    $DocumentBase = self::randomMachineNameUpper(255);
+    $DocumentBase = self::randomString(255);
     $certificate->setDocumentBase($DocumentBase);
     //'WhyChange'
-    $WhyChange = self::randomMachineNameUpper(255);
+    $WhyChange = self::randomString(255);
     $certificate->setWhyChange($WhyChange);
     //'SchemaCertificate'
-    $SchemaCertificate = self::randomMachineNameUpper(3);
+    $SchemaCertificate = self::randomString(3);
     $certificate->setSchemaCertificate($SchemaCertificate);
     //'Description'
-    $Description = self::randomMachineNameUpper(1000);
+    $Description = self::randomString(1000);
     $certificate->setDescription($Description);
     //'LinkOut'
-    $LinkOut = self::randomMachineNameUpper(255);
+    $LinkOut = self::randomString(255);
     $certificate->setLinkOut($LinkOut);
 
     $certificate_id = $certificate->save_mr();
-    $certificate->flash();
+    $certificate->flush();
 
 
     //// Asserts
@@ -109,7 +109,7 @@ class MrCertificateTest extends TestCase
     $kind = array_rand(MrCertificate::getKinds());
     $certificate->setKind($kind);
     //'Number'
-    $Number = self::randomMachineNameUpper(10);
+    $Number = self::randomString(10);
     $certificate->setNumber($Number);
     //'DateFrom'
     $DateFrom = MrDateTime::now();
@@ -124,10 +124,10 @@ class MrCertificateTest extends TestCase
     $Status = array_rand(MrCertificate::getStatuses());
     $certificate->setStatus($Status);
     //'Auditor'
-    $Auditor = self::randomMachineNameUpper(80);
+    $Auditor = self::randomString(80);
     $certificate->setAuditor($Auditor);
     //'BlankNumber'
-    $BlankNumber = self::randomMachineNameUpper(50);
+    $BlankNumber = self::randomString(50);
     $certificate->setBlankNumber($BlankNumber);
     //'DateStatusFrom'
     $DateStatusFrom = MrDateTime::now();
@@ -136,23 +136,23 @@ class MrCertificateTest extends TestCase
     $DateStatusTo = MrDateTime::now();
     $certificate->setDateStatusTo($DateStatusTo);
     //'DocumentBase'
-    $DocumentBase = self::randomMachineNameUpper(255);
+    $DocumentBase = self::randomString(255);
     $certificate->setDocumentBase($DocumentBase);
     //'WhyChange'
-    $WhyChange = self::randomMachineNameUpper(255);
+    $WhyChange = self::randomString(255);
     $certificate->setWhyChange($WhyChange);
     //'SchemaCertificate'
-    $SchemaCertificate = self::randomMachineNameUpper(3);
+    $SchemaCertificate = self::randomString(3);
     $certificate->setSchemaCertificate($SchemaCertificate);
     //'Description'
-    $Description = self::randomMachineNameUpper(1000);
+    $Description = self::randomString(1000);
     $certificate->setDescription($Description);
     //'LinkOut'
-    $LinkOut = self::randomMachineNameUpper(255);
+    $LinkOut = self::randomString(255);
     $certificate->setLinkOut($LinkOut);
 
     $certificate_id = $certificate->save_mr();
-    $certificate->flash();
+    $certificate->flush();
 
     //// Asserts
     $certificate = MrCertificate::loadBy($certificate_id);
@@ -211,7 +211,7 @@ class MrCertificateTest extends TestCase
     $this->assertNull($certificate->getLinkOut());
 
     $certificate->mr_delete();
-    $certificate->flash();
+    $certificate->flush();
 
     $this->assertNull(MrCertificate::loadBy($certificate_id));
   }
