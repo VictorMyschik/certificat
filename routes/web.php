@@ -161,8 +161,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   //// BACK UP
-  Route::get('/admin/system/backup/{table_name}', "Admin\MrAdminBackUpController@ViewTable")->name('admin_view_table_page');
-  Route::get('/admin/system/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_page');
+
 
   Route::get('/admin/system/backup/refresh/{table_name}', function ($table_name) {
     Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
@@ -170,11 +169,12 @@ Route::group(['middleware' => 'is_admin'], function () {
     MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
     return back();
   })->name('migration_refresh_table');
-
+  Route::get('/admin/system/backup/{table_name}', "Admin\MrAdminBackUpController@ViewTable")->name('admin_view_table_page');
+  Route::get('/admin/system/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_page');
   Route::get('/admin/system/backup/save/{table_name}', "Admin\MrAdminBackUpController@SaveDataFromTable")->name('save_table_data');
   Route::get('/admin/system/backup/recovery/{table_name}', "Admin\MrAdminBackUpController@RecoveryDataToTable")->name('recovery_table_data');
 
-  Route::get('/admin/system/backup/migrate/', function () {
+  Route::get('/admin/system/backup/run/migrate/', function () {
     Artisan::call('migrate');
     return back();
   })->name('artisan_migrate');

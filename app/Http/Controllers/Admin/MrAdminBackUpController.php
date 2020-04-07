@@ -6,10 +6,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\Admin\MrAdminBackupTableController;
 use App\Models\MrBackup;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class MrAdminBackUpController extends Controller
@@ -17,47 +17,19 @@ class MrAdminBackUpController extends Controller
   public function index()
   {
     $out = array();
+
     $out['page_title'] = 'Бэкап БД';
-
-    $file_migrations_list = DB::table('migrations')->pluck('migration')->toArray();
-    $tables = array();
-    foreach ($file_migrations_list as $key => $item)
-    {
-      $class_name = substr($item, 25, strlen($item));
-      $class_name = substr($class_name, 0, strlen($class_name) - 6);
-      $class_name_out = '';
-
-      foreach (explode('_', $class_name) as $tmp_str)
-      {
-        $class_name_out .= ucfirst($tmp_str);
-      }
-
-      $object = null;
-
-      if(class_exists("App\\Models\\" . $class_name_out))
-      {
-        $object = "App\\Models\\" . $class_name_out;
-      }
-      elseif(class_exists("App\\Models\\References\\" . $class_name_out))
-      {
-        $object = "App\\Models\\References\\" . $class_name_out;
-      }
-
-      if($object)
-      {
-        $tables[] = array(
-          'Name' => $object::$mr_table,
-          'FileName' => $item,
-          'has' => isset(self::$tables[$object::$mr_table]),
-          'count_rows' => $object::getCount(),
-        );
-      }
-
-    }
-
-    $out['list'] = $tables;
+    $out['route_name'] = route('summary_list_table');
 
     return View('Admin.mir_admin_backup_list')->with($out);
+  }
+
+  /**
+   * Получение тадлицы всех таблиц
+   */
+  public function getSummaryList()
+  {
+    return MrAdminBackupTableController::buildTable();
   }
 
   /**
@@ -84,8 +56,8 @@ class MrAdminBackUpController extends Controller
   public function GetTable(string $table_name)
   {
     $arr = array(
-      'mr_faq' => 'MrDbMrFaqTableController',
-      'mr_currency' => 'MrDbMrCurrencyTableController',
+      'mr_faq' => 'MrAdminDbMrFaqTableController',
+      'mr_currency' => 'MrAdminDbMrCurrencyTableController',
     );
 
     if(isset($arr[$table_name]))

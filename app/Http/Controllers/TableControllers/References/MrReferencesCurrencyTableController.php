@@ -51,18 +51,18 @@ class MrReferencesCurrencyTableController extends MrTableController
     }
 
     $header = array(
-      'Name' => 'Наименование',
-      'TextCode' => 'Код',
-      'DateFrom' => 'Дата с',
-      'DateTo' => 'Дата по',
-      'Code' => 'Цифровой код',
-      'Rounding' => 'Округление',
-      'Description' => 'Примечание'
+      array('name' => 'Наименование', 'sort' => 'Name'),
+      array('name' => 'Код', 'sort' => 'TextCode'),
+      array('name' => 'Дата с', 'sort' => 'DateFrom'),
+      array('name' => 'Дата по', 'sort' => 'DateTo'),
+      array('name' => 'Цифровой код', 'sort' => 'Code'),
+      array('name' => 'Округление', 'sort' => 'Rounding'),
+      array('name' => 'Примечание', 'sort' => 'Description'),
     );
 
     if($can_edit)
     {
-      $header['#'] = '#';
+      $header[] = array('name' => 'Примечание', 'sort' => '#');
     }
 
     $body->setCollection($collections);

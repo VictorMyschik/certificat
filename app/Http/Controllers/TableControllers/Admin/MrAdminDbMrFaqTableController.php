@@ -7,7 +7,7 @@ namespace App\Http\Controllers\TableControllers\Admin;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrFaq;
 
-class MrDbMrFaqTableController extends MrTableController
+class MrAdminDbMrFaqTableController extends MrTableController
 {
   public static function buildTable(int $on_page = 10)
   {
@@ -15,9 +15,9 @@ class MrDbMrFaqTableController extends MrTableController
 
     return array(
       'header' => array(
-        'id' => 'id',
-        'Title' => 'Title',
-        'Text' => 'Text',
+        array('name' => 'id', 'sort' => 'id'),
+        array('name' => 'Title', 'sort' => 'Title'),
+        array('name' => 'Text', 'sort' => 'Text'),
       ),
 
       'body' => $body

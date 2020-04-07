@@ -56,13 +56,13 @@ class MrReferencesCountryTableController extends MrTableController
     }
 
     $header = array(
-      'Name' => 'Наименование',
-      'Capital' => 'Столица',
-      'ISO3166alpha2' => 'ISO-3166 alpha2',
-      'ISO3166alpha3' => 'ISO-3166 alpha3',
-      'ISO3166numeric' => 'ISO-3166 numeric',
-      'Continent' => 'Континент',
-      'Flag' => 'Флаг'
+      array('name' => 'Наименование', 'sort' => 'Name'),
+      array('name' => 'Столица', 'sort' => 'Capital'),
+      array('name' => 'ISO-3166 alpha2', 'sort' => 'ISO3166alpha2'),
+      array('name' => 'ISO-3166 alpha3', 'sort' => 'ISO3166alpha3'),
+      array('name' => 'ISO-3166 numeric', 'sort' => 'ISO3166numeric'),
+      array('name' => 'Континент', 'sort' => 'Continent'),
+      array('name' => 'Флаг', 'sort' => 'Flag')
     );
 
     if($can_edit)

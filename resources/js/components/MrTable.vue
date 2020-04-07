@@ -3,10 +3,13 @@
     <table class="table table-hover table-striped table-bordered">
       <thead class="mr-bold mr-bg-table-header">
       <tr>
-        <td style="cursor: pointer; color: #0a1041;" v-on:click="mr_sort_field(header_key)"
-            v-for="(head_name, header_key) in table_header">
-          <i v-if="mr_field === header_key" class="mr-color-green-dark"
-             :class="[mr_sort === 'asc' ? arrow_up : arrow_down]"></i> {{head_name}}
+        <td v-for="head in table_header"
+            v-bind:class="typeof head['sort'] !== 'undefined' ? 'mr_cursor' : ''"
+
+            v-on:click="mr_sort_field(head)">
+          <i v-if="mr_field === head['sort']" class="mr-color-green-dark"
+             :class="[mr_sort === 'asc' ? arrow_up : arrow_down]"></i>
+          {{head['name']}}
         </td>
       </tr>
       </thead>
@@ -55,27 +58,26 @@
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
 
-        console.log(this.mr_route);
-
         axios.post(this.mr_route + param).then(response => {
               this.table_body = response.data.body;
               this.table_header = response.data.header;
-              this.token =
-                  this.mr_wait = false;
+              this.token = this.mr_wait = false;
             }
-        )
+        );
       },
 
       mr_sort_field(mr_sort) {
-        this.mr_field = mr_sort;
+        if (typeof mr_sort['sort'] !== 'undefined') {
+          this.mr_field = mr_sort['sort'];
 
-        if (this.mr_sort === 'asc') {
-          this.mr_sort = 'desc';
-        } else {
-          this.mr_sort = 'asc';
+          if (this.mr_sort === 'asc') {
+            this.mr_sort = 'desc';
+          } else {
+            this.mr_sort = 'asc';
+          }
+
+          this.getResults();
         }
-
-        this.getResults();
       }
     },
   }
@@ -91,4 +93,14 @@
     color: red;
     padding: 0 0 0 0;
   }
+
+  .mr_cursor {
+    cursor: pointer;
+    color: #0a1041;
+  }
+
+  .mr_cursor:hover {
+    background-color: rgba(230, 232, 254, 0.3);
+  }
+
 </style>

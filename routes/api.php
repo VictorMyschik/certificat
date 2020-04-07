@@ -19,4 +19,6 @@ Route::match(['get', 'post'], '/reference/currency_table', 'MrReferencesControll
 Route::match(['get', 'post'], '/admin/system/backup/table/{table_name}', 'Admin\MrAdminBackUpController@GetTable')->name('list_db_table_table');
 
 
-////
+//// Прочее
+//Страница бэкапа с миграциями
+Route::match(['get', 'post'], '/admin/system/backup/summary_table', 'Admin\MrAdminBackUpController@getSummaryList')->name('summary_list_table');
