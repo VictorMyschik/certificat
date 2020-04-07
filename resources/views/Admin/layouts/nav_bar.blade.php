@@ -66,6 +66,7 @@
             <a class="dropdown-item" href="{{route('admin_logs')}}">Лог посещений</a>
             <a class="dropdown-item" href="{{route('admin_db_log_page') }}">Лог БД</a>
             <a class="dropdown-item" href="{{route('admin_backup_page')}}">BACK UP</a>
+            <a class="dropdown-item" href="{{route('admin_page')}}">Нагрузка</a>
           </div>
         </li>
 

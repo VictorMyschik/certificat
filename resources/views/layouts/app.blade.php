@@ -49,10 +49,8 @@
 
         <div class="d-inline-block align-top m-l-10">
           <span class="mr-bold">{{ __('mr-t.Разделы сайта') }}</span>
-          <ul>
             <li><a class="/faq" href="{{ route('faq_page') }}">FAQ</a></li>
             <li><a class="/policy" href="{{ route('policy_page') }}">{{ __('mr-t.Политика приватности') }}</a></li>
-          </ul>
         </div>
         <div class="d-inline-block align-top m-l-10">
         </div>

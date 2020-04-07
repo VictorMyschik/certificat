@@ -15,30 +15,37 @@ class MrAdminController extends Controller
 {
   public function index()
   {
+    $out = array();
+
+    return View('Admin.mir_admin')->with($out);
+  }
+
+  /**
+   * Получение данных по нагрузке на сайт
+   *
+   * @return array
+   */
+  public function GetData()
+  {
     if(!MrUser::me()->IsSuperAdmin())
     {
       return back();
     }
 
-    $out = array();
 
     $data = new Redis();
     $data->connect('localhost');
 
     $redis_info = $data->info();
-    $data->select(3);
+    $data->select(4);
 
-    $out['Redis'] = array(
-      'used_memory' => MtStringUtils::formatSize($redis_info['used_memory']),
-      'max_memory' => MtStringUtils::formatSize($redis_info['maxmemory']),
-      'dbSize' =>($data->dbSize()),
+    return array(
+      ['Title' => 'Пользователей', 'Value' => MrUser::getCount()],
+      ['Title' => 'Used Memory', 'Value' => MtStringUtils::formatSize($redis_info['used_memory'])],
+      ['Title' => 'Max Memory', 'Value' => MtStringUtils::formatSize($redis_info['maxmemory'])],
+      ['Title' => 'Количество объектов Redis', 'Value' => $data->dbSize()],
     );
-
-    //$out['visits'] = MrLogIdent::GetDifferentUsers($date);
-
-    return View('Admin.mir_admin')->with($out);
   }
-
 
   /**
    * Удаление пользователя навсегда из БД

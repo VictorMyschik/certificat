@@ -49,7 +49,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               @if(MrUser::me()->IsSuperAdmin())
-                <a class="nav-link" href="{{ route('admin') }}">
+                <a class="nav-link" href="{{ route('admin_page') }}">
                   Админка
                 </a>
                 <a class="nav-link" href="/phpmyadmin">

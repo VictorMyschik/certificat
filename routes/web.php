@@ -102,7 +102,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   Route::match(['get', 'post'], '/test', "MrTestController@index");
 
-  Route::get('/admin', "Admin\MrAdminController@index")->name('admin');
+  Route::get('/admin', "Admin\MrAdminController@index")->name('admin_page');
   // FAQ
   Route::match(['get', 'post'], '/admin/faq', "Admin\MrAdminFaqController@list")->name('admin_faq_page');
   Route::match(['get', 'post'], '/admin/faq/edit/{id}', "Admin\MrAdminFaqController@edit")->name('admin_faq_edit');
