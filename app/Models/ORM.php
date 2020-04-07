@@ -310,13 +310,12 @@ class ORM extends Model
       {
         $value = MrDateTime::fromValue($value);
       }
+      $this->$field = $value;
     }
     else
     {
-      $value = null;
+      $this->$field = null;
     }
-
-    $this->$field = MrDateTime::fromValue($value);
   }
 
   /**
@@ -380,6 +379,6 @@ class ORM extends Model
   {
     $id = $this->id();
     $table_name = $this::$mr_table;
-    Cache::forget($table_name . '|' . $id);
+    Cache::forget($table_name . '_' . $id);
   }
 }

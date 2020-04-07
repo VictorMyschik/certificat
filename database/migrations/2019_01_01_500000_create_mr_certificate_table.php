@@ -16,7 +16,7 @@ class CreateMrCertificateTable extends Migration
     Schema::create('mr_certificate', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
       $table->integer('Kind');//Регистрационный номер документа
-      $table->string('Number');//Регистрационный номер документа
+      $table->string('Number', 50);//Регистрационный номер документа
       $table->date('DateFrom');//Дата начала срока действия
       $table->date('DateTo')->nullable();//Дата окончания срока действия
       $table->integer('CountryID');//Страна
