@@ -1,10 +1,13 @@
 <?php
 
 
-namespace App\Models;
+namespace App\Models\Certificate;
 
 
 use App\Helpers\MrDateTime;
+use App\Models\MrUser;
+use App\Models\MrUserInOffice;
+use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 

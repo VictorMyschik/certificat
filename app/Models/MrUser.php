@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
+use App\Models\Certificate\MrCertificateMonitoring;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;

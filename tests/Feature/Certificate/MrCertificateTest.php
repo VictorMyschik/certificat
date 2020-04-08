@@ -5,7 +5,7 @@ namespace Tests\Feature;
 
 
 use App\Helpers\MrDateTime;
-use App\Models\MrCertificate;
+use App\Models\Certificate\MrCertificate;
 use App\Models\References\MrCountry;
 use Tests\TestCase;
 

@@ -1,10 +1,11 @@
 <?php
 
 
-namespace App\Models;
+namespace App\Models\Certificate;
 
 
 use App\Helpers\MrDateTime;
+use App\Models\ORM;
 use App\Models\References\MrCountry;
 use Carbon\Carbon;
 

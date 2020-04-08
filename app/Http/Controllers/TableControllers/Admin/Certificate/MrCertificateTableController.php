@@ -6,7 +6,7 @@ namespace App\Http\Controllers\TableControllers\Admin\Certificate;
 
 use App\Helpers\MrDateTime;
 use App\Http\Controllers\TableControllers\MrTableController;
-use App\Models\MrCertificate;
+use App\Models\Certificate\MrCertificate;
 
 class MrCertificateTableController extends MrTableController
 {

@@ -243,7 +243,8 @@ Route::get('/clear', function () {
   Artisan::call('cache:clear');
   Artisan::call('view:clear');
   Artisan::call('route:clear');
-
+  Artisan::call('route:clear');
+//composer dump-autoload --optimize
   return back();
 })->name('clear');
 
