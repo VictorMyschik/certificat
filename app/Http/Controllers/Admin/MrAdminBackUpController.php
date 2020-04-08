@@ -74,6 +74,7 @@ class MrAdminBackUpController extends Controller
       'mr_certificate_monitoring' => 'MrAdminDbMrCertificateMonitoringTableController',
       'mr_feedback' => 'MrAdminDbMrFeedbackTableController',
       'mr_user' => 'MrAdminDbMrUserTableController',
+      'mr_address' => 'MrAdminDbMrAddressTableController',
     );
 
     if(isset($arr[$table_name]))

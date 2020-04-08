@@ -24,7 +24,7 @@ abstract class TestCase extends BaseTestCase
     return $query[$key];
   }
 
-  protected function randomString($length = 8): string
+  protected function randomString($length = 255): string
   {
     $characterset = self::abc_string . self::ABC_string;
 
