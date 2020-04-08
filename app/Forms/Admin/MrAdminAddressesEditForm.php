@@ -5,15 +5,15 @@ namespace App\Forms\Admin;
 
 
 use App\Forms\FormBase\MrFormBase;
-use App\Models\MrAddresses;
-use App\Models\MrCountry;
+use App\Models\Certificate\MrAddress;
+use App\Models\References\MrCountry;
 use Illuminate\Http\Request;
 
 class MrAdminAddressesEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $id, $args)
   {
-    $address = MrAddresses::loadBy($args['id']);
+    $address = MrAddress::loadBy($args['id']);
 
     $form['CountryID'] = array(
       '#type' => 'select',
@@ -80,11 +80,11 @@ class MrAdminAddressesEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $address = MrAddresses::loadBy($id) ?: new MrAddresses();
+    $address = MrAddress::loadBy($id) ?: new MrAddress();
 
     $address->setCity($v['City']);
-    $address->setBuilding($v['Building']);
-    $address->setAddress($v['Address']);
+    $address->setBuildingNumberId($v['Building']);
+    $address->setSettlementName($v['Address']);
     $address->setLat($v['Lat']);
     $address->setLon($v['Lon']);
     $address->setCountryID($v['CountryID']);

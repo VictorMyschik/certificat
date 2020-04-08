@@ -6,6 +6,7 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Создать' => 'Create',
     'Цифровой код' => 'Numeric code',
     'Округление' => 'Rounding',
     'Дата с' => 'Date from',

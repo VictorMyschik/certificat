@@ -4,6 +4,7 @@
 namespace App\Models\Certificate;
 
 
+use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
 
@@ -26,6 +27,17 @@ class MrManufacturer extends ORM
   protected function before_delete()
   {
 
+  }
+
+  public function canEdit(): bool
+  {
+    $me = MrUser::me();
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    return false;
   }
 
   /**

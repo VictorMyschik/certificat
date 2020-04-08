@@ -30,6 +30,10 @@
       @include('Form.BaseForm.Inputs.datetime', ['name' => $key, 'item' => $items])
     @endif
 
+    @if($items['#type'] == 'file')
+      @include('Form.BaseForm.Inputs.file', ['name' => $key, 'item' => $items])
+    @endif
+
   @else
     @if(substr($key, 0, 1) !== '#')
       <div>

@@ -6,6 +6,7 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetAllRusWords();
 
 return $translate_arr + [
+    'Создать' => 'Создать',
     'Цифровой код' => 'Цифровой код',
     'Округление' => 'Округление',
     'Дата с' => 'Дата с',

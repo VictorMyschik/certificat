@@ -22,6 +22,7 @@ Route::match(['get', 'post'], '/admin/system/backup/table/{table_name}', 'Admin\
 
 // Certificates
 Route::match(['get', 'post'], '/admin/certificate/communicate', 'MrAdminCertificateController@CommunicateList')->name('list_communicate_table');
+Route::match(['get', 'post'], '/admin/certificate/manufacturer', 'Admin\MrAdminCertificateController@ManufacturerList')->name('list_manufacturer_table');
 
 
 
