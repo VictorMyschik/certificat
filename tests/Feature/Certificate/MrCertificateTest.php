@@ -13,25 +13,25 @@ class MrCertificateTest extends TestCase
 {
   public function testCertificate()
   {
-    /*
-    'id',// $table->bigIncrements('id')->autoIncrement();
-    'Kind',// $table->integer('Kind');//Тип документа
-    'Number',// $table->string('Number');//Регистрационный номер документа
-    'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
-    'DateTo',// $table->date('DateTo')->nullable();//Дата окончания срока действия
-    'CountryID',// $table->integer('CountryID');//Страна
-    'Status',// $table->tinyInteger('Status')->default(0);//Статус действия | Действует
-    'Auditor',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
-    'BlankNumber',// $table->string('BlankNumber', 50)->nullable();//Номер бланка | BY 0008456
-    'DateStatusFrom',// $table->date('DateStatusFrom')->nullable();//Срок действия статуса | c 02.04.2020 по 01.04.2025
-    'DateStatusTo',// $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
-    'DocumentBase',// $table->string('DocumentBase')->nullable();//Документ, на основании которого установлен статус
-    'WhyChange',// $table->string('WhyChange')->nullable();//Причина изменения статуса
-    'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
-    'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
-    'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
-    ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
-    */
+    /**
+     * 'id',// $table->bigIncrements('id')->autoIncrement();
+     * 'Kind',// $table->integer('Kind');//Тип документа
+     * 'Number',// $table->string('Number');//Регистрационный номер документа
+     * 'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
+     * 'DateTo',// $table->date('DateTo')->nullable();//Дата окончания срока действия
+     * 'CountryID',// $table->integer('CountryID');//Страна
+     * 'Status',// $table->tinyInteger('Status')->default(0);//Статус действия | Действует
+     * 'Auditor',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
+     * 'BlankNumber',// $table->string('BlankNumber', 50)->nullable();//Номер бланка | BY 0008456
+     * 'DateStatusFrom',// $table->date('DateStatusFrom')->nullable();//Срок действия статуса | c 02.04.2020 по 01.04.2025
+     * 'DateStatusTo',// $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
+     * 'DocumentBase',// $table->string('DocumentBase')->nullable();//Документ, на основании которого установлен статус
+     * 'WhyChange',// $table->string('WhyChange')->nullable();//Причина изменения статуса
+     * 'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
+     * 'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
+     * 'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
+     * ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
+     */
 
     $certificate = new MrCertificate();
     //'Kind'

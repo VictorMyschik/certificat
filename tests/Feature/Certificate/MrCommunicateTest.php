@@ -4,20 +4,20 @@
 namespace Tests\Feature;
 
 
-use App\Models\Certificate\MrManufacturer;
 use App\Models\Certificate\MrCommunicate;
+use App\Models\Certificate\MrManufacturer;
 use Tests\TestCase;
 
 class MrCommunicateTest extends TestCase
 {
   public function testMrCommunicate()
   {
-    /*
-     'KindObject',//К чему привязан
-     'ObjectID',//ID объекта
-     'Kind',// Тип: телефон, email, факс...
-     'Address',
-    */
+    /**
+     * 'KindObject',//К чему привязан
+     * 'ObjectID',//ID объекта
+     * 'Kind',// Тип: телефон, email, факс...
+     * 'Address',
+     */
 
     $communicate = new MrCommunicate();
     //'KindObject'

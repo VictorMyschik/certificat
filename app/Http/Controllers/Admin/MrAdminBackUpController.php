@@ -75,6 +75,7 @@ class MrAdminBackUpController extends Controller
       'mr_feedback' => 'MrAdminDbMrFeedbackTableController',
       'mr_user' => 'MrAdminDbMrUserTableController',
       'mr_address' => 'MrAdminDbMrAddressTableController',
+      'mr_fio' => 'MrAdminDbMrFioTableController',
     );
 
     if(isset($arr[$table_name]))

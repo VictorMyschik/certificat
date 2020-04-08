@@ -12,9 +12,10 @@ class MrManufacturerTest extends TestCase
 {
   public function testMrManufacturer()
   {
-    // 'CountryID',
-    // 'Name',
-
+    /**
+     * 'CountryID',
+     * 'Name',
+     */
     $manufacturer = new MrManufacturer();
 
     // 'CountryID',

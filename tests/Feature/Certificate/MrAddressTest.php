@@ -13,25 +13,25 @@ class MrAddressTest extends TestCase
 {
   public function testMrAddress()
   {
-    /*
-    'ObjectKind',
-    'ObjectID',
-    'AddressKind',
-    'CountryID',
-    'TerritoryCode',//17
-    'RegionName',//120
-    'DistrictName',//120
-    'City', //120
-    'SettlementName', //120
-    'StreetName', //120
-    'BuildingNumberId',//50
-    'RoomNumberId',//20
-    'PostCode', //max 10
-    'PostOfficeBoxId', //max 20
-    'AddressText', //max 1000
-    'Lat',
-    'Lon',
-    */
+    /**
+     * 'ObjectKind',
+     * 'ObjectID',
+     * 'AddressKind',
+     * 'CountryID',
+     * 'TerritoryCode',//17
+     * 'RegionName',//120
+     * 'DistrictName',//120
+     * 'City', //120
+     * 'SettlementName', //120
+     * 'StreetName', //120
+     * 'BuildingNumberId',//50
+     * 'RoomNumberId',//20
+     * 'PostCode', //max 10
+     * 'PostOfficeBoxId', //max 20
+     * 'AddressText', //max 1000
+     * 'Lat',
+     * 'Lon',
+     */
 
     $address = new MrAddress();
     self::assertNotNull($address);
