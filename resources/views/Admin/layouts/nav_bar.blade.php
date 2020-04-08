@@ -38,6 +38,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/admin/certificate">Сертификаты</a>
             <a class="dropdown-item" href="/admin/certificate/communicate">Связь</a>
+            <a class="dropdown-item" href="/admin/certificate/manufacturer">Производители</a>
           </div>
         </li>
 

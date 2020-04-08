@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Models\MrCertificate;
+use App\Models\Certificate\MrCertificate;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -51,6 +51,11 @@ class MrAdminCertificateController extends Controller
    * Api получение таблицы телефонов и Email-ов
    */
   public function CommunicateList()
+  {
+
+  }
+
+  public function Viewmanufacturer()
   {
 
   }

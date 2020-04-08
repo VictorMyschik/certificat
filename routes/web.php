@@ -203,6 +203,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Email Phone...
   Route::get('/admin/certificate/communicate', "Admin\MrAdminCertificateController@ViewCommunicate")->name('communicate_page');
+  // Производители
+  Route::get('/admin/certificate/manufacturer', "Admin\MrAdminCertificateController@Viewmanufacturer")->name('manufacturer_page');
 
   #endregion
 
