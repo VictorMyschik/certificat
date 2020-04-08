@@ -4,16 +4,19 @@
 namespace App\Models\Certificate;
 
 
+use App\Models\Lego\MrObjectTrait;
 use App\Models\ORM;
 
 class MrCommunicate extends ORM
 {
+  use MrObjectTrait;
+
   public static $mr_table = 'mr_communicate';
   public static $className = MrCommunicate::class;
   protected $table = 'mr_communicate';
 
   protected static $dbFieldsMap = array(
-    'KindObject',//К чему привязан
+    'ObjectKind',//К чему привязан
     'ObjectID',//ID объекта
     'Kind',// Тип: телефон, email, факс...
     'Address',
@@ -44,34 +47,6 @@ class MrCommunicate extends ORM
       self::KIND_OBJECT_MANUFACTURER => 'MrManufacturer',
     );
   }
-
-  public function getKindObjectName(): string
-  {
-    return self::getKindObjectList()[$this->getKindObject()];
-  }
-
-  public function getKindObjectModelName(): string
-  {
-    return self::getKindObjectModelList()[$this->getKindObject()];
-  }
-
-  public function getKindObject(): int
-  {
-    return $this->KindObject;
-  }
-
-  public function setKindObject(int $value)
-  {
-    if(isset(self::getKindObjectModelList()[$value]))
-    {
-      $this->KindObject = $value;
-    }
-    else
-    {
-      dd($value . 'Тип объекта привязки не известен');
-    }
-  }
-
 
   const CODE_TE = 1;
   const CODE_FX = 2;
@@ -138,7 +113,7 @@ class MrCommunicate extends ORM
   // Загрузка объекта
   public function getObject()
   {
-    $class_name = $this->getKindObjectModelName();
+    $class_name = $this->getObjectKindModelName();
     if(class_exists("App\\Models\\Certificate\\" . $class_name))
     {
       $class = "App\\Models\\Certificate\\" . $class_name;

@@ -4,12 +4,15 @@
 namespace App\Models\Certificate;
 
 
+use App\Models\Lego\MrObjectTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
 
 class MrAddress extends ORM
 {
+  use MrObjectTrait;
+
   public static $mr_table = 'mr_address';
   public static $className = MrAddress::class;
   protected $table = 'mr_address';
@@ -73,33 +76,6 @@ class MrAddress extends ORM
     return array(
       self::KIND_OBJECT_MANUFACTURER => 'MrManufacturer',
     );
-  }
-
-  public function getObjectKindName(): string
-  {
-    return self::getObjectKindList()[$this->getObjectKind()];
-  }
-
-  public function getObjectKindModelName(): string
-  {
-    return self::getKindObjectModelList()[$this->getObjectKind()];
-  }
-
-  public function getObjectKind(): int
-  {
-    return $this->ObjectKind;
-  }
-
-  public function setObjectKind(int $value)
-  {
-    if(isset(self::getKindObjectModelList()[$value]))
-    {
-      $this->ObjectKind = $value;
-    }
-    else
-    {
-      dd($value . 'Тип объекта привязки не известен');
-    }
   }
 
   public static function loadBy($value, $field = 'id'): ?MrAddress

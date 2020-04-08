@@ -22,7 +22,7 @@ class MrCommunicateTest extends TestCase
     $communicate = new MrCommunicate();
     //'KindObject'
     $KindObject = MrCommunicate::KIND_OBJECT_MANUFACTURER;
-    $communicate->setKindObject($KindObject);
+    $communicate->setObjectKind($KindObject);
     //'ObjectID'
     $ObjectID = self::randomIDfromClass(MrManufacturer::class);
     $communicate->setObjectID($ObjectID);
@@ -40,7 +40,7 @@ class MrCommunicateTest extends TestCase
     //// Asserts
     $communicate = MrCommunicate::loadBy($communicate_id);
     $this->assertNotNull($communicate);
-    $this->assertEquals($KindObject, $communicate->getKindObject());
+    $this->assertEquals($KindObject, $communicate->getObjectKind());
     $this->assertEquals($ObjectID, $communicate->getObject()->id());
     $this->assertEquals($Kind, $communicate->getKind());
     $this->assertEquals($Address, $communicate->getAddress());
@@ -48,7 +48,7 @@ class MrCommunicateTest extends TestCase
     //// Update
     //'KindObject'
     $KindObject = MrCommunicate::KIND_OBJECT_MANUFACTURER;
-    $communicate->setKindObject($KindObject);
+    $communicate->setObjectKind($KindObject);
     //'ObjectID'
     $ObjectID = self::randomIDfromClass(MrManufacturer::class);
     $communicate->setObjectID($ObjectID);
@@ -66,7 +66,7 @@ class MrCommunicateTest extends TestCase
     //// Asserts
     $communicate = MrCommunicate::loadBy($communicate_id);
     $this->assertNotNull($communicate);
-    $this->assertEquals($KindObject, $communicate->getKindObject());
+    $this->assertEquals($KindObject, $communicate->getObjectKind());
     $this->assertEquals($ObjectID, $communicate->getObject()->id());
     $this->assertEquals($Kind, $communicate->getKind());
     $this->assertEquals($Address, $communicate->getAddress());
