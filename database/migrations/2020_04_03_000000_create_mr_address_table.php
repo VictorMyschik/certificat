@@ -13,10 +13,19 @@ class CreateMrAddressTable extends Migration
       $table->bigIncrements('id')->autoIncrement();
       $table->tinyInteger('ObjectKind'); // к чему привязан
       $table->unsignedBigInteger('ObjectID');// ID в объекте приязки
+      $table->tinyInteger('AddressKind'); // Кодовое обозначение вида адреса
       $table->integer('CountryID'); // Страна
-      $table->string('City')->nullable();
-      $table->string('Building')->nullable();
-      $table->string('Address')->nullable();
+      $table->string('TerritoryCode', 18)->nullable();
+      $table->string('RegionName', 121)->nullable();
+      $table->string('DistrictName', 121)->nullable();
+      $table->string('City', 121)->nullable();
+      $table->string('SettlementName', 121)->nullable();
+      $table->string('StreetName', 121)->nullable();
+      $table->string('BuildingNumberId', 51)->nullable();
+      $table->string('RoomNumberId', 21)->nullable();
+      $table->string('PostCode', 11)->nullable();
+      $table->string('PostOfficeBoxId', 21)->nullable();
+      $table->string('AddressText', 1001)->nullable();
       $table->string('Lat')->nullable();
       $table->string('Lon')->nullable();
     });

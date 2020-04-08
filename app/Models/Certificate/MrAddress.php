@@ -12,18 +12,44 @@ class MrAddress extends ORM
 {
   public static $mr_table = 'mr_address';
   public static $className = MrAddress::class;
+  protected $table = 'mr_address';
 
   protected static $dbFieldsMap = array(
     'ObjectKind',
     'ObjectID',
+    'AddressKind',
     'CountryID',
-    'City',
-    'Building',
-    'Address',
+    'TerritoryCode',//17
+    'RegionName',//120
+    'DistrictName',//120
+    'City', //120
+    'SettlementName', //120
+    'StreetName', //120
+    'BuildingNumberId',//50
+    'RoomNumberId',//20
+    'PostCode', //max 10
+    'PostOfficeBoxId', //max 20
+    'AddressText', //max 1000
     'Lat',
     'Lon',
   );
+
   const KIND_OBJECT_MANUFACTURER = 1;
+
+  // Типы адресов
+  const ADDRESS_KIND_REGISTRATION = 1; //адрес регистрации
+  const ADDRESS_KIND_FACT = 2; //фактический адрес
+  const ADDRESS_KIND_POSTAL = 3; //почтовый адрес
+
+
+  public static function GetAddressKindList(): array
+  {
+    return array(
+      self::ADDRESS_KIND_REGISTRATION => 'адрес регистрации',
+      self::ADDRESS_KIND_FACT => 'фактический адрес',
+      self::ADDRESS_KIND_POSTAL => 'почтовый адрес',
+    );
+  }
 
   /**
    * Модли привязки адреса на экран
@@ -112,6 +138,42 @@ class MrAddress extends ORM
   {
     $this->ObjectID = $value;
   }
+
+  /**
+   * Тип адреса
+   * адрес регистрации
+   * фактический адрес
+   * почтовый адрес
+   *
+   * @return int
+   */
+  public function getAddressKind(): int
+  {
+    return $this->AddressKind;
+  }
+
+  public function getAddressKindName(): string
+  {
+    return self::GetAddressKindList()[$this->AddressKind];
+  }
+
+  public function setAddressKind(int $value)
+  {
+    if(isset(self::GetAddressKindList()[$value]))
+    {
+      $this->AddressKind = $value;
+    }
+    else
+    {
+      dd();
+    }
+  }
+
+  /**
+   * Страна
+   *
+   * @return MrCountry
+   */
   public function getCountry(): MrCountry
   {
     return MrCountry::loadBy($this->CountryID);
@@ -122,6 +184,56 @@ class MrAddress extends ORM
     $this->CountryID = $value;
   }
 
+  /**
+   * Код территории
+   *
+   * @return string|null
+   */
+  public function getTerritoryCode(): ?string
+  {
+    return $this->TerritoryCode;
+  }
+
+  public function setTerritoryCode(?string $value)
+  {
+    $this->TerritoryCode = $value;
+  }
+
+  /**
+   * Регион
+   *
+   * @return string|null
+   */
+  public function getRegionName(): ?string
+  {
+    return $this->RegionName;
+  }
+
+  public function setRegionName(?string $value)
+  {
+    $this->RegionName = $value;
+  }
+
+  /**
+   * Наименование единицы административно-территориального деления второго уровня
+   *
+   * @return string|null
+   */
+  public function getDistrictName(): ?string
+  {
+    return $this->DistrictName;
+  }
+
+  public function setDistrictName(?string $value)
+  {
+    $this->DistrictName = $value;
+  }
+
+  /**
+   * Город
+   *
+   * @return string|null
+   */
   public function getCity(): ?string
   {
     return $this->City;
@@ -132,24 +244,105 @@ class MrAddress extends ORM
     $this->City = $value;
   }
 
-  public function getBuilding(): ?string
+  /**
+   * Наименование населенного пункта
+   *
+   * @return string|null
+   */
+  public function getSettlementName(): ?string
   {
-    return $this->Building;
+    return $this->SettlementName;
   }
 
-  public function setBuilding(?string $value)
+  public function setSettlementName(?string $value)
   {
-    $this->Building = $value;
+    $this->SettlementName = $value;
   }
 
-  public function getAddress(): ?string
+  /**
+   * Улица
+   *
+   * @return string|null
+   */
+  public function getStreetName(): ?string
   {
-    return $this->Address;
+    return $this->StreetName;
   }
 
-  public function setAddress(?string $value)
+  public function setStreetName(?string $value)
   {
-    $this->Address = $value;
+    $this->StreetName = $value;
+  }
+
+
+  public function getBuildingNumberId(): ?string
+  {
+    return $this->BuildingNumberId;
+  }
+
+  public function setBuildingNumberId(?string $value)
+  {
+    $this->BuildingNumberId = $value;
+  }
+
+  /**
+   * Обозначение офиса или квартиры
+   *
+   * @return string|null
+   */
+  public function getRoomNumberId(): ?string
+  {
+    return $this->RoomNumberId;
+  }
+
+  public function setRoomNumberId(?string $value)
+  {
+    $this->RoomNumberId = $value;
+  }
+
+  /**
+   * Почтовый индекс
+   *
+   * @return string|null
+   */
+  public function getPostCode(): ?string
+  {
+    return $this->PostCode;
+  }
+
+  public function setPostCode(?string $value)
+  {
+    $this->PostCode = $value;
+  }
+
+  /**
+   * Номер абонентского ящика на предприятии почтовой связи
+   *
+   * @return string|null
+   */
+  public function getPostOfficeBoxId(): ?string
+  {
+    return $this->PostOfficeBoxId;
+  }
+
+  public function setPostOfficeBoxId(?string $value)
+  {
+    $this->PostOfficeBoxId = $value;
+  }
+
+  /**
+   * Набор элементов адреса, представленных в свободной форме в виде текста
+   *
+   * @return string|null
+   */
+  public function getAddressText(): ?string
+  {
+    return $this->AddressText;
+  }
+
+  public function setAddressText(?string $value)
+  {
+    $this->AddressText = $value;
   }
 
   public function getLat(): ?string
@@ -174,14 +367,67 @@ class MrAddress extends ORM
 
 ////////////////////////////////////////////////////////////
 
-  public function GetFullAddress()
+  public function GetShortAddress()
   {
-    $r = '';
+    $r = $this->getPostCode() ?: '';
+
     $r .= '(' . $this->getCountry()->getContinentShortName() . ')';
     $r .= ' ' . $this->getCountry()->getName();
     $r .= ' ' . $this->getCity();
     $r .= ' ';
     $r .= $this->getAddress();
+
+    return $r;
+  }
+
+  public function GetFullAddress()
+  {
+    $r = $this->getPostCode() ?: '';
+
+    if($country = $this->getCountry())
+    {
+      $r .= ($r ? ', ' : '') . $country->getName();
+    }
+
+    if($this->getPostOfficeBoxId())
+    {
+      $r .= ($r ? ', ' : '') . 'а/я ' . $this->getPostOfficeBoxId();
+    }
+
+    if($this->getRegionName())
+    {
+      $r .= ($r ? ', ' : '') . $this->getRegionName();
+    }
+
+    if($this->getDistrictName())
+    {
+      $r .= ($r ? ', ' : '') . $this->getDistrictName();
+    }
+
+    if($this->getCity())
+    {
+      $r .= ($r ? ', ' : '') . $this->getCity();
+    }
+
+    if($this->getSettlementName())
+    {
+      $r .= ($r ? ', ' : '') . $this->getSettlementName();
+    }
+
+    if($this->getStreetName())
+    {
+      $r .= ($r ? ', ' : '') . $this->getStreetName();
+    }
+
+    if($this->getBuildingNumberId())
+    {
+      $r .= ($r ? ', ' : '') . $this->getBuildingNumberId();
+    }
+
+    if($this->getRoomNumberId())
+    {
+      $r .= ($r ? ', ' : '') . $this->getRoomNumberId();
+    }
 
     return $r;
   }

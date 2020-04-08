@@ -16,33 +16,71 @@ class MrAddressTest extends TestCase
     /*
     'ObjectKind',
     'ObjectID',
+    'AddressKind',
     'CountryID',
-    'City',
-    'Building',
-    'Address',
+    'TerritoryCode',//17
+    'RegionName',//120
+    'DistrictName',//120
+    'City', //120
+    'SettlementName', //120
+    'StreetName', //120
+    'BuildingNumberId',//50
+    'RoomNumberId',//20
+    'PostCode', //max 10
+    'PostOfficeBoxId', //max 20
+    'AddressText', //max 1000
     'Lat',
     'Lon',
     */
+
     $address = new MrAddress();
     self::assertNotNull($address);
+
     //'ObjectKind',
     $KindObject = MrAddress::KIND_OBJECT_MANUFACTURER;
     $address->setObjectKind($KindObject);
     //'ObjectID',
     $ObjectID = self::randomIDfromClass(MrManufacturer::class);
     $address->setObjectID($ObjectID);
+    //'AddressKind'
+    $AddressKind = array_rand(MrAddress::GetAddressKindList());
+    $address->setAddressKind($AddressKind);
     //'CountryID',
     $CountryID = self::randomIDfromClass(MrCountry::class);
     $address->setCountryID($CountryID);
+    //'TerritoryCode'
+    $TerritoryCode = $this->randomString(18);
+    $address->setTerritoryCode($TerritoryCode);
+    //'RegionName'
+    $RegionName = $this->randomString(120);
+    $address->setRegionName($RegionName);
+    //'DistrictName'
+    $DistrictName = $this->randomString(120);
+    $address->setDistrictName($DistrictName);
     //'City',
-    $City = $this->randomString();
+    $City = $this->randomString(120);
     $address->setCity($City);
-    //'Building',
-    $Building = $this->randomString();
-    $address->setBuilding($Building);
-    //'Address',
-    $Address = $this->randomString();
-    $address->setAddress($Address);
+    //'SettlementName'
+    $SettlementName = $this->randomString(120);
+    $address->setSettlementName($SettlementName);
+    //'StreetName',
+    $StreetName = $this->randomString(120);
+    $address->setStreetName($StreetName);
+    //'BuildingNumberId',
+    $BuildingNumberId = $this->randomString(50);
+    $address->setBuildingNumberId($BuildingNumberId);
+    //'RoomNumberId'
+    $RoomNumberId = $this->randomString(20);
+    $address->setRoomNumberId($RoomNumberId);
+    //'PostCode'
+    $PostCode = $this->randomString(10);
+    $address->setPostCode($PostCode);
+    //'PostOfficeBoxId'
+    $PostOfficeBoxId = $this->randomString(20);
+    $address->setPostOfficeBoxId($PostOfficeBoxId);
+    //'AddressText'
+    $AddressText = $this->randomString(1000);
+    $address->setAddressText($AddressText);
     //'Lat',
     $Lat = $this->randomString();
     $address->setLat($Lat);
@@ -58,10 +96,19 @@ class MrAddressTest extends TestCase
     self::assertNotNull($address);
     $this->assertEquals($KindObject, $address->getObjectKind());
     $this->assertEquals($ObjectID, $address->getObject()->id());
+    $this->assertEquals($AddressKind, $address->getAddressKind());
+    $this->assertEquals($TerritoryCode, $address->getTerritoryCode());
+    $this->assertEquals($RegionName, $address->getRegionName());
+    $this->assertEquals($DistrictName, $address->getDistrictName());
     $this->assertEquals($CountryID, $address->getCountry()->id());
     $this->assertEquals($City, $address->getCity());
-    $this->assertEquals($Building, $address->getBuilding());
-    $this->assertEquals($Address, $address->getAddress());
+    $this->assertEquals($SettlementName, $address->getSettlementName());
+    $this->assertEquals($StreetName, $address->getStreetName());
+    $this->assertEquals($BuildingNumberId, $address->getBuildingNumberId());
+    $this->assertEquals($RoomNumberId, $address->getRoomNumberId());
+    $this->assertEquals($PostCode, $address->getPostCode());
+    $this->assertEquals($PostOfficeBoxId, $address->getPostOfficeBoxId());
+    $this->assertEquals($AddressText, $address->getAddressText());
     $this->assertEquals($Lat, $address->getLat());
     $this->assertEquals($Lon, $address->getLon());
 
@@ -73,18 +120,45 @@ class MrAddressTest extends TestCase
     //'ObjectID',
     $ObjectID = self::randomIDfromClass(MrManufacturer::class);
     $address->setObjectID($ObjectID);
+    //'AddressKind'
+    $AddressKind = array_rand(MrAddress::GetAddressKindList());
+    $address->setAddressKind($AddressKind);
     //'CountryID',
     $CountryID = self::randomIDfromClass(MrCountry::class);
     $address->setCountryID($CountryID);
+    //'TerritoryCode'
+    $TerritoryCode = $this->randomString(18);
+    $address->setTerritoryCode($TerritoryCode);
+    //'RegionName'
+    $RegionName = $this->randomString(120);
+    $address->setRegionName($RegionName);
+    //'DistrictName'
+    $DistrictName = $this->randomString(120);
+    $address->setDistrictName($DistrictName);
     //'City',
-    $City = $this->randomString();
+    $City = $this->randomString(120);
     $address->setCity($City);
-    //'Building',
-    $Building = $this->randomString();
-    $address->setBuilding($Building);
-    //'Address',
-    $Address = $this->randomString();
-    $address->setAddress($Address);
+    //'SettlementName'
+    $SettlementName = $this->randomString(120);
+    $address->setSettlementName($SettlementName);
+    //'StreetName',
+    $StreetName = $this->randomString(120);
+    $address->setStreetName($StreetName);
+    //'BuildingNumberId',
+    $BuildingNumberId = $this->randomString(50);
+    $address->setBuildingNumberId($BuildingNumberId);
+    //'RoomNumberId'
+    $RoomNumberId = $this->randomString(20);
+    $address->setRoomNumberId($RoomNumberId);
+    //'PostCode'
+    $PostCode = $this->randomString(10);
+    $address->setPostCode($PostCode);
+    //'PostOfficeBoxId'
+    $PostOfficeBoxId = $this->randomString(20);
+    $address->setPostOfficeBoxId($PostOfficeBoxId);
+    //'AddressText'
+    $AddressText = $this->randomString(1000);
+    $address->setAddressText($AddressText);
     //'Lat',
     $Lat = $this->randomString();
     $address->setLat($Lat);
@@ -100,23 +174,34 @@ class MrAddressTest extends TestCase
     self::assertNotNull($address);
     $this->assertEquals($KindObject, $address->getObjectKind());
     $this->assertEquals($ObjectID, $address->getObject()->id());
+    $this->assertEquals($AddressKind, $address->getAddressKind());
+    $this->assertEquals($TerritoryCode, $address->getTerritoryCode());
+    $this->assertEquals($RegionName, $address->getRegionName());
+    $this->assertEquals($DistrictName, $address->getDistrictName());
     $this->assertEquals($CountryID, $address->getCountry()->id());
     $this->assertEquals($City, $address->getCity());
-    $this->assertEquals($Building, $address->getBuilding());
-    $this->assertEquals($Address, $address->getAddress());
+    $this->assertEquals($SettlementName, $address->getSettlementName());
+    $this->assertEquals($StreetName, $address->getStreetName());
+    $this->assertEquals($BuildingNumberId, $address->getBuildingNumberId());
+    $this->assertEquals($RoomNumberId, $address->getRoomNumberId());
+    $this->assertEquals($PostCode, $address->getPostCode());
+    $this->assertEquals($PostOfficeBoxId, $address->getPostOfficeBoxId());
+    $this->assertEquals($AddressText, $address->getAddressText());
     $this->assertEquals($Lat, $address->getLat());
     $this->assertEquals($Lon, $address->getLon());
 
     //// NUll
-    //'City',
+    $address->setRegionName(null);
+    $address->setDistrictName(null);
     $address->setCity(null);
-    //'Building',
-    $address->setBuilding(null);
-    //'Address',
-    $address->setAddress(null);
-    //'Lat',
+    $address->setSettlementName(null);
+    $address->setStreetName(null);
+    $address->setBuildingNumberId(null);
+    $address->setRoomNumberId(null);
+    $address->setPostCode(null);
+    $address->setPostOfficeBoxId(null);
+    $address->setAddressText(null);
     $address->setLat(null);
-    //'Lon',
     $address->setLon(null);
 
     $address_id = $address->save_mr();
@@ -124,9 +209,16 @@ class MrAddressTest extends TestCase
 
 
     //// Asserts
+    $this->assertNull($address->getRegionName());
+    $this->assertNull($address->getDistrictName());
     $this->assertNull($address->getCity());
-    $this->assertNull($address->getBuilding());
-    $this->assertNull($address->getAddress());
+    $this->assertNull($address->getSettlementName());
+    $this->assertNull($address->getStreetName());
+    $this->assertNull($address->getBuildingNumberId());
+    $this->assertNull($address->getRoomNumberId());
+    $this->assertNull($address->getPostCode());
+    $this->assertNull($address->getPostOfficeBoxId());
+    $this->assertNull($address->getAddressText());
     $this->assertNull($address->getLat());
     $this->assertNull($address->getLon());
 
