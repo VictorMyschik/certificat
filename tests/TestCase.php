@@ -19,8 +19,9 @@ abstract class TestCase extends BaseTestCase
   protected static function randomIDfromClass(string $classname)
   {
     $query = DB::table($classname::$mr_table)->limit(1000)->pluck('id')->toArray();
+    $key = array_rand($query);
 
-    return array_rand($query);
+    return $query[$key];
   }
 
   protected function randomString($length = 8): string
