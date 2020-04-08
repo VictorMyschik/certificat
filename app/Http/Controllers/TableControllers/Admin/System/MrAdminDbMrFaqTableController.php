@@ -18,6 +18,7 @@ class MrAdminDbMrFaqTableController extends MrTableController
         array('name' => 'id', 'sort' => 'id'),
         array('name' => 'Title', 'sort' => 'Title'),
         array('name' => 'Text', 'sort' => 'Text'),
+        array('name' => 'LanguageID', 'sort' => 'LanguageID'),
       ),
 
       'body' => $body
