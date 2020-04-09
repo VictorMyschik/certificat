@@ -115,7 +115,7 @@ class MrArticle extends ORM
     $this->IsPublic = $value;
   }
 
-  public function setWriteDate(): MrDateTime
+  public function getWriteDate(): MrDateTime
   {
     return $this->getDateNullableField('WriteDate');
   }
