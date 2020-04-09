@@ -5,7 +5,7 @@ namespace App\Models;
 
 
 use App\Helpers\MrDateTime;
-use Illuminate\Support\Facades\Cache;
+use App\Models\References\MrCountry;
 use Illuminate\Support\Facades\DB;
 
 class MrOffice extends ORM
@@ -94,26 +94,11 @@ class MrOffice extends ORM
 
   public function before_delete()
   {
-    foreach ($this->GetTariffs() as $tariffInOffice)
-    {
-      $tariffInOffice->mr_delete();
-    }
-
     foreach ($this->GetUsers() as $userInOffice)
     {
       $userInOffice->mr_delete();
     }
   }
-
-  /**
-   * @return MrTariffInOffice[]
-   */
-  public function GetTariffs(): array
-  {
-    $list = DB::table(MrTariffInOffice::$mr_table)->where('OfficeID', $this->id())->get();
-    return parent::LoadArray($list, MrTariffInOffice::class);
-  }
-
 
   /**
    * @return MrUserInOffice[]
@@ -170,7 +155,7 @@ class MrOffice extends ORM
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(int $value)
+  public function setCountryID(?int $value)
   {
     $this->CountryID = $value;
   }
@@ -365,36 +350,6 @@ class MrOffice extends ORM
   ////////////////////////////////////////////////////////////////
 
   /**
-   * Скидки ВО
-   * @return MrDiscount[]
-   */
-  public function GetDiscount(): array
-  {
-    return Cache::rememberForever('discount_' . $this->id(), function () {
-      $list = DB::table(MrDiscount::$mr_table)->where('OfficeID', '=', $this->id())->get();
-      return parent::LoadArray($list, MrDiscount::class);
-    });
-  }
-
-  /**
-   * @return MrDiscount[]
-   */
-  public function GetGlobalDiscountList(): array
-  {
-    $out = array();
-
-    foreach ($this->GetDiscount() as $discount)
-    {
-      if(!$discount->getTariff())
-      {
-        $out[] = $discount;
-      }
-    }
-
-    return $out;
-  }
-
-  /**
    * Есть ли пользователь в данном ВО
    *
    * @param MrUser $user
@@ -434,6 +389,7 @@ class MrOffice extends ORM
 
   /**
    * Список приглашённых но ещё не добавленных пользователей
+   *
    * @return MrNewUsers[]
    */
   public function GetNewUsers(): array
