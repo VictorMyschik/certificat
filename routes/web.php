@@ -160,8 +160,6 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   //// BACK UP
-
-
   Route::get('/admin/system/backup/refresh/{table_name}', function ($table_name) {
     Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
     Cache::forget(MrAdminBackUpController::getTableNameFromFileName($table_name) . '_count_rows');

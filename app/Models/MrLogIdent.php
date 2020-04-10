@@ -38,7 +38,7 @@ class MrLogIdent extends ORM
   }
 
   // Дата
-  public function getDate(): MrDateTime
+  public function getDate(): ?MrDateTime
   {
     return $this->getDateNullableField('Date');
   }

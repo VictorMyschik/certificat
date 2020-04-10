@@ -32,6 +32,7 @@ Route::match(['get', 'post'], '/admin/system/backup/summary_table', 'Admin\MrAdm
 
 /// Для Админов
 Route::group(['middleware' => 'is_admin'], function () {
+  // Redis
   Route::match(['get', 'post'], '/admin/systemdata', 'Admin\MrAdminController@GetData')->name('admin_redis_data');
 
 });
