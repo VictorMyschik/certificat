@@ -22,11 +22,11 @@
     <hr>
     <div class=" d-md-flex d-sm-flex justify-content-center">
       @if(!isset($form['#btn_info']))
-        <button type="submit" id="mr-btn" class="btn btn-primary btn-xs">{{ $form['#btn_success'] }}</button>
-        <button type="button" class="btn btn-danger btn-xs m-l-5"
+        <button type="submit" id="mr-btn" class="btn btn-primary btn-sm">{{ $form['#btn_success'] }}</button>
+        <button type="button" class="btn btn-danger btn-sm m-l-5"
                 data-dismiss="modal">{{ $form['#btn_cancel'] }}</button>
       @else
-        <button type="button" class="btn btn-success btn-xs m-l-5"
+        <button type="button" class="btn btn-success btn-sm m-l-5"
                 data-dismiss="modal">{{ $form['#btn_info'] }}</button>
       @endif
     </div>

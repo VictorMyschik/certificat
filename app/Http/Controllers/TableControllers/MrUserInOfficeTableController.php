@@ -31,14 +31,14 @@ class MrUserInOfficeTableController extends MrTableController
       $btn_edit = null;
       if($new_user->canEdit())
       {
-        $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-primary btn-xs fa fa-edit');
+        $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-primary btn-sm fa fa-edit');
       }
       $row[] = array($privileges, $btn_edit);
 
       // удалить
       if($new_user->canDelete())
       {
-        $delete_new_user = MrLink::open('new_user_delete', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash');
+        $delete_new_user = MrLink::open('new_user_delete', ['office_id' => $office->id(), 'id' => $new_user->id()], '', 'btn btn-danger btn-sm fa fa-trash');
       }
 
       $row[] = $delete_new_user ?? null;
@@ -64,13 +64,13 @@ class MrUserInOfficeTableController extends MrTableController
       {
         if($item->canAdminChange())
         {
-          $btn_edit = MrLink::open('user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-primary btn-xs fa fa-edit');
+          $btn_edit = MrLink::open('user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $item->id()], '', 'btn btn-primary btn-sm fa fa-edit');
         }
 
         // Себя удалить нельзя
         if($me->id() != $item->getUser()->id() || $item->getUser()->IsSuperAdmin())
         {
-          $delete = MrLink::open('user_in_office_delete', ['id' => $item->id()], '', 'btn btn-danger btn-xs fa fa-trash');
+          $delete = MrLink::open('user_in_office_delete', ['id' => $item->id()], '', 'btn btn-danger btn-sm fa fa-trash');
         }
       }
 

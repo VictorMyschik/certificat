@@ -129,7 +129,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/users/delete/{id}', "Admin\MrAdminController@userDeleteForever")->name('user_delete_forever');
 
   // Подписка
-  Route::get('/admin/subscription', "Admin\MrAdminSubscription@index")->name('admin_subscription');
+  Route::get('/admin/subscription', "Admin\MrAdminSubscriptionController@index")->name('admin_subscription');
   Route::get('/admin/subscription/delete/{id}',
     "Admin\MrAdminSubscription@UnSubscription")->name('un_subscription');
   Route::post('/admin/subscription/new', "Admin\MrAdminSubscription@NewSubscription")->name('new_subscription');

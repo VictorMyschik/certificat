@@ -7,7 +7,7 @@
       @include('Admin.layouts.page_title')
       <div class="mr-bold mr-middle margin-b-10"
            style="border-bottom: #0c175b 1px solid">
-        {!! MrBtn::loadForm('admin_office_edit', ['id' =>$office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}
+        {!! MrBtn::loadForm('admin_office_edit', ['id' =>$office->id()], '', ['btn btn-primary btn-sm fa fa-edit']) !!}
         Офис создан: |
         Примечание: {{ $office->getDescription() }}</div>
 
@@ -128,7 +128,7 @@
                   <td class="padding-horizontal">{{ $tariff->getCreateDate()->getShortDate() }}</td>
                   <td>
                     <a href="{{ route('tariff_office_delete',['office_id' => $office->id(),'id'=>$tariff->id()]) }}"
-                       class="btn btn-danger btn-xs mr-border-radius-5"
+                       class="btn btn-danger btn-sm mr-border-radius-5"
                        onclick="return confirm('Уверены?');"><i class="fa fa-trash"></i></a></td>
                 </tr>
               @endforeach
@@ -155,7 +155,7 @@
                   <td>{!! $discount->getAmount().'<div>('.$discount->getKindName().')</div>' !!}</td>
                   <td>
                     <a href="{{ route('discount_delete',['id'=>$discount->id()]) }}"
-                       class="btn btn-danger btn-xs mr-border-radius-5 fa fa-trash"
+                       class="btn btn-danger btn-sm mr-border-radius-5 fa fa-trash"
                        onclick="return confirm('Уверены?');"></a>
                   </td>
                 </tr>
@@ -171,7 +171,7 @@
           <h5 class="mr-bold">{{__('mr-t.Пользователи')}}
             @if($office->canEdit())
               <span title="{{ __('mr-t.Добавить нового пользователя') }}">
-                {!! MrBtn::loadForm('add_office_user_edit', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-xs'],'sm') !!}
+                {!! MrBtn::loadForm('add_office_user_edit', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-sm'],'sm') !!}
                 </span>
             @endif
           </h5>

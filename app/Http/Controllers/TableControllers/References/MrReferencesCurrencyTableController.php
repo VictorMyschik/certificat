@@ -63,10 +63,10 @@ class MrReferencesCurrencyTableController extends MrTableController
     if(self::$can_edit)
     {
       $row[] = array(
-        $edit = MrForm::loadForm('admin_reference_currency_form_edit', ['id' => $currency->id()], '', ['btn btn-success btn-xs fa fa-edit']),
+        $edit = MrForm::loadForm('admin_reference_currency_form_edit', ['id' => $currency->id()], '', ['btn btn-success btn-sm fa fa-edit']),
         $delete = MrLink::open('reference_item_delete',
           ['name' => 'currency', 'id' => $currency->id()], '',
-          'm-l-5 btn btn-danger btn-xs fa fa-trash-alt',
+          'm-l-5 btn btn-danger btn-sm fa fa-trash-alt',
           'Удалить', ['onclick' => "return confirm('Уверены?');"]),
       );
     }

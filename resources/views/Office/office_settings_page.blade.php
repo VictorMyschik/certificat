@@ -25,7 +25,7 @@
               <div class="">
                 <h5 class="mr-bold" style="padding-right: 20px;">
                   @if($office->canEdit())
-                    {!! MrBtn::loadForm('office_po_details_edit', ['id'=> $office->id()], '', ['btn-primary btn-xs fa fa-edit']) !!}
+                    {!! MrBtn::loadForm('office_po_details_edit', ['id'=> $office->id()], '', ['btn-primary btn-sm fa fa-edit']) !!}
                   @endif Контактная информация и <br>лицо с правом подписи
                 </h5>
                 <div class="margin-b-10">
@@ -76,7 +76,7 @@
               <div class="">
                 <h5 class="mr-bold margin-b-5">
                   @if($office->canEdit())
-                    {!! MrBtn::loadForm('office_ur_details_edit', ['id' => $office->id()], '', ['btn btn-primary btn-xs fa fa-edit']) !!}@endif
+                    {!! MrBtn::loadForm('office_ur_details_edit', ['id' => $office->id()], '', ['btn btn-primary btn-sm fa fa-edit']) !!}@endif
                   Юридическая информация
                 </h5>
                 <table class="margin-b-10">
@@ -122,14 +122,14 @@
             <div class="d-md-inline col-md-4 mr-middle">
               <h5 class="mr-bold">
                 @if($me->IsSuperAdmin())
-                  {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs'],'xs') !!}
+                  {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-sm'],'xs') !!}
                 @endif
                 {{__('mr-t.Тарифы')}}</h5>
               <div>{!! $tariffs !!}</div>
 
               <h5 class="mr-bold">
                 @if($me->IsSuperAdmin())
-                  {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-xs'],'xs') !!}
+                  {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-sm'],'xs') !!}
                 @endif{{__('mr-t.Скидки')}}</h5>
               <div>
                 {!! $discounts !!}
@@ -140,7 +140,7 @@
           <div class="row col-md-12 p-0 margin-t-20">
             <div class="d-md-inline col-md-4 mr-middle">
               <h5 class="mr-bold">{{__('mr-t.Личные настройки')}}</h5>
-              <div>{!! MrLink::open('personal_page', [],'', 'btn-primary btn-xs fa fa-eye') !!}
+              <div>{!! MrLink::open('personal_page', [],'', 'btn-primary btn-sm fa fa-eye') !!}
                 {{ $me->GetFullName() }}
               </div>
             </div>
@@ -148,7 +148,7 @@
               <h5 class="mr-bold">{{__('mr-t.Пользователи')}}
                 @if($office->canEdit())
                   <span title="{{ __('mr-t.Добавить нового пользователя') }}">
-                {!! MrBtn::loadForm('add_office_user_edit', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-xs'],'sm') !!}
+                {!! MrBtn::loadForm('add_office_user_edit', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-sm'],'sm') !!}
                 </span>
                 @endif
               </h5>

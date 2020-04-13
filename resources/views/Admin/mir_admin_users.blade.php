@@ -6,7 +6,7 @@
     <div class="container m-t-10">
       @include('Admin.layouts.page_title')
       <div class="m-b-10">
-        {!! MrBtn::loadForm('user_form_edit', ['id' => '0'], 'Добавить', ['btn-success btn-xs'],'xs') !!}
+        {!! MrBtn::loadForm('user_form_edit', ['id' => '0'], 'Добавить', ['btn-success btn-sm'],'xs') !!}
       </div>
       <table class="table table-hover table-striped table-bordered mr-middle">
         <thead>
@@ -41,10 +41,10 @@
             <td class="padding-horizontal"
                 title="{{ $user->getDateVerify()?$user->getDateVerify()->getShortDateShortTime():null }}">{{ $user->getDateVerify()?$user->getDateVerify()->getShortDate():null }}</td>
             <td class="padding-horizontal">
-              {!! MrBtn::loadForm('user_form_edit', ['id' => $user->id()], '', ['btn btn-primary btn-xs fa fa-edit'],'xs') !!}
+              {!! MrBtn::loadForm('user_form_edit', ['id' => $user->id()], '', ['btn btn-primary btn-sm fa fa-edit'],'xs') !!}
               <a href="/admin/users/delete/{{ $user->id() }}"
                  onclick="return confirm('Уверены? Пользователь будет удалён полностью из системы');"
-                 class="btn btn-danger btn-xs fa fa-trash mr-border-radius-5">
+                 class="btn btn-danger btn-sm fa fa-trash mr-border-radius-5">
               </a>
             </td>
           </tr>
@@ -73,8 +73,8 @@
             <td>{{ $new_user->getIsAdmin()?'Админ':'Пользователь' }}</td>
             <td>{{ $new_user->getWriteDate()->getShortDateShortTime() }}</td>
             <td>
-              {{ MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-xs fa fa-trash','Удалить') }}
-              {!! MrLink::open('resend_message_for_new_user', ['new_user_id' => $new_user->id()],'','btn btn-primary btn-xs fa fa-mail-reply','Переотправить') !!}
+              {{ MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-sm fa fa-trash','Удалить') }}
+              {!! MrLink::open('resend_message_for_new_user', ['new_user_id' => $new_user->id()],'','btn btn-primary btn-sm fa fa-mail-reply','Переотправить') !!}
               <i class="fa fa-mail-reply"></i>
             </td>
           </tr>
@@ -102,7 +102,7 @@
                class="mr-border-radius-10">
 
         <input name="description" type="text" placeholder="причина..." class="mr-border-radius-10">
-        <button type="submit" class="btn btn-xs top btn-primary mr-border-radius-5">Блокировать</button>
+        <button type="submit" class="btn btn-sm top btn-primary mr-border-radius-5">Блокировать</button>
         {!! Form::close() !!}
       </div>
 

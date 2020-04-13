@@ -3,7 +3,7 @@
   <div class="mr-main-div">
     @include('Admin.layouts.nav_bar')
     <div class="container m-t-10">
-      {!! MrLink::open('admin_article_page',[],'Назад','btn btn-success btn-xs') !!}
+      {!! MrLink::open('admin_article_page',[],'Назад','btn btn-success btn-sm') !!}
       @include('Admin.layouts.page_title')
       {!!  MrMessage::GetMessage() !!}
       <div class="padding-horizontal-0">
@@ -14,8 +14,8 @@
 
         <div class="container padding-horizontal-0">
           <a href="{{ route('admin_article_page') }}" onclick="return confirm('Отменить?');"
-             class="btn btn-xs btn-danger mr-border-radius-5 margin-t-20 margin-b-20">Вернуться</a>
-          <button type="submit" class="btn btn-xs btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить
+             class="btn btn-sm btn-danger mr-border-radius-5 margin-t-20 margin-b-20">Вернуться</a>
+          <button type="submit" class="btn btn-sm btn-primary mr-border-radius-5 margin-t-20 margin-b-20">Сохранить
           </button>
         </div>
         {!! Form::close() !!}

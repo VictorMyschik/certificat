@@ -9,13 +9,9 @@
         <a class="btn btn-primary btn-sm mr-border-radius-5"
            href="{{route('artisan_migrate')}}">Запустить миграцию</a>
         <p><i class="fa fa-info-circle mr-color-green"></i>Будут созданы таблицы из файлов, отсутствующие в БД</p>
-        <div><i class="fa fa-info-circle mr-color-green"></i>Кнопка <a class="btn btn-primary btn-xs mr-border-radius-5"
+        <div><i class="fa fa-info-circle mr-color-green"></i>Кнопка <a class="btn btn-primary btn-sm mr-border-radius-5"
                                                                        href="#">Recovery</a> восстановит данные
         </div>
-        <!--<div><i class="fa fa-info-circle mr-color-green"></i>Кнопка
-          <a class="btn btn-danger btn-xs mr-border-radius-5" href="#">Refresh</a> пересоздаст таблицу из кода PHP. Все
-          данные будут <span class="mr-color-red">удалены</span>.
-        </div>-->
       </div>
       @include('layouts.Elements.table', ['route_name'=>$route_name])
     </div>

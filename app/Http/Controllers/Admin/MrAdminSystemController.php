@@ -4,13 +4,16 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\Admin\MrAdminSystemDbLogTableController;
+use App\Http\Controllers\TableControllers\Admin\MrAdminSystemLogIdentTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrBaseLog;
 use App\Models\MrLogIdent;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
 class MrAdminSystemController extends Controller
 {
@@ -18,42 +21,59 @@ class MrAdminSystemController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Лог посещения';
-    $date = new Carbon();
-
-    // Выбор только людей или ботов
-    if($type = $request->get('type'))
-    {
-      self::setType($type);
-    }
-
-    if($request->get('date') == 'week')
-    {
-      $last_week = $date->addWeeks(-1);
-      $date_name = "Показаны результаты за последнюю <b>неделю</b>";
-    }
-    elseif($request->get('date') == 'month')
-    {
-      $last_week = $date->addMonths(-1);
-      $date_name = "Показаны результаты за последний <b>месяц</b>";
-    }
-    elseif($request->get('date') == 'year')
-    {
-      $last_week = $date->addYears(-1);
-      $date_name = "Показаны результаты за последний <b>год</b>";
-    }
-    else
-    {
-      $last_week = $date->addDays(-1);
-      $date_name = "Показаны результаты за последний <b>день</b>";
-    }
-
-    $type = $_COOKIE['type'] ?? null;
-    $out['logs'] = MrLogIdent::GetAllLast($last_week, $type);
-    $out['date'] = $date_name;
+    $out['route_name'] = route('admin_system_table');
 
     return View('Admin.mir_admin_hardware')->with($out);
   }
 
+  /**
+   * API получение данных для таблицы посещеня сайта
+   */
+  public function GetLogIdentTable()
+  {
+    return MrTableController::buildTable(MrAdminSystemLogIdentTableController::class);
+  }
+
+  /**
+   * API получение данных для таблицы посещеня сайта
+   */
+  public function GetDbLogTable()
+  {
+    return MrTableController::buildTable(MrAdminSystemDbLogTableController::class);
+  }
+
+  /**
+   * Страница лога записей в БД
+   *
+   * @return Factory|View
+   */
+  public function ViewDbLog()
+  {
+    $out = array();
+    $out['page_title'] = 'Лог базы данных';
+    $out['route_name'] = route('admin_db_log_table');
+
+    return View('Admin.mir_admin_bd_log')->with($out);
+  }
+
+  public function ApiUpdate(): array
+  {
+    $out = array();
+    $out['memory'] = self::getMemory();
+    $out['memory_pic'] = self::getPicMemory();
+
+    return $out;
+  }
+
+  public static function getMemory(): string
+  {
+    return (memory_get_usage(true) / 1024) . ' KB';
+  }
+
+  public static function getPicMemory(): string
+  {
+    return (memory_get_peak_usage(true) / 1024) . ' KB';
+  }
 
   public static function setType(string $type)
   {
@@ -61,7 +81,7 @@ class MrAdminSystemController extends Controller
   }
 
   /**
-   * очистить лог посещений
+   * Очистить лог посещений
    *
    * @return RedirectResponse
    */
@@ -72,40 +92,20 @@ class MrAdminSystemController extends Controller
     return back();
   }
 
-
-  public function ViewDbLog()
-  {
-    $out = array();
-    $out['page_title'] = 'Лог БД';
-    $out['list'] = MrBaseLog::GetAll();
-
-    return View('Admin.mir_admin_bd_log')->with($out);
-  }
-
   /**
-   * @param int $id
    * @return RedirectResponse
    */
-  public function deleteDbLog(int $id)
+  public function deleteDbLog()
   {
-    if($id == 0)
-    {
-      MrBaseLog::AllDelete();
-    }
-    else
-    {
-      $log = MrBaseLog::loadBy($id);
+    MrBaseLog::AllDelete();
 
-      if($log)
-      {
-        $log->mr_delete();
-        MrMessageHelper::SetMessage(true, "Запись ID{$id} удалена");
-      }
-      else
-      {
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, "Запись ID{$id} удалена");
-      }
-    }
+    return back();
+  }
+
+  public function deleteDbLogRow(int $id)
+  {
+    $log = MrBaseLog::loadBy($id);
+    $log->mr_delete();
 
     return back();
   }

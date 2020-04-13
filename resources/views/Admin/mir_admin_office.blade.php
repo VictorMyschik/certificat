@@ -7,7 +7,7 @@
       @include('Admin.layouts.page_title')
       {!!  MrMessage::GetMessage() !!}
       <div class="margin-b-15 margin-t-10">
-        {!! MrBtn::loadForm('admin_office_edit', ['id'=>'0'], 'Создать пустой офис', ['btn btn-primary btn-xs']) !!}
+        {!! MrBtn::loadForm('admin_office_edit', ['id'=>'0'], 'Создать пустой офис', ['btn btn-primary btn-sm']) !!}
       </div>
       {!! $table !!}
     </div>

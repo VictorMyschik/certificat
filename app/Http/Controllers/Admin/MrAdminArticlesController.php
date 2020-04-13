@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\MrDateTime;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\Admin\MrAdminArticleTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrArticle;
 use App\Models\MrLanguage;
 use Illuminate\Http\Request;
@@ -17,76 +19,82 @@ class MrAdminArticlesController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Статьи на сайте';
-    $out['list'] = MrArticle::GetAll();
+    $out['route_name'] = route('admin_article_table');
 
     return View('Admin.mir_admin_articles')->with($out);
+  }
+
+  /**
+   * Article table
+   *
+   * @return array
+   */
+  public function GetArticleTable(): array
+  {
+    return MrTableController::buildTable(MrAdminArticleTableController::class);
   }
 
   public function edit(Request $request, int $id)
   {
     $out = array();
 
+    $article = MrArticle::loadBy($id);
+
     if($request->getMethod() == 'POST')
     {
-      $v = $request->all();
-
-      if(!$v['Kind'])
+      if(!$article)
       {
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR,' Тип обязателен');
-        return back()->withInput($v);
+        $article = new MrArticle();
       }
 
-      if(!$v['LanguageID'])
+      if(!$request->get('LanguageID'))
       {
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR,' Язык обязателен');
-        return back()->withInput($v);
+        MrMessageHelper::SetMessage(1, 'Выберите язык');
+        return back()->withInput($request->all());
       }
 
-
-      $article = MrArticle::loadBy($id) ?: new MrArticle();
-      $article->setIsPublic((bool)isset($v['IsPublic']));
-      $article->setKind($v['Kind']);
-      $article->setLanguageID($v['LanguageID']);
-      $article->setText($v['Text'] ?: null);
+      $article->setLanguageID($request->get('LanguageID'));
+      $article->setText($request->get('Text'));
+      $article->setIsPublic($request->get('IsPublic') ? true : false);
+      $article->setKind($request->get('Kind'));
       $article->setDateUpdate(MrDateTime::now());
 
       $id = $article->save_mr();
-      MrMessageHelper::SetMessage(true, 'Сохранено');
-      return redirect()->route('admin_article_edit', ['id' => $id]);
+
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Сохранено');
+
+      return redirect()->route('admin_article_page');
     }
 
-    $article = MrArticle::loadBy($id);
-
-    $out['page_title'] = $id ? 'Редактирование ' . $article->getKindName() : 'Создание';
 
     $form = array();
 
     $form['LanguageID'] = array(
-      '#type' => 'select',
-      '#title' => 'Язык',
+      '#type'          => 'select',
+      '#title'         => 'Язык',
       '#default_value' => $article ? $article->getLanguage()->id() : 0,
-      '#value' => MrLanguage::SelectList(),
+      '#value'         => MrLanguage::SelectList(),
     );
 
     $form['Kind'] = array(
-      '#type' => 'select',
-      '#title' => 'Тип',
+      '#type'          => 'select',
+      '#title'         => 'Тип',
       '#default_value' => $article ? $article->getKind() : 0,
-      '#value' => [0 => 'не выбрано'] + MrArticle::getKinds(),
-      '#required' => true,
+      '#value'         => [0 => 'не выбрано'] + MrArticle::getKinds(),
+      '#required'      => true,
     );
 
     $form['Text'] = array(
-      '#type' => 'textarea',
-      '#title' => 'Текст ответа',
-      '#value' => $article ? $article->getText() : null,
+      '#type'     => 'textarea',
+      '#title'    => 'Текст ответа',
+      '#value'    => $article ? $article->getText() : null,
       '#ckeditor' => true,
     );
 
     $form['IsPublic'] = array(
-      '#type' => 'checkbox',
-      '#title' => 'Опубликовать',
-      '#value' => 1,
+      '#type'    => 'checkbox',
+      '#title'   => 'Опубликовать',
+      '#value'   => 1,
       '#checked' => $article ? (bool)$article->getIsPublic() : false,
     );
 
@@ -94,7 +102,7 @@ class MrAdminArticlesController extends Controller
     $out['form'] = $form;
     $out['article'] = $article;
 
-    return View('Admin.mir_admin_article_edit')->with($out);
+    return View('Admin.mir_admin_articles_edit')->with($out);
   }
 
   public function delete(int $id)

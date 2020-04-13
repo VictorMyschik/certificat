@@ -34,5 +34,11 @@ Route::match(['get', 'post'], '/admin/system/backup/summary_table', 'Admin\MrAdm
 Route::group(['middleware' => 'is_admin'], function () {
   // Redis
   Route::match(['get', 'post'], '/admin/systemdata', 'Admin\MrAdminController@GetData')->name('admin_redis_data');
-
+  Route::match(['get', 'post'], '/admin/system/table', 'Admin\MrAdminSystemController@GetLogIdentTable')->name('admin_system_table');
+  Route::match(['get', 'post'], '/admin/system/dblog/table', 'Admin\MrAdminSystemController@GetDbLogTable')->name('admin_db_log_table');
+  Route::match(['get', 'post'], '/admin/language/word/table', 'Admin\MrAdminLanguageController@GetTranslateTable')->name('admin_translate_word_table');
+  Route::match(['get', 'post'], '/admin/faq/table', 'Admin\MrAdminFaqController@GetFaqTable')->name('admin_faq_table');
+  Route::match(['get', 'post'], '/admin/feedback/table', 'Admin\MrAdminFeedbackController@GetFeedbackTable')->name('admin_feedback_table');
+  Route::match(['get', 'post'], '/admin/article/table', 'Admin\MrAdminArticlesController@GetArticleTable')->name('admin_article_table');
+  Route::match(['get', 'post'], '/admin/subscription/table', 'Admin\MrAdminSubscriptionController@GetSubscriptionTable')->name('admin_subscription_table');
 });

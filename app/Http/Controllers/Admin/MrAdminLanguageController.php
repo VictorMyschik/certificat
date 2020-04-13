@@ -6,9 +6,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\Admin\MrAdminTranslateTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrLanguage;
 use App\Models\MrTranslate;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class MrAdminLanguageController extends Controller
 {
@@ -16,26 +20,36 @@ class MrAdminLanguageController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Страница управления языками';
+    $out['route_name'] = route('admin_translate_word_table');
     $out['users'] = array();
     $out['languages'] = MrLanguage::GetAll();
-    $out['translate'] = MrTranslate::GetAll();
 
     return View('Admin.mir_admin_language')->with($out);
+  }
+
+  /**
+   * Таблица переводов
+   *
+   * @return array
+   */
+  public function GetTranslateTable()
+  {
+    return MrTableController::buildTable(MrAdminTranslateTableController::class);
   }
 
   /**
    * Добавить новый язык
    *
    * @param Request $request
-   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+   * @return RedirectResponse|Redirector
    */
   public function Add(Request $request)
   {
-    if($name = $request->get('Name'))
+    if ($name = $request->get('Name'))
     {
-      if($language = MrLanguage::loadBy($name))
+      if ($language = MrLanguage::loadBy($name))
       {
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Такой язык уже добавлен');
+        MrMessageHelper::SetMessage(false, 'Такой язык уже добавлен');
       }
       else
       {
@@ -48,7 +62,7 @@ class MrAdminLanguageController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Не указано наименование нового языка');
+      MrMessageHelper::SetMessage(false, 'Не указано наименование нового языка');
     }
 
     return redirect('/admin/language');
@@ -56,15 +70,14 @@ class MrAdminLanguageController extends Controller
 
   public function translatedWordDelete(int $id)
   {
-    if($word = MrTranslate::loadBy($id))
+    if ($word = MrTranslate::loadBy($id))
     {
       $word->mr_delete();
       MrMessageHelper::SetMessage(true, 'Успешно удалено');
     }
     else
     {
-
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, "Слово в БД не найдено id={$id}");
+      MrMessageHelper::SetMessage(false, "Слово в БД не найдено id={$id}");
     }
 
     return redirect('/admin/language');

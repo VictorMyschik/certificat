@@ -8,19 +8,19 @@
       <div>{{ $user->GetFullName() }}</div>
       <hr>
       <div>
-        {!! MrBtn::loadForm('user_form_edit', ['id' => $user->id()], '', ['btn-primary btn-xs fa fa-edit'],'xs') !!}  {{__('mr-t.Изменить параметры входа')}}
+        {!! MrBtn::loadForm('user_form_edit', ['id' => $user->id()], '', ['btn-primary btn-sm fa fa-edit'],'xs') !!}  {{__('mr-t.Изменить параметры входа')}}
       </div>
       <div class="margin-t-5">
-        {!! MrBtn::loadForm('user_telegram_edit', ['id' => $user->id()], '', ['btn-primary btn-xs fa fa-edit'],'xs') !!}  {{__('mr-t.Telegram оповещение')}}
+        {!! MrBtn::loadForm('user_telegram_edit', ['id' => $user->id()], '', ['btn-primary btn-sm fa fa-edit'],'xs') !!}  {{__('mr-t.Telegram оповещение')}}
 
       </div>
       <div class="margin-t-5">
         @if($user->getIsSubscription())
-          <a class="btn btn-danger btn-xs fa fa-trash"
+          <a class="btn btn-danger btn-sm fa fa-trash"
              href="{{ route('toggle_subscription', ['id'=>$user->id()]) }}"></a>
           {{ __('mr-t.Отменить подписку') }}
         @else
-          <a class="btn btn-success btn-xs fa fa-edit"
+          <a class="btn btn-success btn-sm fa fa-edit"
              href="{{ route('toggle_subscription', ['id'=>$user->id()]) }}"></a>
           {{__('mr-t.Подписаться на новости')}}
         @endif

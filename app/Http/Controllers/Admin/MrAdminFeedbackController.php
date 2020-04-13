@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\Admin\MrAdminFeedbackTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrFeedback;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -18,14 +20,25 @@ class MrAdminFeedbackController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Feedback';
-    $out['list'] = MrFeedback::GetAll();
+    $out['route_name'] = route('admin_feedback_table');
 
     return View('Admin.mir_admin_feedback')->with($out);
   }
 
   /**
+   * Feedback table
+   *
+   * @return array
+   */
+  public function GetFeedbackTable(): array
+  {
+    return MrTableController::buildTable(MrAdminFeedbackTableController::class);
+  }
+
+  /**
    * Страница ответа на сообщения пользователей
    *
+   * @param int $id
    * @return Factory|View
    */
   public function edit(int $id)
@@ -85,7 +98,7 @@ class MrAdminFeedbackController extends Controller
     }
     else
     {
-      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Раздел не найден');
+      MrMessageHelper::SetMessage(false, 'Раздел не найден');
     }
 
     return Redirect::route('admin_feedback_list');
