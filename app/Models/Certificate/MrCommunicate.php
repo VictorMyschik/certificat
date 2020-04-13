@@ -29,7 +29,7 @@ class MrCommunicate extends ORM
    *
    * @return array
    */
-  public static function getKindObjectList(): array
+  public static function getObjectKindList(): array
   {
     return array(
       self::KIND_OBJECT_MANUFACTURER => 'Производитель',

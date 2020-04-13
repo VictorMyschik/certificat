@@ -71,6 +71,7 @@ class MrCommunicateTest extends TestCase
     $this->assertEquals($Kind, $communicate->getKind());
     $this->assertEquals($Address, $communicate->getAddress());
 
+
     // Delete
     $communicate->mr_delete();
     $communicate->flush();

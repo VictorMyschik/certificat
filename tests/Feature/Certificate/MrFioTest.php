@@ -70,12 +70,14 @@ class MrFioTest extends TestCase
     $fio_id = $fio->save_mr();
     $fio->flush();
 
+
     //// Asserts
     $fio = MrFio::loadBy($fio_id);
     $this->assertNotNull($fio);
     $this->assertEquals($FirstName, $fio->getFirstName());
     $this->assertEquals($MiddleName, $fio->getMiddleName());
     $this->assertEquals($LastName, $fio->getLastName());
+
 
     //// NUll
     $fio->setFirstName(null);

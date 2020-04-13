@@ -10,37 +10,36 @@ use App\Models\Certificate\MrManufacturer;
 
 class MrCertificateManufacturerTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function GetQuery(array $args = array())
   {
-    $body = MrManufacturer::Select(['id'])->paginate($on_page);
+    return MrManufacturer::Select()->paginate(20, __('mr-t.Дальше'));
+  }
 
-    $collections = $body->getCollection();
-
-    foreach ($body->getCollection() as $model)
-    {
-      $item = MrManufacturer::loadBy($model->id);
-
-      $model->id = $item->id();
-      $model->number = $item->getName();
-      $model->country = $item->getCountry()->getName();
-      $model->action = MrLink::open('manufacturer_delete', ['id' => $model->id], '',
-        'btn btn-danger btn-sm fa fa-trash', 'Удалить',
-        ['onclick' => "return confirm('Уверены?');"]);
-    }
-
-    $header = array(
-      array('sort' => 'id', 'name' => 'ID'),
-      array('sort' => 'Name', 'name' => 'Наименование'),
-      array('sort' => 'CountryID', 'name' => 'Страна'),
-      array('name' => '#'),
-    );;
-
-
-    $body->setCollection($collections);
-
+  protected static function getHeader(): array
+  {
     return array(
-      'header' => $header,
-      'body' => $body
+      array('name' => 'id', 'sort' => 'id'),
+      array('name' => 'Наименование', 'sort' => 'Name'),
+      array('name' => 'Страна', 'sort' => 'CountryID'),
+      array('name' => '#'),
     );
+  }
+
+  protected static function buildRow(int $id): array
+  {
+    $row = array();
+
+    $manufacturer = MrManufacturer::loadBy($id);
+
+    $row[] = $manufacturer->id();
+    $row[] = $manufacturer->getName();
+    $row[] = $manufacturer->getCountry()->getName();
+
+    $row[] = array(
+      MrLink::open('admin_manufacturer_delete', ['id' => $manufacturer->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
+        'Удалить', ['onclick' => 'return confirm("Уверены?");']),
+    );
+
+    return $row;
   }
 }

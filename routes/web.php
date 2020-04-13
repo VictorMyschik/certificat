@@ -208,9 +208,10 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Email Phone...
   Route::get('/admin/certificate/communicate', "Admin\MrAdminCertificateController@ViewCommunicate")->name('communicate_page');
+  Route::get('/admin/certificate/communicate/delete/{id}', "Admin\MrAdminCertificateController@CommunicateDelete")->name('admin_communicate_delete');
   // Производители
   Route::get('/admin/certificate/manufacturer', "Admin\MrAdminCertificateController@ViewManufacturer")->name('manufacturer_page');
-  Route::get('/admin/certificate/manufacturer/delete/{id}', "Admin\MrAdminCertificateController@ManufacturerDelete")->name('manufacturer_delete');
+  Route::get('/admin/certificate/manufacturer/delete/{id}', "Admin\MrAdminCertificateController@ManufacturerDelete")->name('admin_manufacturer_delete');
 
   // Загрузка из XML
   Route::match(['get', 'post'], '/admin/certificate/manufacturer/load/submit', "\App\Forms\Admin\MrCertificateManufacturerLoadForm@submitForm")->name('admin_manufacturer_load_submit');

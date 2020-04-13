@@ -4,46 +4,49 @@
 namespace App\Http\Controllers\TableControllers\Admin\Certificate;
 
 
-use App\Helpers\MrDateTime;
+use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrCommunicate;
 
+/**
+ *Админ. Адреса Коммуникаций
+ */
 class MrCertificateCommunicateTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function GetQuery(array $args = array())
   {
-    $body = MrCommunicate::Select(['id'])->paginate($on_page);
+    return MrCommunicate::Select()->paginate(20, __('mr-t.Дальше'));
+  }
 
-    $collections = $body->getCollection();
+  protected static function getHeader(): array
+  {
+    return array(
+      array('name' => 'id', 'sort' => 'id'),
+      array('name' => 'Прикреплён', 'sort' => 'ObjectKind'),
+      array('name' => 'ID', 'sort' => 'ObjectID'),
+      array('name' => 'Тип связи', 'sort' => 'Kind'),
+      array('name' => 'Адрес', 'sort' => 'Address'),
+      array('name' => '#'),
+    );
+  }
 
-    foreach ($body->getCollection() as $model)
-    {
-      $item = MrCommunicate::loadBy($model->id);
-      $model->id = $item->id();
-      $model->number = $item->get();
-      $model->country = $item->getCountry()->getName();
-      $model->kind_name = $item->getKindName();
-      $model->dates = MrDateTime::GetFromToDate($item->getDateFrom(), $item->getDateTo());
-      $model->status = $item->getStatusName();
-    }
+  protected static function buildRow(int $id): array
+  {
+    $row = array();
 
-    $header = array(
-      array('sort' => 'id', 'name' => 'ID'),
-      array('sort' => 'Number', 'name' => 'Регистрационный номер документа'),
-      array('sort' => 'CountryID', 'name' => 'Страна'),
-      array('sort' => 'Kind', 'name' => 'Вид документа'),
-      array('name' => 'Срок действия'),
-      array('sort' => 'Status', 'name' => 'Статус действия'),
-    );;
+    $communicate = MrCommunicate::loadBy($id);
 
+    $row[] = $communicate->id();
+    $row[] = $communicate->getObjectKindName();
+    $row[] = $communicate->getObject()->id();
+    $row[] = $communicate->getKindName();
+    $row[] = $communicate->getAddress();
 
-    $body->setCollection($collections);
-
-    $out = array(
-      'header' => $header,
-      'body' => $body
+    $row[] = array(
+      MrLink::open('admin_communicate_delete', ['id' => $communicate->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
+        'Удалить', ['onclick' => 'return confirm("Уверены?");']),
     );
 
-    return $out;
+    return $row;
   }
 }

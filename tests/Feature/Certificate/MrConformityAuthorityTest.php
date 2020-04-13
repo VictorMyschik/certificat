@@ -53,7 +53,6 @@ class MrConformityAuthorityTest extends TestCase
 
 
     //// Update
-
     //'ConformityAuthorityId'
     $ConformityAuthorityId = $this->randomString(40);
     $authority->setConformityAuthorityId($ConformityAuthorityId);
@@ -72,6 +71,7 @@ class MrConformityAuthorityTest extends TestCase
 
     $authority_id = $authority->save_mr();
     $authority->flush();
+
 
     //// Asserts
     $authority = MrConformityAuthority::loadBy($authority_id);
