@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesCountryTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesCurrencyTableController;
 use Illuminate\Contracts\View\Factory;
@@ -18,12 +19,12 @@ class MrReferencesController extends Controller
 
   public function ListCountries()
   {
-    return MrReferencesCountryTableController::buildTable(50);
+    return MrTableController::buildTable(MrReferencesCountryTableController::class);
   }
 
   public function ListCurrency()
   {
-    return MrReferencesCurrencyTableController::buildTable(50);
+    return MrTableController::buildTable(MrReferencesCurrencyTableController::class);
   }
 
   /**

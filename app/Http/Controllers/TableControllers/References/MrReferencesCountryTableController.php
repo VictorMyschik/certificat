@@ -12,50 +12,16 @@ use App\Models\References\MrCountry;
 
 class MrReferencesCountryTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  private static $can_edit = false;
+
+  public static function GetQuery(array $args = array())
   {
-    $user = MrUser::me();
-    $can_edit = false;
+    return MrCountry::Select()->paginate(100, __('mr-t.Дальше'));
+  }
 
-    if($user && $user->IsSuperAdmin())
-    {
-      $can_edit = true;
-    }
-
-    $body = MrCountry::Select(['id'])->paginate($on_page);
-
-    $collections = $body->getCollection();
-
-    foreach ($body->getCollection() as $model)
-    {
-      $item = MrCountry::loadBy($model->id);
-      unset($model->id);
-
-      $model->Name = $item->getName();
-      $model->Capital = $item->getCapital();
-      $model->ISO3166alpha2 = $item->getISO3166alpha2();
-      $model->ISO3166alpha3 = $item->getISO3166alpha3();
-      $model->ISO3166numeric = $item->getISO3166numeric();
-      $model->ContinentName = $item->getContinentName();
-
-      $img_name = mb_strtolower($item->getISO3166alpha2());
-      $model->Flag = "<img style='width: 30px;' title='Flag {$item->getName() }'
-                       src='https://img.geonames.org/flags/m/{$img_name}.png'
-                       alt='{$item->getName()}'>";
-
-      if($can_edit)
-      {
-        $model->action = array(
-          $edit = MrForm::loadForm('admin_reference_country_form_edit', ['id' => $item->id()], '', ['btn btn-success btn-xs fa fa-edit']),
-          $delete = MrLink::open('reference_item_delete',
-            ['name' => 'country', 'id' => $item->id()], '',
-            'm-l-5 btn btn-danger btn-xs fa fa-trash-alt',
-            'Удалить', ['onclick' => "return confirm('Уверены?');"]),
-        );
-      }
-    }
-
-    $header = array(
+  protected static function getHeader(): array
+  {
+    $out = array(
       array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
       array('name' => __('mr-t.Столица'), 'sort' => 'Capital'),
       array('name' => 'ISO-3166 alpha2', 'sort' => 'ISO3166alpha2'),
@@ -65,16 +31,49 @@ class MrReferencesCountryTableController extends MrTableController
       array('name' => __('mr-t.Флаг'), 'sort' => 'Flag')
     );
 
-    if($can_edit)
+    if(self::$can_edit)
     {
-      $header[] = array('name' => '#');
+      $out[] = array('name' => '#', 'sort' => '#');
     }
 
-    $body->setCollection($collections);
+    return $out;
+  }
 
-    return array(
-      'header' => $header,
-      'body' => $body
-    );
+  protected static function buildRow(int $id): array
+  {
+    $user = MrUser::me();
+
+    if($user && $user->IsSuperAdmin())
+    {
+      self::$can_edit = true;
+    }
+
+    $row = array();
+
+    $country = MrCountry::loadBy($id);
+
+    $row[] = $country->getName();
+    $row[] = $country->getCapital();
+    $row[] = $country->getISO3166alpha2();
+    $row[] = $country->getISO3166alpha3();
+    $row[] = $country->getISO3166numeric();
+    $row[] = $country->getContinent();
+
+    $img_name = mb_strtolower($country->getISO3166alpha2());
+    $row[] = "<img style='width: 30px;' title='Flag {$country->getName() }'
+                       src='https://img.geonames.org/flags/m/{$img_name}.png'
+                       alt='{$country->getName()}'>";
+    if(self::$can_edit)
+    {
+      $row[] = array(
+        $edit = MrForm::loadForm('admin_reference_country_form_edit', ['id' => $country->id()], '', ['btn btn-success btn-sm fa fa-edit']),
+        $delete = MrLink::open('reference_item_delete',
+          ['name' => 'country', 'id' => $country->id()], '',
+          'm-l-5 btn btn-danger btn-sm fa fa-trash-alt',
+          'Удалить', ['onclick' => "return confirm('Уверены?');"]),
+      );
+    }
+
+    return $row;
   }
 }

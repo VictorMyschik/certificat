@@ -12,45 +12,16 @@ use App\Models\References\MrCurrency;
 
 class MrReferencesCurrencyTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  private static $can_edit = false;
+
+  public static function GetQuery(array $args = array())
   {
-    $user = MrUser::me();
-    $can_edit = false;
+    return MrCurrency::Select()->paginate(100, __('mr-t.Дальше'));
+  }
 
-    if($user && $user->IsSuperAdmin())
-    {
-      $can_edit = true;
-    }
-
-    $body = MrCurrency::Select(['id'])->paginate($on_page);
-
-    $collections = $body->getCollection();
-
-    foreach ($body->getCollection() as $model)
-    {
-      $item = MrCurrency::loadBy($model->id);
-      unset($model->id);
-      $model->Name = $item->getName();
-      $model->TextCode = $item->getTextCode();
-      $model->DateFrom = $item->getDateFrom() ? $item->getDateFrom()->getShortDate() : '';
-      $model->DateTo = $item->getDateTo() ? $item->getDateTo()->getShortDate() : '';
-      $model->Code = $item->getCode();
-      $model->Rounding = $item->getRounding();
-      $model->Description = $item->getDescription();
-
-      if($can_edit)
-      {
-        $model->action = array(
-          $edit = MrForm::loadForm('admin_reference_currency_form_edit', ['id' => $item->id()], '', ['btn btn-success btn-xs fa fa-edit']),
-          $delete = MrLink::open('reference_item_delete',
-            ['name' => 'currency', 'id' => $item->id()], '',
-            'm-l-5 btn btn-danger btn-xs fa fa-trash-alt',
-            'Удалить', ['onclick' => "return confirm('Уверены?');"]),
-        );
-      }
-    }
-
-    $header = array(
+  protected static function getHeader(): array
+  {
+    $out = array(
       array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
       array('name' => __('mr-t.Код'), 'sort' => 'TextCode'),
       array('name' => __('mr-t.Дата с'), 'sort' => 'DateFrom'),
@@ -60,16 +31,46 @@ class MrReferencesCurrencyTableController extends MrTableController
       array('name' => __('mr-t.Примечание'), 'sort' => 'Description'),
     );
 
-    if($can_edit)
+    if(self::$can_edit)
     {
-      $header[] = array('name' => '#');
+      $out[] = array('name' => '#', 'sort' => '#');
     }
 
-    $body->setCollection($collections);
+    return $out;
+  }
 
-    return array(
-      'header' => $header,
-      'body' => $body
-    );
+  protected static function buildRow(int $id): array
+  {
+    $user = MrUser::me();
+
+    if($user && $user->IsSuperAdmin())
+    {
+      self::$can_edit = true;
+    }
+
+    $row = array();
+
+    $currency = MrCurrency::loadBy($id);
+
+    $row[] = $currency->getName();
+    $row[] = $currency->getTextCode();
+    $row[] = $currency->getDateFrom() ? $currency->getDateFrom()->getShortDate() : '';
+    $row[] = $currency->getDateTo() ? $currency->getDateTo()->getShortDate() : '';
+    $row[] = $currency->getCode();
+    $row[] = $currency->getRounding();
+    $row[] = $currency->getDescription();
+
+    if(self::$can_edit)
+    {
+      $row[] = array(
+        $edit = MrForm::loadForm('admin_reference_currency_form_edit', ['id' => $currency->id()], '', ['btn btn-success btn-xs fa fa-edit']),
+        $delete = MrLink::open('reference_item_delete',
+          ['name' => 'currency', 'id' => $currency->id()], '',
+          'm-l-5 btn btn-danger btn-xs fa fa-trash-alt',
+          'Удалить', ['onclick' => "return confirm('Уверены?');"]),
+      );
+    }
+
+    return $row;
   }
 }
