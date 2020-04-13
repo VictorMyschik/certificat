@@ -9,9 +9,9 @@ use App\Models\MrFaq;
 
 class MrAdminDbMrFaqTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrFaq::Select()->paginate($on_page);
+    $body = MrFaq::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(

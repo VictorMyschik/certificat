@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\Admin\System\MrAdminBackupTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrBackup;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +30,7 @@ class MrAdminBackUpController extends Controller
    */
   public function getSummaryList()
   {
-    return MrAdminBackupTableController::buildTable();
+    return MrTableController::buildTable(MrAdminBackupTableController::class);
   }
 
   /**
@@ -84,7 +85,7 @@ class MrAdminBackUpController extends Controller
       if(class_exists("App\\Http\\Controllers\\TableControllers\\Admin\\System\\" . $arr[$table_name], true))
       {
         $object = "App\\Http\\Controllers\\TableControllers\\Admin\\System\\" . $arr[$table_name];
-        return $object::buildTable(50);
+        return $object::SystemBuildTable(50);
       }
     }
 

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\TableControllers\Admin\System;
 
 
 use App\Http\Controllers\TableControllers\MrTableController;
-use App\Models\MrCertificateMonitoring;
+use App\Models\Certificate\MrCertificateMonitoring;
 
 class MrAdminDbMrCertificateMonitoringTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrCertificateMonitoring::Select()->paginate($on_page);
+    $body = MrCertificateMonitoring::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(

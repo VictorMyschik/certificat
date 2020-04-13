@@ -9,9 +9,9 @@ use App\Models\Certificate\MrAddress;
 
 class MrAdminDbMrAddressTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrAddress::Select()->paginate($on_page);
+    $body = MrAddress::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(

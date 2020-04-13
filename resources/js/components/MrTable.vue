@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-hover table-striped table-bordered">
+    <table class="table table-sm table-hover table-striped table-bordered col-md-12">
       <thead class="mr-bold mr-bg-table-header">
       <tr>
         <td v-for="head in table_header"
@@ -15,11 +15,11 @@
       </thead>
       <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
       <tr v-for="td in table_body.data">
-        <td v-for="item in td">
+        <td style="max-width: 300px; word-wrap: break-word;" v-for="item in td">
           <div v-if="Array.isArray(item)">
             <span v-for="small_item in item" v-html="small_item"></span>
           </div>
-          <div v-else v-html="item"></div>
+          <div style="white-space: pre-line; max-width: 500px;" v-else v-html="item"></div>
         </td>
       </tr>
       </tbody>

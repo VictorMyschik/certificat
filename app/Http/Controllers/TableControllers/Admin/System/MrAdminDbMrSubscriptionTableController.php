@@ -9,19 +9,19 @@ use App\Models\MrSubscription;
 
 class MrAdminDbMrSubscriptionTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrSubscription::Select()->paginate($on_page);
+    $body = MrSubscription::Select(['*'])->paginate($on_page);
 
     return array(
-      'header' => array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Email', 'sort' => 'Email'),
-        array('name' => 'Date', 'sort' => 'Date'),
-        array('name' => 'Token', 'sort' => 'Token'),
-      ),
+        'header' => array(
+            array('name' => 'id', 'sort' => 'id'),
+            array('name' => 'Email', 'sort' => 'Email'),
+            array('name' => 'Date', 'sort' => 'Date'),
+            array('name' => 'Token', 'sort' => 'Token'),
+        ),
 
-      'body' => $body
+        'body' => $body
     );
   }
 }

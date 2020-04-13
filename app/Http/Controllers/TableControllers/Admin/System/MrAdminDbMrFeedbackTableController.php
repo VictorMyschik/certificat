@@ -9,9 +9,9 @@ use App\Models\MrFeedback;
 
 class MrAdminDbMrFeedbackTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrFeedback::Select()->paginate($on_page);
+    $body = MrFeedback::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(

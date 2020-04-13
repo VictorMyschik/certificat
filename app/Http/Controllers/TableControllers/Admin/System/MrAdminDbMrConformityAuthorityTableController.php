@@ -9,9 +9,9 @@ use App\Models\Certificate\MrConformityAuthority;
 
 class MrAdminDbMrConformityAuthorityTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrConformityAuthority::Select()->paginate($on_page);
+    $body = MrConformityAuthority::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(

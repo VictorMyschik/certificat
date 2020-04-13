@@ -9,9 +9,9 @@ use App\Models\References\MrCountry;
 
 class MrAdminDbMrCountryTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrCountry::Select()->paginate($on_page);
+    $body = MrCountry::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(

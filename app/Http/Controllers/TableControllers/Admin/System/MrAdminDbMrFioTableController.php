@@ -9,9 +9,9 @@ use App\Models\Certificate\MrFio;
 
 class MrAdminDbMrFioTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function SystemBuildTable(int $on_page = 10)
   {
-    $body = MrFio::Select()->paginate($on_page);
+    $body = MrFio::Select(['*'])->paginate($on_page);
 
     return array(
       'header' => array(
