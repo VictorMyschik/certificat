@@ -6,11 +6,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\TableControllers\MrOfficeTableController;
+use App\Http\Controllers\TableControllers\Admin\Office\MrAdminOfficeTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
-use App\Models\MrDiscount;
 use App\Models\MrOffice;
-use App\Models\MrTariffInOffice;
 use App\Models\MrUserInOffice;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -21,12 +20,17 @@ class MrAdminOfficeController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Виртуальные офисы';
-    $out['list'] = MrOffice::GetAll();
+    $out['route_name'] = route('admin_offices_table');
 
-    $list = MrOffice::GetAllPaginate(10);
-    $out['table'] = MrOfficeTableController::buildTable($list);
+
     return View('Admin.mir_admin_office')->with($out);
   }
+
+  public function GetOfficeTable()
+  {
+    return MrTableController::buildTable(MrAdminOfficeTableController::class);
+  }
+
 
   /**
    * Страница ВО

@@ -121,6 +121,12 @@ Route::group(['middleware' => 'is_admin'], function () {
     "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
 
+  // Почта
+  Route::get('/admin/email', "Admin\MrAdminEmailController@List")->name('admin_emails_page');
+  Route::get('/admin/email/{id}/delete', "Admin\MrAdminEmailController@EmailDelete")->name('admin_email_delete');
+  // Почта инфо о письме
+  Route::match(['get', 'post'], '/email/{id}/info/submit', "App\Forms\Admin\MrAdminEmailInfoForm@submitForm")->name('email_info_popup_submit');
+  Route::match(['get', 'post'], '/email/{id}/info/', "App\Forms\Admin\MrAdminEmailInfoForm@getFormBuilder")->name('email_info_popup_edit');
 
   // Пользователи
   Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('admin_users');
@@ -144,7 +150,8 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/system/delete', "Admin\MrAdminSystemController@DeleteLogIdent")->name('admin_logs_delete');
   // Лог изменений БД
   Route::get('/admin/system/dblog', "Admin\MrAdminSystemController@ViewDbLog")->name('admin_db_log_page');
-  Route::get('/admin/system/dblog/delete/{id}', "Admin\MrAdminSystemController@deleteDbLog")->name('delete_bd_log');
+  Route::get('/admin/system/dblog/delete/{id}', "Admin\MrAdminSystemController@deleteDbLogRow")->name('admin_db_log_row_delete');
+  Route::get('/admin/system/dblog/alldelete', "Admin\MrAdminSystemController@deleteDbLog")->name('delete_bd_log');
   //// Перевод сайта на другие языки
   Route::get('/admin/language', "Admin\MrAdminLanguageController@List")->name('admin_language_list');
   // Добавить новый язык

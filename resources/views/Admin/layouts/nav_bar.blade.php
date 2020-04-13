@@ -54,6 +54,7 @@
             <a class="dropdown-item" href="{{route('admin_feedback_list')}}">Обратная связь</a>
             <a class="dropdown-item" href="{{route('admin_article_page')}}">Статьи</a>
             <a class="dropdown-item" href="{{route('admin_subscription')}}">Подписка</a>
+            <a class="dropdown-item" href="{{route('admin_emails_page')}}">Почта</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -63,7 +64,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{route('clear')}}">Очистить кэш</a>
-            <a class="dropdown-item m-b-15" href="/phpmyadmin">PhpMyAdmin</a>
+            <a class="dropdown-item m-b-15" target="_blank" href="/phpmyadmin">PhpMyAdmin</a>
 
             <a class="dropdown-item" href="{{route('admin_logs')}}">Лог посещений</a>
             <a class="dropdown-item" href="{{route('admin_db_log_page') }}">Лог БД</a>

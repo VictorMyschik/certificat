@@ -41,4 +41,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/feedback/table', 'Admin\MrAdminFeedbackController@GetFeedbackTable')->name('admin_feedback_table');
   Route::match(['get', 'post'], '/admin/article/table', 'Admin\MrAdminArticlesController@GetArticleTable')->name('admin_article_table');
   Route::match(['get', 'post'], '/admin/subscription/table', 'Admin\MrAdminSubscriptionController@GetSubscriptionTable')->name('admin_subscription_table');
+  Route::match(['get', 'post'], '/admin/email/table', 'Admin\MrAdminEmailController@GetEmailTable')->name('admin_email_table');
+
+  // Офис
+  Route::match(['get', 'post'], '/admin/offices/table', 'Admin\MrAdminOfficeController@GetOfficeTable')->name('admin_offices_table');
+
 });

@@ -158,6 +158,11 @@ class ORM extends Model
    */
   public static function loadBy(string $value, string $field = 'id')
   {
+    if(!$value)
+    {
+      return null;
+    }
+
     if($field == 'id')
     {
       $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
