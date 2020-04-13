@@ -39,6 +39,7 @@
             <a class="dropdown-item" href="/admin/certificate">Сертификаты</a>
             <a class="dropdown-item" href="/admin/certificate/communicate">Связь</a>
             <a class="dropdown-item" href="/admin/certificate/manufacturer">Производители</a>
+            <a class="dropdown-item" href="/admin/certificate/address">Адреса</a>
           </div>
         </li>
 
