@@ -99,7 +99,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 //// для Админа
 Route::group(['middleware' => 'is_admin'], function () {
 
-  Route::match(['get', 'post'], '/test', "MrTestController@index");
+  Route::match(['get', 'post'], '/test', "MrTestController@index")->name('admin_test');
 
   Route::get('/admin', "Admin\MrAdminController@index")->name('admin_page');
   // FAQ

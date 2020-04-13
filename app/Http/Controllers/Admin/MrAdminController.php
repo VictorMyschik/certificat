@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Helpers\MtStringUtils;
 use App\Http\Controllers\Controller;
 use App\Models\MrUser;
 use App\User;
@@ -41,8 +40,8 @@ class MrAdminController extends Controller
 
     return array(
       ['Title' => 'Пользователей', 'Value' => MrUser::getCount()],
-      ['Title' => 'Used Memory', 'Value' => MtStringUtils::formatSize($redis_info['used_memory'])],
-      ['Title' => 'Max Memory', 'Value' => MtStringUtils::formatSize($redis_info['maxmemory'])],
+      ['Title' => 'Used Memory', 'Value' => $redis_info['used_memory']],
+      ['Title' => 'Max Memory', 'Value' => $redis_info['maxmemory']],
       ['Title' => 'Количество объектов Redis', 'Value' => $data->dbSize()],
     );
   }
