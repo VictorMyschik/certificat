@@ -21,7 +21,7 @@ class MrArticle extends ORM
     'Text',
     'DateUpdate',
     'IsPublic',
-    // 'WriteDate',
+  //'WriteDate',
   );
 
   const KIND_KINDUNKNOWN = 0;

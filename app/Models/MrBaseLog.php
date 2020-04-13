@@ -27,7 +27,7 @@ class MrBaseLog extends ORM
     'TableName',
     'Field',
     'Value',
-    //'WriteDate',
+  //'WriteDate',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrBaseLog
