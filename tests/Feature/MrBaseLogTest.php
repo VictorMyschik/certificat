@@ -96,6 +96,8 @@ class MrBaseLogTest extends TestCase
 
     $this->assertNull($log->getValue());
 
+
+    // Delete
     $log->mr_delete();
     $log->flush();
 
