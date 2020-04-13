@@ -91,6 +91,7 @@ class MrAddressTest extends TestCase
     $address_id = $address->save_mr();
     $address->flush();
 
+
     //// Asserts
     $address = MrAddress::loadBy($address_id);
     self::assertNotNull($address);
@@ -169,6 +170,7 @@ class MrAddressTest extends TestCase
     $address_id = $address->save_mr();
     $address->flush();
 
+
     //// Asserts
     $address = MrAddress::loadBy($address_id);
     self::assertNotNull($address);
@@ -189,6 +191,7 @@ class MrAddressTest extends TestCase
     $this->assertEquals($AddressText, $address->getAddressText());
     $this->assertEquals($Lat, $address->getLat());
     $this->assertEquals($Lon, $address->getLon());
+
 
     //// NUll
     $address->setRegionName(null);
@@ -221,6 +224,7 @@ class MrAddressTest extends TestCase
     $this->assertNull($address->getAddressText());
     $this->assertNull($address->getLat());
     $this->assertNull($address->getLon());
+
 
     // Delete
     $address->mr_delete();
