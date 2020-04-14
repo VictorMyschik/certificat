@@ -33,7 +33,7 @@ class MrReferencesCurrencyTableController extends MrTableController
 
     if(self::$can_edit)
     {
-      $out[] = array('name' => '#', 'sort' => '#');
+      $out[] = array('name' => '#');
     }
 
     return $out;

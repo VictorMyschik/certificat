@@ -57,28 +57,29 @@ class MrAdminBackUpController extends Controller
   public function GetTable(string $table_name)
   {
     $arr = array(
-      'mr_faq' => 'MrAdminDbMrFaqTableController',
-      'mr_currency' => 'MrAdminDbMrCurrencyTableController',
-      'mr_country' => 'MrAdminDbMrCountryTableController',
-      'mr_base_log' => 'MrAdminDbMrBaseLogTableController',
-      'mr_offices' => 'MrAdminDbMrOfficesTableController',
-      'mr_language' => 'MrAdminDbMrLanguageTableController',
-      'mr_communicate' => 'MrAdminDbMrCommunicateTableController',
-      'mr_new_users' => 'MrAdminDbMrNewUsersTableController',
-      'mr_user_in_office' => 'MrAdminDbMrUserInOfficeTableController',
-      'mr_user_blocked' => 'MrAdminDbMrUserBlockedTableController',
-      'mr_translate' => 'MrAdminDbMrTranslateTableController',
-      'mr_subscription' => 'MrAdminDbMrSubscriptionTableController',
-      'mr_log_ident' => 'MrAdminDbMrLogIdentTableController',
-      'mr_email_log' => 'MrAdminDbMrEmailLogTableController',
-      'mr_certificate' => 'MrAdminDbMrCertificateTableController',
+      'mr_faq'                    => 'MrAdminDbMrFaqTableController',
+      'mr_currency'               => 'MrAdminDbMrCurrencyTableController',
+      'mr_country'                => 'MrAdminDbMrCountryTableController',
+      'mr_base_log'               => 'MrAdminDbMrBaseLogTableController',
+      'mr_offices'                => 'MrAdminDbMrOfficesTableController',
+      'mr_language'               => 'MrAdminDbMrLanguageTableController',
+      'mr_communicate'            => 'MrAdminDbMrCommunicateTableController',
+      'mr_new_users'              => 'MrAdminDbMrNewUsersTableController',
+      'mr_user_in_office'         => 'MrAdminDbMrUserInOfficeTableController',
+      'mr_user_blocked'           => 'MrAdminDbMrUserBlockedTableController',
+      'mr_translate'              => 'MrAdminDbMrTranslateTableController',
+      'mr_subscription'           => 'MrAdminDbMrSubscriptionTableController',
+      'mr_log_ident'              => 'MrAdminDbMrLogIdentTableController',
+      'mr_email_log'              => 'MrAdminDbMrEmailLogTableController',
+      'mr_certificate'            => 'MrAdminDbMrCertificateTableController',
       'mr_certificate_monitoring' => 'MrAdminDbMrCertificateMonitoringTableController',
-      'mr_feedback' => 'MrAdminDbMrFeedbackTableController',
-      'mr_user' => 'MrAdminDbMrUserTableController',
-      'mr_address' => 'MrAdminDbMrAddressTableController',
-      'mr_fio' => 'MrAdminDbMrFioTableController',
-      'mr_conformity_authority' => 'MrAdminDbMrConformityAuthorityTableController',
-      'mr_measure' => 'MrAdminDbMrMeasureTableController',
+      'mr_feedback'               => 'MrAdminDbMrFeedbackTableController',
+      'mr_user'                   => 'MrAdminDbMrUserTableController',
+      'mr_address'                => 'MrAdminDbMrAddressTableController',
+      'mr_fio'                    => 'MrAdminDbMrFioTableController',
+      'mr_conformity_authority'   => 'MrAdminDbMrConformityAuthorityTableController',
+      'mr_measure'                => 'MrAdminDbMrMeasureTableController',
+      'mr_certificate_kind'       => 'MrAdminDbMrCertificateKindTableController',
     );
 
     if(isset($arr[$table_name]))
@@ -92,7 +93,7 @@ class MrAdminBackUpController extends Controller
 
     return array(
       'header' => array(),
-      'body' => array(),
+      'body'   => array(),
     );
   }
 
@@ -129,7 +130,7 @@ class MrAdminBackUpController extends Controller
   }
 
   public static $tables = array(
-    'mr_currency' => array(
+    'mr_currency'         => array(
       array('ID' => '1', 'Code' => '784', 'TextCode' => 'AED', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Дирхам (ОАЭ)', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '2', 'Code' => '971', 'TextCode' => 'AFN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Афгани', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '3', 'Code' => '008', 'TextCode' => 'ALL', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Лек', 'Rounding' => '2', 'Description' => ''),
@@ -313,7 +314,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '181', 'Code' => '930', 'TextCode' => 'STN', 'DateFrom' => '2018-06-24 00:00:00', 'DateTo' => NULL, 'Name' => 'Добра', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '182', 'Code' => '928', 'TextCode' => 'VES', 'DateFrom' => '2019-06-16 00:00:00', 'DateTo' => NULL, 'Name' => 'Боливар Соберано', 'Rounding' => '2', 'Description' => NULL)
     ),
-    'mr_country' => array(
+    'mr_country'          => array(
       array('id' => '1', 'Name' => 'Andorra', 'ISO3166alpha2' => 'AD', 'ISO3166alpha3' => 'AND', 'ISO3166numeric' => '20', 'Capital' => 'Andorra la Vella', 'Continent' => '3'),
       array('id' => '2', 'Name' => 'United Arab Emirates', 'ISO3166alpha2' => 'AE', 'ISO3166alpha3' => 'ARE', 'ISO3166numeric' => '784', 'Capital' => 'Abu Dhabi', 'Continent' => '2'),
       array('id' => '3', 'Name' => 'Afghanistan', 'ISO3166alpha2' => 'AF', 'ISO3166alpha3' => 'AFG', 'ISO3166numeric' => '4', 'Capital' => 'Kabul', 'Continent' => '2'),
@@ -561,9 +562,49 @@ class MrAdminBackUpController extends Controller
       array('id' => '245', 'Name' => 'Zambia', 'ISO3166alpha2' => 'ZM', 'ISO3166alpha3' => 'ZMB', 'ISO3166numeric' => '894', 'Capital' => 'Lusaka', 'Continent' => '1'),
       array('id' => '246', 'Name' => 'Zimbabwe', 'ISO3166alpha2' => 'ZW', 'ISO3166alpha3' => 'ZWE', 'ISO3166numeric' => '716', 'Capital' => 'Harare', 'Continent' => '1')
     ),
-    'mr_language' => array(
+    'mr_language'         => array(
       array('id' => '1', 'Name' => 'RU', 'Description' => 'Русский'),
       array('id' => '2', 'Name' => 'EN', 'Description' => 'English')
     ),
+    'mr_certificate_kind' => array(
+      array('id' => '1', 'Code' => '05', 'ShortName' => 'Сертификат соответствия ТР ЕАЭС', 'Name' => 'Сертификат соответствия требованиям технического регламента Евразийского экономического союза (технического регламента Таможенного союза)', 'Description' => 'Единая форма сертификата соответствия требованиям технического регламента Таможенного союза, утвержденная Решением Коллегии Евразийской экономической комиссии от 25 декабря 2012 г. № 293'),
+      array('id' => '2', 'Code' => '10', 'ShortName' => 'Декларация о соответствии ТР ЕАЭС', 'Name' => 'Декларация о соответствии требованиям технического регламента Евразийского экономического союза (технического регламента Таможенного союза)', 'Description' => 'Единая форма декларации о соответствии требованиям технического регламента Таможенного союза, утвержденная Решением Коллегии Евразийской экономической комиссии от 25 декабря 2012 г. № 293'),
+      array('id' => '3', 'Code' => '15', 'ShortName' => 'Сертификат соответствия по единой форме ЕАЭС', 'Name' => 'Сертификат соответствия, оформленный по единой форме Евразийского экономического союза', 'Description' => 'Единая форма сертификата соответствия, утвержденная Решением Комиссии Таможенного союза от 18 июня 2010 г. № 319'),
+      array('id' => '4', 'Code' => '20', 'ShortName' => 'Декларация о соответствии по единой форме ЕАЭС', 'Name' => 'Декларация о соответствии, оформленная по единой форме Евразийского экономического союза', 'Description' => 'Единая форма декларации о соответствии, утвержденная Решением Комиссии Таможенного союза от 18 июня 2010 г. № 319'),
+      array('id' => '5', 'Code' => '25', 'ShortName' => 'Свидетельство о регистрации ЕАЭС', 'Name' => 'Свидетельство о регистрации (государственной регистрации), подтверждающее соответствие требованиям технических регламентов Евразийского экономического союза (технических регламентов Таможенного союза)', 'Description' => 'Протокол о техническом регулировании в рамках Евразийского экономического союза (приложение № 9 к Договору о Евразийском экономическом союзе от 29 мая 2014 года)'),
+      array('id' => '6', 'Code' => '30', 'ShortName' => 'Одобрение типа транспортного средства ЕАЭС', 'Name' => 'Одобрение типа транспортного средства, подтверждающее соответствие требованиям технического регламента Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011)', 'Description' => 'Оодобрение типа транспортного средства (форма) (приложение № 14 к техническому регламенту Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011), принятому Решением Комиссии Таможенного союза от 9 декабря 2011 г. № 877)'),
+      array('id' => '7', 'Code' => '35', 'ShortName' => 'Одобрение типа шасси ЕАЭС', 'Name' => 'Одобрение типа шасси, подтверждающее соответствие требованиям технического регламента Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011)', 'Description' => 'Одобрение типа шасси транспортного средства (форма) (приложение № 15 к техническому регламенту Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011), принятому Решением Комиссии Таможенного союза от 9 декабря 2011 г. № 877)'),
+      array('id' => '8', 'Code' => '40', 'ShortName' => 'Свидетельство о безопасности конструкции транспортного средства ЕАЭС', 'Name' => 'Свидетельство о безопасности конструкции транспортного средства, подтверждающее соответствие требованиям технического регламента Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011)', 'Description' => 'Свидетельство о безопасности конструкции транспортного средства (форма) (приложение № 17 к техническому регламенту Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011), принятому Решением Комиссии Таможенного союза от 9 декабря 2011 г. № 877)'),
+      array('id' => '9', 'Code' => '45', 'ShortName' => 'Свидетельство о соответствии с внесенными изменениями ЕАЭС', 'Name' => 'Свидетельство о соответствии транспортного средства с внесенными в его конструкцию изменениями требованиям безопасности, подтверждающее соответствие требованиям технического регламента Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011)', 'Description' => 'Свидетельство о соответствии транспортного средства с внесенными в его конструкцию изменениями требованиям безопасности (форма) (приложение № 18 к техническому регламенту Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011), принятому Решением Комиссии Таможенного союза от 9 декабря 2011 г. № 877)'),
+      array('id' => '10', 'Code' => '50', 'ShortName' => 'Документ об оценке соответствия национальным требованиям', 'Name' => 'Документ об оценке соответствия обязательным требованиям, установленным законодательством государства – члена Евразийского экономического союза, выданный в отношении объекта технического регулирования технического регламента Евразийского экономического союза (технического регламента Таможенного союза) до дня вступления в силу этого технического регламента', 'Description' => NULL)
+    ),
+    'mr_measure'          => array(
+      array('id' => '4', 'Code' => '006', 'TextCode' => 'M', 'Name' => 'МЕТР'),
+      array('id' => '5', 'Code' => '055', 'TextCode' => 'М2', 'Name' => 'КВАДРАТНЫЙ МЕТР'),
+      array('id' => '6', 'Code' => '112', 'TextCode' => 'Л', 'Name' => 'ЛИТР'),
+      array('id' => '7', 'Code' => '113', 'TextCode' => 'М3', 'Name' => 'КУБИЧЕСКИЙ МЕТР'),
+      array('id' => '8', 'Code' => '114', 'TextCode' => '1000 М3', 'Name' => '1000 КУБИЧЕСКИХ МЕТРОВ'),
+      array('id' => '9', 'Code' => '130', 'TextCode' => '1000 Л', 'Name' => '1000 ЛИТРОВ'),
+      array('id' => '10', 'Code' => '162', 'TextCode' => 'КАР', 'Name' => 'МЕТРИЧЕСКИЙ КАРАТ(1КАРАТ=2*10(-4)КГ'),
+      array('id' => '11', 'Code' => '163', 'TextCode' => 'Г', 'Name' => 'ГРАММ'),
+      array('id' => '12', 'Code' => '166', 'TextCode' => 'КГ', 'Name' => 'КИЛОГРАММ'),
+      array('id' => '13', 'Code' => '185', 'TextCode' => 'Т ГРП', 'Name' => 'ГРУЗОПОДЪЕМНОСТЬ В ТОННАХ'),
+      array('id' => '14', 'Code' => '246', 'TextCode' => '1000 КВТ*Ч', 'Name' => '1000 КИЛОВАТТ-ЧАС'),
+      array('id' => '15', 'Code' => '305', 'TextCode' => 'КИ', 'Name' => 'КЮРИ'),
+      array('id' => '16', 'Code' => '306', 'TextCode' => 'Г Д/И', 'Name' => 'ГРАММ ДЕЛЯЩИХСЯ ИЗОТОПОВ'),
+      array('id' => '17', 'Code' => '715', 'TextCode' => 'ПАР', 'Name' => 'ПАРА'),
+      array('id' => '18', 'Code' => '796', 'TextCode' => 'ШТ', 'Name' => 'ШТУКА'),
+      array('id' => '19', 'Code' => '797', 'TextCode' => '100 ШТ', 'Name' => 'СТО ШТУК'),
+      array('id' => '20', 'Code' => '798', 'TextCode' => '1000 ШТ', 'Name' => 'ТЫСЯЧА ШТУК'),
+      array('id' => '21', 'Code' => '831', 'TextCode' => 'Л 100% СПИРТА', 'Name' => 'ЛИТР ЧИСТОГО (100%) СПИРТА'),
+      array('id' => '22', 'Code' => '841', 'TextCode' => 'КГ H2O2', 'Name' => 'КИЛОГРАММ ПЕРОКСИДА ВОДОРОДА'),
+      array('id' => '23', 'Code' => '845', 'TextCode' => 'КГ 90% С/В', 'Name' => 'КИЛОГРАММ СУХОГО НА 90 % ВЕЩЕСТВА'),
+      array('id' => '24', 'Code' => '852', 'TextCode' => 'КГ K2O', 'Name' => 'КИЛОГРАММ ОКСИДА КАЛИЯ'),
+      array('id' => '25', 'Code' => '859', 'TextCode' => 'КГ KOH', 'Name' => 'КИЛОГРАММ ГИДРОКСИДА КАЛИЯ'),
+      array('id' => '26', 'Code' => '861', 'TextCode' => 'КГ N', 'Name' => 'КИЛОГРАММ АЗОТА'),
+      array('id' => '27', 'Code' => '863', 'TextCode' => 'КГ NAOH', 'Name' => 'КИЛОГРАММ ГИДРОКСИДА НАТРИЯ'),
+      array('id' => '28', 'Code' => '865', 'TextCode' => 'КГ P2O5', 'Name' => 'КИЛОГРАММ ПЯТИОКИСИ ФОСФОРА'),
+      array('id' => '29', 'Code' => '867', 'TextCode' => 'КИЛОГРАММ УРАНА', 'Name' => 'КГ U')
+    )
   );
 }

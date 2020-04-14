@@ -32,6 +32,8 @@ class MrCertificate extends ORM
     'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
     'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
     'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
+
+    //'SingleListProductIndicator' признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
     ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
   );
 
@@ -40,7 +42,7 @@ class MrCertificate extends ORM
   const KIND_DECLARATION = 2;
 
   protected static $kinds = array(
-    self::KIND_UNKNOWN => '[не выбрано]', //Активен
+    self::KIND_UNKNOWN     => '[не выбрано]', //Активен
     self::KIND_CERTIFICATE => 'Сертификат соответствия ТР ЕАЭС', //Активен
     self::KIND_DECLARATION => 'Декларация о соответствии ТР ЕАЭС', // Приостановлен
   );
@@ -55,8 +57,8 @@ class MrCertificate extends ORM
   const STATUS_RECALLED = 3;
 
   protected static $statuses = array(
-    self::STATUS_ACTIVE => 'активен', //Активен
-    self::STATUS_STOPPED => 'приостановлен', // Приостановлен
+    self::STATUS_ACTIVE   => 'активен', //Активен
+    self::STATUS_STOPPED  => 'приостановлен', // Приостановлен
     self::STATUS_RECALLED => 'отозван', // Отозван
   );
 
@@ -217,6 +219,20 @@ class MrCertificate extends ORM
     $this->BlankNumber = $value;
   }
 
+  /**
+   * Признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с
+   * выдачей сертификатов соответствия и деклараций о соответствии по единой форме:
+   * 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
+   * */
+  public function getSingleListProductIndicator(): bool
+  {
+    return (bool)$this->SingleListProductIndicator;
+  }
+
+  public function setSingleListProductIndicator(bool $value)
+  {
+    $this->SingleListProductIndicator = $value;
+  }
 
   // Срок действия статуса | c 02.04.2020 по 01.04.2025
   public function getDateStatusFrom(): ?MrDateTime

@@ -28,6 +28,7 @@ class CreateMrCertificateTable extends Migration
       $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
       $table->string('DocumentBase')->nullable();//Документ, на основании которого установлен статус
       $table->string('WhyChange')->nullable();//Причина изменения статуса
+      $table->boolean('SingleListProductIndicator');//признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
 
       $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
       $table->string('Description', 1000)->nullable();// Дополнительные сведения

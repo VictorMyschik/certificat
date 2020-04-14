@@ -5,8 +5,10 @@ namespace App\Classes\Xml;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
+use App\Models\References\MrCountry;
 use SimpleXMLElement;
 
 /**
@@ -14,6 +16,51 @@ use SimpleXMLElement;
  */
 class MrXmlImportBase extends Controller
 {
+  /**
+   * Импорт сертификата
+   *
+   * @param SimpleXMLElement $xml
+   * @return MrCertificate|null
+   */
+  public static function importCertificate(SimpleXMLElement $xml): ?MrCertificate
+  {
+    dd($xml);
+
+    $certificate = new MrCertificate();
+    //$certificate->setKind();
+
+    // Страна
+    $country_code_xml = (string)$xml->unifiedCountryCode->value;
+    $country = MrCountry::loadBy($country_code_xml, 'ISO3166alpha2');
+    $certificate->setCountryID($country->id());
+
+    // Номер
+    $number = (string)$xml->docId;
+    $certificate->setNumber($number);
+
+    // Дата начала действия сертификата
+    $date_from = (string)$xml->docStartDate;
+    $certificate->setDateFrom($date_from);
+
+    // Дата окончания действия
+    $date_to = $xml->docValidityDate;
+    $certificate->setDateTo($date_to);
+
+    // Номер бланка
+    $formNumberId = (string)$xml->formNumberId;
+    $certificate->setBlankNumber($formNumberId);
+
+    /**
+     * Признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с
+     * выдачей сертификатов соответствия и деклараций о соответствии по единой форме:
+     * 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
+     * */
+    $singleListProductIndicator = (bool)$xml->singleListProductIndicator;
+    $certificate->setSingleListProductIndicator($singleListProductIndicator);
+
+
+  }
+
   /**
    * Импорт ФИО
    *

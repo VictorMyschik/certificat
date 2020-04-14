@@ -6,6 +6,9 @@
 .mr-middle {
   @include responsiveText(10px, 12px);
 }
+.mr-auto-size{
+  @include responsiveText(9px, 14px);
+}
 
 .mr-bold {
   font-weight: bold;

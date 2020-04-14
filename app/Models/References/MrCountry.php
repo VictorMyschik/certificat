@@ -2,10 +2,7 @@
 
 namespace App\Models\References;
 
-use App\Http\Controllers\Admin\MrAdminBackUpController;
 use App\Models\ORM;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Данные берутся с https://www.geonames.org/countries/
@@ -29,6 +26,17 @@ class MrCountry extends ORM
     'Continent',
   );
 
+  public static function getReferenceInfo()
+  {
+    return array(
+      'classifier_group' => 'Классификаторы для заполнения таможенных деклараций',
+      'description'      => 'классификатор предназначен для классификации и кодирования информации о наименованиях стран мира',
+      'date'             => '30.09.2016',
+      'document'         => 'О классификаторах, используемых для заполнения таможенных деклараций Решение №378 (имеются изменения и дополнения: Решения Комиссии Таможенного союза №№ 441, 719, 858, 906, Решение Совета Евразийской экономической комиссии № 9)',
+      'doc_link'         => 'https://docs.eaeunion.org/_layouts/15/Portal.EEC.NPB/Pages/RedirectToDisplayForm.aspx?mode=Document&UseSearch=1&docId=6690653a-2f1d-4428-b6fc-cf43fa5d4095',
+    );
+  }
+
   public static function loadBy($value, $field = 'id'): ?MrCountry
   {
     return parent::loadBy((string)$value, $field);
@@ -45,13 +53,13 @@ class MrCountry extends ORM
 
   protected static $continents = array(
     self::CONTINENT_UNKNOWN => 'Not select',
-    self::CONTINENT_AF => 'Africa',
-    self::CONTINENT_AS => 'Asia',
-    self::CONTINENT_EU => 'Europe',
-    self::CONTINENT_NA => 'North America',
-    self::CONTINENT_OC => 'Oceania',
-    self::CONTINENT_SA => 'South America',
-    self::CONTINENT_AN => 'Antarctica',
+    self::CONTINENT_AF      => 'Africa',
+    self::CONTINENT_AS      => 'Asia',
+    self::CONTINENT_EU      => 'Europe',
+    self::CONTINENT_NA      => 'North America',
+    self::CONTINENT_OC      => 'Oceania',
+    self::CONTINENT_SA      => 'South America',
+    self::CONTINENT_AN      => 'Antarctica',
   );
 
   protected static $continent_short = array(

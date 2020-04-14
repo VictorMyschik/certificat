@@ -202,6 +202,15 @@
     .mr-middle {
       font-size: 12px; } }
 
+.mr-auto-size {
+  font-size: calc(9px + (14 - 9) * (100vw - 420px) / (980 - 420)); }
+  @media screen and (max-width: 420px) {
+    .mr-auto-size {
+      font-size: 9px; } }
+  @media screen and (min-width: 980px) {
+    .mr-auto-size {
+      font-size: 14px; } }
+
 .mr-bold {
   font-weight: bold; }
 

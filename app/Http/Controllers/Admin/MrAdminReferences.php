@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use App\Models\References\MrCurrency;
 use App\Models\References\MrMeasure;
@@ -43,6 +44,15 @@ class MrAdminReferences extends Controller
     $out['route_name'] = MrMeasure::getRouteTable();
 
     return View('Admin.References.mir_admin_reference_measure')->with($out);
+  }
+
+  public function ViewCertificateKind()
+  {
+    $out = array();
+    $out['page_title'] = 'Классификатор видов документов об оценке соответствия';
+    $out['route_name'] = MrCertificateKind::getRouteTable();
+
+    return View('Admin.References.mir_admin_reference_certificate_kind')->with($out);
   }
 
   /**

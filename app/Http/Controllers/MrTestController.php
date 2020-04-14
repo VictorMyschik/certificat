@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Json\MrJsonImportBase;
-use App\Models\MrTemp;
-use App\Models\References\MrCountry;
+use App\Classes\Xml\MrXmlImportBase;
 
 class MrTestController extends Controller
 {
   public function index()
   {
-    $temp = MrTemp::GetAll();
-
-    foreach ($temp as $item)
+    $file = public_path() . '/files/cert.xml';
+    $xml = simplexml_load_file($file);
+    foreach ($xml->entry as $item)
     {
-      $data = json_decode($item->getRawData(), true);
-      $country = MrCountry::loadBy($data['unifiedCountryCode']['value'],'ISO3166alpha2');
-      MrJsonImportBase::importConformityAuthority($data['conformityAuthorityV2Details'], $country);
-
-
+      $ns = $item->content->children('http://schemas.microsoft.com/ado/2007/08/dataservices/metadata');
+      $nsd = $ns->properties->children("http://schemas.microsoft.com/ado/2007/08/dataservices");
+      MrXmlImportBase::importCertificate($nsd);
     }
   }
 }

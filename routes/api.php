@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::match(['get', 'post'], '/reference/country_table', 'MrReferencesController@ListCountries')->name('list_country_table');
 Route::match(['get', 'post'], '/reference/currency_table', 'MrReferencesController@ListCurrency')->name('list_currency_table');
 Route::match(['get', 'post'], '/reference/measure_table', 'MrReferencesController@ListMeasure')->name('list_measure_table');
+Route::match(['get', 'post'], '/reference/certificate_kind', 'MrReferencesController@ListCertificateKind')->name('list_certificate_kind_table');
 
 // BackUp
 Route::match(['get', 'post'], '/admin/system/backup/table/{table_name}', 'Admin\MrAdminBackUpController@GetTable')->name('list_db_table_table');

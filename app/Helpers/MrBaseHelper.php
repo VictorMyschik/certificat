@@ -11,11 +11,11 @@ use App\Http\Controllers\Controller;
 
 abstract class MrBaseHelper extends Controller
 {
-  const MR_EMAIL = 'support@mychecklist.ml';
+  const MR_EMAIL = 'support@certificat.ml';
   const MR_SITE_NAME = 'MyCheckList';
-  const MR_DOMAIN = 'mychecklist';
+  const MR_DOMAIN = 'certificat';
   const MR_SITE = 'MyCheckList';
-  const MR_SITE_URL = 'https://mychecklist.ml';
+  const MR_SITE_URL = 'https://certificat.ml';
 
   const ADMIN_PHONE = '375297896282';
   const ADMIN_PHONE_FORMAT = '+375(29)789-62-82';

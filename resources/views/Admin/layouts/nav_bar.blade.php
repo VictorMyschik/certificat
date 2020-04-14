@@ -1,9 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm mr-bg-muted-blue">
   <div class="container">
 
-    <a class="navbar-brand" href="{{ url('/') }}">
-      {{ MrBaseHelper::MR_SITE_NAME }}
-    </a>
+    <a class="navbar-brand" href="{{ url('/') }}">{{ MrBaseHelper::MR_SITE_NAME }}</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Right Side Of Navbar -->
@@ -18,6 +16,8 @@
             <a class="dropdown-item" href="{{route('admin_country_page')}}">Страны</a>
             <a class="dropdown-item" href="{{route('admin_currency_page')}}">Валюты</a>
             <a class="dropdown-item" href="{{route('admin_measure_page')}}">Единицы измерения</a>
+            <a class="dropdown-item" href="{{route('admin_certificate_kind_page')}}">Классификатор видов документов об
+              оценке соответствия</a>
           </div>
         </li>
 

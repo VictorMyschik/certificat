@@ -8,23 +8,27 @@ use App\Forms\FormBase\MrForm;
 use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrUser;
-use App\Models\References\MrMeasure;
+use App\Models\References\MrCertificateKind;
 
-class MrReferencesMeasureTableController extends MrTableController
+/**
+ * Классификатор видов документов об оценке соответствия
+ */
+class MrReferencesCertificateKindTableController extends MrTableController
 {
   private static $can_edit = false;
 
   public static function GetQuery(array $args = array())
   {
-    return MrMeasure::Select()->paginate(100, __('mr-t.Дальше'));
+    return MrCertificateKind::Select()->paginate(100, __('mr-t.Дальше'));
   }
 
   protected static function getHeader(): array
   {
     $out = array(
       array('name' => __('mr-t.Код'), 'sort' => 'Code'),
-      array('name' => __('mr-t.Условное обозначение'), 'sort' => 'TextCode'),
+      array('name' => __('mr-t.Условное обозначение'), 'sort' => 'ShortName'),
       array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('name' => __('mr-t.Примечание'), 'sort' => 'Description'),
     );
 
     if(self::$can_edit)
@@ -46,18 +50,20 @@ class MrReferencesMeasureTableController extends MrTableController
 
     $row = array();
 
-    $currency = MrMeasure::loadBy($id);
+    $currency = MrCertificateKind::loadBy($id);
 
     $row[] = $currency->getCode();
-    $row[] = $currency->getTextCode();
+    $row[] = $currency->getShortName();
     $row[] = $currency->getName();
+    $row[] = $currency->getDescription();
 
     if(self::$can_edit)
     {
       $row[] = array(
-        $edit = MrForm::loadForm('admin_reference_measure_form_edit', ['id' => $currency->id()], '', ['btn btn-success btn-sm fa fa-edit']),
+        $edit = MrForm::loadForm('admin_reference_certificate_kind_form_edit', ['id' => $currency->id()],
+          '', ['btn btn-success btn-sm fa fa-edit']),
         $delete = MrLink::open('reference_item_delete',
-          ['name' => 'measure', 'id' => $currency->id()], '',
+          ['name' => 'certificate_kind', 'id' => $currency->id()], '',
           'm-l-5 btn btn-danger btn-sm fa fa-trash-alt',
           'Удалить', ['onclick' => "return confirm('Уверены?');"]),
       );
