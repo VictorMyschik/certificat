@@ -188,17 +188,20 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Удаление строки
   Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
 
-  //// Страны мира
+  //// Классификатор стран
   Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry")->name('admin_country_page');
-  // Edit
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
 
-  //// Валюты мира
+  //// Классификатор валют
   Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency")->name('admin_currency_page');
-  // Форма редактирования справочника Валют
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@submitForm")->name('admin_reference_currency_form_submit');
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@getFormBuilder")->name('admin_reference_currency_form_edit');
+
+  //// Классификатор единиц измерения
+  Route::get('/admin/reference/measure', "Admin\MrAdminReferences@ViewMeasure")->name('admin_measure_page');
+  Route::match(['get', 'post'], '/admin/reference/measure/edit/{id}/submit', "\App\Forms\Admin\MrAdminMeasureEditForm@submitForm")->name('admin_reference_measure_form_submit');
+  Route::match(['get', 'post'], '/admin/reference/measure/edit/{id}', "\App\Forms\Admin\MrAdminMeasureEditForm@getFormBuilder")->name('admin_reference_measure_form_edit');
 
 
   #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
@@ -218,6 +221,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   // ФИО
   Route::get('/admin/certificate/fio', "Admin\MrAdminCertificateController@ViewFio")->name('admin_fio_page');
   Route::get('/admin/certificate/fio/delete/{id}', "Admin\MrAdminCertificateController@FioDelete")->name('admin_fio_delete');
+  // Органы по сертификации
+  Route::get('/admin/certificate/authority', "Admin\MrAdminCertificateController@ViewAuthority")->name('admin_authority_page');
+  Route::get('/admin/certificate/authority/delete/{id}', "Admin\MrAdminCertificateController@AuthorityDelete")->name('admin_authority_delete');
 
 
   // Загрузка из XML

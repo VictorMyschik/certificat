@@ -11,8 +11,6 @@ class CreateMrFioTable extends Migration
   {
     Schema::create('mr_fio', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
-      $table->tinyInteger('ObjectKind')->default(0);//К чему привязан
-      $table->bigInteger('ObjectID');//ID объекта
       $table->string('FirstName', 120)->nullable();//Имя
       $table->string('MiddleName', 120)->nullable();//Отчество
       $table->string('LastName', 120)->nullable();//Фамилия

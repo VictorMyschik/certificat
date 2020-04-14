@@ -4,21 +4,17 @@
 namespace App\Models\Certificate;
 
 
-use App\Models\Lego\MrObjectTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
+use Illuminate\Support\Facades\DB;
 
 class MrFio extends ORM
 {
-  use MrObjectTrait;
-
   public static $mr_table = 'mr_fio';
   public static $className = MrFio::class;
   protected $table = 'mr_fio';
 
   protected static $dbFieldsMap = array(
-    'ObjectKind',//К чему привязан
-    'ObjectID',//ID объекта
     'FirstName',//Имя max 120
     'MiddleName',//Отчество max 120
     'LastName', //Фамилия max 120
@@ -36,57 +32,24 @@ class MrFio extends ORM
     return false;
   }
 
-  const KIND_OBJECT_MANUFACTURER = 1;
-
-  /**
-   * Модли привязки адреса на экран
-   *
-   * @return array
-   */
-  public static function getObjectKindList(): array
-  {
-    return array(
-      self::KIND_OBJECT_MANUFACTURER => 'Производитель',
-    );
-  }
-
   public static function loadBy($value, $field = 'id'): ?MrFio
   {
     return parent::loadBy((string)$value, $field);
   }
 
-  /**
-   * Модли привязки адреса
-   *
-   * @return array
-   */
-  public static function getKindObjectModelList(): array
+  public function before_save()
   {
-    return array(
-      self::KIND_OBJECT_MANUFACTURER => 'MrManufacturer',
-    );
-  }
+    $data = DB::table(self::$mr_table)
+      ->where('FirstName', $this->getFirstName())
+      ->where('MiddleName', $this->getMiddleName())
+      ->where('LastName', $this->getLastName())
+      ->where('PositionName', $this->getPositionName())
+      ->first(['id']);
 
-
-  // Загрузка объекта
-  public function getObject()
-  {
-    $class_name = $this->getObjectKindModelName();
-    if(class_exists("App\\Models\\Certificate\\" . $class_name))
+    if($data)
     {
-      $class = "App\\Models\\Certificate\\" . $class_name;
-
-      return $class::loadBy($this->ObjectID);
+      $this->id = $data->id;
     }
-    else
-    {
-      dd('Класс не найден');
-    }
-  }
-
-  public function setObjectID(int $value)
-  {
-    $this->ObjectID = $value;
   }
 
   /**

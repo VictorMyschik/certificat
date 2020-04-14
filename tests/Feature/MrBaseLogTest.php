@@ -30,7 +30,7 @@ class MrBaseLogTest extends TestCase
     $log->setRowId($RowId);
     // TableName
     $TableName = $this->randomString();
-    $log->setTableName($TableName);
+    $log->setTName($TableName);
     // Field
     $Field = $this->randomString();
     $log->setField($Field);
@@ -61,7 +61,7 @@ class MrBaseLogTest extends TestCase
     $log->setRowId($RowId);
     // TableName
     $TableName = $this->randomString();
-    $log->setTableName($TableName);
+    $log->setTName($TableName);
     // Field
     $Field = $this->randomString();
     $log->setField($Field);

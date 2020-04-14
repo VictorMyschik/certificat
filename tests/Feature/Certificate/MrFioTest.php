@@ -5,7 +5,6 @@ namespace Tests\Feature\Certificate;
 
 
 use App\Models\Certificate\MrFio;
-use App\Models\Certificate\MrManufacturer;
 use Tests\TestCase;
 
 class MrFioTest extends TestCase
@@ -13,8 +12,6 @@ class MrFioTest extends TestCase
   public function testMrFio()
   {
     /**
-     * 'KindObject',//К чему привязан
-     * 'ObjectID',//ID объекта
      * 'FirstName',//Имя max 120
      * 'MiddleName',//Отчество max 120
      * 'LastName', //Фамилия max 120
@@ -23,12 +20,6 @@ class MrFioTest extends TestCase
 
     $fio = new MrFio();
     $this->assertNotNull($fio);
-    //'KindObject',//К чему привязан
-    $KindObject = MrFio::KIND_OBJECT_MANUFACTURER;
-    $fio->setObjectKind($KindObject);
-    //'ObjectID',
-    $ObjectID = self::randomIDfromClass(MrManufacturer::class);
-    $fio->setObjectID($ObjectID);
     //'FirstName',//Имя max 120
     $FirstName = $this->randomString(120);
     $fio->setFirstName($FirstName);
@@ -56,12 +47,6 @@ class MrFioTest extends TestCase
 
 
     //// Update
-    //'KindObject',//К чему привязан
-    $KindObject = MrFio::KIND_OBJECT_MANUFACTURER;
-    $fio->setObjectKind($KindObject);
-    //'ObjectID',
-    $ObjectID = self::randomIDfromClass(MrManufacturer::class);
-    $fio->setObjectID($ObjectID);
     //'FirstName',//Имя max 120
     $FirstName = $this->randomString(120);
     $fio->setFirstName($FirstName);

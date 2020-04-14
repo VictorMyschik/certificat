@@ -57,7 +57,7 @@ class MrReferencesCountryTableController extends MrTableController
     $row[] = $country->getISO3166alpha2();
     $row[] = $country->getISO3166alpha3();
     $row[] = $country->getISO3166numeric();
-    $row[] = $country->getContinent();
+    $row[] = $country->getContinentName();
 
     $img_name = mb_strtolower($country->getISO3166alpha2());
     $row[] = "<img style='width: 30px;' title='Flag {$country->getName() }'

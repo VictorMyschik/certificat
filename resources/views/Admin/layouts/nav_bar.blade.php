@@ -15,8 +15,9 @@
             Справочники<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{route('admin_country_page')}}">Страны мира</a>
-            <a class="dropdown-item" href="{{route('admin_currency_page')}}">Валюты мира</a>
+            <a class="dropdown-item" href="{{route('admin_country_page')}}">Страны</a>
+            <a class="dropdown-item" href="{{route('admin_currency_page')}}">Валюты</a>
+            <a class="dropdown-item" href="{{route('admin_measure_page')}}">Единицы измерения</a>
           </div>
         </li>
 
@@ -41,6 +42,7 @@
             <a class="dropdown-item" href="{{route('admin_manufacturer_page')}}">Производители</a>
             <a class="dropdown-item" href="{{route('admin_address_page')}}">Адреса</a>
             <a class="dropdown-item" href="{{route('admin_fio_page')}}">Люди</a>
+            <a class="dropdown-item" href="{{route('admin_authority_page')}}">Орган по оценке соответствия</a>
           </div>
         </li>
 

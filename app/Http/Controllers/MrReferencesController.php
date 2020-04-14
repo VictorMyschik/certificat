@@ -7,14 +7,16 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesCountryTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesCurrencyTableController;
+use App\Http\Controllers\TableControllers\References\MrReferencesMeasureTableController;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 class MrReferencesController extends Controller
 {
   protected $references = array(
-    'country' => 'Страны мира',
+    'country'  => 'Страны мира',
     'currency' => 'Валюты мира',
+    'measure'  => 'Классификатор единиц измерения',
   );
 
   public function ListCountries()
@@ -25,6 +27,11 @@ class MrReferencesController extends Controller
   public function ListCurrency()
   {
     return MrTableController::buildTable(MrReferencesCurrencyTableController::class);
+  }
+
+  public function ListMeasure()
+  {
+    return MrTableController::buildTable(MrReferencesMeasureTableController::class);
   }
 
   /**

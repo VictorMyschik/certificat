@@ -11,7 +11,7 @@ class MrCurrency extends ORM
 {
   public static $mr_table = 'mr_currency';
   public static $className = MrCurrency::class;
-  protected $table = 'list_currency_table';
+  protected $table = 'mr_currency';
 
   protected static $dbFieldsMap = array(
     'Code',

@@ -25,6 +25,7 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="nav-link" href="{{route('references',['name'=>'country'])}}">{{ __('mr-t.Страны мира') }}</a>
             <a class="nav-link" href="{{route('references',['name'=>'currency'])}}">{{ __('mr-t.Валюты мира') }}</a>
+            <a class="nav-link" href="{{route('references',['name'=>'measure'])}}">{{ __('mr-t.Классификатор единиц измерения') }}</a>
           </div>
         </li>
         <li class="nav-item">

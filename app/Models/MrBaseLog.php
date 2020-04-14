@@ -52,7 +52,7 @@ class MrBaseLog extends ORM
     return $this->TableName;
   }
 
-  public function setTableName(string $value)
+  public function setTName(string $value)
   {
     $this->TableName = $value;
   }
@@ -74,9 +74,9 @@ class MrBaseLog extends ORM
     return $this->Value;
   }
 
-  public function setValue(?string $value)
+  public function setValue($value)
   {
-    $this->Value = $value;
+    $this->Value = serialize($value);
   }
 
   // ID строки
@@ -106,7 +106,7 @@ class MrBaseLog extends ORM
         foreach ($data as $key => $item)
         {
           $log = new MrBaseLog();
-          $log->setTableName($table);
+          $log->setTName($table);
           $log->setLogIdentID(MrLogIdent::$ident_id);
           $log->setRowId($id);
           $log->setField($key);
@@ -118,7 +118,7 @@ class MrBaseLog extends ORM
       else
       {
         $log = new MrBaseLog();
-        $log->setTableName($table);
+        $log->setTName($table);
         $log->setLogIdentID(MrLogIdent::$ident_id);
         $log->setRowId($id);
         $log->setField('del');

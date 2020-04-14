@@ -19,8 +19,6 @@ class MrCertificateFioTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Прикреплён', 'sort' => 'ObjectKind'),
-      array('name' => 'ID', 'sort' => 'ObjectID'),
       array('name' => 'Имя', 'sort' => 'FirstName'),
       array('name' => 'Отчество', 'sort' => 'MiddleName'),
       array('name' => 'Фамилия', 'sort' => 'LastName'),
@@ -36,11 +34,10 @@ class MrCertificateFioTableController extends MrTableController
     $communicate = MrFio::loadBy($id);
 
     $row[] = $communicate->id();
-    $row[] = $communicate->getObjectKindName();
-    $row[] = $communicate->getObject()->id();
     $row[] = $communicate->getFirstName();
     $row[] = $communicate->getMiddleName();
     $row[] = $communicate->getLastName();
+    $row[] = $communicate->getPositionName();
 
     $row[] = array(
       MrLink::open('admin_fio_delete', ['id' => $communicate->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',

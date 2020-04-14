@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 //// Справочники
 Route::match(['get', 'post'], '/reference/country_table', 'MrReferencesController@ListCountries')->name('list_country_table');
 Route::match(['get', 'post'], '/reference/currency_table', 'MrReferencesController@ListCurrency')->name('list_currency_table');
+Route::match(['get', 'post'], '/reference/measure_table', 'MrReferencesController@ListMeasure')->name('list_measure_table');
 
 // BackUp
 Route::match(['get', 'post'], '/admin/system/backup/table/{table_name}', 'Admin\MrAdminBackUpController@GetTable')->name('list_db_table_table');
@@ -25,7 +26,7 @@ Route::match(['get', 'post'], '/admin/certificate/communicate', 'Admin\MrAdminCe
 Route::match(['get', 'post'], '/admin/certificate/manufacturer', 'Admin\MrAdminCertificateController@ManufacturerList')->name('list_manufacturer_table');
 Route::match(['get', 'post'], '/admin/certificate/address', 'Admin\MrAdminCertificateController@AddressList')->name('list_address_table');
 Route::match(['get', 'post'], '/admin/certificate/fio', 'Admin\MrAdminCertificateController@FioList')->name('list_fio_table');
-
+Route::match(['get', 'post'], '/admin/certificate/authority', 'Admin\MrAdminCertificateController@AuthorityList')->name('list_authority_table');
 
 
 //// Прочее
@@ -34,7 +35,6 @@ Route::match(['get', 'post'], '/admin/system/backup/summary_table', 'Admin\MrAdm
 
 /// Для Админов
 Route::group(['middleware' => 'is_admin'], function () {
-  // Redis
   Route::match(['get', 'post'], '/admin/systemdata', 'Admin\MrAdminController@GetData')->name('admin_redis_data');
   Route::match(['get', 'post'], '/admin/system/table', 'Admin\MrAdminSystemController@GetLogIdentTable')->name('admin_system_table');
   Route::match(['get', 'post'], '/admin/system/dblog/table', 'Admin\MrAdminSystemController@GetDbLogTable')->name('admin_db_log_table');

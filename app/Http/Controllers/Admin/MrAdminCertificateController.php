@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAddressTableController;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAuthorityTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateCommunicateTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateFioTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateManufacturerTableController;
@@ -14,11 +15,13 @@ use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
+use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Tests\Feature\Certificate\MrConformityAuthorityTest;
 
 class MrAdminCertificateController extends Controller
 {
@@ -191,6 +194,43 @@ class MrAdminCertificateController extends Controller
   public function FioDelete(int $id)
   {
     $Fio = MrFio::loadBy($id);
+
+    if(!$Fio->canEdit())
+    {
+      mr_access_violation();
+    }
+
+    $Fio->mr_delete();
+
+    return back();
+  }
+
+  /**
+   * Страница органов по оценке соответствия
+   */
+  public function ViewAuthority()
+  {
+    $out = array();
+    $out['page_title'] = 'Органы по оценке соответствия';
+    $out['route_name'] = route('list_authority_table');
+
+    return View('Admin.Certificate.mir_admin_certificate_authority')->with($out);
+  }
+
+  public function AuthorityList()
+  {
+    return MrTableController::buildTable(MrCertificateAuthorityTableController::class);
+  }
+
+  /**
+   * Удаление орган по оценке соответствия
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function AuthorityDelete(int $id)
+  {
+    $Fio = MrConformityAuthority::loadBy($id);
 
     if(!$Fio->canEdit())
     {
