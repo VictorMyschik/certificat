@@ -22,6 +22,11 @@ class MrXmlImportBase extends Controller
    */
   public static function importFio(SimpleXMLElement $xml): ?MrFio
   {
+    if($xml->positionName)
+    {
+      return null;
+    }
+
     $fio = new MrFio();
 
     $fio->setPositionName((string)$xml->positionName);
@@ -39,24 +44,27 @@ class MrXmlImportBase extends Controller
 
   /**
    * Импорт органа по оценке соответствия
+   *
    * @param SimpleXMLElement $xml
    * @return MrConformityAuthority
    */
   public static function importConformityAuthority(SimpleXMLElement $xml)
   {
-    $conformity = new MrConformityAuthority();
-    $conformity->setCountryID();
+    $officer = self::importFio($xml->officerDetails);
+
+    //$conformity = new MrConformityAuthority();
+    /*//$conformity->setCountryID();
     $conformity->setConformityAuthorityId((string)$xml->conformityAuthorityId);
     $conformity->setDocumentNumber((string)$xml->docId);
     $conformity->setDocumentDate((string)$xml->docCreationDate);
     $conformity->setName((string)$xml->businessEntityName);
 
     // руководитель
-    $officer = self::importFio($xml->officerDetails);
+
     $conformity->setOfficerDetailsID($officer->id());
 
-    $conformity->save_mr();
-
-    return $conformity;
+    // $conformity->save_mr();
+*/
+    return null;//$conformity;
   }
 }

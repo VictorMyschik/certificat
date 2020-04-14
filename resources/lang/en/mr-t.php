@@ -6,6 +6,7 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Классификатор единиц измерения'                                                               => 'Measure Unit Reference',
     'Условное обозначение'                                                                         => 'Short name',
     'Создать'                                                                                      => 'Create',
     'Цифровой код'                                                                                 => 'Numeric code',

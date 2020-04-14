@@ -12,9 +12,6 @@ class MrTemp extends ORM
   public static $className = MrTemp::class;
   protected static $dbFieldsMap = array(
     'RemoteID',
-    'Number',
-    'Date',
-    'UpdateDate',
     'RawData',
   );
 

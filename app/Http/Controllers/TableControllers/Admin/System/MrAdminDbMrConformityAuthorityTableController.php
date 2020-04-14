@@ -16,8 +16,9 @@ class MrAdminDbMrConformityAuthorityTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'ConformityAuthorityId', 'sort' => 'ConformityAuthorityId'),
         array('name' => 'CountryID', 'sort' => 'CountryID'),
+        array('name' => 'Name', 'sort' => 'Name'),
+        array('name' => 'ConformityAuthorityId', 'sort' => 'ConformityAuthorityId'),
         array('name' => 'DocumentNumber', 'sort' => 'DocumentNumber'),
         array('name' => 'DocumentDate', 'sort' => 'DocumentDate'),
         array('name' => 'OfficerDetailsID', 'sort' => 'OfficerDetailsID'),

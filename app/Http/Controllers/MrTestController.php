@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Xml\MrXmlImportBase;
+use App\Classes\Json\MrJsonImportBase;
+use App\Models\MrTemp;
+use App\Models\References\MrCountry;
 
 class MrTestController extends Controller
 {
   public function index()
   {
-    $file = public_path() . '/files/example.xml';
-    $xml = simplexml_load_string(file_get_contents($file), 'SimpleXMLElement', LIBXML_NOENT | LIBXML_NOCDATA | LIBXML_COMPACT);
-    //dd($xml);
-    foreach ($xml as $item)
+    $temp = MrTemp::GetAll();
+
+    foreach ($temp as $item)
     {
-      $conformityAuthority = $item->conformityAuthorityV2Details;
-      MrXmlImportBase::importConformityAuthority($conformityAuthority);
+      $data = json_decode($item->getRawData(), true);
+      $country = MrCountry::loadBy($data['unifiedCountryCode']['value'],'ISO3166alpha2');
+      MrJsonImportBase::importConformityAuthority($data['conformityAuthorityV2Details'], $country);
+
+
     }
   }
 }

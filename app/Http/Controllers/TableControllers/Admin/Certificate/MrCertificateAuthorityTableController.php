@@ -12,7 +12,7 @@ class MrCertificateAuthorityTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())
   {
-    return MrConformityAuthority::Select()->paginate(20, __('mr-t.Дальше'));
+    return MrConformityAuthority::Select()->paginate(100, __('mr-t.Дальше'));
   }
 
   protected static function getHeader(): array
@@ -39,7 +39,14 @@ class MrCertificateAuthorityTableController extends MrTableController
     $row[] = $authority->getCountry()->getName();
     $row[] = $authority->getDocumentNumber();
     $row[] = $authority->getDocumentDate() ? $authority->getDocumentDate()->getShortDate() : null;
-    $row[] = [$authority->getOfficerDetails()->GetFullName(), $authority->getOfficerDetails()->getPositionName()];
+
+    $fio = '';
+    if($authority->getOfficerDetails())
+    {
+      $fio = ['<div>'.$authority->getOfficerDetails()->GetFullName().'</div>', $authority->getOfficerDetails()->getPositionName()];
+    }
+
+    $row[] = $fio;
 
     $row[] = array(
       MrLink::open('admin_authority_delete', ['id' => $authority->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',

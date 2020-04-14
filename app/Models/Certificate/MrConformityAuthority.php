@@ -8,6 +8,7 @@ use App\Helpers\MrDateTime;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Орган по оценке соответствия
@@ -25,13 +26,28 @@ class MrConformityAuthority extends ORM
   protected $table = 'mr_conformity_authority';
 
   protected static $dbFieldsMap = array(
-    'Name', // businessEntityName max 300
-    'ConformityAuthorityId',//номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
-    'CountryID', // кодовое обозначение страны, в которой зарегистрирован орган по оценке соответствия
+    'CountryID', // businessEntityName max 300
+    'Name',//номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
+    'ConformityAuthorityId', // кодовое обозначение страны, в которой зарегистрирован орган по оценке соответствия
     'DocumentNumber', // номер документа, подтверждающего аккредитацию органа по оценке соответствия
     'DocumentDate', // дата регистрации документа подтверждающего аккредитацию органа по оценке соответствия
     'OfficerDetailsID',// Руководитель органа по оценке соответствия
   );
+
+  public function before_save()
+  {
+    $data = DB::table(self::$mr_table)
+      ->where('CountryID', $this->getCountry()->id())
+      ->where('Name', $this->getName())
+      ->where('ConformityAuthorityId', $this->getConformityAuthorityId())
+      ->where('DocumentNumber', $this->getDocumentNumber())
+      ->first(['id']);
+
+    if($data)
+    {
+      $this->id = $data->id;
+    }
+  }
 
   public function canEdit(): bool
   {
@@ -105,12 +121,12 @@ class MrConformityAuthority extends ORM
   }
 
   // Руководитель органа по оценке соответствия
-  public function getOfficerDetails(): MrFio
+  public function getOfficerDetails(): ?MrFio
   {
     return MrFio::loadBy($this->OfficerDetailsID);
   }
 
-  public function setOfficerDetailsID(int $value)
+  public function setOfficerDetailsID(?int $value)
   {
     $this->OfficerDetailsID = $value;
   }
