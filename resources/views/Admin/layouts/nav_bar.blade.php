@@ -36,10 +36,11 @@
             Сертификаты<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/admin/certificate">Сертификаты</a>
-            <a class="dropdown-item" href="/admin/certificate/communicate">Связь</a>
-            <a class="dropdown-item" href="/admin/certificate/manufacturer">Производители</a>
-            <a class="dropdown-item" href="/admin/certificate/address">Адреса</a>
+            <a class="dropdown-item m-b-10" href="{{route('admin_certificate_page')}}">Сертификаты</a>
+            <a class="dropdown-item" href="{{route('admin_communicate_page')}}">Связь</a>
+            <a class="dropdown-item" href="{{route('admin_manufacturer_page')}}">Производители</a>
+            <a class="dropdown-item" href="{{route('admin_address_page')}}">Адреса</a>
+            <a class="dropdown-item" href="{{route('admin_fio_page')}}">Люди</a>
           </div>
         </li>
 

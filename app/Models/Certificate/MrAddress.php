@@ -31,11 +31,22 @@ class MrAddress extends ORM
     'BuildingNumberId',//50
     'RoomNumberId',//20
     'PostCode', //max 10
-    'PostOfficeBoxId', //max 20
-    'AddressText', //max 1000
+    'PostOfficeBoxId', //max 20 Номер абонентского ящика
+    'AddressText', //max 1000 Адрес в текстовой форме
     'Lat',
     'Lon',
   );
+
+  public function canEdit(): bool
+  {
+    $me = MrUser::me();
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    return false;
+  }
 
   const KIND_OBJECT_MANUFACTURER = 1;
 
@@ -49,8 +60,8 @@ class MrAddress extends ORM
   {
     return array(
       self::ADDRESS_KIND_REGISTRATION => 'адрес регистрации',
-      self::ADDRESS_KIND_FACT => 'фактический адрес',
-      self::ADDRESS_KIND_POSTAL => 'почтовый адрес',
+      self::ADDRESS_KIND_FACT         => 'фактический адрес',
+      self::ADDRESS_KIND_POSTAL       => 'почтовый адрес',
     );
   }
 

@@ -202,21 +202,22 @@ Route::group(['middleware' => 'is_admin'], function () {
 
 
   #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
-  Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View");
+  Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View")->name('admin_certificate_page');
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
 
   // Email Phone...
-  Route::get('/admin/certificate/communicate', "Admin\MrAdminCertificateController@ViewCommunicate")->name('communicate_page');
+  Route::get('/admin/certificate/communicate', "Admin\MrAdminCertificateController@ViewCommunicate")->name('admin_communicate_page');
   Route::get('/admin/certificate/communicate/delete/{id}', "Admin\MrAdminCertificateController@CommunicateDelete")->name('admin_communicate_delete');
   // Производители
   Route::get('/admin/certificate/manufacturer', "Admin\MrAdminCertificateController@ViewManufacturer")->name('admin_manufacturer_page');
   Route::get('/admin/certificate/manufacturer/delete/{id}', "Admin\MrAdminCertificateController@ManufacturerDelete")->name('admin_manufacturer_delete');
   // Адрес
-  Route::get('/admin/certificate/manufacturer', "Admin\MrAdminCertificateController@ViewAddress")->name('admin_address_page');
+  Route::get('/admin/certificate/address', "Admin\MrAdminCertificateController@ViewAddress")->name('admin_address_page');
   Route::get('/admin/certificate/address/delete/{id}', "Admin\MrAdminCertificateController@AddressDelete")->name('admin_address_delete');
-
-
+  // ФИО
+  Route::get('/admin/certificate/fio', "Admin\MrAdminCertificateController@ViewFio")->name('admin_fio_page');
+  Route::get('/admin/certificate/fio/delete/{id}', "Admin\MrAdminCertificateController@FioDelete")->name('admin_fio_delete');
 
 
   // Загрузка из XML

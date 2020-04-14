@@ -6,11 +6,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAddressTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateCommunicateTableController;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateFioTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateManufacturerTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
+use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
+use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -120,6 +124,80 @@ class MrAdminCertificateController extends Controller
     }
 
     $manufacturer->mr_delete();
+
+    return back();
+  }
+
+  /**
+   * Страница адресов
+   */
+  public function ViewAddress()
+  {
+    $out = array();
+    $out['page_title'] = 'Адреса';
+    $out['route_name'] = route('list_address_table');
+
+    return View('Admin.Certificate.mir_admin_certificate_address')->with($out);
+  }
+
+  public function AddressList()
+  {
+    return MrTableController::buildTable(MrCertificateAddressTableController::class);
+  }
+
+  /**
+   * Удаление адреса
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function AddressDelete(int $id)
+  {
+    $address = MrAddress::loadBy($id);
+
+    if(!$address->canEdit())
+    {
+      mr_access_violation();
+    }
+
+    $address->mr_delete();
+
+    return back();
+  }
+  
+  /**
+   * Страница адресов
+   */
+  public function ViewFio()
+  {
+    $out = array();
+    $out['page_title'] = 'ФИО';
+    $out['route_name'] = route('list_fio_table');
+
+    return View('Admin.Certificate.mir_admin_certificate_fio')->with($out);
+  }
+
+  public function FioList()
+  {
+    return MrTableController::buildTable(MrCertificateFioTableController::class);
+  }
+
+  /**
+   * Удаление адреса
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function FioDelete(int $id)
+  {
+    $Fio = MrFio::loadBy($id);
+
+    if(!$Fio->canEdit())
+    {
+      mr_access_violation();
+    }
+
+    $Fio->mr_delete();
 
     return back();
   }

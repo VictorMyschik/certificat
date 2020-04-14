@@ -13,9 +13,10 @@ class CreateMrFioTable extends Migration
       $table->bigIncrements('id')->autoIncrement();
       $table->tinyInteger('ObjectKind')->default(0);//К чему привязан
       $table->bigInteger('ObjectID');//ID объекта
-      $table->string('FirstName', 121)->nullable();//Имя
-      $table->string('MiddleName', 121)->nullable();//Отчество
-      $table->string('LastName', 121)->nullable();//Фамилия
+      $table->string('FirstName', 120)->nullable();//Имя
+      $table->string('MiddleName', 120)->nullable();//Отчество
+      $table->string('LastName', 120)->nullable();//Фамилия
+      $table->string('PositionName', 120)->nullable();//Фамилия
     });
   }
 

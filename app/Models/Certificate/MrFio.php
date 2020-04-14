@@ -5,6 +5,7 @@ namespace App\Models\Certificate;
 
 
 use App\Models\Lego\MrObjectTrait;
+use App\Models\MrUser;
 use App\Models\ORM;
 
 class MrFio extends ORM
@@ -21,7 +22,19 @@ class MrFio extends ORM
     'FirstName',//Имя max 120
     'MiddleName',//Отчество max 120
     'LastName', //Фамилия max 120
+    'PositionName' //Должность max 120
   );
+
+  public function canEdit(): bool
+  {
+    $me = MrUser::me();
+    if($me->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    return false;
+  }
 
   const KIND_OBJECT_MANUFACTURER = 1;
 
@@ -119,6 +132,21 @@ class MrFio extends ORM
   public function setLastName(?string $value)
   {
     $this->LastName = $value;
+  }
+
+  /**
+   * Должность
+   *
+   * @return string|null
+   */
+  public function getPositionName(): ?string
+  {
+    return $this->PositionName;
+  }
+
+  public function setPositionName(?string $value)
+  {
+    $this->PositionName = $value;
   }
 
   public function GetFullName(): string

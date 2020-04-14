@@ -1,6 +1,7 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <PHPCodeStyleSettings>
+      <option name="ALIGN_KEY_VALUE_PAIRS" value="true" />
       <option name="NAMESPACE_BRACE_STYLE" value="2" />
     </PHPCodeStyleSettings>
     <editorconfig>
