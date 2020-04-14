@@ -212,7 +212,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View")->name('admin_certificate_page');
   // Удалить сертификат
-  Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete");
+  Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete")->name('admin_certificate_delete');
 
   // Email Phone...
   Route::get('/admin/certificate/communicate', "Admin\MrAdminCertificateController@ViewCommunicate")->name('admin_communicate_page');

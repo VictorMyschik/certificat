@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
+use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use SimpleXMLElement;
 
@@ -24,7 +25,7 @@ class MrXmlImportBase extends Controller
    */
   public static function importCertificate(SimpleXMLElement $xml): ?MrCertificate
   {
-    dd($xml);
+    // dd($xml);
 
     $certificate = new MrCertificate();
     //$certificate->setKind();
@@ -32,6 +33,12 @@ class MrXmlImportBase extends Controller
     // Страна
     $country_code_xml = (string)$xml->unifiedCountryCode->value;
     $country = MrCountry::loadBy($country_code_xml, 'ISO3166alpha2');
+
+    if(!$country)
+    {
+      dd($country_code_xml);
+    }
+
     $certificate->setCountryID($country->id());
 
     // Номер
@@ -58,7 +65,33 @@ class MrXmlImportBase extends Controller
     $singleListProductIndicator = (bool)$xml->singleListProductIndicator;
     $certificate->setSingleListProductIndicator($singleListProductIndicator);
 
+    // Тип документа
+    $conformityDocKindCode = (string)$xml->conformityDocKindCode;
+    $cert_kind = MrCertificateKind::loadBy($conformityDocKindCode, 'Code');
+    $certificate->setCertificateKindID($cert_kind->id());
 
+    //// Статус
+    $docStatusDetails = $xml->docStatusDetails;
+    $status_code = (int)$docStatusDetails->docStatusCode;
+    $certificate->setStatus($status_code);
+
+    // Начальная дата действия статуса
+    $status_date_from = $docStatusDetails->StartDate;
+    $certificate->setDateStatusFrom($status_date_from);
+    // Конечная дата действия статуса
+    $status_date_to = $docStatusDetails->EndDate;
+    $certificate->setDateStatusFrom($status_date_to);
+
+    // Схема сертификации
+    $shema_certificate = (string)$xml->certificationSchemeCode->element;
+    $certificate->setSchemaCertificate($shema_certificate);
+
+    $DateUpdateEAES = (string)$xml->resourceItemStatusDetails->updateDateTime;
+    $certificate->setDateUpdateEAES($DateUpdateEAES);
+
+    $certificate->save_mr();
+
+    return $certificate;
   }
 
   /**

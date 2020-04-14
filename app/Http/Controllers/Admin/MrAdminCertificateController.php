@@ -11,6 +11,7 @@ use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAuthori
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateCommunicateTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateFioTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateManufacturerTableController;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
@@ -21,7 +22,6 @@ use App\Models\Certificate\MrManufacturer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Tests\Feature\Certificate\MrConformityAuthorityTest;
 
 class MrAdminCertificateController extends Controller
 {
@@ -29,8 +29,14 @@ class MrAdminCertificateController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Сертификаты';
+    $out['route_name'] = route('list_certificate_table');
 
     return View('Admin.Certificate.mir_admin_certificate')->with($out);
+  }
+
+  public function CertificateList()
+  {
+    return MrTableController::buildTable(MrCertificateTableController::class);
   }
 
   /**
@@ -167,7 +173,7 @@ class MrAdminCertificateController extends Controller
 
     return back();
   }
-  
+
   /**
    * Страница адресов
    */

@@ -8,7 +8,7 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    $file = public_path() . '/files/cert.xml';
+    $file = public_path() . '/files/2460000.xml';
     $xml = simplexml_load_file($file);
     foreach ($xml->entry as $item)
     {

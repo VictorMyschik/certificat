@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use App\Helpers\MrDateTime;
+use SimpleXMLElement;
 
 /**
  * Запись всех изменений БД
@@ -18,7 +19,7 @@ class MrBaseLog extends ORM
   public static $ignoring_tables = array(
     'mr_log_ident',
     'mr_base_log',
-    'mr_users'
+    'mr_user'
   );
 
   protected static $dbFieldsMap = array(
@@ -27,7 +28,7 @@ class MrBaseLog extends ORM
     'TableName',
     'Field',
     'Value',
-  //'WriteDate',
+    //'WriteDate',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrBaseLog
@@ -76,6 +77,16 @@ class MrBaseLog extends ORM
 
   public function setValue($value)
   {
+    if($value instanceof MrDateTime)
+    {
+      $value = $value->getMysqlDateTime();
+    }
+
+    if($value instanceof SimpleXMLElement)
+    {
+      $value = 'xml';
+    }
+
     $this->Value = serialize($value);
   }
 

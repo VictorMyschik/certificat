@@ -6,6 +6,7 @@ namespace Tests\Feature;
 
 use App\Helpers\MrDateTime;
 use App\Models\Certificate\MrCertificate;
+use App\Models\Certificate\MrFio;
 use App\Models\References\MrCountry;
 use Tests\TestCase;
 
@@ -87,7 +88,7 @@ class MrCertificateTest extends TestCase
     //// Asserts
     $certificate = MrCertificate::loadBy($certificate_id);
     $this->assertNotNull($certificate);
-    $this->assertEquals($certificate->getKind(), $kind);
+    $this->assertEquals($certificate->getCertificateKind()->id(), $kind);
     $this->assertEquals($certificate->getNumber(), $Number);
     $this->assertEquals($certificate->getDateFrom()->getShortDate(), $DateFrom->getShortDate());
     $this->assertEquals($certificate->getDateTo()->getShortDate(), $DateTo->getShortDate());
@@ -106,8 +107,8 @@ class MrCertificateTest extends TestCase
 
     //// Update
     //'Kind'
-    $kind = array_rand(MrCertificate::getKinds());
-    $certificate->setKind($kind);
+    $kind = array_rand(MrCertificate::getStatuses());
+    $certificate->setStatus($kind);
     //'Number'
     $Number = self::randomString(10);
     $certificate->setNumber($Number);
@@ -124,8 +125,8 @@ class MrCertificateTest extends TestCase
     $Status = array_rand(MrCertificate::getStatuses());
     $certificate->setStatus($Status);
     //'Auditor'
-    $Auditor = self::randomString(80);
-    $certificate->setAuditor($Auditor);
+    $Auditor = self::randomIDfromClass(MrFio::class);
+    $certificate->setAuditorID($Auditor);
     //'BlankNumber'
     $BlankNumber = self::randomString(50);
     $certificate->setBlankNumber($BlankNumber);
@@ -157,7 +158,7 @@ class MrCertificateTest extends TestCase
     //// Asserts
     $certificate = MrCertificate::loadBy($certificate_id);
     $this->assertNotNull($certificate);
-    $this->assertEquals($certificate->getKind(), $kind);
+    $this->assertEquals($certificate->getCertificateKind()->id(), $kind);
     $this->assertEquals($certificate->getNumber(), $Number);
     $this->assertEquals($certificate->getDateFrom()->getShortDate(), $DateFrom->getShortDate());
     $this->assertEquals($certificate->getDateTo()->getShortDate(), $DateTo->getShortDate());

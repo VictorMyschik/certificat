@@ -8,7 +8,7 @@
       <div class="margin-b-15 m-b-10">
         <button class="btn-primary btn-sm">Загрузить из XML</button>
       </div>
-      <mr-table :mr_route="'{{ route('certificates_list') }}'"></mr-table>
+      <mr-table :mr_route="'{{$route_name}}'"></mr-table>
     </div>
   </div>
 @endsection

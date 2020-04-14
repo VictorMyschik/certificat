@@ -6,6 +6,7 @@ namespace App\Models\Certificate;
 
 use App\Helpers\MrDateTime;
 use App\Models\ORM;
+use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use Carbon\Carbon;
 
@@ -17,13 +18,13 @@ class MrCertificate extends ORM
 
   protected static $dbFieldsMap = array(
     'id',// $table->bigIncrements('id')->autoIncrement();
-    'Kind',// $table->integer('Kind');//Тип документа
+    'CertificateKindID',// $table->integer('Kind');//Тип документа
     'Number',// $table->string('Number');//Регистрационный номер документа
     'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
     'DateTo',// $table->date('DateTo')->nullable();//Дата окончания срока действия
     'CountryID',// $table->integer('CountryID');//Страна
     'Status',// $table->tinyInteger('Status')->default(0);//Статус действия | Действует
-    'Auditor',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
+    'AuditorID',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
     'BlankNumber',// $table->string('BlankNumber', 50)->nullable();//Номер бланка | BY 0008456
     'DateStatusFrom',// $table->date('DateStatusFrom')->nullable();//Срок действия статуса | c 02.04.2020 по 01.04.2025
     'DateStatusTo',// $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
@@ -32,34 +33,25 @@ class MrCertificate extends ORM
     'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
     'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
     'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
-
-    //'SingleListProductIndicator' признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
+    'DateUpdateEAES',// Дата обновления на ЕАЭС
+    'SingleListProductIndicator', //признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
     ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
   );
 
-  const KIND_UNKNOWN = 0;
-  const KIND_CERTIFICATE = 1;
-  const KIND_DECLARATION = 2;
-
-  protected static $kinds = array(
-    self::KIND_UNKNOWN     => '[не выбрано]', //Активен
-    self::KIND_CERTIFICATE => 'Сертификат соответствия ТР ЕАЭС', //Активен
-    self::KIND_DECLARATION => 'Декларация о соответствии ТР ЕАЭС', // Приостановлен
-  );
-
-  public static function getKinds()
-  {
-    return self::$kinds;
-  }
-
   const STATUS_ACTIVE = 1;
-  const STATUS_STOPPED = 2;
-  const STATUS_RECALLED = 3;
+  const STATUS_PAUSED = 2;
+  const STATUS_STOPPED = 3;
+  CONST STATUS_CONTINUED = 4;
+  CONST STATUS_REOPENED = 5;
+  CONST STATUS_ARHIVED = 6;
 
   protected static $statuses = array(
-    self::STATUS_ACTIVE   => 'активен', //Активен
-    self::STATUS_STOPPED  => 'приостановлен', // Приостановлен
-    self::STATUS_RECALLED => 'отозван', // Отозван
+    self::STATUS_ACTIVE    => 'действует',
+    self::STATUS_PAUSED    => 'приостановлен',
+    self::STATUS_STOPPED   => 'прекращен',
+    self::STATUS_CONTINUED => 'продлен',
+    self::STATUS_REOPENED  => 'возобновлен',
+    self::STATUS_ARHIVED   => 'архивный',
   );
 
   public static function getStatuses()
@@ -77,26 +69,19 @@ class MrCertificate extends ORM
 
   }
 
-  public function getKind(): ?int
+  /**
+   * Тип документа
+   *
+   * @return MrCertificateKind
+   */
+  public function getCertificateKind(): MrCertificateKind
   {
-    return $this->Kind;
+    return MrCertificateKind::loadBy($this->CertificateKindID);
   }
 
-  public function getKindName(): string
+  public function setCertificateKindID(int $value)
   {
-    return self::getKinds()[$this->Kind];
-  }
-
-  public function setKind(int $value)
-  {
-    if(self::$kinds[$value])
-    {
-      $this->Kind = $value;
-    }
-    else
-    {
-      abort('Неизвестный статус');
-    }
+    $this->CertificateKindID = $value;
   }
 
   // Номер
@@ -118,12 +103,7 @@ class MrCertificate extends ORM
 
   public function setDateFrom($value)
   {
-    if(is_string($value))
-    {
-      $value = new Carbon($value);
-    }
-
-    $this->DateFrom = $value;
+    $this->setDateNullableField($value, 'DateFrom');
   }
 
   // Дата окончания
@@ -183,29 +163,29 @@ class MrCertificate extends ORM
 
   public function setStatus(int $value)
   {
-    if(self::$statuses[$value])
-    {
+    //if(isset(self::$statuses[$value]))
+    //{
       $this->Status = $value;
-    }
-    else
-    {
-      abort('Неизвестный статус');
-    }
+    //}
+    //else
+    //{
+    //  dd('Неизвестный статус');
+    //}
   }
 
   /**
    * ФИО аудитора
    *
-   * @return string
+   * @return MrFio|null
    */
-  public function getAuditor(): string
+  public function getAuditor(): ?MrFio
   {
-    return $this->Auditor;
+    return MrFio::loadBy('AuditorID');
   }
 
-  public function setAuditor(string $value)
+  public function setAuditorID(?int $value)
   {
-    $this->Auditor = $value;
+    $this->AuditorID = $value;
   }
 
   //Номер бланка | BY 0008456
@@ -298,6 +278,17 @@ class MrCertificate extends ORM
   {
     return $this->Description = $value;
   }
+
+  public function getDateUpdateEAES(): ?MrDateTime
+  {
+    return $this->getDateNullableField('DateUpdateEAES');
+  }
+
+  public function setDateUpdateEAES($value)
+  {
+    return $this->setDateNullableField($value, 'DateUpdateEAES');
+  }
+
 
   //////////////////////////////////////////////////////////////////////////
   public function GetFullName(): string

@@ -4,46 +4,72 @@
 namespace App\Http\Controllers\TableControllers\Admin\Certificate;
 
 
-use App\Helpers\MrDateTime;
+use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrCertificate;
 
 class MrCertificateTableController extends MrTableController
 {
-  public static function buildTable(int $on_page = 10)
+  public static function GetQuery(array $args = array())
   {
-    $body = MrCertificate::Select(['id'])->paginate($on_page);
+    return MrCertificate::Select()->paginate(20, __('mr-t.Дальше'));
+  }
 
-    $collections = $body->getCollection();
+  protected static function getHeader(): array
+  {
+    return array(
+      array('name' => 'id', 'sort' => 'id'),
+      array('name' => 'CertificateKindID', 'sort' => 'CertificateKindID'),
+      array('name' => 'Number', 'sort' => 'Number'),
+      array('name' => 'DateFrom', 'sort' => 'DateFrom'),
+      array('name' => 'DateTo', 'sort' => 'DateTo'),
+      array('name' => 'CountryID', 'sort' => 'CountryID'),
+      array('name' => 'Status', 'sort' => 'Status'),
+      array('name' => 'AuditorID', 'sort' => 'AuditorID'),
+      array('name' => 'BlankNumber', 'sort' => 'BlankNumber'),
+      array('name' => 'DateStatusFrom', 'sort' => 'DateStatusFrom'),
+      array('name' => 'DateStatusTo', 'sort' => 'DateStatusTo'),
+      array('name' => 'DocumentBase', 'sort' => 'DocumentBase'),
+      array('name' => 'WhyChange', 'sort' => 'WhyChange'),
+      array('name' => 'SchemaCertificate', 'sort' => 'SchemaCertificate'),
+      array('name' => 'Description', 'sort' => 'Description'),
+      array('name' => 'LinkOut', 'sort' => 'LinkOut'),
+      array('name' => 'DateUpdateEAES', 'sort' => 'DateUpdateEAES'),
+      array('name' => 'SingleListProductIndicator', 'sort' => 'SingleListProductIndicator'),
+      array('name' => '#'),
+    );
+  }
 
-    foreach ($body->getCollection() as $model)
-    {
-      $item = MrCertificate::loadBy($model->id);
-      $model->id = $item->id();
-      $model->number = $item->getNumber();
-      $model->country = $item->getCountry()->getName();
-      $model->kind_name = $item->getKindName();
-      $model->dates = MrDateTime::GetFromToDate($item->getDateFrom(), $item->getDateTo());
-      $model->status = $item->getStatusName();
-    }
+  protected static function buildRow(int $id): array
+  {
+    $row = array();
 
-    $header = array(
-      array('sort' => 'id', 'name' => 'ID'),
-      array('sort' => 'Number', 'name' => 'Регистрационный номер документа'),
-      array('sort' => 'CountryID', 'name' => 'Страна'),
-      array('sort' => 'Kind', 'name' => 'Вид документа'),
-      array('name' => 'Срок действия'),
-      array('sort' => 'Status', 'name' => 'Статус действия'),
-    );;
+    $manufacturer = MrCertificate::loadBy($id);
 
+    $row[] = $manufacturer->id();
+    $row[] = $manufacturer->getCertificateKind()->getShortName();
+    $row[] = $manufacturer->getNumber();
+    $row[] = $manufacturer->getDateFrom() ? $manufacturer->getDateFrom()->getShortDateTitleShortTime() : '';
+    $row[] = $manufacturer->getDateTo() ? $manufacturer->getDateTo()->getShortDateTitleShortTime() : '';
+    $row[] = $manufacturer->getCountry()->getName();
+    $row[] = $manufacturer->getStatus();
+    $row[] = $manufacturer->getAuditor() ? $manufacturer->getAuditor()->GetFullName() : '';
+    $row[] = $manufacturer->getBlankNumber();
+    $row[] = $manufacturer->getDateStatusFrom() ? $manufacturer->getDateStatusFrom()->getShortDateTitleShortTime() : '';
+    $row[] = $manufacturer->getDateStatusTo() ? $manufacturer->getDateStatusTo()->getShortDateTitleShortTime() : '';
+    $row[] = $manufacturer->getDocumentBase();
+    $row[] = $manufacturer->getWhyChange();
+    $row[] = $manufacturer->getSchemaCertificate();
+    $row[] = $manufacturer->getDescription();
+    $row[] = $manufacturer->getLinkOut();
+    $row[] = $manufacturer->getDateUpdateEAES()->getShortDateTitleShortTime();
+    $row[] = $manufacturer->getSingleListProductIndicator();
 
-    $body->setCollection($collections);
-
-    $out = array(
-      'header' => $header,
-      'body' => $body
+    $row[] = array(
+      MrLink::open('admin_certificate_delete', ['id' => $manufacturer->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
+        'Удалить', ['onclick' => 'return confirm("Уверены?");']),
     );
 
-    return $out;
+    return $row;
   }
 }
