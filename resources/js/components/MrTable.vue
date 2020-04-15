@@ -1,8 +1,8 @@
 <template>
   <div>
     <table class="table table-sm table-hover table-striped table-bordered col-md-12">
-      <thead class="mr-bold mr-bg-table-header mr-middle">
-      <tr class="mr-middle">
+      <thead class="mr-bold mr-bg-table-header mr-test">
+      <tr class="mr-auto-size">
         <td v-for="head in table_header"
             v-bind:class="typeof head['sort'] !== 'undefined' ? 'mr_cursor' : ''"
 

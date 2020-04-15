@@ -203,22 +203,22 @@
       font-size: 12px; } }
 
 .mr-auto-size {
-  font-size: calc(9px + (14 - 9) * (100vw - 420px) / (980 - 420)); }
+  font-size: calc(11px + (16 - 11) * (100vw - 420px) / (980 - 420)); }
   @media screen and (max-width: 420px) {
     .mr-auto-size {
-      font-size: 9px; } }
+      font-size: 11px; } }
   @media screen and (min-width: 980px) {
     .mr-auto-size {
-      font-size: 14px; } }
+      font-size: 16px; } }
 
 .mr-auto-size-2 {
-  font-size: calc(12px + (20 - 12) * (100vw - 420px) / (980 - 420)); }
+  font-size: calc(13px + (22 - 13) * (100vw - 420px) / (980 - 420)); }
   @media screen and (max-width: 420px) {
     .mr-auto-size-2 {
-      font-size: 12px; } }
+      font-size: 13px; } }
   @media screen and (min-width: 980px) {
     .mr-auto-size-2 {
-      font-size: 20px; } }
+      font-size: 22px; } }
 
 .mr-bold {
   font-weight: bold; }

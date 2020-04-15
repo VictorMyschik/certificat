@@ -7,12 +7,12 @@
   @include responsiveText(10px, 12px);
 }
 
-.mr-auto-size{
-  @include responsiveText(9px, 14px);
+.mr-auto-size {
+  @include responsiveText(11px, 16px);
 }
 
-.mr-auto-size-2{
-  @include responsiveText(12px, 20px);
+.mr-auto-size-2 {
+  @include responsiveText(13px, 22px);
 }
 
 .mr-bold {
@@ -117,6 +117,6 @@
   }
 }
 
-.mr-btn-primary{
+.mr-btn-primary {
   color: #ff5900;
 }
