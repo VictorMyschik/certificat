@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MrBaseHelper;
 use App\Models\MrUser;
 use App\User;
 use Carbon\Carbon;
@@ -90,7 +91,7 @@ class UloginController extends Controller
 
       $new_mr_user->save_mr();
 
-      $site = MrBaseHelper::MR_SITE;
+      $site = MrBaseHelper::MR_SITE_NAME;
       $subject = 'Регистрация в системе ' . $site;
       $message =
         <<< HTML

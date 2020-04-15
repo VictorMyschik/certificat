@@ -24,7 +24,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="nav-link" href="{{route('references',['name'=>'country'])}}">{{ __('mr-t.Страны мира') }}</a>
-            <a class="nav-link" href="{{route('references',['name'=>'currency'])}}">{{ __('mr-t.Валюты мира') }}</a>
+            <a class="nav-link padding-horizontal" href="{{route('references',['name'=>'currency'])}}">{{ __('mr-t.Валюты мира') }}</a>
             <a class="nav-link"
                href="{{route('references',['name'=>'measure'])}}">{{ __('mr-t.Классификатор единиц измерения') }}</a>
             <a class="nav-link" href="{{route('references',['name'=>'certificate_kind'])}}">Классификатор видов
@@ -55,12 +55,6 @@
               @if(MrUser::me()->IsSuperAdmin())
                 <a class="nav-link" href="{{ route('admin_page') }}">
                   Админка
-                </a>
-                <a class="nav-link" href="/phpmyadmin">
-                  PhpMyAdmin
-                </a>
-                <a class="nav-link" href="/clear">
-                  Очистить кэш
                 </a>
               @endif
               @if(isset($default_office) && $default_office->canView())
