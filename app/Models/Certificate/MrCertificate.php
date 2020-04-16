@@ -352,4 +352,14 @@ class MrCertificate extends ORM
 
     return @file_get_contents($url, false, stream_context_create($arrContextOptions));
   }
+
+  /**
+   * Получение hash-ID из ссылки на сайте ЕАЭС
+   *
+   * @return string
+   */
+  public function getHash(): string
+  {
+    return substr($this->getLinkOut(), strlen($this->getLinkOut()) - 26, 24);
+  }
 }

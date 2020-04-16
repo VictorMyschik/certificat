@@ -133,7 +133,7 @@ class MrXmlImportBase extends Controller
     $certificate->setDateStatusFrom($status_date_from);
     // Конечная дата действия статуса
     $status_date_to = (string)$docStatusDetails->EndDate;
-    $certificate->setDateStatusTo($status_date_to);
+    $certificate->setDateStatusTo($status_date_to ?: $date_to);
 
     // Схема сертификации
     $schema_certificate = (string)$xml->certificationSchemeCode->element;

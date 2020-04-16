@@ -8,7 +8,7 @@
           <div class="row card-header margin-horizontal-0 padding-horizontal-0 p-l-5 mr-auto-size-2"><i class="fa fa-angle-double-up"> {{$page_title}}</i></div>
         </a>
 
-        <div id="menu_info" class="collapse show in card-body mr-auto-size">
+        <div id="menu_info" class="collapse show in mr-auto-size">
           <table>
             <tr class="align-text-top">
               <td class="p-b-15">Группа информационных ресурсов</td>

@@ -317,6 +317,12 @@ class ORM extends Model
   {
     if($value)
     {
+      if($value == '0001-01-01T00:00:00')
+      {
+        $this->$field = null;
+        return;
+      }
+
       if($value instanceof \DateTime)
       {
         $value = new MrDateTime($value->format(MrDateTime::MYSQL_DATETIME));

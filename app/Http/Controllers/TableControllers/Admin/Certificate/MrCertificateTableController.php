@@ -48,7 +48,8 @@ class MrCertificateTableController extends MrTableController
 
     $row[] = $certificate->id();
     $row[] = $certificate->getCertificateKind()->getShortName();
-    $row[] = $certificate->getNumber();
+    $url = 'https://portal.eaeunion.org/sites/commonprocesses/ru-ru/Pages/CardView.aspx?documentId=' . $certificate->getHash() . '&codeId=P.TS.01';
+    $row[] = '<a href="' . $url . '" target="_blank">' . $certificate->getNumber() . '</a>';
     $row[] = $certificate->getDateFrom() ? $certificate->getDateFrom()->getShortDateTitleShortTime() : '';
     $row[] = $certificate->getDateTo() ? $certificate->getDateTo()->getShortDateTitleShortTime() : '';
     $row[] = $certificate->getCountry()->getName();
