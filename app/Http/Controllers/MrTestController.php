@@ -9,6 +9,15 @@ class MrTestController extends Controller
 {
   public function index()
   {
+
+
+  }
+
+  /**
+   * считываение папки и парсинг всех файлов
+   */
+  public function qwe()
+  {
     //  ini_set('max_execution_time', 90000000000000);
     $files = scandir('files');
 
