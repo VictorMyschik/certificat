@@ -11,7 +11,6 @@ class MrTestController extends Controller
   {
     //  ini_set('max_execution_time', 90000000000000);
     $files = scandir('files');
-    MrCertificate::GetHashedList();
 
     // удаление шлака
     foreach ($files as $key => $file_q)
@@ -34,6 +33,7 @@ class MrTestController extends Controller
       $str = 'File: ' . $file_name;
       print_r(count(MrCertificate::$hashed));
       dd($str);
+
     }
   }
 }
