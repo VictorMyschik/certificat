@@ -4,11 +4,13 @@
 namespace App\Models\Certificate;
 
 
+use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrDateTime;
 use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MrCertificate extends ORM
 {
@@ -68,6 +70,8 @@ class MrCertificate extends ORM
   {
 
   }
+
+  public static $hashed = array();
 
   /**
    * Тип документа
@@ -165,7 +169,7 @@ class MrCertificate extends ORM
   {
     //if(isset(self::$statuses[$value]))
     //{
-      $this->Status = $value;
+    $this->Status = $value;
     //}
     //else
     //{
@@ -180,7 +184,7 @@ class MrCertificate extends ORM
    */
   public function getAuditor(): ?MrFio
   {
-    return MrFio::loadBy('AuditorID');
+    return MrFio::loadBy($this->AuditorID);
   }
 
   public function setAuditorID(?int $value)
@@ -301,5 +305,40 @@ class MrCertificate extends ORM
     $out .= ')';
 
     return $out;
+  }
+
+  public static function GetHashedList()
+  {
+    if(count(self::$hashed))
+    {
+      return self::$hashed;
+    }
+
+    $list = DB::table(self::$mr_table)->pluck('Number')->toArray();
+    foreach ($list as $item)
+    {
+      self::$hashed[$item] = $item;
+    }
+
+    return self::$hashed;
+  }
+
+  /**
+   * Оновление сертификата
+   */
+  public function CertificateUpdate(): array
+  {
+    $url = $this->getLinkOut();
+
+    $arrContextOptions = array(
+      "ssl" => array(
+        "verify_peer"      => false,
+        "verify_peer_name" => true,
+      ),
+    );
+
+    $xml = file_get_contents($url, false, stream_context_create($arrContextOptions));
+
+    return MrXmlImportBase::ParseXmlFromString($xml);
   }
 }

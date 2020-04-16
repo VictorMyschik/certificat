@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TableControllers\Admin\System;
 
 
 use App\Helpers\MrLink;
+use App\Helpers\MtFloatHelper;
 use App\Http\Controllers\Admin\MrAdminBackUpController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use Illuminate\Support\Facades\DB;
@@ -20,11 +21,11 @@ class MrAdminBackupTableController extends MrTableController
     {
 
       $param = explode('=', $item);
-      if ($param[0] == 'sort' && ($param[1] == 'asc' || $param[1] == 'desc'))
+      if($param[0] == 'sort' && ($param[1] == 'asc' || $param[1] == 'desc'))
       {
         $sort = $param[1];
       }
-      elseif ($param[0] == 'field')
+      elseif($param[0] == 'field')
       {
         $field_name = $param[1];
       }
@@ -36,11 +37,11 @@ class MrAdminBackupTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Таблица', 'sort' => 'migration'),
-        array('name' => 'Переустановить'),
-        array('name' => 'Восстановить'),
-        array('name' => 'Строк'),
+      array('name' => 'id', 'sort' => 'id'),
+      array('name' => 'Таблица', 'sort' => 'migration'),
+      array('name' => 'Строк'),
+      array('name' => 'Переустановить'),
+      array('name' => 'Восстановить'),
     );
   }
 
@@ -78,16 +79,16 @@ class MrAdminBackupTableController extends MrTableController
       $object = "App\\Models\\Office\\" . $class_name_out;
     }
 
-    if ($object)
+    if($object)
     {
       unset($model->batch);
 
       $row[] = $model->id;
 
       $row[] = MrLink::open('admin_view_table_page', ['table_name' => $object::$mr_table], $object::$mr_table, '');
+      $row[] = MtFloatHelper::formatCommon($object::getCount());
       $row[] = MrLink::open('migration_refresh_table', ['table_name' => $model->migration], ' refresh', 'btn btn-danger btn-sm fa fa-edit');
       $row[] = isset(MrAdminBackUpController::$tables[$object::$mr_table]) ? MrLink::open('recovery_table_data', ['table_name' => $object::$mr_table], ' Recovery', 'btn btn-success btn-sm fa fa-edit') : '';
-      $row[] = $object::getCount();
     }
 
     return $row;

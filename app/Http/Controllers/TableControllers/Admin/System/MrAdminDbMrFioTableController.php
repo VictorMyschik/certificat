@@ -16,11 +16,10 @@ class MrAdminDbMrFioTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'ObjectKind', 'sort' => 'ObjectKind'),
-        array('name' => 'ObjectID', 'sort' => 'ObjectID'),
         array('name' => 'FirstName', 'sort' => 'FirstName'),
         array('name' => 'MiddleName', 'sort' => 'MiddleName'),
         array('name' => 'LastName', 'sort' => 'LastName'),
+        array('name' => 'PositionName', 'sort' => 'PositionName'),
       ),
 
       'body' => $body

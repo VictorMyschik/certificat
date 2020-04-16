@@ -39,7 +39,7 @@ class MrAdminSystemLogIdentTableController extends MrTableController
 
     // ID
     $row[] = $log->id();
-    $row[] = $log->getWriteDate()->getShortDateShortTime();
+    $row[] = $log->getDate()->getShortDateShortTime();
     $row[] = $log->getReferer();
     $row[] = $log->getLink();
     $row[] = $log->getIp();

@@ -41,9 +41,8 @@ class MrAdminCertificateController extends Controller
 
   /**
    * Удаление сертификата
-   *
    * @param int $id
-   * @return Factory|View
+   * @return RedirectResponse
    */
   public function certificateDelete(int $id)
   {
@@ -244,6 +243,28 @@ class MrAdminCertificateController extends Controller
     }
 
     $Fio->mr_delete();
+
+    return back();
+  }
+
+  /**
+   * Обновление сертификата
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function CertificateUpdate(int $id)
+  {
+    $certificate = MrCertificate::loadBy($id);
+
+    if(!$certificate)
+    {
+      dd("Сертификат ID$id не найден");
+    }
+
+    $certificate->CertificateUpdate();
+    $out = 'Сертификат ID' . $certificate->id() . ' №' . $certificate->getNumber() . ' обновлён';
+    MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, $out);
 
     return back();
   }

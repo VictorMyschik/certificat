@@ -232,7 +232,7 @@ class ORM extends Model
     {
       $last_id = DB::table(static::$mr_table)->insertGetId($array);
       // Запись в лог изменений БД
-      MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
+      //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
 
     if(method_exists($this, 'after_save'))

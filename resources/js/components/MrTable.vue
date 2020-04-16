@@ -24,7 +24,7 @@
       </tr>
       </tbody>
     </table>
-    <pagination :data="table_body" @pagination-change-page="getResults">
+    <pagination :data="table_body" @pagination-change-page="getResults" :limit="5">
       <span class="" slot="prev-nav">Previous</span>
       <span class="" slot="next-nav">Next</span>
     </pagination>
@@ -46,6 +46,7 @@
         arrow_up: 'fa fa-arrow-up',
         arrow_down: 'fa fa-arrow-down',
         token: '',
+        limit: 5,
       }
     },
 

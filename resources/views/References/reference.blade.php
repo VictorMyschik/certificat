@@ -5,10 +5,10 @@
     <div class="container col-lg-9 col-md-12 col-sm-12 m-t-10 p-l-5 p-r-5">
       <div id="accordion" class="mr-border-radius-5">
         <a class="mr-bold" data-toggle="collapse" href="#menu_info" aria-expanded="true" aria-controls="menu_info">
-          <div class="row card-header margin-horizontal-0 padding-horizontal-0 p-l-5 mr-auto-size-2"><i class="fa fa-angle-double-down"> {{$page_title}}</i></div>
+          <div class="row card-header margin-horizontal-0 padding-horizontal-0 p-l-5 mr-auto-size-2"><i class="fa fa-angle-double-up"> {{$page_title}}</i></div>
         </a>
 
-        <div id="menu_info" class="collapse card-body mr-auto-size">
+        <div id="menu_info" class="collapse show in card-body mr-auto-size">
           <table>
             <tr class="align-text-top">
               <td class="p-b-15">Группа информационных ресурсов</td>

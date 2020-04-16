@@ -55,7 +55,7 @@ class MrCertificateTest extends TestCase
     $certificate->setStatus($Status);
     //'Auditor'
     $Auditor = self::randomString(80);
-    $certificate->setAuditor($Auditor);
+    $certificate->setAuditorID($Auditor);
     //'BlankNumber'
     $BlankNumber = self::randomString(50);
     $certificate->setBlankNumber($BlankNumber);

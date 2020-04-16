@@ -117,8 +117,10 @@ class MrFio extends ORM
     $r = '';
 
     $r .= $this->getFirstName();
-    $r .= strlen($r) ? ' ' : '' . $this->getMiddleName();
-    $r .= strlen($r) ? ' ' : '' . $this->getLastName();
+    $r .= strlen($r) ? ' ' : '';
+    $r .= $this->getMiddleName();
+    $r .= strlen($r) ? ' ' : '';
+    $r .= $this->getLastName();
 
     return $r;
   }

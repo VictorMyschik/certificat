@@ -170,7 +170,7 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/system/backup/refresh/{table_name}', function ($table_name) {
     Artisan::call('migrate:refresh --path=/database/migrations/' . $table_name . '.php');
     Cache::forget(MrAdminBackUpController::getTableNameFromFileName($table_name) . '_count_rows');
-    MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
+    MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, "Таблица {$table_name} переустановлена");
     return back();
   })->name('migration_refresh_table');
 
@@ -212,6 +212,9 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View")->name('admin_certificate_page');
+  // Обновить
+  Route::get('/admin/certificate/update/{id}', "Admin\MrAdminCertificateController@CertificateUpdate")->name('admin_certificate_update');
+
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete")->name('admin_certificate_delete');
 

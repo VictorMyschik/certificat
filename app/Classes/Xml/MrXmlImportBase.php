@@ -17,18 +17,67 @@ use SimpleXMLElement;
  */
 class MrXmlImportBase extends Controller
 {
+  public static function ParseXmlFromString($str)
+  {
+    $xml = simplexml_load_string($str);
+
+    return self::parse($xml);
+  }
+
+  /**
+   * @param $xml
+   * @return array
+   */
+  public static function parse($xml): array
+  {
+    $certificate_out = array();
+
+    // В файл могут запаковать несколько сертификатов, тогда каждый завёрнут в "entry"
+    if(isset($xml->entry))
+    {
+      foreach ($xml->entry as $key => $item)
+      {
+        $ns = $item->content->children('http://schemas.microsoft.com/ado/2007/08/dataservices/metadata');
+        $nsd = $ns->properties->children("http://schemas.microsoft.com/ado/2007/08/dataservices");
+        $link_out = (string)$item->id;
+
+        $certificate_out[] = self::importCertificate($nsd, $link_out);
+      }
+    }
+    else
+    { // в одном файле один сертификат
+      $ns = $xml->content->children('http://schemas.microsoft.com/ado/2007/08/dataservices/metadata');
+      $nsd = $ns->properties->children("http://schemas.microsoft.com/ado/2007/08/dataservices");
+      $link_out = (string)$xml->id;
+
+      $certificate_out[] = self::importCertificate($nsd, $link_out);
+    }
+
+    return $certificate_out;
+  }
+
   /**
    * Импорт сертификата
    *
    * @param SimpleXMLElement $xml
+   * @param string $link_out
    * @return MrCertificate|null
    */
-  public static function importCertificate(SimpleXMLElement $xml): ?MrCertificate
+  public static function importCertificate(SimpleXMLElement $xml, string $link_out): ?MrCertificate
   {
-    // dd($xml);
+    $number = (string)$xml->docId;
 
-    $certificate = new MrCertificate();
-    //$certificate->setKind();
+    if(isset(MrCertificate::GetHashedList()[$number]))
+    {
+      $certificate = MrCertificate::loadBy($number, 'Number');
+    }
+    else
+    {
+      $certificate = new MrCertificate();
+      MrCertificate::GetHashedList()[$number] = $number;
+    }
+
+    $certificate->setLinkOut($link_out);
 
     // Страна
     $country_code_xml = (string)$xml->unifiedCountryCode->value;
@@ -36,13 +85,12 @@ class MrXmlImportBase extends Controller
 
     if(!$country)
     {
-      dd($country_code_xml);
+      dd($country_code_xml . ' страна не найдена в справочнике в столбце ISO3166alpha2');
     }
 
     $certificate->setCountryID($country->id());
 
     // Номер
-    $number = (string)$xml->docId;
     $certificate->setNumber($number);
 
     // Дата начала действия сертификата
@@ -55,7 +103,7 @@ class MrXmlImportBase extends Controller
 
     // Номер бланка
     $formNumberId = (string)$xml->formNumberId;
-    $certificate->setBlankNumber($formNumberId);
+    $certificate->setBlankNumber(strlen($formNumberId) ? $formNumberId : null);
 
     /**
      * Признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с
@@ -83,11 +131,19 @@ class MrXmlImportBase extends Controller
     $certificate->setDateStatusFrom($status_date_to);
 
     // Схема сертификации
-    $shema_certificate = (string)$xml->certificationSchemeCode->element;
-    $certificate->setSchemaCertificate($shema_certificate);
+    $schema_certificate = (string)$xml->certificationSchemeCode->element;
+    $certificate->setSchemaCertificate($schema_certificate);
 
     $DateUpdateEAES = (string)$xml->resourceItemStatusDetails->updateDateTime;
     $certificate->setDateUpdateEAES($DateUpdateEAES);
+
+    if($fio_xml = $xml->fullNameDetails)
+    {
+      if($fio = self::importFio($fio_xml))
+      {
+        $certificate->setAuditorID($fio->id());
+      }
+    }
 
     $certificate->save_mr();
 
@@ -102,22 +158,22 @@ class MrXmlImportBase extends Controller
    */
   public static function importFio(SimpleXMLElement $xml): ?MrFio
   {
-    if($xml->positionName)
+    $fio = null;
+
+    if(isset($xml->element))
     {
-      return null;
+      $fio = new MrFio();
+
+      $fio->setPositionName((string)$xml->positionName ?: null);
+
+      $full_name = $xml->element;
+
+      $fio->setFirstName($full_name->firstName);
+      $fio->setMiddleName($full_name->middleName);
+      $fio->setLastName($full_name->lastName);
+
+      $fio->save_mr();
     }
-
-    $fio = new MrFio();
-
-    $fio->setPositionName((string)$xml->positionName);
-
-    $full_name = $xml->fullNameDetails;
-
-    $fio->setFirstName($full_name->firstName);
-    $fio->setMiddleName($full_name->middleName);
-    $fio->setLastName($full_name->lastName);
-
-    $fio->save_mr();
 
     return $fio;
   }

@@ -12,7 +12,7 @@ class MrCertificateTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())
   {
-    return MrCertificate::Select()->paginate(20, __('mr-t.Дальше'));
+    return MrCertificate::Select()->paginate(20);
   }
 
   protected static function getHeader(): array
@@ -44,30 +44,32 @@ class MrCertificateTableController extends MrTableController
   {
     $row = array();
 
-    $manufacturer = MrCertificate::loadBy($id);
+    $certificate = MrCertificate::loadBy($id);
 
-    $row[] = $manufacturer->id();
-    $row[] = $manufacturer->getCertificateKind()->getShortName();
-    $row[] = $manufacturer->getNumber();
-    $row[] = $manufacturer->getDateFrom() ? $manufacturer->getDateFrom()->getShortDateTitleShortTime() : '';
-    $row[] = $manufacturer->getDateTo() ? $manufacturer->getDateTo()->getShortDateTitleShortTime() : '';
-    $row[] = $manufacturer->getCountry()->getName();
-    $row[] = $manufacturer->getStatus();
-    $row[] = $manufacturer->getAuditor() ? $manufacturer->getAuditor()->GetFullName() : '';
-    $row[] = $manufacturer->getBlankNumber();
-    $row[] = $manufacturer->getDateStatusFrom() ? $manufacturer->getDateStatusFrom()->getShortDateTitleShortTime() : '';
-    $row[] = $manufacturer->getDateStatusTo() ? $manufacturer->getDateStatusTo()->getShortDateTitleShortTime() : '';
-    $row[] = $manufacturer->getDocumentBase();
-    $row[] = $manufacturer->getWhyChange();
-    $row[] = $manufacturer->getSchemaCertificate();
-    $row[] = $manufacturer->getDescription();
-    $row[] = $manufacturer->getLinkOut();
-    $row[] = $manufacturer->getDateUpdateEAES()->getShortDateTitleShortTime();
-    $row[] = $manufacturer->getSingleListProductIndicator();
+    $row[] = $certificate->id();
+    $row[] = $certificate->getCertificateKind()->getShortName();
+    $row[] = $certificate->getNumber();
+    $row[] = $certificate->getDateFrom() ? $certificate->getDateFrom()->getShortDateTitleShortTime() : '';
+    $row[] = $certificate->getDateTo() ? $certificate->getDateTo()->getShortDateTitleShortTime() : '';
+    $row[] = $certificate->getCountry()->getName();
+    $row[] = $certificate->getStatus();
+    $row[] = $certificate->getAuditor() ? $certificate->getAuditor()->GetFullName() : '';
+    $row[] = $certificate->getBlankNumber();
+    $row[] = $certificate->getDateStatusFrom() ? $certificate->getDateStatusFrom()->getShortDateTitleShortTime() : '';
+    $row[] = $certificate->getDateStatusTo() ? $certificate->getDateStatusTo()->getShortDateTitleShortTime() : '';
+    $row[] = $certificate->getDocumentBase();
+    $row[] = $certificate->getWhyChange();
+    $row[] = $certificate->getSchemaCertificate();
+    $row[] = $certificate->getDescription();
+    $row[] = $certificate->getLinkOut();
+    $row[] = $certificate->getDateUpdateEAES()->getShortDateTitleShortTime();
+    $row[] = $certificate->getSingleListProductIndicator();
 
     $row[] = array(
-      MrLink::open('admin_certificate_delete', ['id' => $manufacturer->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
+      MrLink::open('admin_certificate_delete', ['id' => $certificate->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
         'Удалить', ['onclick' => 'return confirm("Уверены?");']),
+      MrLink::open('admin_certificate_update', ['id' => $certificate->id()], 'update', 'btn btn-success btn-sm fa fa-refresh m-l-5',
+        'Обновить'),
     );
 
     return $row;
