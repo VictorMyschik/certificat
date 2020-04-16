@@ -173,6 +173,7 @@ Route::group(['middleware' => 'is_admin'], function () {
     MrMessageHelper::SetMessage(true, "Таблица {$table_name} переустановлена");
     return back();
   })->name('migration_refresh_table');
+
   Route::get('/admin/system/backup/{table_name}', "Admin\MrAdminBackUpController@ViewTable")->name('admin_view_table_page');
   Route::get('/admin/system/backup', "Admin\MrAdminBackUpController@index")->name('admin_backup_page');
   Route::get('/admin/system/backup/save/{table_name}', "Admin\MrAdminBackUpController@SaveDataFromTable")->name('save_table_data');
