@@ -206,6 +206,11 @@ class ORM extends Model
     return $out;
   }
 
+  public function reload()
+  {
+    return self::loadBy($this->id);
+  }
+
   public function save_mr(): ?int
   {
     $array = $this->convertMrToArray();

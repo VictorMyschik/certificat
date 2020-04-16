@@ -214,6 +214,8 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View")->name('admin_certificate_page');
   // Обновить
   Route::get('/admin/certificate/update/{id}', "Admin\MrAdminCertificateController@CertificateUpdate")->name('admin_certificate_update');
+  // Загрузка сертификата по ссылке из сайта ЕАЭС или по идентификатору
+  Route::post('/admin/certificate/updatefromurl', "Admin\MrAdminCertificateController@GetCertificateByURL")->name('admin_certificate_update_from_url');
 
   // Удалить сертификат
   Route::get('/admin/certificate/delete/{id}', "Admin\MrAdminCertificateController@certificateDelete")->name('admin_certificate_delete');

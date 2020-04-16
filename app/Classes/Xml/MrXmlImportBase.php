@@ -17,7 +17,11 @@ use SimpleXMLElement;
  */
 class MrXmlImportBase extends Controller
 {
-  public static function ParseXmlFromString($str)
+  /**
+   * @param $str
+   * @return MrCertificate[]
+   */
+  public static function ParseXmlFromString($str): array
   {
     $xml = simplexml_load_string($str);
 
@@ -146,6 +150,7 @@ class MrXmlImportBase extends Controller
     }
 
     $certificate->save_mr();
+    $certificate->reload();
 
     return $certificate;
   }

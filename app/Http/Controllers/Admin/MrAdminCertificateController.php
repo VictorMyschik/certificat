@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAddressTableController;
@@ -21,6 +22,7 @@ use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MrAdminCertificateController extends Controller
@@ -265,6 +267,62 @@ class MrAdminCertificateController extends Controller
     $certificate->CertificateUpdate();
     $out = 'Сертификат ID' . $certificate->id() . ' №' . $certificate->getNumber() . ' обновлён';
     MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, $out);
+
+    return back();
+  }
+
+  /**
+   * Загрузка сертификата по ссылке из сайта ЕАЭС или по идентификатору
+   *
+   * @param Request $request
+   * @return RedirectResponse
+   */
+  public function GetCertificateByURL(Request $request)
+  {
+    if($str = $request->get('url'))
+    {
+      // По ID
+      if(strlen($str) == 24)
+      {
+        $url = "https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data('" . $str . "')";
+      }
+      elseif(stristr($str, '&'))
+      {
+        $d = parse_url($str);
+        foreach (explode('&', $d['query']) as $param)
+        {
+          if(substr($param, 0, 10) == 'documentId')
+          {
+            $str = substr($param, 11);
+          }
+        }
+
+        $url = $url = "https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data('" . $str . "')";;
+      }
+      elseif(stristr($str, 'https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data(\''))
+      {
+        $url = $str;
+      }
+
+
+      $xml_data = MrCertificate::GetCertificateFromURL($url);
+
+      $out = MrXmlImportBase::ParseXmlFromString($xml_data);
+
+      if(count($out))
+      {
+
+        $message_out = 'ID';
+        $message_out .= $out[0]->id();
+        $message_out .= ' ';
+        $message_out .= $out[0]->getNumber();
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, $message_out);
+      }
+      else
+      {
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Не удалось загрузить сертификат');
+      }
+    }
 
     return back();
   }

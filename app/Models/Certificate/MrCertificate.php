@@ -330,6 +330,19 @@ class MrCertificate extends ORM
   {
     $url = $this->getLinkOut();
 
+    $xml = self::GetCertificateFromURL($url);
+
+    return MrXmlImportBase::ParseXmlFromString($xml);
+  }
+
+  /**
+   * Получение данных из интернета
+   *
+   * @param string $url
+   * @return string|null
+   */
+  public static function GetCertificateFromURL(string $url): ?string
+  {
     $arrContextOptions = array(
       "ssl" => array(
         "verify_peer"      => false,
@@ -337,8 +350,6 @@ class MrCertificate extends ORM
       ),
     );
 
-    $xml = file_get_contents($url, false, stream_context_create($arrContextOptions));
-
-    return MrXmlImportBase::ParseXmlFromString($xml);
+    return @file_get_contents($url, false, stream_context_create($arrContextOptions));
   }
 }
