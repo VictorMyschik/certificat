@@ -32,6 +32,7 @@ class CreateMrCertificateTable extends Migration
 
       $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
       $table->string('Description', 1000)->nullable();// Дополнительные сведения
+      $table->integer('AuthorityID')->nullable();//Сведения об органе по оценке соответствия
       $table->dateTime('DateUpdateEAES')->nullable();//Дата обновления на сайте ЕАЭС
 
       $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат

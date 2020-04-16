@@ -35,6 +35,7 @@ class MrCertificate extends ORM
     'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
     'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
     'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
+    'AuthorityID',//Сведения об органе по оценке соответствия
     'DateUpdateEAES',// Дата обновления на ЕАЭС
     'SingleListProductIndicator', //признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
     ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
@@ -190,6 +191,21 @@ class MrCertificate extends ORM
   public function setAuditorID(?int $value)
   {
     $this->AuditorID = $value;
+  }
+
+  /**
+   * Орган сертификации
+   *
+   * @return MrConformityAuthority|null
+   */
+  public function getAuthority(): ?MrConformityAuthority
+  {
+    return MrConformityAuthority::loadBy($this->AuthorityID);
+  }
+
+  public function setAuthorityID(?int $value)
+  {
+    $this->AuthorityID = $value;
   }
 
   //Номер бланка | BY 0008456
