@@ -22,7 +22,6 @@ class MrCountry extends ORM
     'ISO3166alpha2',
     'ISO3166alpha3',
     'ISO3166numeric',
-    'Capital',
     'Continent',
   );
 
@@ -140,16 +139,6 @@ class MrCountry extends ORM
   public function setISO3166numeric(string $value)
   {
     $this->ISO3166numeric = $value;
-  }
-
-  public function getCapital(): string
-  {
-    return $this->Capital;
-  }
-
-  public function setCapital(string $value)
-  {
-    $this->Capital = $value;
   }
 
   public function getCodeWithName()

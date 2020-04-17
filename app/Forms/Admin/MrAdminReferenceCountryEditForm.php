@@ -42,13 +42,6 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
       '#attributes' => ['maxlength' => 3],
     );
 
-    $form['Capital'] = array(
-      '#type' => 'textfield',
-      '#title' => 'Столица',
-      '#value' => $country ? $country->getCapital() : null,
-      '#attributes' => ['maxlength' => 50],
-    );
-
     $form['Continent'] = array(
       '#type' => 'select',
       '#title' => 'Континент',
@@ -86,7 +79,6 @@ class MrAdminReferenceCountryEditForm extends MrFormBase
     $country->setISO3166alpha2($v['ISO3166alpha2']);
     $country->setISO3166alpha3($v['ISO3166alpha3'] ?: null);
     $country->setISO3166numeric($v['ISO3166numeric']);
-    $country->setCapital($v['Capital']);
     $country->setContinent($v['Continent']);
     $country->save_mr();
 

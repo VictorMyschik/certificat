@@ -331,4 +331,20 @@ class MrAdminCertificateController extends Controller
 
     return back();
   }
+
+  /**
+   * Сведеня о серитфикате
+   *
+   * @param int $id
+   * @return Factory|View
+   */
+  public function ViewDetails(int $id)
+  {
+    $out = array();
+    $certificate = MrCertificate::loadBy($id);
+    $country_name = $certificate->getCountry()->getName();
+    $out['page_title'] = __("mr-t.$country_name") . ' ' . $certificate->getNumber();
+
+    return View('Admin.Certificate.mir_admin_certificate_details')->with($out);
+  }
 }

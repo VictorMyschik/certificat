@@ -23,7 +23,6 @@ class MrReferencesCountryTableController extends MrTableController
   {
     $out = array(
       array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
-      array('name' => __('mr-t.Столица'), 'sort' => 'Capital'),
       array('name' => 'ISO-3166 alpha2', 'sort' => 'ISO3166alpha2'),
       array('name' => 'ISO-3166 alpha3', 'sort' => 'ISO3166alpha3'),
       array('name' => 'ISO-3166 numeric', 'sort' => 'ISO3166numeric'),
@@ -52,8 +51,8 @@ class MrReferencesCountryTableController extends MrTableController
 
     $country = MrCountry::loadBy($id);
 
-    $row[] = $country->getName();
-    $row[] = $country->getCapital();
+    $name = $country->getName();
+    $row[] = __("mr-t.$name");
     $row[] = $country->getISO3166alpha2();
     $row[] = $country->getISO3166alpha3();
     $row[] = $country->getISO3166numeric();

@@ -19,6 +19,7 @@ class MrCertificateTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
+      array('name' => 'Ссылки'),
       array('name' => 'Тип', 'sort' => 'CertificateKindID'),
       array('name' => 'Номер', 'sort' => 'Number'),
       array('name' => 'Дата с', 'sort' => 'DateFrom'),
@@ -33,7 +34,6 @@ class MrCertificateTableController extends MrTableController
       array('name' => 'Причина изменения', 'sort' => 'WhyChange'),
       array('name' => 'Схема серитфикации', 'sort' => 'SchemaCertificate'),
       array('name' => 'Доп.инфа', 'sort' => 'Description'),
-      array('name' => 'Ссылка XML ЕАЭС', 'sort' => 'LinkOut'),
       array('name' => 'Дата записи в ЕАЭС', 'sort' => 'DateUpdateEAES'),
       array('name' => 'Признак включения продукции в единый перечень', 'sort' => 'SingleListProductIndicator'),
       array('name' => '#'),
@@ -47,9 +47,15 @@ class MrCertificateTableController extends MrTableController
     $certificate = MrCertificate::loadBy($id);
 
     $row[] = $certificate->id();
+    $link_out = $certificate->getLinkOut();
+    $row[] = array(
+      '<div><a href="' . htmlspecialchars($link_out) . '" target="_blank" class="text-nowrap btn btn-success btn-sm fa fa-xs"> XML</a></div>',
+      '<div class="m-t-5"><a class="text-nowrap btn btn-success btn-sm fa fa-link fa-xs" href="https://portal.eaeunion.org/sites/commonprocesses/ru-ru/Pages/CardView.aspx?documentId=' . $certificate->getHash() . '&codeId=P.TS.01" title="Ссылка на оригинал" target="_blank"> EAEU</a></div>',
+      "<div class='m-t-5'>" . MrLink::open('admin_certificate_details', ['id' => $certificate->id()], ' local', 'btn btn-success btn-sm fa fa-link fa-xs') . '</div>',
+    );
     $row[] = $certificate->getCertificateKind()->getShortName();
-    $url = 'https://portal.eaeunion.org/sites/commonprocesses/ru-ru/Pages/CardView.aspx?documentId=' . $certificate->getHash() . '&codeId=P.TS.01';
-    $row[] = '<a href="' . $url . '" target="_blank">' . $certificate->getNumber() . '</a>';
+
+    $row[] = $certificate->getNumber();
     $row[] = $certificate->getDateFrom() ? $certificate->getDateFrom()->getShortDateTitleShortTime() : '';
     $row[] = $certificate->getDateTo() ? $certificate->getDateTo()->getShortDateTitleShortTime() : '';
     $row[] = $certificate->getCountry()->getName();
@@ -62,15 +68,13 @@ class MrCertificateTableController extends MrTableController
     $row[] = $certificate->getWhyChange();
     $row[] = $certificate->getSchemaCertificate();
     $row[] = $certificate->getDescription();
-    $link_out = $certificate->getLinkOut();
-    $row[] = '<a href="' . htmlspecialchars($link_out) . '" target="_blank" class="text-nowrap"><i class="fa fa-link"> XML</a>';
     $row[] = $certificate->getDateUpdateEAES()->getShortDateTitleShortTime();
     $row[] = $certificate->getSingleListProductIndicator();
 
     $row[] = array(
-      MrLink::open('admin_certificate_delete', ['id' => $certificate->id()], '', 'btn btn-danger btn-sm fa fa-trash',
+      MrLink::open('admin_certificate_delete', ['id' => $certificate->id()], ' Delete', 'btn btn-danger btn-sm fa  fa-xs',
         'Удалить', ['onclick' => 'return confirm("Уверены?");']),
-      MrLink::open('admin_certificate_update', ['id' => $certificate->id()], 'Update', 'btn btn-success btn-sm fa fa-refresh',
+      MrLink::open('admin_certificate_update', ['id' => $certificate->id()], ' Update', 'btn btn-success btn-sm fa fa-xs',
         'Обновить'),
     );
 

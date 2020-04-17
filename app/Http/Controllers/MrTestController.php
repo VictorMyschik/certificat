@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
 use App\Models\Certificate\MrCertificate;
+use App\Models\MrTranslate;
+use App\Models\References\MrCountry;
 
 class MrTestController extends Controller
 {
   public function index()
   {
+    /** @var MrCountry $country */
+    foreach (MrCountry::GetAll() as $country)
+    {
+      $word = new MrTranslate();
+      $word->setName($country->getCapital());
+      $word->setLanguageID(2);
+      $word->setTranslate($country->getName());
+      $word->save_mr();
 
+    }
 
   }
 

@@ -186,7 +186,7 @@ class MrXmlImportBase extends Controller
       $officer = self::importFio($xml->officerDetails);
       $conformity->setOfficerDetailsID($officer ? $officer->id() : null);
     }
-//dd($conformity);
+
     $conformity->save_mr();
 
     return $conformity;

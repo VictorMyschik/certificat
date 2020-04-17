@@ -212,6 +212,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View")->name('admin_certificate_page');
+  Route::get('/admin/certificate/details/{id}', "Admin\MrAdminCertificateController@ViewDetails")->name('admin_certificate_details');
   // Обновить
   Route::get('/admin/certificate/update/{id}', "Admin\MrAdminCertificateController@CertificateUpdate")->name('admin_certificate_update');
   // Загрузка сертификата по ссылке из сайта ЕАЭС или по идентификатору
