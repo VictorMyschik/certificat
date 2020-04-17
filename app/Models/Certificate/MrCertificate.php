@@ -141,7 +141,7 @@ class MrCertificate extends ORM
   // Дата создания/обновления записи
   public function getWriteDate(): ?MrDateTime
   {
-    return $this->getDateNullableField($this->WriteDate);
+    return $this->getDateNullableField('WriteDate');
   }
 
   // Страна
@@ -377,5 +377,25 @@ class MrCertificate extends ORM
   public function getHash(): string
   {
     return substr($this->getLinkOut(), strlen($this->getLinkOut()) - 26, 24);
+  }
+
+  /**
+   * Срок действия статуса
+   *
+   * @return string
+   */
+  public function GetStatusPeriod(): string
+  {
+    return MrDateTime::GetFromToDate($this->getDateStatusFrom(), $this->getDateStatusTo());
+  }
+
+  /**
+   * Документ, на основании которого установлен статус
+   *
+   * @return string|null
+   */
+  public function GetChangeStatusString(): ?string
+  {
+    return $this->getDocumentBase();
   }
 }

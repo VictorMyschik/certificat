@@ -23,24 +23,27 @@ class MrDateTime extends \DateTime
   {
     $r = '';
 
-    if ($from && $to)
+    if($from && $to)
     {
-      if ($from->diff($to)->days == 0)
+      if($from->diff($to)->days == 0)
       {
         return $from->format('d.m.Y');
       }
     }
 
-    if ($from)
-      $r .= $from->format('d.m.Y');
-
-
-
-    if ($to)
+    if($from)
     {
-      if (strlen($r))
+      $r .= 'c ' . $from->format('d.m.Y');
+    }
+
+    if($to)
+    {
+      if(strlen($r))
+      {
         $r .= ' - ';
-      $r .= $to->format('d.m.Y');
+      }
+
+      $r .= 'по '.$to->format('d.m.Y');
     }
 
     return $r;
@@ -53,7 +56,7 @@ class MrDateTime extends \DateTime
 
   public static function fromValue($value, ?string $format = null)
   {
-    if (!$value instanceof MrDateTime)
+    if(!$value instanceof MrDateTime)
     {
       $value = new MrDateTime($value);
     }
@@ -101,7 +104,7 @@ class MrDateTime extends \DateTime
 
   public function getFullTime(): string
   {
-    if ($this->full_time === -1)
+    if($this->full_time === -1)
     {
       $this->full_time = $this->format(MrDateTime::FULL_TIME);
     }
@@ -113,7 +116,7 @@ class MrDateTime extends \DateTime
 
   public function getShortTime(): string
   {
-    if ($this->short_time === -1)
+    if($this->short_time === -1)
     {
       $this->short_time = $this->format(MrDateTime::SHORT_TIME);
     }
@@ -135,7 +138,7 @@ class MrDateTime extends \DateTime
 
   public function getMysqlDate(): string
   {
-    if ($this->mysql_date === -1)
+    if($this->mysql_date === -1)
     {
       $this->mysql_date = $this->format(MrDateTime::MYSQL_DATE);
     }
@@ -147,7 +150,7 @@ class MrDateTime extends \DateTime
 
   public function getMysqlDateTime(): string
   {
-    if ($this->mysql_datetime === -1)
+    if($this->mysql_datetime === -1)
     {
       $this->mysql_datetime = $this->format(MrDateTime::MYSQL_DATETIME);
     }
@@ -158,7 +161,7 @@ class MrDateTime extends \DateTime
   public function getShortDateTitleShortTime()
   {
     $r = "";
-    $r .= "<span title='".$this->getShortTime()."'>{$this->getShortDate()}</span>";
+    $r .= "<span title='" . $this->getShortTime() . "'>{$this->getShortDate()}</span>";
 
     return $r;
   }

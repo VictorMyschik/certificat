@@ -1,1 +1,1 @@
-<h4 class="margin-t-15 mr-bold">{{ $page_title??''}}</h4>
+<h4 class="margin-t-15 mr-bold">{!! $page_title??'' !!}</h4>
