@@ -30,7 +30,7 @@ class MrAdminCertificateController extends Controller
   public function View()
   {
     $out = array();
-    $out['page_title'] = 'Сертификаты';
+    $out['page_title'] = 'Сертификаты (' . MrCertificate::getCount() . ')';
     $out['route_name'] = route('list_certificate_table');
 
     return View('Admin.Certificate.mir_admin_certificate')->with($out);
@@ -51,7 +51,7 @@ class MrAdminCertificateController extends Controller
     $certificate = MrCertificate::loadBy($id);
     $certificate->mr_delete();
 
-    MrMessageHelper::SetMessage(true, 'Успешно удален');
+    MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удален');
 
     return back();
   }
@@ -62,7 +62,7 @@ class MrAdminCertificateController extends Controller
   public function ViewCommunicate()
   {
     $out = array();
-    $out['page_title'] = 'Связь';
+    $out['page_title'] = 'Связь (' . MrCommunicate::getCount() . ')';
     $out['route_name'] = route('list_communicate_table');
 
     return View('Admin.Certificate.mir_admin_certificate_communicate')->with($out);
@@ -102,7 +102,7 @@ class MrAdminCertificateController extends Controller
   public function ViewManufacturer()
   {
     $out = array();
-    $out['page_title'] = 'Производители';
+    $out['page_title'] = 'Производители (' . MrManufacturer::getCount() . ')';;
     $out['route_name'] = route('list_manufacturer_table');
 
     return View('Admin.Certificate.mir_admin_certificate_manufacturer')->with($out);
@@ -144,7 +144,7 @@ class MrAdminCertificateController extends Controller
   public function ViewAddress()
   {
     $out = array();
-    $out['page_title'] = 'Адреса';
+    $out['page_title'] = 'Адреса (' . MrAddress::getCount() . ')';;
     $out['route_name'] = route('list_address_table');
 
     return View('Admin.Certificate.mir_admin_certificate_address')->with($out);
@@ -181,7 +181,7 @@ class MrAdminCertificateController extends Controller
   public function ViewFio()
   {
     $out = array();
-    $out['page_title'] = 'ФИО';
+    $out['page_title'] = 'ФИО (' . MrFio::getCount() . ')';;
     $out['route_name'] = route('list_fio_table');
 
     return View('Admin.Certificate.mir_admin_certificate_fio')->with($out);
@@ -218,7 +218,7 @@ class MrAdminCertificateController extends Controller
   public function ViewAuthority()
   {
     $out = array();
-    $out['page_title'] = 'Органы по оценке соответствия';
+    $out['page_title'] = 'Органы по оценке соответствия (' . MrConformityAuthority::getCount() . ')';;
     $out['route_name'] = route('list_authority_table');
 
     return View('Admin.Certificate.mir_admin_certificate_authority')->with($out);
@@ -237,14 +237,15 @@ class MrAdminCertificateController extends Controller
    */
   public function AuthorityDelete(int $id)
   {
-    $Fio = MrConformityAuthority::loadBy($id);
+    $conformityAuthority = MrConformityAuthority::loadBy($id);
 
-    if(!$Fio->canEdit())
+    if(!$conformityAuthority->canEdit())
     {
       mr_access_violation();
     }
 
-    $Fio->mr_delete();
+    $conformityAuthority->mr_delete();
+    MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Запись ID' . $conformityAuthority->id() . ' ' . $conformityAuthority->getName() . ' удалена');
 
     return back();
   }
@@ -272,7 +273,11 @@ class MrAdminCertificateController extends Controller
   }
 
   /**
-   * Загрузка сертификата по ссылке из сайта ЕАЭС или по идентификатору
+   * Загрузка сертификата по:
+   *
+   * 1) Ссылке на карточку сертификата с сайта ЕАЭС
+   * 2) Идентификатору (прим. "5e98720afb44f165195961f0")
+   * 3) Прямой ссылке на XML сертификата ("https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data('5e98720afb44f165195961f0')")
    *
    * @param Request $request
    * @return RedirectResponse
@@ -281,12 +286,12 @@ class MrAdminCertificateController extends Controller
   {
     if($str = $request->get('url'))
     {
-      // По ID
+      // По идентификатору
       if(strlen($str) == 24)
       {
         $url = "https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data('" . $str . "')";
       }
-      elseif(stristr($str, '&'))
+      elseif(stristr($str, '&')) // По ссылке на карточку
       {
         $d = parse_url($str);
         foreach (explode('&', $d['query']) as $param)
@@ -299,11 +304,11 @@ class MrAdminCertificateController extends Controller
 
         $url = $url = "https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data('" . $str . "')";;
       }
+      // По прямой ссылке на XML сертификата
       elseif(stristr($str, 'https://portal.eaeunion.org/_vti_bin/Portal.EEC.CDBProxy/PTS01.svc/Data(\''))
       {
         $url = $str;
       }
-
 
       $xml_data = MrCertificate::GetCertificateFromURL($url);
 
@@ -311,11 +316,11 @@ class MrAdminCertificateController extends Controller
 
       if(count($out))
       {
-
         $message_out = 'ID';
         $message_out .= $out[0]->id();
         $message_out .= ' ';
         $message_out .= $out[0]->getNumber();
+
         MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, $message_out);
       }
       else

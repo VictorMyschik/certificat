@@ -208,6 +208,7 @@ class ORM extends Model
 
   public function reload()
   {
+    Cache::forget($this->CachedKey);
     return self::loadBy($this->id);
   }
 

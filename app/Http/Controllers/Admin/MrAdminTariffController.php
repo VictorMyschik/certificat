@@ -27,7 +27,7 @@ class MrAdminTariffController extends Controller
     if($tariff->canDelete())
     {
       $tariff->mr_delete();
-      MrMessageHelper::SetMessage(true, 'Успешно удалено');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
     }
     else
     {

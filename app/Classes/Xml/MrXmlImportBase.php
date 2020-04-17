@@ -29,6 +29,8 @@ class MrXmlImportBase extends Controller
   }
 
   /**
+   * Парсинг загруженного XML файла
+   *
    * @param $xml
    * @return array
    */
@@ -71,8 +73,14 @@ class MrXmlImportBase extends Controller
   {
     // Сведения о сертификате
     $certificate = self::importCertificateDetails($xml, $link_out);
+
     // Сведения об органе по оценке соответствия
     $conformity_authority = self::importConformityAuthority($xml->conformityAuthorityV2Details);
+
+    if($conformity_authority)
+    {
+      $certificate->setAuthorityID($conformity_authority->id());
+    }
 
     return $certificate;
   }
@@ -86,39 +94,55 @@ class MrXmlImportBase extends Controller
   public static function importFio(SimpleXMLElement $xml): ?MrFio
   {
     $fio = null;
+    $position_name = null;
+    $first_name = null;
+    $middle_name = null;
+    $last_name = null;
 
-    if(isset($xml->element))
+    if(isset($xml->element)) // Эксперт-аудитор
     {
       $xml = $xml->element;
-
-      $fio = new MrFio();
-
-      $fio->setPositionName((string)$xml->positionName ?: null);
-
-      if(isset($xml->element))
-      {
-        $full_name = $xml->element;
-      }
-      else
-      {
-        $full_name = $xml;
-      }
-
-      $fio->setFirstName($full_name->firstName);
-      $fio->setMiddleName($full_name->middleName);
-      $fio->setLastName($full_name->lastName);
-
-      $fio->save_mr();
     }
     elseif(isset($xml->fullNameDetails))
     {
-      $full_name = $xml->fullNameDetails;
+      // Должность (есть только в органе по оценке соответствия)
+      if(isset($xml->positionName))
+      {
+        $position_name = (string)$xml->positionName;
+      }
 
-      $fio->setFirstName((string)$full_name->firstName);
-      $fio->setMiddleName((string)$full_name->middleName);
-      $fio->setLastName((string)$full_name->lastName);
+      $xml = $xml->fullNameDetails;
     }
-    dd($xml);
+
+    // Имя
+    if(isset($xml->firstName))
+    {
+      $first_name = (string)$xml->firstName;
+    }
+    // Отчество
+    if(isset($xml->middleName))
+    {
+      $middle_name = (string)$xml->middleName;
+    }
+    // Фамилия
+    if(isset($xml->lastName))
+    {
+      $last_name = (string)$xml->lastName;
+    }
+
+    if($first_name || $middle_name || $last_name || $position_name)
+    {
+      $fio = new MrFio();
+
+      $fio->setPositionName($position_name);
+      $fio->setFirstName($first_name);
+      $fio->setMiddleName($middle_name);
+      $fio->setLastName($last_name);
+
+      $fio->save_mr();
+      $fio->reload();
+    }
+
     return $fio;
   }
 
@@ -130,17 +154,11 @@ class MrXmlImportBase extends Controller
    */
   public static function importConformityAuthority(SimpleXMLElement $xml)
   {
-    //  dd($xml);
-
-    if(isset($xml->officerDetails))
-    {
-      $officer = self::importFio($xml->officerDetails);
-    }
-
     // Номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
     $authority_id = (string)$xml->conformityAuthorityId;
     $conformity = MrConformityAuthority::loadBy($authority_id, 'ConformityAuthorityId') ?: new MrConformityAuthority();
 
+    $conformity->setConformityAuthorityId($authority_id);
     // Страна
     $country_xml = (string)$xml->unifiedCountryCode->value;
     if($country = MrCountry::loadBy($country_xml, 'ISO3166alpha2'))
@@ -148,19 +166,28 @@ class MrXmlImportBase extends Controller
       $conformity->setCountryID($country->id());
     }
 
-    $conformity->setConformityAuthorityId($authority_id);
-    $conformity->setDocumentNumber((string)$xml->docId);
-    $conformity->setDocumentDate((string)$xml->docCreationDate);
-    $conformity->setName((string)$xml->businessEntityName);
-
-    // руководитель
-    if($officer ?? null)
+    if(isset($xml->docId))
     {
-      $conformity->setOfficerDetailsID($officer->id());
+      $conformity->setDocumentNumber((string)$xml->docId);
     }
 
-    dd($conformity);
-    // $conformity->save_mr();
+    if(isset($xml->docCreationDate))
+    {
+      $conformity->setDocumentDate((string)$xml->docCreationDate);
+    }
+
+    if(isset($xml->businessEntityName))
+    {
+      $conformity->setName((string)$xml->businessEntityName);
+    }
+
+    if(isset($xml->officerDetails))
+    {
+      $officer = self::importFio($xml->officerDetails);
+      $conformity->setOfficerDetailsID($officer ? $officer->id() : null);
+    }
+//dd($conformity);
+    $conformity->save_mr();
 
     return $conformity;
   }
@@ -234,11 +261,10 @@ class MrXmlImportBase extends Controller
 
     // Начальная дата действия статуса
     $status_date_from = (string)$docStatusDetails->startDate;
-    //dd($status_date_from);
     $certificate->setDateStatusFrom($status_date_from);
     // Конечная дата действия статуса
     $status_date_to = (string)$docStatusDetails->EndDate;
-    $certificate->setDateStatusTo($status_date_to ?: $date_to);
+    $certificate->setDateStatusTo($status_date_to);
 
     // Схема сертификации
     $schema_certificate = (string)$xml->certificationSchemeCode->element;
@@ -247,14 +273,14 @@ class MrXmlImportBase extends Controller
     $DateUpdateEAES = (string)$xml->resourceItemStatusDetails->updateDateTime;
     $certificate->setDateUpdateEAES($DateUpdateEAES);
 
-    /*  if($fio_xml = $xml->fullNameDetails)
+    if($fio_xml = $xml->fullNameDetails)
+    {
+      if($fio = self::importFio($fio_xml))
       {
-        if($fio = self::importFio($fio_xml))
-        {
-          $certificate->setAuditorID($fio->id());
-        }
+        $certificate->setAuditorID($fio->id());
       }
-  */
+    }
+
     $certificate->save_mr();
     $certificate->reload();
 

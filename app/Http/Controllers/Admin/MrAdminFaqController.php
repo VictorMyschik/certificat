@@ -104,11 +104,11 @@ class MrAdminFaqController extends Controller
     if ($faq)
     {
       $faq->mr_delete();
-      MrMessageHelper::SetMessage(true, 'Успешно удалено');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Раздел не найден');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Раздел не найден');
     }
 
 

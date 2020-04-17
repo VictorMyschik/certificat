@@ -73,11 +73,11 @@ class MrAdminLanguageController extends Controller
     if ($word = MrTranslate::loadBy($id))
     {
       $word->mr_delete();
-      MrMessageHelper::SetMessage(true, 'Успешно удалено');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
     }
     else
     {
-      MrMessageHelper::SetMessage(false, "Слово в БД не найдено id={$id}");
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, "Слово в БД не найдено id={$id}");
     }
 
     return redirect('/admin/language');

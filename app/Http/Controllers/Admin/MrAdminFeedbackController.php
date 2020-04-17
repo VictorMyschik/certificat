@@ -94,11 +94,11 @@ class MrAdminFeedbackController extends Controller
     if($feedback)
     {
       $feedback->mr_delete();
-      MrMessageHelper::SetMessage(true, 'Успешно удалено');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, 'Успешно удалено');
     }
     else
     {
-      MrMessageHelper::SetMessage(false, 'Раздел не найден');
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Раздел не найден');
     }
 
     return Redirect::route('admin_feedback_list');
