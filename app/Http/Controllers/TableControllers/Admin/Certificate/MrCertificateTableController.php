@@ -49,8 +49,6 @@ class MrCertificateTableController extends MrTableController
     $row[] = $certificate->id();
     $link_out = $certificate->getLinkOut();
     $row[] = array(
-      '<div><a href="' . htmlspecialchars($link_out) . '" target="_blank" class="text-nowrap btn btn-success btn-sm fa fa-xs"> XML</a></div>',
-      '<div class="m-t-5"><a class="text-nowrap btn btn-success btn-sm fa fa-link fa-xs" href="https://portal.eaeunion.org/sites/commonprocesses/ru-ru/Pages/CardView.aspx?documentId=' . $certificate->getHash() . '&codeId=P.TS.01" title="Ссылка на оригинал" target="_blank"> EAEU</a></div>',
       "<div class='m-t-5'>" . MrLink::open('admin_certificate_details', ['id' => $certificate->id()], ' local', 'btn btn-success btn-sm fa fa-link fa-xs') . '</div>',
     );
     $row[] = $certificate->getCertificateKind()->getShortName();

@@ -1,8 +1,8 @@
 <template>
-  <div class="row col-md-12">
-    <div class="col-md-6 padding-horizontal-0">
-      <h4>Сведения о документе</h4>
-      <table class="table table-sm">
+  <div class="col-md-12 padding-horizontal-0">
+  <div class="col-md-6 col-sm-12 p-l-5 p-r-5">
+      <h4 class="mr-auto-size-2 mr-bold">Сведения о документе</h4>
+      <table class="table mr-auto-size table-sm">
         <tr>
           <td>Дата начала срока действия</td>
           <td></td>
@@ -45,8 +45,42 @@
         </tr>
       </table>
     </div>
-    <div class="col-md-6 padding-horizontal-0">
-      <h4>Сведения об органе по оценке соответствия</h4>
+  <div class="col-md-6 col-sm-12 p-l-5 p-r-5">
+      <h4 class="mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4>
+      <table class="table mr-auto-size table-sm">
+        <tr>
+          <td>Орган по сертификации</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>ФИО руководителя органа по сертификации</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Телефон</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Электронная почта</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Документ, подтверждающий аккредитацию органа сертификации</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Дата регистрации аттестата аккредитации</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Место осуществления деятельности</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Юридический адрес</td>
+          <td></td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>

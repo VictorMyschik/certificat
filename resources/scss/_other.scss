@@ -15,6 +15,10 @@
   @include responsiveText(13px, 22px);
 }
 
+.mr-auto-size-3 {
+  @include responsiveText(11px, 14px);
+}
+
 .mr-bold {
   font-weight: bold;
 }
