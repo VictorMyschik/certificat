@@ -1,11 +1,17 @@
 <template>
-  <div class="col-md-12 padding-horizontal-0">
-  <div class="col-md-6 col-sm-12 p-l-5 p-r-5">
-      <h4 class="mr-auto-size-2 mr-bold">Сведения о документе</h4>
-      <table class="table mr-auto-size table-sm">
+  <div class="row no-gutters col-md-12 padding-horizontal-0">
+
+    <div class="mr-btn">Сведения о документе и органе по оценке соответствия</div>
+    <a href="#" class="btn btn-success">Сведения о продукции</a>
+    <a href="#" class="mr-btn">Сведения об изготовителе</a>
+    <div class="mr-btn">Документы</div>
+
+    <div class="col-sm-12 col-md-6 mr-sm-0 p-md-2">
+      <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения о документе</h4></div>
+      <table class="table col-md-12 mr-auto-size  table-sm">
         <tr>
           <td>Дата начала срока действия</td>
-          <td></td>
+          <td>12/12/2015</td>
         </tr>
         <tr>
           <td>Дата окончания срока действия</td>
@@ -13,7 +19,7 @@
         </tr>
         <tr>
           <td>Эксперт - аудитор</td>
-          <td></td>
+          <td>Ивано Иван Иванович</td>
         </tr>
         <tr>
           <td>Номер бланка</td>
@@ -45,9 +51,10 @@
         </tr>
       </table>
     </div>
-  <div class="col-md-6 col-sm-12 p-l-5 p-r-5">
-      <h4 class="mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4>
-      <table class="table mr-auto-size table-sm">
+
+    <div class="col-sm-12 col-md-6 mr-sm-0 p-md-2">
+      <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4></div>
+      <table class="table col-md-12 mr-auto-size  table-sm">
         <tr>
           <td>Орган по сертификации</td>
           <td></td>
@@ -82,6 +89,7 @@
         </tr>
       </table>
     </div>
+
   </div>
 </template>
 
@@ -100,5 +108,8 @@
 </script>
 
 <style scoped>
+  td {
+    padding: 0 0 0 0;
+  }
 
 </style>

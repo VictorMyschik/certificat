@@ -148,3 +148,8 @@
 .mr_cert_status_6 {
   color: #b95d1a;
 }
+
+.mr-btn {
+  @extend .btn !optional;
+  @extend .btn-danger !optional;
+}
