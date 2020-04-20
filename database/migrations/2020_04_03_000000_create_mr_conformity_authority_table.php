@@ -20,6 +20,7 @@ class CreateMrConformityAuthorityTable extends Migration
       $table->string('DocumentNumber', 50);// номер документа, подтверждающего аккредитацию органа по оценке соответствия
       $table->date('DocumentDate'); // дата регистрации документа подтверждающего аккредитацию органа по оценке соответствия
       $table->bigInteger('OfficerDetailsID')->nullable();// Руководитель органа по оценке соответствия
+      $table->bigInteger('AddressID')->nullable(); // адрес
     });
   }
 

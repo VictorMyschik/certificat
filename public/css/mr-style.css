@@ -221,13 +221,13 @@
       font-size: 22px; } }
 
 .mr-auto-size-3 {
-  font-size: calc(11px + (1 - 11) * (100vw - 420px) / (980 - 420)); }
+  font-size: calc(11px + (14 - 11) * (100vw - 420px) / (980 - 420)); }
   @media screen and (max-width: 420px) {
     .mr-auto-size-3 {
       font-size: 11px; } }
   @media screen and (min-width: 980px) {
     .mr-auto-size-3 {
-      font-size: 1px; } }
+      font-size: 14px; } }
 
 .mr-bold {
   font-weight: bold; }

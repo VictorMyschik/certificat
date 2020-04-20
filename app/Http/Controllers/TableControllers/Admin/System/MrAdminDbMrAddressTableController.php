@@ -16,8 +16,6 @@ class MrAdminDbMrAddressTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'ObjectKind', 'sort' => 'ObjectKind'),
-        array('name' => 'ObjectID', 'sort' => 'ObjectID'),
         array('name' => 'AddressKind', 'sort' => 'AddressKind'),
         array('name' => 'CountryID', 'sort' => 'CountryID'),
         array('name' => 'TerritoryCode', 'sort' => 'TerritoryCode'),

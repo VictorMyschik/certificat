@@ -5,6 +5,7 @@ namespace App\Classes\Xml;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
@@ -187,9 +188,85 @@ class MrXmlImportBase extends Controller
       $conformity->setOfficerDetailsID($officer ? $officer->id() : null);
     }
 
+
+    if($address = self::ImportAddress($xml, $conformity))
+    {
+      $conformity->setAddressID($address->id());
+    }
+
     $conformity->save_mr();
 
     return $conformity;
+  }
+
+  /**
+   * Импорт адреса
+   * @param SimpleXMLElement $xml
+   * @param MrConformityAuthority $authority
+   * @return MrAddress|null
+   */
+  protected static function ImportAddress(SimpleXMLElement $xml, MrConformityAuthority $authority): ?MrAddress
+  {
+    if(isset($xml->addressV4Details))
+    {
+      $address_xml = $xml->addressV4Details->element;
+
+      $address = $authority->getAddress() ?: new MrAddress();
+      $address->setAddressKind((int)$address_xml->addressKindCode);
+
+      if(isset($address_xml->unifiedCountryCode) && isset($address_xml->unifiedCountryCode->value) && ($country_xml = (string)$address_xml->unifiedCountryCode->value))
+      {
+        $country = MrCountry::loadBy($country_xml, 'ISO3166alpha2');
+        if($country)
+        {
+          $address->setCountryID($country->id());
+        }
+        else
+        {
+          dd('Страна органа по сетртификации не опознана ' . $country_xml);
+        }
+      }
+
+      // Регион
+      if(isset($address_xml->regionName) && ($region = (string)$address_xml->regionName))
+      {
+        $address->setRegionName($region);
+      }
+
+      if(isset($address_xml->districtName) && ($district = (string)$address_xml->districtName))
+      {
+        $address->setDistrictName($district);
+      }
+
+
+      if(isset($address_xml->cityName) && ($cityName = (string)$address_xml->cityName))
+      {
+        $address->setCity($cityName);
+      }
+
+      if(isset($address_xml->streetName) && ($streetName = (string)$address_xml->streetName))
+      {
+        $address->setStreetName($streetName);
+      }
+
+      if(isset($address_xml->buildingNumberId) && ($buildingNumberId = (string)$address_xml->buildingNumberId))
+      {
+        $address->setBuildingNumberId($buildingNumberId);
+      }
+
+      if(isset($address_xml->postCode) && ($postCode = (string)$address_xml->postCode))
+      {
+        $address->setPostCode($postCode);
+      }
+
+
+      $address->save_mr();
+      $address->reload();
+
+      return $address;
+    }
+
+    return null;
   }
 
   /**

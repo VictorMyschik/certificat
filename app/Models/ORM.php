@@ -237,6 +237,7 @@ class ORM extends Model
     else
     {
       $last_id = DB::table(static::$mr_table)->insertGetId($array);
+      $this->id = $last_id;
       // Запись в лог изменений БД
       //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }

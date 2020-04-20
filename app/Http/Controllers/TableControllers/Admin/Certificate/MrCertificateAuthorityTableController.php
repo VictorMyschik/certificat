@@ -20,10 +20,12 @@ class MrCertificateAuthorityTableController extends MrTableController
     return array(
       array('name' => 'id', 'sort' => 'id'),
       array('name' => 'Номер органа', 'sort' => 'ConformityAuthorityId'),
+      array('name' => 'Наименование', 'sort' => 'Name'),
       array('name' => 'Страна', 'sort' => 'CountryID'),
       array('name' => 'Документ, подтверждающий аккредитацию', 'sort' => 'DocumentNumber'),
       array('name' => 'Дата регистрации документа', 'sort' => 'DocumentDate'),
-      array('name' => 'Руководитель органа по оценке соответствия', 'sort' => 'OfficerDetailsID'),
+      array('name' => 'Руководитель', 'sort' => 'OfficerDetailsID'),
+      array('name' => 'Адрес'),
       array('name' => '#'),
     );
   }
@@ -36,6 +38,7 @@ class MrCertificateAuthorityTableController extends MrTableController
 
     $row[] = $authority->id();
     $row[] = $authority->getConformityAuthorityId();
+    $row[] = $authority->getName();
     $row[] = $authority->getCountry()->getName();
     $row[] = $authority->getDocumentNumber();
     $row[] = $authority->getDocumentDate() ? $authority->getDocumentDate()->getShortDate() : null;
@@ -43,10 +46,12 @@ class MrCertificateAuthorityTableController extends MrTableController
     $fio = '';
     if($authority->getOfficerDetails())
     {
-      $fio = ['<div>'.$authority->getOfficerDetails()->GetFullName().'</div>', $authority->getOfficerDetails()->getPositionName()];
+      $fio = ['<div>' . $authority->getOfficerDetails()->GetFullName() . '</div>', $authority->getOfficerDetails()->getPositionName()];
     }
 
     $row[] = $fio;
+
+    $row[] = $authority->getAddress() ? $authority->getAddress()->GetFullAddress() : null;
 
     $row[] = array(
       MrLink::open('admin_authority_delete', ['id' => $authority->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',

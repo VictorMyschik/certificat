@@ -22,6 +22,7 @@ class MrAdminDbMrConformityAuthorityTableController extends MrTableController
         array('name' => 'DocumentNumber', 'sort' => 'DocumentNumber'),
         array('name' => 'DocumentDate', 'sort' => 'DocumentDate'),
         array('name' => 'OfficerDetailsID', 'sort' => 'OfficerDetailsID'),
+        array('name' => 'AddressID', 'sort' => 'AddressID'),
       ),
 
       'body' => $body

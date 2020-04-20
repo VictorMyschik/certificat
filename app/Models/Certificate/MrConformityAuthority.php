@@ -32,6 +32,7 @@ class MrConformityAuthority extends ORM
     'DocumentNumber', // номер документа, подтверждающего аккредитацию органа по оценке соответствия
     'DocumentDate', // дата регистрации документа подтверждающего аккредитацию органа по оценке соответствия
     'OfficerDetailsID',// Руководитель органа по оценке соответствия
+    'AddressID'//Адрес
   );
 
   public function before_save()
@@ -129,5 +130,20 @@ class MrConformityAuthority extends ORM
   public function setOfficerDetailsID(?int $value)
   {
     $this->OfficerDetailsID = $value;
+  }
+
+  /**
+   * Адрес органа
+   *
+   * @return MrAddress|null
+   */
+  public function getAddress(): ?MrAddress
+  {
+    return MrAddress::loadBy($this->AddressID);
+  }
+
+  public function setAddressID(?int $value)
+  {
+    $this->AddressID = $value;
   }
 }

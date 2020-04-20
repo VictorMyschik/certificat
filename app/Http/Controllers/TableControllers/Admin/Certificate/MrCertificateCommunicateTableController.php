@@ -9,7 +9,7 @@ use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrCommunicate;
 
 /**
- *Админ. Адреса Коммуникаций
+ * Админ. Адреса
  */
 class MrCertificateCommunicateTableController extends MrTableController
 {
@@ -22,8 +22,6 @@ class MrCertificateCommunicateTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Прикреплён', 'sort' => 'ObjectKind'),
-      array('name' => 'ID', 'sort' => 'ObjectID'),
       array('name' => 'Тип связи', 'sort' => 'Kind'),
       array('name' => 'Адрес', 'sort' => 'Address'),
       array('name' => '#'),

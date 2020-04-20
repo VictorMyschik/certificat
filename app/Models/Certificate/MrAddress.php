@@ -8,18 +8,15 @@ use App\Models\Lego\MrObjectTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
+use Illuminate\Support\Facades\DB;
 
 class MrAddress extends ORM
 {
-  use MrObjectTrait;
-
   public static $mr_table = 'mr_address';
   public static $className = MrAddress::class;
   protected $table = 'mr_address';
 
   protected static $dbFieldsMap = array(
-    'ObjectKind',
-    'ObjectID',
     'AddressKind',
     'CountryID',
     'TerritoryCode',//17
@@ -65,30 +62,6 @@ class MrAddress extends ORM
     );
   }
 
-  /**
-   * Модли привязки адреса на экран
-   *
-   * @return array
-   */
-  public static function getObjectKindList(): array
-  {
-    return array(
-      self::KIND_OBJECT_MANUFACTURER => 'Производитель',
-    );
-  }
-
-  /**
-   * Модли привязки адреса
-   *
-   * @return array
-   */
-  public static function getKindObjectModelList(): array
-  {
-    return array(
-      self::KIND_OBJECT_MANUFACTURER => 'MrManufacturer',
-    );
-  }
-
   public static function loadBy($value, $field = 'id'): ?MrAddress
   {
     return parent::loadBy((string)$value, $field);
@@ -105,25 +78,9 @@ class MrAddress extends ORM
     return false;
   }
 
-  // Загрузка объекта
-  public function getObject()
+  public function before_save()
   {
-    $class_name = $this->getObjectKindModelName();
-    if(class_exists("App\\Models\\Certificate\\" . $class_name))
-    {
-      $class = "App\\Models\\Certificate\\" . $class_name;
 
-      return $class::loadBy($this->ObjectID);
-    }
-    else
-    {
-      dd('Класс не найден');
-    }
-  }
-
-  public function setObjectID(int $value)
-  {
-    $this->ObjectID = $value;
   }
 
   /**
@@ -361,8 +318,6 @@ class MrAddress extends ORM
     $r .= '(' . $this->getCountry()->getContinentShortName() . ')';
     $r .= ' ' . $this->getCountry()->getName();
     $r .= ' ' . $this->getCity();
-    $r .= ' ';
-    $r .= $this->getAddress();
 
     return $r;
   }
