@@ -8,10 +8,10 @@
       <div class="btn border mr_btn btn-sm" v-on:click="change_data(4)">Документы</div>
     </div>
 
-    <div class="row no-gutters" v-if="visible_kind === 1">
-      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
+    <div class="row no-gutters col-md-12" v-if="visible_kind === 1">
+      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения о документе</h4></div>
-        <table class="table col-md-12 mr-auto-size  table-sm">
+        <table class="table table-sm col-md-12 mr-auto-size">
           <tr>
             <td>Дата начала срока действия</td>
             <td></td>
@@ -54,7 +54,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
+      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4></div>
         <table class="table col-md-12 mr-auto-size table-sm">
           <tr>
@@ -93,19 +93,19 @@
       </div>
     </div>
 
-    <div class="row no-gutters" v-if="visible_kind === 2">
+    <div class="row no-gutters col-md-12" v-if="visible_kind === 2">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Продукция</h4></div>
       </div>
     </div>
 
-    <div class="row no-gutters" v-if="visible_kind === 3">
+    <div class="row no-gutters col-md-12" v-if="visible_kind === 3">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Изготовитель</h4></div>
       </div>
     </div>
 
-    <div class="row no-gutters" v-if="visible_kind === 4">
+    <div class="row no-gutters col-md-12" v-if="visible_kind === 4">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Документы</h4></div>
       </div>
@@ -116,18 +116,19 @@
 
 <script>
   export default {
-    name: "mr-certificate-details",
-    props: ['certificate'],
+    props: ['certificate_json'],
     data() {
       return {
         visible_kind: 1,
       }
     },
     mounted() {
+      console.log(this.certificate_json);
     },
     methods: {
       change_data(kind) {
         this.visible_kind = kind;
+
       }
     },
   }

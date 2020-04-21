@@ -398,4 +398,22 @@ class MrCertificate extends ORM
   {
     return $this->getDocumentBase();
   }
+
+  /**
+   * Создание массив для использования в Vue
+   */
+  public function GetJsonData(): array
+  {
+    $out = array();
+
+    $out['certificate'] = array(
+      'Number' => $this->getNumber(),
+      'Kind'   => array(
+        'ShortName'   => $this->getCertificateKind()->getShortName(),
+        'Description' => $this->getCertificateKind()->getDescription(),
+      ),
+    );
+
+    return $out;
+  }
 }

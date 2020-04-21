@@ -347,6 +347,7 @@ class MrAdminCertificateController extends Controller
 
     $out['page_title'] = __("mr-t.$country_name") . ' ' . $certificate->getNumber();
     $out['certificate'] = $certificate;
+    $out['certificate_json'] = $certificate->GetJsonData();
 
     return View('Admin.Certificate.mir_admin_certificate_details')->with($out);
   }

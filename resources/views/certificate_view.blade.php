@@ -3,6 +3,6 @@
 <div><h5 class="mr-bold" style="color: #090d2f">{{$certificate->getNumber()}}</h5></div>
 
 <div class="">
-  <mr-certificate-details :certificate="{{json_encode($certificate)}}"></mr-certificate-details>
+  <mr-certificate-details :certificate_json='{!! json_encode($certificate_json) !!}'></mr-certificate-details>
 </div>
 
