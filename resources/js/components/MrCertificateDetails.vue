@@ -10,7 +10,7 @@
 
     <div class="row no-gutters col-md-12" v-if="visible_kind === 1">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
-        <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения о документе</h4></div>
+        <div class="col-md-12 mt_table_header"><h4 class="m-l-5 mr-auto-size-2 mr-bold">Сведения о документе</h4></div>
         <table class="table table-sm table-striped col-md-12 mr-auto-size">
           <tr>
             <td>Дата начала срока действия</td>
@@ -55,7 +55,7 @@
         </table>
       </div>
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
-        <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4></div>
+        <div class="col-md-12 mt_table_header"><h4 class="m-l-5 mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4></div>
         <table class="table col-md-12 mr-auto-size table-sm">
           <tr>
             <td colspan="2" class="mr-bold">{{authority['Name']}}</td>
@@ -138,6 +138,7 @@
     methods: {
       change_data(kind) {
         this.visible_kind = kind;
+
       }
     },
   }
@@ -150,6 +151,10 @@
 
   td {
     padding: 0 0 0 0;
+  }
+
+  .mt_table_header{
+    background-color: rgba(221, 223, 247, 0.4);
   }
 
   .mr_btn {

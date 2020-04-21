@@ -84,6 +84,7 @@ class MrXmlImportBase extends Controller
     }
 
     $certificate->save_mr();
+    $certificate->reload();
 
     return $certificate;
   }
@@ -390,9 +391,6 @@ class MrXmlImportBase extends Controller
         $certificate->setAuditorID($fio->id());
       }
     }
-
-    $certificate->save_mr();
-    $certificate->reload();
 
     return $certificate;
   }

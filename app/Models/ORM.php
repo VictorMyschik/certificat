@@ -65,28 +65,6 @@ class ORM extends Model
   }
 
   /**
-   * @param int $count
-   * @return mixed
-   */
-  public static function GetAllPaginate(int $count = 10)
-  {
-    $list = DB::table(static::$mr_table)->paginate($count);
-
-    $data = array();
-
-    foreach ($list->items() as $item)
-    {
-      $data[] = $item;
-
-    }
-    //dd($data);
-    $out['items'] = self::LoadArray($data, static::$className);
-    $out['links'] = $list->links();
-
-    return $out;
-  }
-
-  /**
    * Удалить все записи в таблице
    */
   public static function AllDelete()
@@ -239,7 +217,7 @@ class ORM extends Model
       $last_id = DB::table(static::$mr_table)->insertGetId($array);
       $this->id = $last_id;
       // Запись в лог изменений БД
-      //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
+      MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
 
     if(method_exists($this, 'after_save'))

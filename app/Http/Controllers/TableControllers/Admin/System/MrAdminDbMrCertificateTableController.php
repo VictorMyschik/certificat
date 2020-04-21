@@ -31,6 +31,7 @@ class MrAdminDbMrCertificateTableController extends MrTableController
         array('name' => 'SchemaCertificate', 'sort' => 'SchemaCertificate'),
         array('name' => 'Description', 'sort' => 'Description'),
         array('name' => 'LinkOut', 'sort' => 'LinkOut'),
+        array('name' => 'AuthorityID', 'sort' => 'AuthorityID'),
         array('name' => 'DateUpdateEAES', 'sort' => 'DateUpdateEAES'),
         array('name' => 'SingleListProductIndicator', 'sort' => 'SingleListProductIndicator'),
         array('name' => 'WriteDate', 'sort' => 'WriteDate'),
