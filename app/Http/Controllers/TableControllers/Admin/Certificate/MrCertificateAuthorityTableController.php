@@ -25,7 +25,8 @@ class MrCertificateAuthorityTableController extends MrTableController
       array('name' => 'Документ, подтверждающий аккредитацию', 'sort' => 'DocumentNumber'),
       array('name' => 'Дата регистрации документа', 'sort' => 'DocumentDate'),
       array('name' => 'Руководитель', 'sort' => 'OfficerDetailsID'),
-      array('name' => 'Адрес'),
+      array('name' => 'Адрес 1'),
+      array('name' => 'Адрес 2'),
       array('name' => '#'),
     );
   }
@@ -51,7 +52,8 @@ class MrCertificateAuthorityTableController extends MrTableController
 
     $row[] = $fio;
 
-    $row[] = $authority->getAddress() ? $authority->getAddress()->GetFullAddress() : null;
+    $row[] = $authority->getAddress1() ? $authority->getAddress1()->GetFullAddress() : null;
+    $row[] = $authority->getAddress2() ? $authority->getAddress2()->GetFullAddress() : null;
 
     $row[] = array(
       MrLink::open('admin_authority_delete', ['id' => $authority->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',

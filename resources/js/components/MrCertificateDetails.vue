@@ -1,7 +1,7 @@
 <template>
   <div class="row no-gutters col-md-12 padding-horizontal-0">
 
-    <div class="row no-gutters col-md-12 m-r-5 m-l-5">
+    <div class="row no-gutters col-md-12 m-r-5 m-l-5 m-b-10">
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(1)">Общее</div>
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(2)">Продукция</div>
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(3)">Изготовитель</div>
@@ -11,30 +11,30 @@
     <div class="row no-gutters col-md-12" v-if="visible_kind === 1">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения о документе</h4></div>
-        <table class="table table-sm col-md-12 mr-auto-size">
+        <table class="table table-sm table-striped col-md-12 mr-auto-size">
           <tr>
             <td>Дата начала срока действия</td>
-            <td></td>
+            <td>{{certificate['DateFrom']}}</td>
           </tr>
           <tr>
             <td>Дата окончания срока действия</td>
-            <td></td>
+            <td>{{certificate['DateTo']}}</td>
           </tr>
           <tr>
             <td>Эксперт - аудитор</td>
-            <td></td>
+            <td>{{certificate['Auditor']}}</td>
           </tr>
           <tr>
             <td>Номер бланка</td>
-            <td></td>
+            <td>{{certificate['BlankNumber']}}</td>
           </tr>
           <tr>
             <td>Срок действия статуса</td>
-            <td></td>
+            <td>{{certificate['StatusDates']}}</td>
           </tr>
           <tr>
             <td>Документ, на основании которого установлен статус</td>
-            <td></td>
+            <td>{{certificate['BaseDocument']}}</td>
           </tr>
           <tr>
             <td>Причина изменения статуса</td>
@@ -42,15 +42,15 @@
           </tr>
           <tr>
             <td>Приложения к документу</td>
-            <td></td>
+            <td>{{certificate['WhyChange']}}</td>
           </tr>
           <tr>
             <td>Схема сертификации (декларирования)</td>
-            <td></td>
+            <td>{{certificate['SchemaCertificate']}}</td>
           </tr>
           <tr>
             <td>Дополнительная информация</td>
-            <td></td>
+            <td>{{certificate['Description']}}</td>
           </tr>
         </table>
       </div>
@@ -58,12 +58,11 @@
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4></div>
         <table class="table col-md-12 mr-auto-size table-sm">
           <tr>
-            <td>Орган по сертификации</td>
-            <td></td>
+            <td colspan="2" class="mr-bold">{{authority['Name']}}</td>
           </tr>
           <tr>
             <td>ФИО руководителя органа по сертификации</td>
-            <td></td>
+            <td>{{authority['FIO']}}</td>
           </tr>
           <tr>
             <td>Телефон</td>
@@ -75,19 +74,27 @@
           </tr>
           <tr>
             <td>Документ, подтверждающий аккредитацию органа сертификации</td>
-            <td></td>
+            <td>{{authority['DocumentNumber']}}</td>
           </tr>
           <tr>
             <td>Дата регистрации аттестата аккредитации</td>
-            <td></td>
+            <td>{{authority['DocumentDate']}}</td>
           </tr>
           <tr>
-            <td>Место осуществления деятельности</td>
-            <td></td>
+            <td>
+              <a v-if="authority['Address2']" target="_blank"
+                 v-bind:href="'https://yandex.ru/maps/?text=' + authority['Address2']">
+                <i class="fa fa-map mr-color-dark-blue fa-lg"></i></a> Место осуществления деятельности
+            </td>
+            <td>{{authority['Address2']}}</td>
           </tr>
           <tr>
-            <td>Юридический адрес</td>
-            <td></td>
+            <td>
+              <a v-if="authority['Address2']" target="_blank"
+                 v-bind:href="'https://yandex.ru/maps/?text=' + authority['Address1']">
+                <i class="fa fa-map mr-color-dark-blue fa-lg"></i></a> Юридический адрес
+            </td>
+            <td>{{authority['Address1']}}</td>
           </tr>
         </table>
       </div>
@@ -120,21 +127,27 @@
     data() {
       return {
         visible_kind: 1,
+        certificate: [],
+        authority: [],
       }
     },
     mounted() {
-      console.log(this.certificate_json);
+      this.certificate = this.certificate_json.certificate;
+      this.authority = this.certificate_json.authority;
     },
     methods: {
       change_data(kind) {
         this.visible_kind = kind;
-
       }
     },
   }
 </script>
 
 <style scoped>
+  tr:hover {
+    background-color: rgba(221, 223, 247, 0.2);
+  }
+
   td {
     padding: 0 0 0 0;
   }
@@ -144,7 +157,7 @@
   }
 
   .mr_btn:hover {
-    box-shadow: 0 0 0 0.1rem rgba(221, 223, 247, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(209, 211, 235, 0.6);
   }
 
 </style>

@@ -347,7 +347,6 @@ class MrCertificate extends ORM
     $url = $this->getLinkOut();
 
     $xml = self::GetCertificateFromURL($url);
-
     return MrXmlImportBase::ParseXmlFromString($xml);
   }
 
@@ -366,7 +365,15 @@ class MrCertificate extends ORM
       ),
     );
 
-    return @file_get_contents($url, false, stream_context_create($arrContextOptions));
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13");
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    return $data;
   }
 
   /**
@@ -407,12 +414,41 @@ class MrCertificate extends ORM
     $out = array();
 
     $out['certificate'] = array(
-      'Number' => $this->getNumber(),
-      'Kind'   => array(
-        'ShortName'   => $this->getCertificateKind()->getShortName(),
-        'Description' => $this->getCertificateKind()->getDescription(),
-      ),
+      'DateFrom'          => $this->getDateFrom() ? $this->getDateFrom()->getShortDate() : null,
+      'DateTo'            => $this->getDateTo() ? $this->getDateTo()->getShortDate() : null,
+      'Auditor'           => $this->getAuditor() ? $this->getAuditor()->GetFullName() : null,
+      'BlankNumber'       => $this->getBlankNumber(),
+      'StatusDates'       => MrDateTime::GetFromToDate($this->getDateStatusFrom(), $this->getDateStatusTo()),
+      'BaseDocument'      => $this->getDocumentBase(),
+      'WhyChange'         => $this->getWhyChange(),
+      'SchemaCertificate' => $this->getSchemaCertificate(),
+      'Description'       => $this->getDescription(),
     );
+
+    //// Орган по сертификации
+    $out['authority'] = array();
+
+    if($authority = $this->getAuthority())
+    {
+      $out['authority']['Name'] = $authority->getName();
+
+      if($officer = $authority->getOfficerDetails())
+      {
+        $officer_out = $officer->GetFullName();
+        $officer_out .= $officer->getPositionName() ? ' (' . $officer->getPositionName() . ')' : null;
+      }
+      else
+      {
+        $officer_out = '';
+      }
+
+      $out['authority']['FIO'] = $officer_out;
+
+      $out['authority']['Address1'] = $authority->getAddress1() ? $authority->getAddress1()->GetFullAddress() : null;
+      $out['authority']['Address2'] = $authority->getAddress2() ? $authority->getAddress2()->GetFullAddress() : null;
+      $out['authority']['DocumentNumber'] = $authority->getDocumentNumber();
+      $out['authority']['DocumentDate'] = $authority->getDocumentDate() ? $authority->getDocumentDate()->getShortDate() : null;
+    }
 
     return $out;
   }

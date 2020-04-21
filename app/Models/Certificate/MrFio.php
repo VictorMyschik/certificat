@@ -112,7 +112,7 @@ class MrFio extends ORM
     $this->PositionName = $value;
   }
 
-  public function GetFullName(): string
+  public function  GetFullName(): string
   {
     $r = '';
 

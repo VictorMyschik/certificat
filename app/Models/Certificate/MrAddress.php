@@ -1,14 +1,10 @@
 <?php
 
-
 namespace App\Models\Certificate;
 
-
-use App\Models\Lego\MrObjectTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
-use Illuminate\Support\Facades\DB;
 
 class MrAddress extends ORM
 {
@@ -45,13 +41,10 @@ class MrAddress extends ORM
     return false;
   }
 
-  const KIND_OBJECT_MANUFACTURER = 1;
-
   // Типы адресов
   const ADDRESS_KIND_REGISTRATION = 1; //адрес регистрации
   const ADDRESS_KIND_FACT = 2; //фактический адрес
   const ADDRESS_KIND_POSTAL = 3; //почтовый адрес
-
 
   public static function GetAddressKindList(): array
   {
@@ -109,7 +102,7 @@ class MrAddress extends ORM
     }
     else
     {
-      dd();
+      dd('Тип адреса не найден');
     }
   }
 
