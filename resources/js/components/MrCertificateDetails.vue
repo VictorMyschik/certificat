@@ -155,14 +155,17 @@
 
   .mt_table_header{
     background-color: rgba(221, 223, 247, 0.4);
+    border-radius: 5px;
   }
 
   .mr_btn {
     background-color: rgba(221, 223, 247, 0.2);
+    line-height: 1em;
   }
 
   .mr_btn:hover {
-    box-shadow: 0 0 0 0.2rem rgba(209, 211, 235, 0.6);
+    box-shadow: 0 0 0 0.1rem rgba(209, 211, 235, 0.6);
+    background-color: rgba(221, 223, 247, 0.6);
   }
 
 </style>

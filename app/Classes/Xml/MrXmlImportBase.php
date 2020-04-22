@@ -76,9 +76,12 @@ class MrXmlImportBase extends Controller
     $certificate = self::importCertificateDetails($xml, $link_out);
 
     // Сведения об органе по оценке соответствия
-    $conformity_authority = self::importConformityAuthority($xml->conformityAuthorityV2Details);
+    if(isset($xml->conformityAuthorityV2Details))
+    {
+      $conformity_authority = self::importConformityAuthority($xml->conformityAuthorityV2Details);
+    }
 
-    if($conformity_authority)
+    if(isset($conformity_authority))
     {
       $certificate->setAuthorityID($conformity_authority->id());
     }
@@ -156,18 +159,28 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrConformityAuthority
    */
-  public static function importConformityAuthority(SimpleXMLElement $xml)
+  public static function importConformityAuthority(SimpleXMLElement $xml): ?MrConformityAuthority
   {
     // Номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
-    $authority_id = (string)$xml->conformityAuthorityId;
+    if(isset($xml->conformityAuthorityId))
+    {
+      $authority_id = (string)$xml->conformityAuthorityId;
+    }
+    else
+    {
+      return null;
+    }
+
     $conformity = MrConformityAuthority::loadBy($authority_id, 'ConformityAuthorityId') ?: new MrConformityAuthority();
 
     $conformity->setConformityAuthorityId($authority_id);
     // Страна
-    $country_xml = (string)$xml->unifiedCountryCode->value;
-    if($country = MrCountry::loadBy($country_xml, 'ISO3166alpha2'))
+    if(isset($xml->unifiedCountryCode) && ($country_xml = (string)$xml->unifiedCountryCode->value))
     {
-      $conformity->setCountryID($country->id());
+      if($country = MrCountry::loadBy($country_xml, 'ISO3166alpha2'))
+      {
+        $conformity->setCountryID($country->id());
+      }
     }
 
     if(isset($xml->docId))
@@ -217,7 +230,7 @@ class MrXmlImportBase extends Controller
    * Импорт адреса
    * @param SimpleXMLElement $xml
    * @param MrConformityAuthority $authority
-   * @return MrAddress|null
+   * @return array
    */
   protected static function ImportAddress(SimpleXMLElement $xml, MrConformityAuthority $authority): array
   {
@@ -229,7 +242,16 @@ class MrXmlImportBase extends Controller
 
       foreach ($addresses_xml as $address_xml)
       {
-        $address_kind = (int)$address_xml->addressKindCode;
+        if(isset($address_xml->addressKindCode) && ($address_kind = (int)$address_xml->addressKindCode))
+        {
+          $address_kind = (int)$address_xml->addressKindCode;
+        }
+        else
+        {
+          continue;
+        }
+
+        $address = null;
 
         if($address_kind == MrAddress::ADDRESS_KIND_REGISTRATION)
         {
@@ -312,21 +334,36 @@ class MrXmlImportBase extends Controller
    */
   protected static function importCertificateDetails(SimpleXMLElement $xml, string $link_out): ?MrCertificate
   {
-    $number = (string)$xml->docId;
+    $certificate = null;
 
-    if(isset(MrCertificate::GetHashedList()[$number]))
+    if(isset($xml->docId) && ($number = (string)$xml->docId))
     {
-      $certificate = MrCertificate::loadBy($number, 'Number');
+      $number = (string)$xml->docId;
+
+
+      if(isset(MrCertificate::GetHashedList()[$number]))
+      {
+        $certificate = MrCertificate::loadBy($number, 'Number');
+      }
+      else
+      {
+        $certificate = new MrCertificate();
+        MrCertificate::GetHashedList()[$number] = $number;
+      }
     }
     else
     {
-      $certificate = new MrCertificate();
-      MrCertificate::GetHashedList()[$number] = $number;
+      dd('В сертификате нету номера');
     }
 
     $certificate->setLinkOut($link_out);
 
     // Страна
+    if(!isset($xml->unifiedCountryCode))
+    {
+      dd('Страна не указана');
+    }
+
     $country_code_xml = (string)$xml->unifiedCountryCode->value;
     $country = MrCountry::loadBy($country_code_xml, 'ISO3166alpha2');
 
@@ -338,53 +375,85 @@ class MrXmlImportBase extends Controller
     $certificate->setCountryID($country->id());
 
     // Номер
-    $certificate->setNumber($number);
+    $certificate->setNumber($number ?? null);
 
     // Дата начала действия сертификата
-    $date_from = (string)$xml->docStartDate;
-    $certificate->setDateFrom($date_from);
+    if(isset($xml->docStartDate) && ($date_from = (string)$xml->docStartDate))
+    {
+      $certificate->setDateFrom($date_from);
+    }
 
     // Дата окончания действия
-    $date_to = $xml->docValidityDate;
-    $certificate->setDateTo($date_to);
+    if(isset($xml->docValidityDate) && ($date_to = (string)$xml->docValidityDate))
+    {
+      $certificate->setDateTo($date_to);
+    }
 
     // Номер бланка
-    $formNumberId = (string)$xml->formNumberId;
-    $certificate->setBlankNumber(strlen($formNumberId) ? $formNumberId : null);
+    if(isset($xml->formNumberId) && ($formNumberId = (string)$xml->formNumberId))
+    {
+      $certificate->setBlankNumber(strlen($formNumberId) ? $formNumberId : null);
+    }
 
     /**
      * Признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с
      * выдачей сертификатов соответствия и деклараций о соответствии по единой форме:
      * 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
      * */
-    $singleListProductIndicator = (bool)$xml->singleListProductIndicator;
-    $certificate->setSingleListProductIndicator($singleListProductIndicator);
+    if(isset($xml->singleListProductIndicator) && ($singleListProductIndicator = (bool)$xml->singleListProductIndicator))
+    {
+      $certificate->setSingleListProductIndicator($singleListProductIndicator);
+    }
 
     // Тип документа
-    $conformityDocKindCode = (string)$xml->conformityDocKindCode;
-    $cert_kind = MrCertificateKind::loadBy($conformityDocKindCode, 'Code');
-    $certificate->setCertificateKindID($cert_kind->id());
+    if(isset($xml->conformityDocKindCode) && ($conformityDocKindCode = (string)$xml->conformityDocKindCode))
+    {
+      if($cert_kind = MrCertificateKind::loadBy($conformityDocKindCode, 'Code'))
+      {
+        $certificate->setCertificateKindID($cert_kind->id());
+      }
+      else
+      {
+        dd('Тип сертификата не известен ' . $xml->conformityDocKindCode);
+      }
+    }
 
     //// Статус
-    $docStatusDetails = $xml->docStatusDetails;
-    $status_code = (int)$docStatusDetails->docStatusCode;
-    $certificate->setStatus($status_code);
+    if(isset($xml->docStatusDetails) && ($docStatusDetails = $xml->docStatusDetails))
+    {
+      if(isset($docStatusDetails->docStatusCode) && ($status_code = (int)$docStatusDetails->docStatusCode))
+      {
+        $certificate->setStatus($status_code);
+      }
 
-    // Начальная дата действия статуса
-    $status_date_from = (string)$docStatusDetails->startDate;
-    $certificate->setDateStatusFrom($status_date_from);
-    // Конечная дата действия статуса
-    $status_date_to = (string)$docStatusDetails->EndDate;
-    $certificate->setDateStatusTo($status_date_to);
+      // Начальная дата действия статуса
+      if(isset($docStatusDetails->startDate) && ($status_date_from = (string)$docStatusDetails->startDate))
+      {
+        $certificate->setDateStatusFrom($status_date_from);
+      }
+
+      // Конечная дата действия статуса
+      if(isset($docStatusDetails->EndDate) && ($status_date_to = (string)$docStatusDetails->EndDate))
+      {
+        $certificate->setDateStatusTo($status_date_to);
+      }
+    }
 
     // Схема сертификации
-    $schema_certificate = (string)$xml->certificationSchemeCode->element;
-    $certificate->setSchemaCertificate($schema_certificate);
+    if(isset($xml->certificationSchemeCode) && ($schema_certificate = (string)$xml->certificationSchemeCode))
+    {
+      if(isset($xml->certificationSchemeCode->element) && ($schema_certificate = (string)$xml->certificationSchemeCode->element))
+      {
+        $certificate->setSchemaCertificate($schema_certificate);
+      }
+    }
 
-    $DateUpdateEAES = (string)$xml->resourceItemStatusDetails->updateDateTime;
-    $certificate->setDateUpdateEAES($DateUpdateEAES);
+    if(isset($xml->resourceItemStatusDetails) && ($DateUpdateEAES = (string)$xml->resourceItemStatusDetails->updateDateTime))
+    {
+      $certificate->setDateUpdateEAES($DateUpdateEAES);
+    }
 
-    if($fio_xml = $xml->fullNameDetails)
+    if(isset($xml->fullNameDetails) && ($fio_xml = $xml->fullNameDetails))
     {
       if($fio = self::importFio($fio_xml))
       {

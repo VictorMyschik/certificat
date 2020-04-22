@@ -358,13 +358,6 @@ class MrCertificate extends ORM
    */
   public static function GetCertificateFromURL(string $url): ?string
   {
-    $arrContextOptions = array(
-      "ssl" => array(
-        "verify_peer"      => false,
-        "verify_peer_name" => true,
-      ),
-    );
-
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_URL, $url);

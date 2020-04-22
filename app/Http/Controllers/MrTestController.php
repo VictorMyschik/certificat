@@ -4,24 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
 use App\Models\Certificate\MrCertificate;
-use App\Models\MrTranslate;
-use App\Models\References\MrCountry;
 
 class MrTestController extends Controller
 {
   public function index()
   {
-    /** @var MrCountry $country */
-    foreach (MrCountry::GetAll() as $country)
-    {
-      $word = new MrTranslate();
-      $word->setName($country->getCapital());
-      $word->setLanguageID(2);
-      $word->setTranslate($country->getName());
-      $word->save_mr();
-
-    }
-
+    $url = 'https://rseds.eaeunion.org/api/rulesvalidate';
+    $ch = curl_init();
+    //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13");
+    $data = curl_exec($ch);
+    curl_close($ch);
+    dd($data);
   }
 
   /**

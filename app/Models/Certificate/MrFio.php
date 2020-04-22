@@ -50,6 +50,10 @@ class MrFio extends ORM
     {
       $this->id = $data->id;
     }
+    else
+    {
+      $this->id = 0;
+    }
   }
 
   /**
@@ -112,7 +116,7 @@ class MrFio extends ORM
     $this->PositionName = $value;
   }
 
-  public function  GetFullName(): string
+  public function GetFullName(): string
   {
     $r = '';
 
