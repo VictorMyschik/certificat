@@ -457,6 +457,11 @@ class MrCertificate extends ORM
       $out['authority']['communicate'] = $officer->GetCommunicateOut();
     }
 
+    if($manufacturer = $this->getManufacturer())
+    {
+      $out['manufacturer']['Name'] = $manufacturer->getName();
+    }
+
     return $out;
   }
 }

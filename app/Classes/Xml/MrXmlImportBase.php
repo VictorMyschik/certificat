@@ -75,6 +75,7 @@ class MrXmlImportBase extends Controller
    */
   public static function importCertificate(SimpleXMLElement $xml, string $link_out): ?MrCertificate
   {
+    //dd($xml);
     // Сведения о сертификате
     $certificate = self::importCertificateDetails($xml, $link_out);
 
@@ -169,6 +170,8 @@ class MrXmlImportBase extends Controller
           }
 
           $manufacturer->save_mr();
+          $manufacturer->reload();
+
           return $manufacturer;
         }
       }

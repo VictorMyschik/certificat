@@ -36,6 +36,8 @@ class MrCertificateManufacturerTableController extends MrTableController
     $row[] = $manufacturer->id();
     $row[] = $manufacturer->getCountry()->getName();
     $row[] = $manufacturer->getName();
+    $row[] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetShortAddress() : null;
+    $row[] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetShortAddress() : null;
 
     $row[] = array(
       MrLink::open('admin_manufacturer_delete', ['id' => $manufacturer->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',

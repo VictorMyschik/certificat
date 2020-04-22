@@ -17,7 +17,7 @@ class MrTestController extends Controller
    */
   public function qwe()
   {
-    //ini_set('max_execution_time', 90000000000000);
+    ini_set('max_execution_time', 5000);
     $files = scandir('files');
 
     // удаление шлака
@@ -32,10 +32,11 @@ class MrTestController extends Controller
     // перебор всех файлов
     foreach ($files as $key => $file_name)
     {
-      if($key < 15)
+      if($key > 5)
       {
-        continue;
+        break;
       }
+
       $file = public_path() . '/files/' . $file_name;
 
       $xml = simplexml_load_file($file);

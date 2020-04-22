@@ -4,8 +4,7 @@
     <div class="row no-gutters col-md-12 m-r-5 m-l-5 m-b-10">
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(1)">Общее</div>
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(2)">Продукция</div>
-      <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(3)">Изготовитель</div>
-      <div class="btn border mr_btn btn-sm" v-on:click="change_data(4)">Документы</div>
+      <div class="btn border mr_btn btn-sm" v-on:click="change_data(3)">Документы</div>
     </div>
 
     <div class="row no-gutters col-md-12" v-if="visible_kind === 1">
@@ -103,18 +102,19 @@
     <div class="row no-gutters col-md-12" v-if="visible_kind === 2">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Продукция</h4></div>
+        <div>
+          <span class="mr-bold">Производитель:</span>
+          {{manufacturer['Name']}}
+        </div>
+        <table>
+          <tr></tr>
+        </table>
       </div>
     </div>
 
     <div class="row no-gutters col-md-12" v-if="visible_kind === 3">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
         <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Изготовитель</h4></div>
-      </div>
-    </div>
-
-    <div class="row no-gutters col-md-12" v-if="visible_kind === 4">
-      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
-        <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Документы</h4></div>
       </div>
     </div>
 
@@ -134,7 +134,8 @@
     mounted() {
       this.certificate = this.certificate_json.certificate;
       this.authority = this.certificate_json.authority;
-      console.log(this.authority);
+      this.manufacturer = this.certificate_json.manufacturer;
+
     },
     methods: {
       change_data(kind) {
