@@ -16,8 +16,6 @@ class MrAdminDbMrCommunicateTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'KindObject', 'sort' => 'KindObject'),
-        array('name' => 'ObjectID', 'sort' => 'ObjectID'),
         array('name' => 'Kind', 'sort' => 'Kind'),
         array('name' => 'Address', 'sort' => 'Address'),
       ),

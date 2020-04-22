@@ -5,6 +5,7 @@ namespace App\Models\Certificate;
 
 
 use App\Helpers\MrDateTime;
+use App\Models\Lego\MrCommunicateTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\DB;
  */
 class MrConformityAuthority extends ORM
 {
+  use MrCommunicateTrait;
+
   public static $mr_table = 'mr_conformity_authority';
   public static $className = MrConformityAuthority::class;
   protected $table = 'mr_conformity_authority';
@@ -162,4 +165,7 @@ class MrConformityAuthority extends ORM
   {
     $this->Address1ID = $value;
   }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

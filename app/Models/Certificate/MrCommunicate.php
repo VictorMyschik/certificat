@@ -3,50 +3,20 @@
 
 namespace App\Models\Certificate;
 
-
-use App\Models\Lego\MrObjectTrait;
 use App\Models\ORM;
 
 class MrCommunicate extends ORM
 {
-  use MrObjectTrait;
-
   public static $mr_table = 'mr_communicate';
   public static $className = MrCommunicate::class;
   protected $table = 'mr_communicate';
 
   protected static $dbFieldsMap = array(
-    'ObjectKind',//К чему привязан
-    'ObjectID',//ID объекта
     'Kind',// Тип: телефон, email, факс...
     'Address',
   );
 
   const KIND_OBJECT_MANUFACTURER = 1;
-
-  /**
-   * Модли привязки адреса на экран
-   *
-   * @return array
-   */
-  public static function getObjectKindList(): array
-  {
-    return array(
-      self::KIND_OBJECT_MANUFACTURER => 'Производитель',
-    );
-  }
-
-  /**
-   * Модли привязки адреса
-   *
-   * @return array
-   */
-  public static function getKindObjectModelList(): array
-  {
-    return array(
-      self::KIND_OBJECT_MANUFACTURER => 'MrManufacturer',
-    );
-  }
 
   const CODE_TE = 1;
   const CODE_FX = 2;
@@ -66,6 +36,18 @@ class MrCommunicate extends ORM
     self::CODE_EM => 'EM',
     self::CODE_AO => 'AO',
   );
+
+  private static $kind_icons = array(
+    self::CODE_TE => 'fa fa-phone',
+    self::CODE_FX => 'fa fa-fax',
+    self::CODE_EM => 'fa fa-envelope',
+    self::CODE_AO => 'fa fa-url',
+  );
+
+  public function getKindIcon()
+  {
+    return self::$kind_icons[$this->getKind()];
+  }
 
   public static function GetKindCodes(): array
   {
@@ -100,7 +82,7 @@ class MrCommunicate extends ORM
 
   public function setKind(int $value)
   {
-    if(self::getAddressKinds()[$value])
+    if(isset(self::getAddressKinds()[$value]))
     {
       $this->Kind = $value;
     }
@@ -110,28 +92,7 @@ class MrCommunicate extends ORM
     }
   }
 
-  // Загрузка объекта
-  public function getObject()
-  {
-    $class_name = $this->getObjectKindModelName();
-    if(class_exists("App\\Models\\Certificate\\" . $class_name))
-    {
-      $class = "App\\Models\\Certificate\\" . $class_name;
-
-      return $class::loadBy($this->ObjectID);
-    }
-    else
-    {
-      dd('Класс не найден');
-    }
-  }
-
-  public function setObjectID(int $value)
-  {
-    $this->ObjectID = $value;
-  }
-
-// Адрес
+  // Адрес
   public function getAddress(): string
   {
     return $this->Address;
@@ -141,4 +102,7 @@ class MrCommunicate extends ORM
   {
     $this->Address = $value;
   }
+
+  ///////////////////////////////////////////////////////////////////////
+
 }

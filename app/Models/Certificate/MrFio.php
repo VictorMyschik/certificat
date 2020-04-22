@@ -4,12 +4,15 @@
 namespace App\Models\Certificate;
 
 
+use App\Models\Lego\MrCommunicateTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
 use Illuminate\Support\Facades\DB;
 
 class MrFio extends ORM
 {
+  use MrCommunicateTrait;
+
   public static $mr_table = 'mr_fio';
   public static $className = MrFio::class;
   protected $table = 'mr_fio';

@@ -55,22 +55,22 @@
         </table>
       </div>
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
-        <div class="col-md-12 mt_table_header"><h4 class="m-l-5 mr-auto-size-2 mr-bold">Сведения об органе по оценке соответствия</h4></div>
+        <div class="col-md-12 mt_table_header"><h4 class="m-l-5 mr-auto-size-2 mr-bold">
+          {{authority['Name']}}
+        </h4></div>
         <table class="table col-md-12 mr-auto-size table-sm">
-          <tr>
-            <td colspan="2" class="mr-bold">{{authority['Name']}}</td>
-          </tr>
           <tr>
             <td>ФИО руководителя органа по сертификации</td>
             <td>{{authority['FIO']}}</td>
           </tr>
           <tr>
-            <td>Телефон</td>
-            <td></td>
+            <td colspan="2" class="mr-bold">Связь</td>
           </tr>
-          <tr>
-            <td>Электронная почта</td>
-            <td></td>
+          <tr v-for="item in authority['communicate']">
+            <td>
+              <i class="m-r-5 mr-color-green" :class="item.icon"></i>{{item.kind}}
+            </td>
+            <td>{{item.address}}</td>
           </tr>
           <tr>
             <td>Документ, подтверждающий аккредитацию органа сертификации</td>
@@ -84,15 +84,15 @@
             <td>
               <a v-if="authority['Address2']" target="_blank"
                  v-bind:href="'https://yandex.ru/maps/?text=' + authority['Address2']">
-                <i class="fa fa-map mr-color-dark-blue fa-lg"></i></a> Место осуществления деятельности
+                <i class="fa mr-color-green fa-map fa-lg"></i></a> Место осуществления деятельности
             </td>
             <td>{{authority['Address2']}}</td>
           </tr>
           <tr>
             <td>
-              <a v-if="authority['Address2']" target="_blank"
+              <a v-if="authority['Address1']" target="_blank"
                  v-bind:href="'https://yandex.ru/maps/?text=' + authority['Address1']">
-                <i class="fa fa-map mr-color-dark-blue fa-lg"></i></a> Юридический адрес
+                <i class="fa mr-color-green fa-map fa-lg"></i></a> Юридический адрес
             </td>
             <td>{{authority['Address1']}}</td>
           </tr>
@@ -134,6 +134,7 @@
     mounted() {
       this.certificate = this.certificate_json.certificate;
       this.authority = this.certificate_json.authority;
+      console.log(this.authority);
     },
     methods: {
       change_data(kind) {
@@ -153,7 +154,7 @@
     padding: 0 0 0 0;
   }
 
-  .mt_table_header{
+  .mt_table_header {
     background-color: rgba(221, 223, 247, 0.4);
     border-radius: 5px;
   }

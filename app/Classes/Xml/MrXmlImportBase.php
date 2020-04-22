@@ -7,8 +7,10 @@ namespace App\Classes\Xml;
 use App\Http\Controllers\Controller;
 use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
+use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
+use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use SimpleXMLElement;
@@ -105,6 +107,7 @@ class MrXmlImportBase extends Controller
     $first_name = null;
     $middle_name = null;
     $last_name = null;
+    $xml_old = $xml;
 
     if(isset($xml->element)) // Эксперт-аудитор
     {
@@ -146,8 +149,13 @@ class MrXmlImportBase extends Controller
       $fio->setMiddleName($middle_name);
       $fio->setLastName($last_name);
 
-      $fio->save_mr();
+      $fio_id = $fio->save_mr();
       $fio->reload();
+    }
+
+    if(isset($xml_old->communicationDetails) && isset($fio_id))
+    {
+      self::importCommunicate($xml_old->communicationDetails, $fio);
     }
 
     return $fio;
@@ -221,7 +229,7 @@ class MrXmlImportBase extends Controller
       }
     }
 
-    $conformity->save_mr();
+    $conformity_id = $conformity->save_mr();
 
     return $conformity;
   }
@@ -462,5 +470,77 @@ class MrXmlImportBase extends Controller
     }
 
     return $certificate;
+  }
+
+  /**
+   * Импорт связь
+   *
+   * @param SimpleXMLElement $xml
+   * @param object $object
+   * @return array
+   */
+  public static function importCommunicate(SimpleXMLElement $xml, object $object): array
+  {
+    if(!$object->GetTableKind())
+    {
+      dd('Неизвестен объект привязки');
+    }
+
+    $out = array();
+
+    if(!isset($xml->element))
+    {
+      return $out;
+    }
+
+    foreach ($xml->element as $item)
+    {
+      if(isset($item->communicationChannelCode) && ($kind = (string)$item->communicationChannelCode))
+      {
+        if(!array_search($kind, MrCommunicate::GetKindCodes()))
+        {
+          dd('Неизвестный тип связи ' . $item->communicationChannelCode);
+        }
+      }
+      else
+      {
+        dd("Отсутствует тип связи");
+      }
+
+      if(isset($item->communicationChannelId) && ($element_xml = $item->communicationChannelId))
+      {
+        if(isset($kind) && isset($element_xml->element) && ($address_str = (string)$element_xml->element))
+        {
+          $address_str = str_replace(' ', '', $address_str);
+          if($communicate = MrCommunicate::loadBy($address_str, 'Address'))
+          {
+            $out[$communicate->id()] = $communicate;
+            $communicate_id = $communicate->id();
+          }
+          else
+          {
+            $communicate = new MrCommunicate();
+
+            $kind_code = array_search($kind, MrCommunicate::GetKindCodes());
+            $communicate->setKind($kind_code);
+            $communicate->setAddress($address_str);
+
+            $communicate_id = $communicate->save_mr();
+            $out[$communicate_id] = $communicate;
+          }
+
+          // поиск дублей в связующей таблице
+          if(!MrCommunicateInTable::GetByObject($communicate_id, $object))
+          {
+            $in_table = new MrCommunicateInTable();
+            $in_table->setCommunicateID($communicate_id);
+            $in_table->setRowID($object->id());
+            $in_table->setTableKind($object->GetTableKind());
+            $in_table->save_mr();
+          }
+        }
+      }
+    }
+    return $out;
   }
 }

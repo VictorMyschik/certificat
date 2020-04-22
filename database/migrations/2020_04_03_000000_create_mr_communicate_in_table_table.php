@@ -5,14 +5,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrCommunicateTable extends Migration
+class CreateMrCommunicateInTableTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_communicate', function (Blueprint $table) {
+    Schema::create('mr_communicate_in_table', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
-      $table->tinyInteger('Kind')->default(0);// Тип: телефон, email, факс...
-      $table->string('Address');
+      $table->bigInteger('TableKind');
+      $table->bigInteger('RowID');
+      $table->bigInteger('CommunicateID');
     });
   }
 
@@ -23,6 +24,6 @@ class CreateMrCommunicateTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_communicate');
+    Schema::dropIfExists('mr_communicate_in_table');
   }
 }

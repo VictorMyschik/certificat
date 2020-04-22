@@ -6,6 +6,8 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Электронная почта'                                                                            => 'Email',
+    'Факс'                                                                                         => 'Fax',
     'Классификатор видов документов об оценке соответствия'                                        => 'Classifier of types of documents on conformity assessment',
     'Классификатор единиц измерения'                                                               => 'Measure Unit Reference',
     'Условное обозначение'                                                                         => 'Short name',

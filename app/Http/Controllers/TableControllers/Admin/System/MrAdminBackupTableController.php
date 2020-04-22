@@ -78,6 +78,10 @@ class MrAdminBackupTableController extends MrTableController
     {
       $object = "App\\Models\\Office\\" . $class_name_out;
     }
+    elseif(class_exists("App\\Models\\Office\\" . $class_name_out))
+    {
+      $object = "App\\Models\\Lego\\" . $class_name_out;
+    }
 
     if($object)
     {

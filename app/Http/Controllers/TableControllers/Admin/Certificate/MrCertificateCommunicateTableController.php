@@ -15,14 +15,14 @@ class MrCertificateCommunicateTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())
   {
-    return MrCommunicate::Select()->paginate(20, __('mr-t.Дальше'));
+    return MrCommunicate::Select()->paginate(50, __('mr-t.Дальше'));
   }
 
   protected static function getHeader(): array
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Тип связи', 'sort' => 'Kind'),
+      array('name' => 'Kind', 'sort' => 'Kind'),
       array('name' => 'Адрес', 'sort' => 'Address'),
       array('name' => '#'),
     );
@@ -35,8 +35,6 @@ class MrCertificateCommunicateTableController extends MrTableController
     $communicate = MrCommunicate::loadBy($id);
 
     $row[] = $communicate->id();
-    $row[] = $communicate->getObjectKindName();
-    $row[] = $communicate->getObject()->id();
     $row[] = $communicate->getKindName();
     $row[] = $communicate->getAddress();
 

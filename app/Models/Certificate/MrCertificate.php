@@ -441,6 +441,7 @@ class MrCertificate extends ORM
       $out['authority']['Address2'] = $authority->getAddress2() ? $authority->getAddress2()->GetFullAddress() : null;
       $out['authority']['DocumentNumber'] = $authority->getDocumentNumber();
       $out['authority']['DocumentDate'] = $authority->getDocumentDate() ? $authority->getDocumentDate()->getShortDate() : null;
+      $out['authority']['communicate'] = $officer->GetCommunicateOut();
     }
 
     return $out;

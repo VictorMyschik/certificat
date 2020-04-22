@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
+use App\Models\Lego\MrCommunicateInTable;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -207,7 +208,7 @@ class ORM extends Model
       {
         DB::table(static::$mr_table)->where('id', '=', (int)$this->id)->update($array);
         // Запись в лог изменений БД
-        MrBaseLog::SaveData(static::$mr_table, $this->id, $array);
+        //MrBaseLog::SaveData(static::$mr_table, $this->id, $array);
       }
 
       $last_id = (int)$this->id;
@@ -217,7 +218,7 @@ class ORM extends Model
       $last_id = DB::table(static::$mr_table)->insertGetId($array);
       $this->id = $last_id;
       // Запись в лог изменений БД
-      MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
+      //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
 
     if(method_exists($this, 'after_save'))
