@@ -37,6 +37,8 @@ class CreateMrCertificateTable extends Migration
 
       $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
+
+      $table->integer('ManufacturerID')->nullable();//Сведения об органе по оценке соответствия
     });
   }
 

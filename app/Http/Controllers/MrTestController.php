@@ -17,7 +17,7 @@ class MrTestController extends Controller
    */
   public function qwe()
   {
-    ini_set('max_execution_time', 90000000000000);
+    //ini_set('max_execution_time', 90000000000000);
     $files = scandir('files');
 
     // удаление шлака
@@ -45,7 +45,7 @@ class MrTestController extends Controller
       $str = 'File: ' . $file_name;
       print_r(count(MrCertificate::$hashed));
       print_r($str);
-      //dd($str);
+      dd($str);
 
     }
   }

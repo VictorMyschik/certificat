@@ -10,6 +10,7 @@ use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
+use App\Models\Certificate\MrManufacturer;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
@@ -77,7 +78,7 @@ class MrXmlImportBase extends Controller
     // Сведения о сертификате
     $certificate = self::importCertificateDetails($xml, $link_out);
 
-    // Сведения об органе по оценке соответствия
+    //// Сведения об органе по оценке соответствия
     if(isset($xml->conformityAuthorityV2Details))
     {
       $conformity_authority = self::importConformityAuthority($xml->conformityAuthorityV2Details);
@@ -88,10 +89,92 @@ class MrXmlImportBase extends Controller
       $certificate->setAuthorityID($conformity_authority->id());
     }
 
+    //// Производитель
+    if(isset($xml->technicalRegulationObjectDetails))
+    {
+      $technical_xml = $xml->technicalRegulationObjectDetails;
+      if(isset($technical_xml->manufacturerDetails))
+      {
+        $manufacturer = self::importManufacturer($technical_xml->manufacturerDetails);
+
+        if($manufacturer)
+        {
+          $certificate->setManufacturerID($manufacturer->id());
+        }
+      }
+    }
+
     $certificate->save_mr();
     $certificate->reload();
 
     return $certificate;
+  }
+
+  /**
+   * быстрый парсинг страны
+   *
+   * @param SimpleXMLElement $xml
+   * @return MrCountry|null
+   */
+  protected static function __parsCountry(SimpleXMLElement $xml): ?MrCountry
+  {
+    if(isset($xml->value) && ($country_code_xml = (string)$xml->value))
+    {
+      if($country = MrCountry::loadBy($country_code_xml, 'ISO3166alpha2'))
+      {
+        return $country;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * @param SimpleXMLElement $xml
+   * @return MrManufacturer|null
+   */
+  protected static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
+  {
+    if(isset($xml->element))
+    {
+      $manufacturer_xml = $xml->element;
+
+      if(isset($manufacturer_xml->businessEntityName) && ($name_xml = (string)$manufacturer_xml->businessEntityName))
+      {
+        if(isset($manufacturer_xml->unifiedCountryCode) && ($country = self::__parsCountry($manufacturer_xml->unifiedCountryCode)))
+        {
+
+          $manufacturer = MrManufacturer::loadBy($name_xml, 'Name') ?: new MrManufacturer();
+          $manufacturer->setName($name_xml);
+          $manufacturer->setCountryID($country->id());
+
+          if(isset($manufacturer_xml->addressV4Details))
+          {
+            $addresses = self::importAddress($manufacturer_xml, $manufacturer);
+            foreach ($addresses as $key => $address)
+            {
+              if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
+              {
+                $manufacturer->setAddress1ID($address->id());
+              }
+              elseif($key == MrAddress::ADDRESS_KIND_FACT)
+              {
+                $manufacturer->setAddress2ID($address->id());
+              }
+              else
+              {
+                dd('Тип адреса не известен: ' . $key);
+              }
+            }
+          }
+
+          $manufacturer->save_mr();
+          return $manufacturer;
+        }
+      }
+    }
+
+    return null;
   }
 
   /**
@@ -212,7 +295,7 @@ class MrXmlImportBase extends Controller
       $conformity->setOfficerDetailsID($officer ? $officer->id() : null);
     }
 
-    $addresses = self::ImportAddress($xml, $conformity);
+    $addresses = self::importAddress($xml, $conformity);
     foreach ($addresses as $key => $address)
     {
       if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
@@ -236,11 +319,12 @@ class MrXmlImportBase extends Controller
 
   /**
    * Импорт адреса
+   *
    * @param SimpleXMLElement $xml
-   * @param MrConformityAuthority $authority
+   * @param object $object
    * @return array
    */
-  protected static function ImportAddress(SimpleXMLElement $xml, MrConformityAuthority $authority): array
+  protected static function importAddress(SimpleXMLElement $xml, object $object): array
   {
     $out = array();
 
@@ -263,11 +347,11 @@ class MrXmlImportBase extends Controller
 
         if($address_kind == MrAddress::ADDRESS_KIND_REGISTRATION)
         {
-          $address = $authority->getAddress1();
+          $address = $object->getAddress1();
         }
         elseif($address_kind == MrAddress::ADDRESS_KIND_FACT)
         {
-          $address = $authority->getAddress2();
+          $address = $object->getAddress2();
         }
 
         if(!$address)

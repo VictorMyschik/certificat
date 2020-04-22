@@ -35,6 +35,7 @@ class MrAdminDbMrCertificateTableController extends MrTableController
         array('name' => 'DateUpdateEAES', 'sort' => 'DateUpdateEAES'),
         array('name' => 'SingleListProductIndicator', 'sort' => 'SingleListProductIndicator'),
         array('name' => 'WriteDate', 'sort' => 'WriteDate'),
+        array('name' => 'ManufacturerID', 'sort' => 'ManufacturerID'),
       ),
 
       'body' => $body

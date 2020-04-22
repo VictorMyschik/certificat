@@ -4,12 +4,15 @@
 namespace App\Models\Certificate;
 
 
+use App\Models\Lego\MrAddressTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
 
 class MrManufacturer extends ORM
 {
+  use MrAddressTrait;
+
   public static $mr_table = 'mr_manufacturer';
   public static $className = MrManufacturer::class;
   protected $table = 'mr_manufacturer';
@@ -17,6 +20,8 @@ class MrManufacturer extends ORM
   protected static $dbFieldsMap = array(
     'CountryID',
     'Name',
+    'Address1ID',
+    'Address2ID',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrManufacturer

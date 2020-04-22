@@ -39,6 +39,8 @@ class MrCertificate extends ORM
     'DateUpdateEAES',// Дата обновления на ЕАЭС
     'SingleListProductIndicator', //признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
     ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
+
+    'ManufacturerID' // Производитель
   );
 
   const STATUS_ACTIVE = 1;
@@ -297,6 +299,17 @@ class MrCertificate extends ORM
   public function setDescription(?string $value)
   {
     return $this->Description = $value;
+  }
+
+  // Производитель
+  public function getManufacturer(): ?MrManufacturer
+  {
+    return MrManufacturer::loadBy($this->ManufacturerID);
+  }
+
+  public function setManufacturerID(?int $value)
+  {
+    return $this->ManufacturerID = $value;
   }
 
   public function getDateUpdateEAES(): ?MrDateTime

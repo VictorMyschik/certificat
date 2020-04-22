@@ -5,6 +5,7 @@ namespace App\Models\Certificate;
 
 
 use App\Helpers\MrDateTime;
+use App\Models\Lego\MrAddressTrait;
 use App\Models\Lego\MrCommunicateTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\DB;
  */
 class MrConformityAuthority extends ORM
 {
-  use MrCommunicateTrait;
+  use MrCommunicateTrait, MrAddressTrait;
 
   public static $mr_table = 'mr_conformity_authority';
   public static $className = MrConformityAuthority::class;
@@ -135,37 +136,4 @@ class MrConformityAuthority extends ORM
   {
     $this->OfficerDetailsID = $value;
   }
-
-  /**
-   * Фактический адрес органа
-   *
-   * @return MrAddress|null
-   */
-  public function getAddress2(): ?MrAddress
-  {
-    return MrAddress::loadBy($this->Address2ID);
-  }
-
-  public function setAddress2ID(?int $value)
-  {
-    $this->Address2ID = $value;
-  }
-
-  /**
-   * Юридический адрес органа
-   *
-   * @return MrAddress|null
-   */
-  public function getAddress1(): ?MrAddress
-  {
-    return MrAddress::loadBy($this->Address1ID);
-  }
-
-  public function setAddress1ID(?int $value)
-  {
-    $this->Address1ID = $value;
-  }
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
 }

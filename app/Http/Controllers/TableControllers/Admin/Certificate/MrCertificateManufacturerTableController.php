@@ -12,15 +12,17 @@ class MrCertificateManufacturerTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())
   {
-    return MrManufacturer::Select()->paginate(20, __('mr-t.Дальше'));
+    return MrManufacturer::Select()->paginate(20);
   }
 
   protected static function getHeader(): array
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
       array('name' => 'Страна', 'sort' => 'CountryID'),
+      array('name' => 'Наименование', 'sort' => 'Name'),
+      array('name' => 'Юр. адрес', 'sort' => 'Address1ID'),
+      array('name' => 'Факт. адрес', 'sort' => 'Address2ID'),
       array('name' => '#'),
     );
   }
@@ -32,8 +34,8 @@ class MrCertificateManufacturerTableController extends MrTableController
     $manufacturer = MrManufacturer::loadBy($id);
 
     $row[] = $manufacturer->id();
-    $row[] = $manufacturer->getName();
     $row[] = $manufacturer->getCountry()->getName();
+    $row[] = $manufacturer->getName();
 
     $row[] = array(
       MrLink::open('admin_manufacturer_delete', ['id' => $manufacturer->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
