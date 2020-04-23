@@ -9,11 +9,14 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    $this->qwe();
+    //$this->qwe();
+
+    $certi = MrCertificate::loadBy(100);
+    dd($certi->GetJsonData());
   }
 
   /**
-   * считываение папки и парсинг всех файлов
+   * считывание папки и парсинг всех файлов
    */
   public function qwe()
   {

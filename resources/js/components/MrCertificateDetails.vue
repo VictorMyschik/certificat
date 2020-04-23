@@ -9,7 +9,7 @@
 
     <div class="row no-gutters col-md-12" v-if="visible_kind === 1">
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
-        <div class="col-md-12 mt_table_header"><h4 class="m-l-5 mr-auto-size-2 mr-bold">Сведения о документе</h4></div>
+        <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">Сведения о документе</div>
         <table class="table table-sm table-striped col-md-12 mr-auto-size">
           <tr>
             <td>Дата начала срока действия</td>
@@ -54,9 +54,7 @@
         </table>
       </div>
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
-        <div class="col-md-12 mt_table_header"><h4 class="m-l-5 mr-auto-size-2 mr-bold">
-          {{authority['Name']}}
-        </h4></div>
+        <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">{{authority['Name']}}</div>
         <table class="table col-md-12 mr-auto-size table-sm">
           <tr>
             <td>ФИО руководителя органа по сертификации</td>
@@ -99,15 +97,30 @@
       </div>
     </div>
 
-    <div class="row no-gutters col-md-12" v-if="visible_kind === 2">
-      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
-        <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Продукция</h4></div>
-        <div>
-          <span class="mr-bold">Производитель:</span>
-          {{manufacturer['Name']}}
+    <div class="row no-gutters col-md-12 mr-sm-0 padding-horizontal-0 p-md-2" v-if="visible_kind === 2">
+      <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">Производитель </div>
+      <div class="mr-auto-size">
+        <div class="m-t-5 m-b-5"><i>{{manufacturer['Name']}}</i></div>
+        <div><img style='width: 30px; border-radius: 4px;' :title="manufacturer['Country']"
+                  :src="manufacturer['CountryFlag']" :alt="manufacturer['Country']">{{manufacturer['Country']}}
         </div>
-        <table>
-          <tr></tr>
+
+
+        <table class="table border table-sm m-t-10" style="width: 100%;">
+          <tr v-if="manufacturer['Address2']">
+            <td class="mr-bold">
+              <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address2']">
+                <i class="fa mr-color-green fa-map fa-lg"></i></a> <span class=" p-r-10">Место осуществления деятельности:</span>
+            </td>
+            <td>{{manufacturer['Address2']}}</td>
+          </tr>
+          <tr v-if="manufacturer['Address1']">
+            <td class="mr-bold">
+              <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address1']">
+                <i class="fa mr-color-green fa-map fa-lg"></i></a> <span class=" p-r-10">Юридический адрес:</span>
+            </td>
+            <td>{{manufacturer['Address1']}}</td>
+          </tr>
         </table>
       </div>
     </div>
@@ -158,6 +171,9 @@
   .mt_table_header {
     background-color: rgba(221, 223, 247, 0.4);
     border-radius: 5px;
+    padding-left: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
 
   .mr_btn {

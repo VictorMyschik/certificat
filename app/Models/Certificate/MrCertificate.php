@@ -46,9 +46,9 @@ class MrCertificate extends ORM
   const STATUS_ACTIVE = 1;
   const STATUS_PAUSED = 2;
   const STATUS_STOPPED = 3;
-  CONST STATUS_CONTINUED = 4;
-  CONST STATUS_REOPENED = 5;
-  CONST STATUS_ARHIVED = 6;
+  const STATUS_CONTINUED = 4;
+  const STATUS_REOPENED = 5;
+  const STATUS_ARHIVED = 6;
 
   protected static $statuses = array(
     self::STATUS_ACTIVE    => 'действует',
@@ -413,7 +413,7 @@ class MrCertificate extends ORM
   }
 
   /**
-   * Создание массив для использования в Vue
+   * Создание массив для использования во Vue
    */
   public function GetJsonData(): array
   {
@@ -460,6 +460,16 @@ class MrCertificate extends ORM
     if($manufacturer = $this->getManufacturer())
     {
       $out['manufacturer']['Name'] = $manufacturer->getName();
+      if($country = $manufacturer->getCountry())
+      {
+        $out['manufacturer']['Country'] = $country->getName();
+        $name_fl = mb_strtolower($country->getISO3166alpha2());
+        $flag_img_html = "https://img.geonames.org/flags/m/{$name_fl}.png";
+      }
+
+      $out['manufacturer']['CountryFlag'] = $flag_img_html ?? null;
+      $out['manufacturer']['Address1'] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetFullAddress() : null;
+      $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
     }
 
     return $out;
