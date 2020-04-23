@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAddressTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAuthorityTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateCommunicateTableController;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateDocumentTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateFioTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateManufacturerTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateTableController;
@@ -18,6 +19,7 @@ use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
+use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use Illuminate\Contracts\View\Factory;
@@ -89,6 +91,46 @@ class MrAdminCertificateController extends Controller
     if($communicate)
     {
       $communicate->mr_delete();
+    }
+
+    return back();
+  }
+
+  /**
+   * Страница документов
+   *
+   * @return Factory|View
+   */
+  public function ViewDocument()
+  {
+    $out = array();
+    $out['page_title'] = 'Связь (' . MrDocument::getCount() . ')';
+    $out['route_name'] = route('list_document_table');
+
+    return View('Admin.Certificate.mir_admin_certificate_document')->with($out);
+  }
+
+  /**
+   * Api получение таблицы телефонов и Email-ов
+   */
+  public function DocumentList()
+  {
+    return MrTableController::buildTable(MrCertificateDocumentTableController::class);
+  }
+
+  /**
+   * Удаление телефона, email
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function DocumentDelete(int $id)
+  {
+    $document = MrDocument::loadBy($id);
+
+    if($document)
+    {
+      $document->mr_delete();
     }
 
     return back();

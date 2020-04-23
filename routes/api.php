@@ -29,6 +29,7 @@ Route::match(['get', 'post'], '/admin/certificate/manufacturer', 'Admin\MrAdminC
 Route::match(['get', 'post'], '/admin/certificate/address', 'Admin\MrAdminCertificateController@AddressList')->name('list_address_table');
 Route::match(['get', 'post'], '/admin/certificate/fio', 'Admin\MrAdminCertificateController@FioList')->name('list_fio_table');
 Route::match(['get', 'post'], '/admin/certificate/authority', 'Admin\MrAdminCertificateController@AuthorityList')->name('list_authority_table');
+Route::match(['get', 'post'], '/admin/certificate/documents', 'Admin\MrAdminCertificateController@DocumentList')->name('list_document_table');
 
 
 //// Прочее
