@@ -54,16 +54,19 @@
         </table>
       </div>
       <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2">
-        <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">{{authority['Name']}}</div>
+        <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">Орган по сертификации</div>
         <table class="table col-md-12 mr-auto-size table-sm">
+          <tr>
+            <td colspan="2" class="mr-bold">{{authority['Name']}}</td>
+          </tr>
           <tr>
             <td>ФИО руководителя органа по сертификации</td>
             <td>{{authority['FIO']}}</td>
           </tr>
-          <tr>
-            <td colspan="2" class="mr-bold">Связь</td>
+          <tr v-if="authority['communicate'].length">
+            <td colspan="2" class="mr-bold" style="padding-top: 5px;">Связь</td>
           </tr>
-          <tr v-for="item in authority['communicate']">
+          <tr v-if="authority['communicate'].length" v-for="item in authority['communicate']">
             <td>
               <i class="m-r-5 mr-color-green" :class="item.icon"></i>{{item.kind}}
             </td>
@@ -98,15 +101,11 @@
     </div>
 
     <div class="row no-gutters col-md-12 mr-sm-0 padding-horizontal-0 p-md-2" v-if="visible_kind === 2">
-      <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">Производитель </div>
+      <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">Производитель</div>
       <div class="mr-auto-size">
-        <div class="m-t-5 m-b-5"><i>{{manufacturer['Name']}}</i></div>
-        <div><img style='width: 30px; border-radius: 4px;' :title="manufacturer['Country']"
-                  :src="manufacturer['CountryFlag']" :alt="manufacturer['Country']">{{manufacturer['Country']}}
-        </div>
+        <div class="m-t-5 m-b-5"><i>{{manufacturer['Name']}}</i> {{manufacturer['Country']}}</div>
 
-
-        <table class="table border table-sm m-t-10" style="width: 100%;">
+        <table class="table col-md-12 mr-auto-size table-sm m-t-10" style="width: 100%;">
           <tr v-if="manufacturer['Address2']">
             <td class="mr-bold">
               <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address2']">

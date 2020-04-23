@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Classes\Xml;
-
 
 use App\Http\Controllers\Controller;
 use App\Models\Certificate\MrAddress;
@@ -373,7 +371,7 @@ class MrXmlImportBase extends Controller
           }
           else
           {
-            dd('Страна органа по сетртификации не опознана ' . $country_xml);
+            return null;
           }
         }
 
@@ -613,6 +611,7 @@ class MrXmlImportBase extends Controller
             $communicate->setAddress($address_str);
 
             $communicate_id = $communicate->save_mr();
+            $communicate->reload();
             $out[$communicate_id] = $communicate;
           }
 
@@ -624,6 +623,7 @@ class MrXmlImportBase extends Controller
             $in_table->setRowID($object->id());
             $in_table->setTableKind($object->GetTableKind());
             $in_table->save_mr();
+            $in_table->reload();
           }
         }
       }

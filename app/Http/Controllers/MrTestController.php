@@ -11,7 +11,7 @@ class MrTestController extends Controller
   {
     //$this->qwe();
 
-    $certi = MrCertificate::loadBy(100);
+    $certi = MrCertificate::loadBy(6);
     dd($certi->GetJsonData());
   }
 
@@ -20,7 +20,7 @@ class MrTestController extends Controller
    */
   public function qwe()
   {
-    ini_set('max_execution_time', 5000);
+    ini_set('max_execution_time', 500000);
     $files = scandir('files');
 
     // удаление шлака
@@ -35,10 +35,7 @@ class MrTestController extends Controller
     // перебор всех файлов
     foreach ($files as $key => $file_name)
     {
-      if($key > 5)
-      {
-        break;
-      }
+
 
       $file = public_path() . '/files/' . $file_name;
 
@@ -49,7 +46,6 @@ class MrTestController extends Controller
       $str = 'File: ' . $file_name;
       print_r(count(MrCertificate::$hashed));
       print_r($str);
-      dd($str);
 
     }
   }
