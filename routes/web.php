@@ -236,6 +236,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Органы по сертификации
   Route::get('/admin/certificate/authority', "Admin\MrAdminCertificateController@ViewAuthority")->name('admin_authority_page');
   Route::get('/admin/certificate/authority/delete/{id}', "Admin\MrAdminCertificateController@AuthorityDelete")->name('admin_authority_delete');
+  // Документы
+  Route::get('/admin/certificate/document', "Admin\MrAdminCertificateController@ViewDocument")->name('admin_document_page');
+  Route::get('/admin/certificate/document/delete/{id}', "Admin\MrAdminCertificateController@DocumentDelete")->name('admin_document_delete');
 
 
   // Загрузка из XML

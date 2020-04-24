@@ -16,6 +16,7 @@ class MrAdminDbMrDocumentTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
+        array('name' => 'CertificateID', 'sort' => 'CertificateID'),
         array('name' => 'Kind', 'sort' => 'Kind'),
         array('name' => 'Name', 'sort' => 'Name'),
         array('name' => 'Number', 'sort' => 'Number'),
@@ -23,6 +24,7 @@ class MrAdminDbMrDocumentTableController extends MrTableController
         array('name' => 'DateFrom', 'sort' => 'DateFrom'),
         array('name' => 'DateTo', 'sort' => 'DateTo'),
         array('name' => 'Organisation', 'sort' => 'Organisation'),
+        array('name' => 'Accreditation', 'sort' => 'Accreditation'),
         array('name' => 'Description', 'sort' => 'Description'),
         array('name' => 'IsInclude', 'sort' => 'IsInclude'),
       ),

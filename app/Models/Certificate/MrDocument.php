@@ -14,6 +14,7 @@ class MrDocument extends ORM
   protected $table = 'mr_document';
 
   protected static $dbFieldsMap = array(
+    'CertificateID',
     'Kind',
     'Name',
     'Number',
@@ -21,8 +22,9 @@ class MrDocument extends ORM
     'DateFrom',
     'DateTo',
     'Organisation',
+    'Accreditation',
     'Description',
-    'IsInclude',
+    'IsIncludeIn',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrDocument
@@ -68,6 +70,17 @@ class MrDocument extends ORM
   public function setName(?string $value): void
   {
     $this->Name = $value;
+  }
+
+  // Наименование документа
+  public function getCertificate(): MrCertificate
+  {
+    return MrCertificate::loadBy($this->CertificateID);
+  }
+
+  public function setCertificateID(int $value): void
+  {
+    $this->CertificateID = $value;
   }
 
   // Номер документа
@@ -122,6 +135,17 @@ class MrDocument extends ORM
     $this->Organisation = $value;
   }
 
+  // Номер и дата документа аккредитации
+  public function getAccreditation(): ?string
+  {
+    return $this->Accreditation;
+  }
+
+  public function setAccreditation(?string $value): void
+  {
+    $this->Accreditation = $value;
+  }
+
   // Описание документа
   public function getDescription(): ?string
   {
@@ -133,13 +157,13 @@ class MrDocument extends ORM
     $this->Description = $value;
   }
 
-  public function isInclude(): bool
+  public function isInclude(): ?int
   {
-    return (bool)$this->IsInclude;
+    return $this->IsIncludeIn;
   }
 
-  public function setIsInclude(bool $value): void
+  public function setIsInclude(?int $value): void
   {
-    $this->setIsInclude = $value;
+    $this->IsIncludeIn = $value;
   }
 }

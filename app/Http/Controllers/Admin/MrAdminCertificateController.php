@@ -104,7 +104,7 @@ class MrAdminCertificateController extends Controller
   public function ViewDocument()
   {
     $out = array();
-    $out['page_title'] = 'Связь (' . MrDocument::getCount() . ')';
+    $out['page_title'] = 'Документы (' . MrDocument::getCount() . ')';
     $out['route_name'] = route('list_document_table');
 
     return View('Admin.Certificate.mir_admin_certificate_document')->with($out);

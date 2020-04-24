@@ -43,6 +43,7 @@
             <a class="dropdown-item" href="{{route('admin_address_page')}}">Адреса</a>
             <a class="dropdown-item" href="{{route('admin_fio_page')}}">Люди</a>
             <a class="dropdown-item" href="{{route('admin_authority_page')}}">Орган по оценке соответствия</a>
+            <a class="dropdown-item" href="{{route('admin_document_page')}}">Документы</a>
           </div>
         </li>
 

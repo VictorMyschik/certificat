@@ -7,6 +7,7 @@ use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
+use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use App\Models\Lego\MrCommunicateInTable;
@@ -73,7 +74,6 @@ class MrXmlImportBase extends Controller
    */
   public static function importCertificate(SimpleXMLElement $xml, string $link_out): ?MrCertificate
   {
-    //dd($xml);
     // Сведения о сертификате
     $certificate = self::importCertificateDetails($xml, $link_out);
 
@@ -103,10 +103,76 @@ class MrXmlImportBase extends Controller
       }
     }
 
-    $certificate->save_mr();
+    $certificate_id = $certificate->save_mr();
     $certificate->reload();
 
+    // Документы
+    if(isset($xml->complianceDocDetails) || isset($xml->DocInformationDetails))
+    {
+      self::importDocument($xml, $certificate_id);
+    }
+
     return $certificate;
+  }
+
+  /**
+   * Импорт документов, привязанных к сертификату
+   *
+   * @param SimpleXMLElement $xml
+   * @param $certificate_id
+   */
+  protected static function importDocument(SimpleXMLElement $xml, $certificate_id): void
+  {
+    if(isset($xml->complianceDocDetails))
+    {
+      $xml = $xml->complianceDocDetails;
+      if(isset($xml->element))
+      {
+        $xml = $xml->element;
+        if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
+        {
+          $document = MrDocument::loadBy($number_xml) ?: new MrDocument();
+          $document->setNumber($number_xml);
+
+          if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
+          {
+            $document->setName($name_xml);
+          }
+
+          if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
+          {
+            $document->setDate($date_create_xml);
+          }
+
+          // Если есть документ аккредитации - тип аккредитация
+          if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
+          {
+            $document->setKind(MrDocument::KIND_EQUALS);
+            $document->setAccreditation($acr_xml);
+            $document->setIsInclude(null);
+          }
+          else
+          {
+            $document->setKind(MrDocument::KIND_GUARANTEE);
+          }
+
+          if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
+          {
+            $document->setOrganisation($business_name_xml);
+          }
+
+          $document->setCertificateID($certificate_id);
+
+          $document->save_mr();
+        }
+      }
+    }
+
+    if(isset($xml->DocInformationDetails))
+    {
+      dd($xml);
+    }
+
   }
 
   /**
@@ -371,7 +437,7 @@ class MrXmlImportBase extends Controller
           }
           else
           {
-            return null;
+            continue;
           }
         }
 

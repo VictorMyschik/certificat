@@ -19,6 +19,7 @@ class MrCertificateDocumentTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
+      array('name' => 'Сертификат', 'sort' => 'CertificateID'),
       array('name' => 'Тип', 'sort' => 'Kind'),
       array('name' => 'Наименование', 'sort' => 'Name'),
       array('name' => 'Номер', 'sort' => 'Number'),
@@ -26,6 +27,7 @@ class MrCertificateDocumentTableController extends MrTableController
       array('name' => 'Дата с', 'sort' => 'DateFrom'),
       array('name' => 'Дата по', 'sort' => 'DateTo'),
       array('name' => 'Организация, выдавшая документ', 'sort' => 'Organisation'),
+      array('name' => 'Номер и дата документа аккредитации', 'sort' => 'Accreditation'),
       array('name' => 'Примечание', 'sort' => 'Description'),
       array('name' => 'Признак включения документа в перечень стандартов', 'sort' => 'IsInclude'),
       array('name' => '#'),
@@ -39,6 +41,7 @@ class MrCertificateDocumentTableController extends MrTableController
     $document = MrDocument::loadBy($id);
 
     $row[] = $document->id();
+    $row[] = $document->getCertificate()->getNumber();
     $row[] = $document->getKind();
     $row[] = $document->getName();
     $row[] = $document->getNumber();
@@ -46,8 +49,9 @@ class MrCertificateDocumentTableController extends MrTableController
     $row[] = $document->getDateFrom() ? $document->getDateFrom()->getShortDate() : null;
     $row[] = $document->getDateTo() ? $document->getDateTo()->getShortDate() : null;
     $row[] = $document->getOrganisation();
+    $row[] = $document->getAccreditation();
     $row[] = $document->getDescription();
-    $row[] = $document->isInclude() ? 'да' : 'нет';
+    $row[] = is_null($document->isInclude()) ? ' - ' : ((bool)$document->isInclude() ? 'да' : 'нет');
 
     $row[] = array(
       MrLink::open('admin_communicate_delete', ['id' => $document->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
