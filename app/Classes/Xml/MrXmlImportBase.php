@@ -118,61 +118,92 @@ class MrXmlImportBase extends Controller
   /**
    * Импорт документов, привязанных к сертификату
    *
-   * @param SimpleXMLElement $xml
+   * @param SimpleXMLElement $xml_doc
    * @param $certificate_id
    */
-  protected static function importDocument(SimpleXMLElement $xml, $certificate_id): void
+  protected static function importDocument(SimpleXMLElement $xml_doc, $certificate_id): void
   {
-    if(isset($xml->complianceDocDetails))
+
+    // Документы, подтверждающие соответствие требованиям
+    if(isset($xml_doc->complianceDocDetails))
     {
-      $xml = $xml->complianceDocDetails;
-      if(isset($xml->element))
+      $xml_doc = $xml_doc->complianceDocDetails;
+
+      if(isset($xml_doc->element))
       {
-        $xml = $xml->element;
-        if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
+        foreach($xml_doc->element as $xml)
         {
-          $document = MrDocument::loadBy($number_xml) ?: new MrDocument();
-          $document->setNumber($number_xml);
-
-          if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
+          if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
           {
-            $document->setName($name_xml);
-          }
+            $document = MrDocument::loadBy($number_xml) ?: new MrDocument();
+            $document->setNumber($number_xml);
 
-          if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
-          {
-            $document->setDate($date_create_xml);
-          }
+            if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
+            {
+              $document->setName($name_xml);
+            }
 
-          // Если есть документ аккредитации - тип аккредитация
-          if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
-          {
-            $document->setKind(MrDocument::KIND_EQUALS);
-            $document->setAccreditation($acr_xml);
-            $document->setIsInclude(null);
-          }
-          else
-          {
-            $document->setKind(MrDocument::KIND_GUARANTEE);
-          }
+            if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
+            {
+              $document->setDate($date_create_xml);
+            }
 
-          if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
-          {
-            $document->setOrganisation($business_name_xml);
+            // Если есть документ аккредитации - тип аккредитация
+            if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
+            {
+              $document->setKind(MrDocument::KIND_EQUALS);
+              $document->setAccreditation($acr_xml);
+              $document->setIsInclude(null);
+            }
+
+            if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
+            {
+              $document->setOrganisation($business_name_xml);
+            }
+
+            $document->setCertificateID($certificate_id);
+
+            $document->save_mr();
+            $document->reload();
           }
-
-          $document->setCertificateID($certificate_id);
-
-          $document->save_mr();
         }
       }
     }
 
-    if(isset($xml->DocInformationDetails))
+    // Документы, обеспечивающие соблюдение требований
+    if(isset($xml_doc->complianceProvidingDocDetails))
     {
-      dd($xml);
-    }
 
+      $document_guarantee_xml_list = $xml_doc->complianceProvidingDocDetails->element;
+      foreach ($document_guarantee_xml_list as $document_guarantee_xml)
+      {
+        if(isset($document_guarantee_xml->docId) && ($doc_number_xml = (string)$document_guarantee_xml->docId))
+        {
+          $document = MrDocument::loadBy($doc_number_xml) ?: new MrDocument();
+          $document->setCertificateID($certificate_id);
+          $document->setKind(MrDocument::KIND_GUARANTEE);
+          $document->setNumber($doc_number_xml);
+
+          if(isset($document_guarantee_xml->docName) && ($doc_name = (string)$document_guarantee_xml->docName))
+          {
+            $document->setName($doc_name);
+          }
+
+          if(isset($document_guarantee_xml->docCreationDate) && ($doc_date = (string)$document_guarantee_xml->docCreationDate))
+          {
+            $document->setDate($doc_date);
+          }
+
+          if(isset($document_guarantee_xml->standardListIndicator) && ($is = (bool)$document_guarantee_xml->standardListIndicator))
+          {
+            $document->setIsInclude($is);
+          }
+
+          $document->save_mr();
+          $document->reload();
+        }
+      }
+    }
   }
 
   /**

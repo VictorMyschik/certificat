@@ -162,7 +162,7 @@ class MrDocument extends ORM
     return $this->IsIncludeIn;
   }
 
-  public function setIsInclude(?int $value): void
+  public function setIsInclude(?bool $value): void
   {
     $this->IsIncludeIn = $value;
   }

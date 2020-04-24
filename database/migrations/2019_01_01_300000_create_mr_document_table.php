@@ -12,7 +12,7 @@ class CreateMrDocumentTable extends Migration
       $table->smallIncrements('id')->autoIncrement();
       $table->integer('CertificateID');
       $table->tinyInteger('Kind');
-      $table->string('Name', 500);
+      $table->string('Name', 500)->nullable();
       $table->string('Number', 50)->nullable();
       $table->date('Date')->nullable();
       $table->date('DateFrom')->nullable();

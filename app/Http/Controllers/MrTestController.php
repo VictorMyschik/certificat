@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
+use App\Models\Certificate\MrAddress;
 use App\Models\Certificate\MrCertificate;
+use App\Models\Certificate\MrCommunicate;
+use App\Models\Certificate\MrDocument;
+use App\Models\Certificate\MrFio;
+use App\Models\Certificate\MrManufacturer;
+use App\Models\Lego\MrCommunicateInTable;
 
 class MrTestController extends Controller
 {
   public function index()
   {
-    dd(MrCertificate::loadBy(500)->GetDocuments());
+    //dd(MrCertificate::loadBy(4984)->GetDocuments());
 
-/*
+
     MrCertificate::AllDelete();
     MrCommunicate::AllDelete();
     MrCommunicateInTable::AllDelete();
@@ -24,7 +30,7 @@ class MrTestController extends Controller
     $this->qwe();
 
     $certi = MrCertificate::loadBy(6);
-    dd($certi->GetJsonData());*/
+    dd($certi->GetJsonData());
   }
 
   /**
