@@ -74,7 +74,7 @@ class MrCacheHelper extends Cache
    * @param callable $object
    * @return mixed
    */
-  public static function GetCachedObjectByID(int $id, string $table, callable $object)
+  public static function GetCachedObjectByID(int $id, string $table, callable $object): ?object
   {
     $cache_key = $table . '_' . $id;
     return Cache::rememberForever($cache_key, function () use ($object) {

@@ -63,10 +63,10 @@
             <td>ФИО руководителя органа по сертификации</td>
             <td>{{authority['FIO']}}</td>
           </tr>
-          <tr v-if="authority['communicate'].length">
+          <tr v-if="authority['communicate']">
             <td colspan="2" class="mr-bold" style="padding-top: 5px;">Связь</td>
           </tr>
-          <tr v-if="authority['communicate'].length" v-for="item in authority['communicate']">
+          <tr v-if="authority['communicate']" v-for="item in authority['communicate']">
             <td>
               <i class="m-r-5 mr-color-green" :class="item.icon"></i>{{item.kind}}
             </td>
@@ -125,8 +125,53 @@
     </div>
 
     <div class="row no-gutters col-md-12" v-if="visible_kind === 3">
-      <div class="col-sm-12 no-gutters col-md-6 mr-sm-0 padding-horizontal-0 p-md-2">
-        <div class="col-md-12"><h4 class="mr-auto-size-2 mr-bold">Изготовитель</h4></div>
+      <div class="col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size">
+        <div v-if="documents">
+          <div v-if="documents[2]">
+            <h5 class="mr-bold mt_table_header">{{documents[2][0]['KindName']}}</h5>
+            <table class="table table-striped table-sm">
+              <thead>
+              <tr class="mr-bold">
+                <td>Документ</td>
+                <td>Дата выдачи документа</td>
+                <td>Орган выдачи</td>
+                <td>Номер и дата документа аккредитации</td>
+                <td>Примечание</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="row in documents[2]">
+                <td>{{row['Name']}} {{row['Number']}}</td>
+                <td>{{row['Date']}}</td>
+                <td>{{row['Organisation']}}</td>
+                <td>{{row['Accreditation']}}</td>
+                <td>{{row['Description']}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-if="documents[1]">
+            <h5 class="mr-bold mt_table_header">{{documents[1][0]['KindName']}}</h5>
+            <table class="table table-striped table-sm">
+              <thead>
+              <tr class="mr-bold">
+                <td>Документ</td>
+                <td>Дата выдачи документа</td>
+                <td>Признак включения документа в перечень стандартов, в результате применения которых на добровольной
+                  основе обеспечивается соблюдение установленных требований
+                </td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="row_1 in documents[1]">
+                <td>{{row_1['Name']}} {{row_1['Number']}}</td>
+                <td>{{row_1['Date']}}</td>
+                <td>{{row_1['IsIncludeIn']}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -141,18 +186,20 @@
         visible_kind: 1,
         certificate: [],
         authority: [],
+        manufacturer: [],
+        documents: []
       }
     },
     mounted() {
       this.certificate = this.certificate_json.certificate;
       this.authority = this.certificate_json.authority;
       this.manufacturer = this.certificate_json.manufacturer;
-
+      this.documents = this.certificate_json.documents;
+      console.log(this.documents);
     },
     methods: {
       change_data(kind) {
         this.visible_kind = kind;
-
       }
     },
   }
@@ -164,7 +211,7 @@
   }
 
   td {
-    padding: 0 0 0 0;
+    padding: 1px 1px 1px 1px;
   }
 
   .mt_table_header {

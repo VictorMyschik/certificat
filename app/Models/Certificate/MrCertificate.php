@@ -5,6 +5,7 @@ namespace App\Models\Certificate;
 
 
 use App\Classes\Xml\MrXmlImportBase;
+use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
 use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
@@ -413,6 +414,18 @@ class MrCertificate extends ORM
   }
 
   /**
+   * Список документов сертификата
+   *
+   * @return MrDocument[]
+   */
+  public function GetDocuments(): array
+  {
+    return MrCacheHelper::GetCachedObjectList('documents' . '|' . $this->id(), MrDocument::class, function () {
+      return DB::table(MrDocument::$mr_table)->where('CertificateID', $this->id())->pluck('id')->toArray();
+    });
+  }
+
+  /**
    * Создание массив для использования во Vue
    */
   public function GetJsonData(): array
@@ -457,6 +470,7 @@ class MrCertificate extends ORM
       $out['authority']['communicate'] = $officer ? $officer->GetCommunicateOut() : array();
     }
 
+    //// Производитель
     $out['manufacturer'] = array();
     if($manufacturer = $this->getManufacturer())
     {
@@ -471,6 +485,25 @@ class MrCertificate extends ORM
       $out['manufacturer']['CountryFlag'] = $flag_img_html ?? null;
       $out['manufacturer']['Address1'] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetFullAddress() : null;
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
+    }
+
+    //// Документы
+    $documents = $this->GetDocuments();
+
+    foreach ($documents as $document)
+    {
+      $out['documents'][$document->getKind()][] = array(
+        'KindName'      => $document->getKindName(),
+        'Name'          => $document->getName(),
+        'Number'        => $document->getNumber(),
+        'Date'          => $document->getDate() ? $document->getDate()->getShortDate() : null,
+        'DateFrom'      => $document->getDateFrom() ? $document->getDateFrom()->getShortDate() : null,
+        'DateTo'        => $document->getDateTo() ? $document->getDateTo()->getShortDate() : null,
+        'Organisation'  => $document->getOrganisation(),
+        'Accreditation' => $document->getAccreditation(),
+        'Description'   => $document->getDescription(),
+        'IsIncludeIn'   => $document->isInclude(),
+      );
     }
 
     return $out;

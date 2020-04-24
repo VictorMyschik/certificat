@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
-use App\Models\Lego\MrCommunicateInTable;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -145,12 +144,12 @@ class ORM extends Model
     if($field == 'id')
     {
       $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
-        return DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
+        return DB::table(static::$mr_table)->where($field, '=', $value)->get()->first();
       });
     }
     else
     {
-      $out = DB::table(static::$mr_table)->where($field, '=', $value)->orderBy('id', 'DESC')->get()->first();
+      $out = DB::table(static::$mr_table)->where($field, '=', $value)->get()->first();
     }
 
     if($out)
