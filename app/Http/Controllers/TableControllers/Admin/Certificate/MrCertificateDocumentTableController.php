@@ -19,7 +19,6 @@ class MrCertificateDocumentTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Сертификат', 'sort' => 'CertificateID'),
       array('name' => 'Тип', 'sort' => 'Kind'),
       array('name' => 'Наименование', 'sort' => 'Name'),
       array('name' => 'Номер', 'sort' => 'Number'),
@@ -41,8 +40,6 @@ class MrCertificateDocumentTableController extends MrTableController
     $document = MrDocument::loadBy($id);
 
     $row[] = $document->id();
-    $row[] = MrLink::open('admin_certificate_details', ['id' => $document->getCertificate()->id()],
-      $document->getCertificate()->getNumber(), '', '', ['target' => 'blank']);
     $row[] = $document->getKind();
     $row[] = $document->getName();
     $row[] = $document->getNumber();

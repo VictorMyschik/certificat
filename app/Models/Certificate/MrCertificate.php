@@ -7,6 +7,7 @@ namespace App\Models\Certificate;
 use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
+use App\Models\Lego\MrCertificateDocument;
 use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
@@ -416,12 +417,12 @@ class MrCertificate extends ORM
   /**
    * Список документов сертификата
    *
-   * @return MrDocument[]
+   * @return MrCertificateDocument[]
    */
   public function GetDocuments(): array
   {
-    return MrCacheHelper::GetCachedObjectList('documents' . '_' . $this->id(), MrDocument::class, function () {
-      return DB::table(MrDocument::$mr_table)->where('CertificateID', $this->id())->pluck('id')->toArray();
+    return MrCacheHelper::GetCachedObjectList('documents' . '_' . $this->id(), MrCertificateDocument::class, function () {
+      return DB::table(MrCertificateDocument::$mr_table)->where('CertificateID', $this->id())->pluck('id')->toArray();
     });
   }
 
@@ -490,8 +491,9 @@ class MrCertificate extends ORM
     //// Документы
     $documents = $this->GetDocuments();
 
-    foreach ($documents as $document)
+    foreach ($documents as $dill)
     {
+      $document = $dill->getDocument();
       $out['documents'][$document->getKind()][] = array(
         'KindName'      => $document->getKindName(),
         'Name'          => $document->getName(),

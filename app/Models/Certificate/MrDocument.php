@@ -6,7 +6,6 @@ namespace App\Models\Certificate;
 
 use App\Helpers\MrDateTime;
 use App\Models\ORM;
-use Illuminate\Support\Facades\Cache;
 
 class MrDocument extends ORM
 {
@@ -15,7 +14,6 @@ class MrDocument extends ORM
   protected $table = 'mr_document';
 
   protected static $dbFieldsMap = array(
-    'CertificateID',
     'Kind',
     'Name',
     'Number',
@@ -41,11 +39,6 @@ class MrDocument extends ORM
     self::KIND_GUARANTEE => 'Документы, обеспечивающие соблюдение требований',
     self::KIND_EQUALS    => 'Документы, подтверждающие соответствие требованиям',
   );
-
-  public function after_save()
-  {
-    Cache::forget('documents' . '_' . $this->getCertificate()->id());
-  }
 
   public static function getKindLis(): array
   {
@@ -76,17 +69,6 @@ class MrDocument extends ORM
   public function setName(?string $value): void
   {
     $this->Name = $value;
-  }
-
-  // Наименование документа
-  public function getCertificate(): MrCertificate
-  {
-    return MrCertificate::loadBy($this->CertificateID);
-  }
-
-  public function setCertificateID(int $value): void
-  {
-    $this->CertificateID = $value;
   }
 
   // Номер документа

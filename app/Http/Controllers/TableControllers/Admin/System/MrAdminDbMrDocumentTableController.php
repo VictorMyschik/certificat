@@ -16,7 +16,6 @@ class MrAdminDbMrDocumentTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'CertificateID', 'sort' => 'CertificateID'),
         array('name' => 'Kind', 'sort' => 'Kind'),
         array('name' => 'Name', 'sort' => 'Name'),
         array('name' => 'Number', 'sort' => 'Number'),

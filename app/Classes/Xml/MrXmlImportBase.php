@@ -10,6 +10,7 @@ use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
+use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
@@ -109,7 +110,7 @@ class MrXmlImportBase extends Controller
     // Документы
     if(isset($xml->complianceDocDetails) || isset($xml->DocInformationDetails))
     {
-      self::importDocument($xml, $certificate_id);
+      self::importDocument($xml, $certificate);
     }
 
     return $certificate;
@@ -119,9 +120,9 @@ class MrXmlImportBase extends Controller
    * Импорт документов, привязанных к сертификату
    *
    * @param SimpleXMLElement $xml_doc
-   * @param $certificate_id
+   * @param MrCertificate $certificate
    */
-  protected static function importDocument(SimpleXMLElement $xml_doc, $certificate_id): void
+  protected static function importDocument(SimpleXMLElement $xml_doc, MrCertificate $certificate): void
   {
     // Документы, подтверждающие соответствие требованиям
     if(isset($xml_doc->complianceDocDetails))
@@ -149,10 +150,25 @@ class MrXmlImportBase extends Controller
             $document = MrDocument::loadBy($name_xml, 'Name');
           }
 
-          if(!$document)
+
+          /// Поиск дубликатов
+          $has = false;
+          if($document)
+          {
+            foreach ($certificate->GetDocuments() as $dil)
+            {
+              if($document->id() == $dil->getDocument()->id())
+              {
+                $has = true;
+                break;
+              }
+            }
+          }
+          else
           {
             $document = new MrDocument();
           }
+
 
           $document->setName($name_xml ?? null);
           $document->setNumber($number_xml ?? null);
@@ -174,10 +190,16 @@ class MrXmlImportBase extends Controller
             $document->setOrganisation($business_name_xml);
           }
 
-          $document->setCertificateID($certificate_id);
-
           $document->save_mr();
           $document->reload();
+
+          if(!$has)
+          {
+            $new_dil = new MrCertificateDocument();
+            $new_dil->setCertificateID($certificate->id());
+            $new_dil->setDocumentID($document->id());
+            $new_dil->save_mr();
+          }
         }
       }
     }
