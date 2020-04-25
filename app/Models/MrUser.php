@@ -372,7 +372,7 @@ class MrUser extends ORM
    */
   public function GetUserOffices(): array
   {
-    return MrCacheHelper::GetCachedObjectList('user_offices' . '|' . $this->id(), MrOffice::$className, function () {
+    return MrCacheHelper::GetCachedObjectList('user_offices' . '_' . $this->id(), MrOffice::$className, function () {
       return DB::table(MrOffice::$mr_table)
         ->leftJoin(MrUserInOffice::$mr_table, MrUserInOffice::$mr_table . '.OfficeID', '=', MrOffice::$mr_table . '.id')
         ->where(MrUserInOffice::$mr_table . '.UserID', $this->id())

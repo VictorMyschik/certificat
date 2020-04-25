@@ -123,19 +123,18 @@ class MrXmlImportBase extends Controller
    */
   protected static function importDocument(SimpleXMLElement $xml_doc, $certificate_id): void
   {
-
     // Документы, подтверждающие соответствие требованиям
     if(isset($xml_doc->complianceDocDetails))
     {
-      $xml_doc = $xml_doc->complianceDocDetails;
+      $xml_doc_equals = $xml_doc->complianceDocDetails;
 
-      if(isset($xml_doc->element))
+      if(isset($xml_doc_equals->element))
       {
-        foreach($xml_doc->element as $xml)
+        foreach ($xml_doc_equals->element as $xml)
         {
           if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
           {
-            $document = MrDocument::loadBy($number_xml) ?: new MrDocument();
+            $document = MrDocument::loadBy($number_xml, 'Number') ?: new MrDocument();
             $document->setNumber($number_xml);
 
             if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
@@ -173,35 +172,55 @@ class MrXmlImportBase extends Controller
     // Документы, обеспечивающие соблюдение требований
     if(isset($xml_doc->complianceProvidingDocDetails))
     {
-
-      $document_guarantee_xml_list = $xml_doc->complianceProvidingDocDetails->element;
-      foreach ($document_guarantee_xml_list as $document_guarantee_xml)
+      $document_guarantee_xml_list = $xml_doc->complianceProvidingDocDetails;
+      foreach ($document_guarantee_xml_list->element as $document_guarantee_xml)
       {
+        if(!isset($document_guarantee_xml->docId) && !isset($document_guarantee_xml->docName))
+        {
+          continue;
+        }
+
+        $document = null;
+
+        // Поиск по номеру
         if(isset($document_guarantee_xml->docId) && ($doc_number_xml = (string)$document_guarantee_xml->docId))
         {
-          $document = MrDocument::loadBy($doc_number_xml) ?: new MrDocument();
-          $document->setCertificateID($certificate_id);
-          $document->setKind(MrDocument::KIND_GUARANTEE);
-          $document->setNumber($doc_number_xml);
-
-          if(isset($document_guarantee_xml->docName) && ($doc_name = (string)$document_guarantee_xml->docName))
-          {
-            $document->setName($doc_name);
-          }
-
-          if(isset($document_guarantee_xml->docCreationDate) && ($doc_date = (string)$document_guarantee_xml->docCreationDate))
-          {
-            $document->setDate($doc_date);
-          }
-
-          if(isset($document_guarantee_xml->standardListIndicator) && ($is = (bool)$document_guarantee_xml->standardListIndicator))
-          {
-            $document->setIsInclude($is);
-          }
-
-          $document->save_mr();
-          $document->reload();
+          $document = MrDocument::loadBy($doc_number_xml, 'Number');
         }
+
+        // По имени
+        if(!$document && (isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName)))
+        {
+          $document = MrDocument::loadBy($doc_name_xml, 'Name');
+        }
+
+        // Новый
+        if(!$document)
+        {
+          $document = new MrDocument();
+        }
+
+        $document->setCertificateID($certificate_id);
+        $document->setKind(MrDocument::KIND_GUARANTEE);
+        $document->setNumber($doc_number_xml ?? null);
+
+        if(isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName))
+        {
+          $document->setName($doc_name_xml);
+        }
+
+        if(isset($document_guarantee_xml->docCreationDate) && ($doc_date = (string)$document_guarantee_xml->docCreationDate))
+        {
+          $document->setDate($doc_date);
+        }
+
+        if(isset($document_guarantee_xml->standardListIndicator) && ($is = (bool)$document_guarantee_xml->standardListIndicator))
+        {
+          $document->setIsInclude($is);
+        }
+
+        $document->save_mr();
+        $document->reload();
       }
     }
   }

@@ -420,7 +420,7 @@ class MrCertificate extends ORM
    */
   public function GetDocuments(): array
   {
-    return MrCacheHelper::GetCachedObjectList('documents' . '|' . $this->id(), MrDocument::class, function () {
+    return MrCacheHelper::GetCachedObjectList('documents' . '_' . $this->id(), MrDocument::class, function () {
       return DB::table(MrDocument::$mr_table)->where('CertificateID', $this->id())->pluck('id')->toArray();
     });
   }

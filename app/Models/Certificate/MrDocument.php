@@ -6,6 +6,7 @@ namespace App\Models\Certificate;
 
 use App\Helpers\MrDateTime;
 use App\Models\ORM;
+use Illuminate\Support\Facades\Cache;
 
 class MrDocument extends ORM
 {
@@ -40,6 +41,11 @@ class MrDocument extends ORM
     self::KIND_GUARANTEE => 'Документы, обеспечивающие соблюдение требований',
     self::KIND_EQUALS    => 'Документы, подтверждающие соответствие требованиям',
   );
+
+  public function after_save()
+  {
+    Cache::forget('documents' . '_' . $this->getCertificate()->id());
+  }
 
   public static function getKindLis(): array
   {
