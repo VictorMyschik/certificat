@@ -134,37 +134,50 @@ class MrXmlImportBase extends Controller
         {
           if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
           {
-            $document = MrDocument::loadBy($number_xml, 'Number') ?: new MrDocument();
-            $document->setNumber($number_xml);
-
-            if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
-            {
-              $document->setName($name_xml);
-            }
-
-            if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
-            {
-              $document->setDate($date_create_xml);
-            }
-
-            // Если есть документ аккредитации - тип аккредитация
-            if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
-            {
-              $document->setKind(MrDocument::KIND_EQUALS);
-              $document->setAccreditation($acr_xml);
-              $document->setIsInclude(null);
-            }
-
-            if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
-            {
-              $document->setOrganisation($business_name_xml);
-            }
-
-            $document->setCertificateID($certificate_id);
-
-            $document->save_mr();
-            $document->reload();
+            $number_xml = (string)$xml->docId;
           }
+
+          if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
+          {
+            $name_xml = (string)$xml->docName;
+          }
+
+          $document = MrDocument::loadBy($name_xml, 'Number');
+
+          if(!$document)
+          {
+            $document = MrDocument::loadBy($name_xml, 'Name');
+          }
+
+          if(!$document)
+          {
+            $document = new MrDocument();
+          }
+
+          $document->setName($name_xml ?? null);
+          $document->setNumber($number_xml ?? null);
+          if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
+          {
+            $document->setDate($date_create_xml);
+          }
+
+          $document->setKind(MrDocument::KIND_EQUALS);
+
+          // Если есть документ аккредитации - тип аккредитация
+          if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
+          {
+            $document->setAccreditation($acr_xml);
+          }
+
+          if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
+          {
+            $document->setOrganisation($business_name_xml);
+          }
+
+          $document->setCertificateID($certificate_id);
+
+          $document->save_mr();
+          $document->reload();
         }
       }
     }
@@ -182,19 +195,24 @@ class MrXmlImportBase extends Controller
 
         $document = null;
 
-        // Поиск по номеру
+// Поиск по номеру
         if(isset($document_guarantee_xml->docId) && ($doc_number_xml = (string)$document_guarantee_xml->docId))
         {
           $document = MrDocument::loadBy($doc_number_xml, 'Number');
         }
 
-        // По имени
+// По имени
         if(!$document && (isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName)))
         {
           $document = MrDocument::loadBy($doc_name_xml, 'Name');
         }
 
-        // Новый
+        if($document && $document->getCertificate()->id() == $certificate_id)
+        {
+          continue;
+        }
+
+// Новый
         if(!$document)
         {
           $document = new MrDocument();
@@ -231,7 +249,8 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrCountry|null
    */
-  protected static function __parsCountry(SimpleXMLElement $xml): ?MrCountry
+  protected
+  static function __parsCountry(SimpleXMLElement $xml): ?MrCountry
   {
     if(isset($xml->value) && ($country_code_xml = (string)$xml->value))
     {
@@ -245,10 +264,13 @@ class MrXmlImportBase extends Controller
   }
 
   /**
+   * Производитель
+   *
    * @param SimpleXMLElement $xml
    * @return MrManufacturer|null
    */
-  protected static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
+  protected
+  static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
   {
     if(isset($xml->element))
     {
@@ -258,7 +280,6 @@ class MrXmlImportBase extends Controller
       {
         if(isset($manufacturer_xml->unifiedCountryCode) && ($country = self::__parsCountry($manufacturer_xml->unifiedCountryCode)))
         {
-
           $manufacturer = MrManufacturer::loadBy($name_xml, 'Name') ?: new MrManufacturer();
           $manufacturer->setName($name_xml);
           $manufacturer->setCountryID($country->id());
@@ -300,7 +321,8 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrFio|null
    */
-  public static function importFio(SimpleXMLElement $xml): ?MrFio
+  public
+  static function importFio(SimpleXMLElement $xml): ?MrFio
   {
     $fio = null;
     $position_name = null;
@@ -367,7 +389,8 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrConformityAuthority
    */
-  public static function importConformityAuthority(SimpleXMLElement $xml): ?MrConformityAuthority
+  public
+  static function importConformityAuthority(SimpleXMLElement $xml): ?MrConformityAuthority
   {
     // Номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
     if(isset($xml->conformityAuthorityId))
@@ -441,7 +464,8 @@ class MrXmlImportBase extends Controller
    * @param object $object
    * @return array
    */
-  protected static function importAddress(SimpleXMLElement $xml, object $object): array
+  protected
+  static function importAddress(SimpleXMLElement $xml, object $object): array
   {
     $out = array();
 
@@ -541,7 +565,8 @@ class MrXmlImportBase extends Controller
    * @param string $link_out
    * @return MrCertificate|null
    */
-  protected static function importCertificateDetails(SimpleXMLElement $xml, string $link_out): ?MrCertificate
+  protected
+  static function importCertificateDetails(SimpleXMLElement $xml, string $link_out): ?MrCertificate
   {
     $certificate = null;
 
@@ -680,7 +705,8 @@ class MrXmlImportBase extends Controller
    * @param object $object
    * @return array
    */
-  public static function importCommunicate(SimpleXMLElement $xml, object $object): array
+  public
+  static function importCommunicate(SimpleXMLElement $xml, object $object): array
   {
     if(!$object->GetTableKind())
     {

@@ -41,7 +41,8 @@ class MrCertificateDocumentTableController extends MrTableController
     $document = MrDocument::loadBy($id);
 
     $row[] = $document->id();
-    $row[] = $document->getCertificate()->getNumber();
+    $row[] = MrLink::open('admin_certificate_details', ['id' => $document->getCertificate()->id()],
+      $document->getCertificate()->getNumber(), '', '', ['target' => 'blank']);
     $row[] = $document->getKind();
     $row[] = $document->getName();
     $row[] = $document->getNumber();

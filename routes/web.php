@@ -31,8 +31,6 @@ Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 /// универсальная динамческая страница справочкика
 Route::get('/references/{name}', 'MrReferencesController@View')->name('references');
 
-Route::post('/certificates', 'MrCertificateController@List')->name('certificates_list');
-
 // Поиск
 Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search');
 
