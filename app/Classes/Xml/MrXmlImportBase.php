@@ -559,20 +559,18 @@ class MrXmlImportBase extends Controller
   protected static function importAddress(SimpleXMLElement $xml, object $object): array
   {
     $out = array();
+    $address_arr_xml = array();
+
     if($object instanceof MrApplicant)
     {
       if(isset($xml->subjectAddressDetails))
       {
-        $address_arr_xml = $xml->subjectAddressDetails;
+        $address_arr_xml = $xml->subjectAddressDetails->element;
       }
     }
     elseif(isset($xml->addressV4Details))
     {
       $address_arr_xml = $xml->addressV4Details->element;
-    }
-    else
-    {
-      return array();
     }
 
     foreach ($address_arr_xml as $address_xml)
@@ -901,9 +899,8 @@ class MrXmlImportBase extends Controller
       $applicant->setHash($hash);
 
       $applicant->save_mr();
-      $applicant->reload();
+      $applicant->flush();
 
-      dd(self::importAddress($xml, $applicant));
       $addresses = self::importAddress($xml, $applicant);
       foreach ($addresses as $key => $address)
       {
@@ -920,9 +917,9 @@ class MrXmlImportBase extends Controller
           dd('Тип адреса не известен: ' . $key);
         }
       }
-      dd($applicant);
+
       $applicant->save_mr();
-      $applicant->reload();
+      $applicant->flush();
     }
   }
 }
