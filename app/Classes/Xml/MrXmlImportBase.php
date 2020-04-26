@@ -169,32 +169,37 @@ class MrXmlImportBase extends Controller
             $document = new MrDocument();
           }
 
-
-          $document->setName($name_xml ?? null);
-          $document->setNumber($number_xml ?? null);
-          if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
+          // Документ найден в этом серитфикате - следующая итерация
+          if($has)
           {
-            $document->setDate($date_create_xml);
+            continue;
           }
-
-          $document->setKind(MrDocument::KIND_EQUALS);
-
-          // Если есть документ аккредитации - тип аккредитация
-          if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
+          else
           {
-            $document->setAccreditation($acr_xml);
-          }
+            $document->setName($name_xml ?? null);
+            $document->setNumber($number_xml ?? null);
+            if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
+            {
+              $document->setDate($date_create_xml);
+            }
 
-          if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
-          {
-            $document->setOrganisation($business_name_xml);
-          }
+            $document->setKind(MrDocument::KIND_EQUALS);
 
-          $document->save_mr();
-          $document->reload();
+            // Если есть документ аккредитации - тип аккредитация
+            if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
+            {
+              $document->setAccreditation($acr_xml);
+            }
 
-          if(!$has)
-          {
+            if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
+            {
+              $document->setOrganisation($business_name_xml);
+            }
+
+            $document->save_mr();
+            $document->reload();
+
+
             $new_dil = new MrCertificateDocument();
             $new_dil->setCertificateID($certificate->id());
             $new_dil->setDocumentID($document->id());
@@ -217,13 +222,13 @@ class MrXmlImportBase extends Controller
 
         $document = null;
 
-// Поиск по номеру
+        // Поиск по номеру
         if(isset($document_guarantee_xml->docId) && ($doc_number_xml = (string)$document_guarantee_xml->docId))
         {
           $document = MrDocument::loadBy($doc_number_xml, 'Number');
         }
 
-// По имени
+        // По имени
         if(!$document && (isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName)))
         {
           $document = MrDocument::loadBy($doc_name_xml, 'Name');
@@ -234,7 +239,7 @@ class MrXmlImportBase extends Controller
           continue;
         }
 
-// Новый
+        // Новый
         if(!$document)
         {
           $document = new MrDocument();
