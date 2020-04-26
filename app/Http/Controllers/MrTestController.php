@@ -30,9 +30,6 @@ class MrTestController extends Controller
 
 
     $this->qwe();
-
-    $certi = MrCertificate::loadBy(6);
-    dd($certi->GetJsonData());
   }
 
   /**

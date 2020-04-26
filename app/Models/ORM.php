@@ -381,6 +381,5 @@ class ORM extends Model
     $id = $this->id();
     $table_name = $this::$mr_table;
     Cache::forget($table_name . '_' . $id);
-    Cache::forget($table_name . '_' . $id . '_list');
   }
 }

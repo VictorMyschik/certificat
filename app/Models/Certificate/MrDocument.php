@@ -24,6 +24,7 @@ class MrDocument extends ORM
     'Accreditation',
     'Description',
     'IsIncludeIn',
+    'hash' // Кэшированная стока
   );
 
   public static function loadBy($value, $field = 'id'): ?MrDocument
@@ -153,5 +154,15 @@ class MrDocument extends ORM
   public function setIsInclude(?bool $value): void
   {
     $this->IsIncludeIn = $value;
+  }
+
+  public function getHash(): string
+  {
+    return $this->Hash;
+  }
+
+  public function setHash(string $value): void
+  {
+    $this->Hash = $value;
   }
 }

@@ -20,6 +20,7 @@ class CreateMrDocumentTable extends Migration
       $table->string('Accreditation', 120)->nullable();
       $table->string('Description')->nullable();
       $table->tinyInteger('IsIncludeIn')->nullable();
+      $table->string('Hash', 32);
     });
   }
 

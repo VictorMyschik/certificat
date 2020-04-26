@@ -12,6 +12,7 @@ use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MrCertificate extends ORM
@@ -74,6 +75,12 @@ class MrCertificate extends ORM
   protected function before_delete()
   {
 
+  }
+
+  public function flush()
+  {
+    parent::flush();
+    Cache::forget('documents' . '_' . $this->id() . '_list');
   }
 
   public static $hashed = array();
@@ -491,9 +498,9 @@ class MrCertificate extends ORM
     //// Документы
     $documents = $this->GetDocuments();
 
-    foreach ($documents as $dill)
+    foreach ($documents as $dil)
     {
-      $document = $dill->getDocument();
+      $document = $dil->getDocument();
       $out['documents'][$document->getKind()][] = array(
         'KindName'      => $document->getKindName(),
         'Name'          => $document->getName(),
@@ -505,6 +512,7 @@ class MrCertificate extends ORM
         'Accreditation' => $document->getAccreditation(),
         'Description'   => $document->getDescription(),
         'IsIncludeIn'   => $document->isInclude(),
+        'id'            => $document->id(),
       );
     }
 

@@ -27,7 +27,6 @@ class MrCertificateDocument extends ORM
   public function after_save()
   {
     $this->getCertificate()->flush();
-
   }
 
   public function getCertificate(): MrCertificate

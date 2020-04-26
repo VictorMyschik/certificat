@@ -26,6 +26,7 @@ class MrAdminDbMrDocumentTableController extends MrTableController
         array('name' => 'Accreditation', 'sort' => 'Accreditation'),
         array('name' => 'Description', 'sort' => 'Description'),
         array('name' => 'IsInclude', 'sort' => 'IsInclude'),
+        array('name' => 'Hash', 'sort' => 'Hash'),
       ),
 
       'body' => $body

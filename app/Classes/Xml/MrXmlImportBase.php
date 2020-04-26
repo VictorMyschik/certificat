@@ -133,21 +133,51 @@ class MrXmlImportBase extends Controller
       {
         foreach ($xml_doc_equals->element as $xml)
         {
+          $document = null;;
+
+          $doc_number_xml = 'no_number';
           if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
           {
-            $number_xml = (string)$xml->docId;
+            if(strlen($number_xml))
+            {
+              $doc_number_xml = $number_xml;
+            }
           }
 
+          $doc_name_xml = 'no_name';
           if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
           {
-            $name_xml = (string)$xml->docName;
+            if(strlen($name_xml))
+            {
+              $doc_name_xml = $name_xml;
+            }
           }
 
-          $document = MrDocument::loadBy($name_xml, 'Number');
-
-          if(!$document)
+          $doc_date_xml = 'no_date';
+          if(isset($xml->docCreationDate) && ($date_xml = (string)$xml->docCreationDate))
           {
-            $document = MrDocument::loadBy($name_xml, 'Name');
+            if(strlen($date_xml))
+            {
+              $doc_date_xml = $date_xml;
+            }
+          }
+
+          $doc_accr_xml = 'no_accr';
+          if(isset($xml->accreditationCertificateId) && ($accr_xml = (string)$xml->accreditationCertificateId))
+          {
+            if(strlen($accr_xml))
+            {
+              $doc_accr_xml = $accr_xml;
+            }
+          }
+
+          $doc_business_xml = 'no_business';
+          if(isset($xml->businessEntityName) && ($business_xml = (string)$xml->businessEntityName))
+          {
+            if(strlen($business_xml))
+            {
+              $doc_business_xml = $business_xml;
+            }
           }
 
 
@@ -176,25 +206,13 @@ class MrXmlImportBase extends Controller
           }
           else
           {
-            $document->setName($name_xml ?? null);
-            $document->setNumber($number_xml ?? null);
-            if(isset($xml->docCreationDate) && ($date_create_xml = (string)$xml->docCreationDate))
-            {
-              $document->setDate($date_create_xml);
-            }
-
             $document->setKind(MrDocument::KIND_EQUALS);
-
+            $document->setName($doc_name_xml == 'no_name' ? null : $doc_name_xml);
+            $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
+            $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
             // Если есть документ аккредитации - тип аккредитация
-            if(isset($xml->accreditationCertificateId) && ($acr_xml = (string)$xml->accreditationCertificateId))
-            {
-              $document->setAccreditation($acr_xml);
-            }
-
-            if(isset($xml->businessEntityName) && ($business_name_xml = (string)$xml->businessEntityName))
-            {
-              $document->setOrganisation($business_name_xml);
-            }
+            $document->setAccreditation($doc_accr_xml == 'no_accr' ? null : $doc_accr_xml);
+            $document->setOrganisation($doc_business_xml == 'no_business' ? null : $doc_business_xml);
 
             $document->save_mr();
             $document->reload();
@@ -215,24 +233,53 @@ class MrXmlImportBase extends Controller
       $document_guarantee_xml_list = $xml_doc->complianceProvidingDocDetails;
       foreach ($document_guarantee_xml_list->element as $document_guarantee_xml)
       {
+        $document = null;
+
         if(!isset($document_guarantee_xml->docId) && !isset($document_guarantee_xml->docName))
         {
           continue;
         }
 
-        $document = null;
-
-        // Поиск по номеру
-        if(isset($document_guarantee_xml->docId) && ($doc_number_xml = (string)$document_guarantee_xml->docId))
+        // Номер документа
+        $doc_number_xml = 'no_number';
+        if(isset($document_guarantee_xml->docId))
         {
-          $document = MrDocument::loadBy($doc_number_xml, 'Number');
+          if(strlen((string)$document_guarantee_xml->docId))
+          {
+            $doc_number_xml = (string)$document_guarantee_xml->docId;
+          }
         }
 
-        // По имени
-        if(!$document && (isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName)))
+        $doc_name_xml = 'no_name';
+        if(isset($document_guarantee_xml->docName))
         {
-          $document = MrDocument::loadBy($doc_name_xml, 'Name');
+          if(strlen((string)$document_guarantee_xml->docName))
+          {
+            $doc_name_xml = (string)$document_guarantee_xml->docName;
+          }
         }
+
+        $doc_date_xml = 'no_date';
+        if(isset($document_guarantee_xml->docCreationDate))
+        {
+          if(strlen((string)$document_guarantee_xml->docCreationDate))
+          {
+            $doc_date_xml = (string)$document_guarantee_xml->docCreationDate;
+          }
+        }
+
+        $doc_indicator_xml = 'no_indicator';
+        if(isset($document_guarantee_xml->standardListIndicator))
+        {
+          if(strlen((string)$document_guarantee_xml->standardListIndicator))
+          {
+            $doc_indicator_xml = (string)$document_guarantee_xml->standardListIndicator;
+          }
+        }
+
+        $hash_name = $doc_number_xml . '|' . $doc_name_xml . '|' . $doc_date_xml . '|' . $doc_indicator_xml;
+        $hash = md5($hash_name);
+        $document = MrDocument::loadBy($hash, 'Hash');
 
         /// Поиск дубликатов
         $has = false;
@@ -260,25 +307,15 @@ class MrXmlImportBase extends Controller
         else
         {
           $document->setKind(MrDocument::KIND_GUARANTEE);
-          $document->setNumber($doc_number_xml ?? null);
-
-          if(isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName))
-          {
-            $document->setName($doc_name_xml);
-          }
-
-          if(isset($document_guarantee_xml->docCreationDate) && ($doc_date = (string)$document_guarantee_xml->docCreationDate))
-          {
-            $document->setDate($doc_date);
-          }
-
-          if(isset($document_guarantee_xml->standardListIndicator) && ($is = (bool)$document_guarantee_xml->standardListIndicator))
-          {
-            $document->setIsInclude($is);
-          }
+          $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
+          $document->setName($doc_name_xml == 'no_number' ? null : $doc_name_xml);
+          $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
+          $document->setIsInclude($doc_indicator_xml == 'no_indicator' ? null : $doc_indicator_xml);
+          $document->setHash($hash);
 
           $document->save_mr();
           $document->reload();
+
 
           $new_dil = new MrCertificateDocument();
           $new_dil->setCertificateID($certificate->id());
@@ -365,8 +402,7 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrFio|null
    */
-  public
-  static function importFio(SimpleXMLElement $xml): ?MrFio
+  public static function importFio(SimpleXMLElement $xml): ?MrFio
   {
     $fio = null;
     $position_name = null;
