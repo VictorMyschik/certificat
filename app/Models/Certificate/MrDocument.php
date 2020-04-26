@@ -24,7 +24,7 @@ class MrDocument extends ORM
     'Accreditation',
     'Description',
     'IsIncludeIn',
-    'hash' // Кэшированная стока
+    'Hash' // Кэшированная стока
   );
 
   public static function loadBy($value, $field = 'id'): ?MrDocument

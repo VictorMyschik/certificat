@@ -179,7 +179,11 @@ class MrXmlImportBase extends Controller
               $doc_business_xml = $business_xml;
             }
           }
+          $hash_name = null;
+          $hash_name = $doc_number_xml . '|' . $doc_name_xml . '|' . $doc_date_xml . '|' . $doc_accr_xml . '|' . $doc_business_xml;
+          $hash = md5($hash_name);
 
+          $document = MrDocument::loadBy($hash, 'Hash');
 
           /// Поиск дубликатов
           $has = false;
@@ -213,6 +217,7 @@ class MrXmlImportBase extends Controller
             // Если есть документ аккредитации - тип аккредитация
             $document->setAccreditation($doc_accr_xml == 'no_accr' ? null : $doc_accr_xml);
             $document->setOrganisation($doc_business_xml == 'no_business' ? null : $doc_business_xml);
+            $document->setHash($hash);
 
             $document->save_mr();
             $document->reload();
@@ -277,6 +282,7 @@ class MrXmlImportBase extends Controller
           }
         }
 
+        $hash_name = null;
         $hash_name = $doc_number_xml . '|' . $doc_name_xml . '|' . $doc_date_xml . '|' . $doc_indicator_xml;
         $hash = md5($hash_name);
         $document = MrDocument::loadBy($hash, 'Hash');

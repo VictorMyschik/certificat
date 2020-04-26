@@ -512,7 +512,6 @@ class MrCertificate extends ORM
         'Accreditation' => $document->getAccreditation(),
         'Description'   => $document->getDescription(),
         'IsIncludeIn'   => $document->isInclude(),
-        'id'            => $document->id(),
       );
     }
 

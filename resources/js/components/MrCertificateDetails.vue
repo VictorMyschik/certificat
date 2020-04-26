@@ -132,7 +132,6 @@
             <table class="table table-striped table-sm">
               <thead>
               <tr class="mr-bold">
-                <td>ID</td>
                 <td>Документ</td>
                 <td>Дата выдачи документа</td>
                 <td>Орган выдачи</td>
@@ -142,7 +141,6 @@
               </thead>
               <tbody>
               <tr v-for="row in documents[2]">
-                <td>{{row['id']}}</td>
                 <td>{{row['Name']}} {{row['Number']}}</td>
                 <td>{{row['Date']}}</td>
                 <td>{{row['Organisation']}}</td>
