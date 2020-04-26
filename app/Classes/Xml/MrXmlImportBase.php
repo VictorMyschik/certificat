@@ -475,8 +475,7 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrConformityAuthority
    */
-  public
-  static function importConformityAuthority(SimpleXMLElement $xml): ?MrConformityAuthority
+  public static function importConformityAuthority(SimpleXMLElement $xml): ?MrConformityAuthority
   {
     // Номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
     if(isset($xml->conformityAuthorityId))
@@ -550,8 +549,7 @@ class MrXmlImportBase extends Controller
    * @param object $object
    * @return array
    */
-  protected
-  static function importAddress(SimpleXMLElement $xml, object $object): array
+  protected static function importAddress(SimpleXMLElement $xml, object $object): array
   {
     $out = array();
 
@@ -651,8 +649,7 @@ class MrXmlImportBase extends Controller
    * @param string $link_out
    * @return MrCertificate|null
    */
-  protected
-  static function importCertificateDetails(SimpleXMLElement $xml, string $link_out): ?MrCertificate
+  protected static function importCertificateDetails(SimpleXMLElement $xml, string $link_out): ?MrCertificate
   {
     $certificate = null;
 
@@ -791,8 +788,7 @@ class MrXmlImportBase extends Controller
    * @param object $object
    * @return array
    */
-  public
-  static function importCommunicate(SimpleXMLElement $xml, object $object): array
+  public static function importCommunicate(SimpleXMLElement $xml, object $object): array
   {
     if(!$object->GetTableKind())
     {
@@ -857,5 +853,16 @@ class MrXmlImportBase extends Controller
       }
     }
     return $out;
+  }
+
+  /**
+   * Заявитель
+   *
+   * @param SimpleXMLElement $xml_doc
+   * @param MrCertificate $certificate
+   */
+  protected function importApplicant(SimpleXMLElement $xml_doc, MrCertificate $certificate): void
+  {
+
   }
 }

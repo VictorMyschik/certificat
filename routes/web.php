@@ -237,6 +237,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Документы
   Route::get('/admin/certificate/document', "Admin\MrAdminCertificateController@ViewDocument")->name('admin_document_page');
   Route::get('/admin/certificate/document/delete/{id}', "Admin\MrAdminCertificateController@DocumentDelete")->name('admin_document_delete');
+  // Заявитель
+  Route::get('/admin/certificate/applicant', "Admin\MrAdminCertificateController@ViewApplicant")->name('admin_applicant_page');
+  Route::get('/admin/certificate/applicant/delete/{id}', "Admin\MrAdminCertificateController@ApplicantDelete")->name('admin_applicant_delete');
 
 
   // Загрузка из XML

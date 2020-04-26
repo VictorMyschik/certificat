@@ -8,6 +8,7 @@ use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAddressTableController;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateApplicantTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateAuthorityTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateCommunicateTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateDocumentTableController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateManufac
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrAddress;
+use App\Models\Certificate\MrApplicant;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
@@ -250,6 +252,43 @@ class MrAdminCertificateController extends Controller
     }
 
     $Fio->mr_delete();
+
+    return back();
+  }
+
+  /**
+   * Страница Заявителя
+   */
+  public function ViewApplicant()
+  {
+    $out = array();
+    $out['page_title'] = 'Заявитель (' . MrApplicant::getCount() . ')';;
+    $out['route_name'] = route('list_applicant_table');
+
+    return View('Admin.Certificate.mir_admin_certificate_applicant')->with($out);
+  }
+
+  public function ApplicantList()
+  {
+    return MrTableController::buildTable(MrCertificateApplicantTableController::class);
+  }
+
+  /**
+   * Удаление заявителя
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function ApplicantDelete(int $id)
+  {
+    $applicant = MrApplicant::loadBy($id);
+
+    if(!$applicant->canEdit())
+    {
+      mr_access_violation();
+    }
+
+    $applicant->mr_delete();
 
     return back();
   }

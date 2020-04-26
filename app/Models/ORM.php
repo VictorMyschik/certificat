@@ -17,6 +17,18 @@ class ORM extends Model
   protected static $className;
   protected $id = 0;
 
+  public function canEdit()
+  {
+    $user = MrUser::me();
+
+    if($user && $user->IsSuperAdmin())
+    {
+      return true;
+    }
+
+    return false;
+  }
+
   public static function Select(array $fields = array())
   {
     if(!count($fields))

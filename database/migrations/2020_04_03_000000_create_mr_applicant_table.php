@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Сведения единого реестра органов по оценке соответствия
  */
-class CreateMrConformityAuthorityTable extends Migration
+class CreateMrApplicantTable extends Migration
 {
   public function up()
   {

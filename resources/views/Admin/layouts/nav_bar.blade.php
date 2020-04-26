@@ -42,8 +42,9 @@
             <a class="dropdown-item" href="{{route('admin_manufacturer_page')}}">Производители</a>
             <a class="dropdown-item" href="{{route('admin_address_page')}}">Адреса</a>
             <a class="dropdown-item" href="{{route('admin_fio_page')}}">Люди</a>
-            <a class="dropdown-item" href="{{route('admin_authority_page')}}">Орган по оценке соответствия</a>
+            <a class="dropdown-item" href="{{route('admin_authority_page')}}">Органы по оценке соответствия</a>
             <a class="dropdown-item" href="{{route('admin_document_page')}}">Документы</a>
+            <a class="dropdown-item" href="{{route('admin_applicant_page')}}">Заявители</a>
           </div>
         </li>
 
