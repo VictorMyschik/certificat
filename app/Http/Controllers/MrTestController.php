@@ -16,7 +16,7 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    //dd(MrCertificate::loadBy(4984)->GetDocuments());
+    dd(MrCertificate::loadBy(2)->getApplicant());
 
 
     MrCertificate::AllDelete();

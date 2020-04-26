@@ -559,91 +559,101 @@ class MrXmlImportBase extends Controller
   protected static function importAddress(SimpleXMLElement $xml, object $object): array
   {
     $out = array();
-
-    if(isset($xml->addressV4Details))
+    if($object instanceof MrApplicant)
     {
-      $addresses_xml = $xml->addressV4Details->element;
-
-      foreach ($addresses_xml as $address_xml)
+      if(isset($xml->subjectAddressDetails))
       {
-        if(isset($address_xml->addressKindCode) && ($address_kind = (int)$address_xml->addressKindCode))
+        $address_arr_xml = $xml->subjectAddressDetails;
+      }
+    }
+    elseif(isset($xml->addressV4Details))
+    {
+      $address_arr_xml = $xml->addressV4Details->element;
+    }
+    else
+    {
+      return array();
+    }
+
+    foreach ($address_arr_xml as $address_xml)
+    {
+      if(isset($address_xml->addressKindCode) && ($address_kind = (int)$address_xml->addressKindCode))
+      {
+        $address_kind = (int)$address_xml->addressKindCode;
+      }
+      else
+      {
+        continue;
+      }
+
+      $address = null;
+
+      if($address_kind == MrAddress::ADDRESS_KIND_REGISTRATION)
+      {
+        $address = $object->getAddress1();
+      }
+      elseif($address_kind == MrAddress::ADDRESS_KIND_FACT)
+      {
+        $address = $object->getAddress2();
+      }
+
+      if(!$address)
+      {
+        $address = new MrAddress();
+      }
+
+      $address->setAddressKind($address_kind);
+
+      if(isset($address_xml->unifiedCountryCode) && isset($address_xml->unifiedCountryCode->value) && ($country_xml = (string)$address_xml->unifiedCountryCode->value))
+      {
+        $country = MrCountry::loadBy($country_xml, 'ISO3166alpha2');
+        if($country)
         {
-          $address_kind = (int)$address_xml->addressKindCode;
+          $address->setCountryID($country->id());
         }
         else
         {
           continue;
         }
-
-        $address = null;
-
-        if($address_kind == MrAddress::ADDRESS_KIND_REGISTRATION)
-        {
-          $address = $object->getAddress1();
-        }
-        elseif($address_kind == MrAddress::ADDRESS_KIND_FACT)
-        {
-          $address = $object->getAddress2();
-        }
-
-        if(!$address)
-        {
-          $address = new MrAddress();
-        }
-
-        $address->setAddressKind($address_kind);
-
-        if(isset($address_xml->unifiedCountryCode) && isset($address_xml->unifiedCountryCode->value) && ($country_xml = (string)$address_xml->unifiedCountryCode->value))
-        {
-          $country = MrCountry::loadBy($country_xml, 'ISO3166alpha2');
-          if($country)
-          {
-            $address->setCountryID($country->id());
-          }
-          else
-          {
-            continue;
-          }
-        }
-
-        // Регион
-        if(isset($address_xml->regionName) && ($region = (string)$address_xml->regionName))
-        {
-          $address->setRegionName($region);
-        }
-
-        if(isset($address_xml->districtName) && ($district = (string)$address_xml->districtName))
-        {
-          $address->setDistrictName($district);
-        }
-
-
-        if(isset($address_xml->cityName) && ($cityName = (string)$address_xml->cityName))
-        {
-          $address->setCity($cityName);
-        }
-
-        if(isset($address_xml->streetName) && ($streetName = (string)$address_xml->streetName))
-        {
-          $address->setStreetName($streetName);
-        }
-
-        if(isset($address_xml->buildingNumberId) && ($buildingNumberId = (string)$address_xml->buildingNumberId))
-        {
-          $address->setBuildingNumberId($buildingNumberId);
-        }
-
-        if(isset($address_xml->postCode) && ($postCode = (string)$address_xml->postCode))
-        {
-          $address->setPostCode($postCode);
-        }
-
-
-        $address->save_mr();
-        $address->reload();
-
-        $out[$address_kind] = $address;
       }
+
+      // Регион
+      if(isset($address_xml->regionName) && ($region = (string)$address_xml->regionName))
+      {
+        $address->setRegionName($region);
+      }
+
+      if(isset($address_xml->districtName) && ($district = (string)$address_xml->districtName))
+      {
+        $address->setDistrictName($district);
+      }
+
+
+      if(isset($address_xml->cityName) && ($cityName = (string)$address_xml->cityName))
+      {
+        $address->setCity($cityName);
+      }
+
+      if(isset($address_xml->streetName) && ($streetName = (string)$address_xml->streetName))
+      {
+        $address->setStreetName($streetName);
+      }
+
+      if(isset($address_xml->buildingNumberId) && ($buildingNumberId = (string)$address_xml->buildingNumberId))
+      {
+        $address->setBuildingNumberId($buildingNumberId);
+      }
+
+      if(isset($address_xml->postCode) && ($postCode = (string)$address_xml->postCode))
+      {
+        $address->setPostCode($postCode);
+      }
+
+
+      $address->save_mr();
+      $address->reload();
+
+      $out[$address_kind] = $address;
     }
 
     return $out;
@@ -893,8 +903,8 @@ class MrXmlImportBase extends Controller
       $applicant->save_mr();
       $applicant->reload();
 
+      dd(self::importAddress($xml, $applicant));
       $addresses = self::importAddress($xml, $applicant);
-
       foreach ($addresses as $key => $address)
       {
         if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
@@ -910,7 +920,7 @@ class MrXmlImportBase extends Controller
           dd('Тип адреса не известен: ' . $key);
         }
       }
-
+      dd($applicant);
       $applicant->save_mr();
       $applicant->reload();
     }
