@@ -9,6 +9,7 @@ use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
+use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 
 class MrTestController extends Controller
@@ -19,6 +20,7 @@ class MrTestController extends Controller
 
 
     MrCertificate::AllDelete();
+    MrCertificateDocument::AllDelete();
     MrCommunicate::AllDelete();
     MrCommunicateInTable::AllDelete();
     MrDocument::AllDelete();

@@ -234,38 +234,57 @@ class MrXmlImportBase extends Controller
           $document = MrDocument::loadBy($doc_name_xml, 'Name');
         }
 
-        if($document && $document->getCertificate()->id() == $certificate_id)
+        /// Поиск дубликатов
+        $has = false;
+        if($document)
         {
-          continue;
+          foreach ($certificate->GetDocuments() as $dil)
+          {
+            if($document->id() == $dil->getDocument()->id())
+            {
+              $has = true;
+              break;
+            }
+          }
         }
-
-        // Новый
-        if(!$document)
+        else
         {
           $document = new MrDocument();
         }
 
-        $document->setCertificateID($certificate_id);
-        $document->setKind(MrDocument::KIND_GUARANTEE);
-        $document->setNumber($doc_number_xml ?? null);
-
-        if(isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName))
+        // Документ найден в этом серитфикате - следующая итерация
+        if($has)
         {
-          $document->setName($doc_name_xml);
+          continue;
         }
-
-        if(isset($document_guarantee_xml->docCreationDate) && ($doc_date = (string)$document_guarantee_xml->docCreationDate))
+        else
         {
-          $document->setDate($doc_date);
-        }
+          $document->setKind(MrDocument::KIND_GUARANTEE);
+          $document->setNumber($doc_number_xml ?? null);
 
-        if(isset($document_guarantee_xml->standardListIndicator) && ($is = (bool)$document_guarantee_xml->standardListIndicator))
-        {
-          $document->setIsInclude($is);
-        }
+          if(isset($document_guarantee_xml->docName) && ($doc_name_xml = (string)$document_guarantee_xml->docName))
+          {
+            $document->setName($doc_name_xml);
+          }
 
-        $document->save_mr();
-        $document->reload();
+          if(isset($document_guarantee_xml->docCreationDate) && ($doc_date = (string)$document_guarantee_xml->docCreationDate))
+          {
+            $document->setDate($doc_date);
+          }
+
+          if(isset($document_guarantee_xml->standardListIndicator) && ($is = (bool)$document_guarantee_xml->standardListIndicator))
+          {
+            $document->setIsInclude($is);
+          }
+
+          $document->save_mr();
+          $document->reload();
+
+          $new_dil = new MrCertificateDocument();
+          $new_dil->setCertificateID($certificate->id());
+          $new_dil->setDocumentID($document->id());
+          $new_dil->save_mr();
+        }
       }
     }
   }
@@ -276,8 +295,7 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrCountry|null
    */
-  protected
-  static function __parsCountry(SimpleXMLElement $xml): ?MrCountry
+  protected static function __parsCountry(SimpleXMLElement $xml): ?MrCountry
   {
     if(isset($xml->value) && ($country_code_xml = (string)$xml->value))
     {
@@ -296,8 +314,7 @@ class MrXmlImportBase extends Controller
    * @param SimpleXMLElement $xml
    * @return MrManufacturer|null
    */
-  protected
-  static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
+  protected static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
   {
     if(isset($xml->element))
     {

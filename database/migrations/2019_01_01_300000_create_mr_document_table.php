@@ -10,7 +10,6 @@ class CreateMrDocumentTable extends Migration
   {
     Schema::create('mr_document', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
-      $table->integer('CertificateID');
       $table->tinyInteger('Kind');
       $table->string('Name', 500)->nullable();
       $table->string('Number', 50)->nullable();

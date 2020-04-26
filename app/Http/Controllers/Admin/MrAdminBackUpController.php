@@ -83,6 +83,7 @@ class MrAdminBackUpController extends Controller
       'mr_manufacturer'           => 'MrAdminDbMrManufacturerTableController',
       'mr_communicate_in_table'   => 'MrAdminDbMrCommunicateInTableTableController',
       'mr_document'               => 'MrAdminDbMrDocumentTableController',
+      'mr_certificate_document'   => 'MrAdminDbMrCertificateDocumentTableController',
     );
 
     if(isset($arr[$table_name]))
