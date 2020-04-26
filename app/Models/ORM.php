@@ -213,7 +213,7 @@ class ORM extends Model
 
     if($this->id)
     {
-      $array = $this->equals_data();
+      //$array = $this->equals_data();
 
       if(count($array))
       {
