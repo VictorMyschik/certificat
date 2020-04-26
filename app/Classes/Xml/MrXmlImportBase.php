@@ -4,6 +4,7 @@ namespace App\Classes\Xml;
 
 use App\Http\Controllers\Controller;
 use App\Models\Certificate\MrAddress;
+use App\Models\Certificate\MrApplicant;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
@@ -111,6 +112,12 @@ class MrXmlImportBase extends Controller
     if(isset($xml->complianceDocDetails) || isset($xml->DocInformationDetails))
     {
       self::importDocument($xml, $certificate);
+    }
+
+    // Заявитель
+    if(isset($xml->applicantDetails))
+    {
+      self::importApplicant($xml->applicantDetails, $certificate);
     }
 
     return $certificate;
@@ -858,11 +865,54 @@ class MrXmlImportBase extends Controller
   /**
    * Заявитель
    *
-   * @param SimpleXMLElement $xml_doc
+   * @param SimpleXMLElement $xml
    * @param MrCertificate $certificate
    */
-  protected function importApplicant(SimpleXMLElement $xml_doc, MrCertificate $certificate): void
+  protected static function importApplicant(SimpleXMLElement $xml, MrCertificate $certificate): void
   {
+    $name_xml = isset($xml->businessEntityName) && strlen((string)$xml->businessEntityName) ? (string)$xml->businessEntityName : 'no_name';
 
+    $country_code = isset($xml->unifiedCountryCode) && ($country = self::__parsCountry($xml->unifiedCountryCode)) ? $country->getISO3166alpha2() : 'no_country';
+
+    $hash_name = $name_xml . '|' . $country_code;
+    $hash = md5($hash_name);
+    $applicant = MrApplicant::loadBy($hash, 'Hash');
+
+    if($applicant)
+    {
+      $certificate->setApplicantID($applicant->id());
+      $certificate->save_mr();
+    }
+    else
+    {
+      $applicant = new MrApplicant();
+      $applicant->setName($name_xml);
+      $applicant->setCountryID($country->id());
+      $applicant->setHash($hash);
+
+      $applicant->save_mr();
+      $applicant->reload();
+
+      $addresses = self::importAddress($xml, $applicant);
+
+      foreach ($addresses as $key => $address)
+      {
+        if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
+        {
+          $applicant->setAddress1ID($address->id());
+        }
+        elseif($key == MrAddress::ADDRESS_KIND_FACT)
+        {
+          $applicant->setAddress2ID($address->id());
+        }
+        else
+        {
+          dd('Тип адреса не известен: ' . $key);
+        }
+      }
+
+      $applicant->save_mr();
+      $applicant->reload();
+    }
   }
 }

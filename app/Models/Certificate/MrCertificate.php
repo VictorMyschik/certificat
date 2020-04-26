@@ -43,7 +43,8 @@ class MrCertificate extends ORM
     'SingleListProductIndicator', //признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
     ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
 
-    'ManufacturerID' // Производитель
+    'ManufacturerID', // Производитель
+    'ApplicantID',
   );
 
   const STATUS_ACTIVE = 1;
@@ -319,6 +320,17 @@ class MrCertificate extends ORM
   public function setManufacturerID(?int $value)
   {
     return $this->ManufacturerID = $value;
+  }
+
+  // Заявитель
+  public function getApplicant(): ?MrApplicant
+  {
+    return MrApplicant::loadBy($this->ApplicantID);
+  }
+
+  public function setApplicantID(?int $value)
+  {
+    return $this->ApplicantID = $value;
   }
 
   public function getDateUpdateEAES(): ?MrDateTime

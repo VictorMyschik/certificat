@@ -39,6 +39,7 @@ class CreateMrCertificateTable extends Migration
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
 
       $table->integer('ManufacturerID')->nullable();//Сведения об органе по оценке соответствия
+      $table->integer('ApplicantID')->nullable();//Сведения об органе по оценке соответствия
     });
   }
 

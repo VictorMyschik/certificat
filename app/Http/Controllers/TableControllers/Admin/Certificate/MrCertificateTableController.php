@@ -36,6 +36,7 @@ class MrCertificateTableController extends MrTableController
       array('name' => 'Доп.инфа', 'sort' => 'Description'),
       array('name' => 'Дата записи в ЕАЭС', 'sort' => 'DateUpdateEAES'),
       array('name' => 'Признак включения продукции в единый перечень', 'sort' => 'SingleListProductIndicator'),
+      array('name' => 'Заявиткль', 'sort' => 'ApplicantID'),
       array('name' => '#'),
     );
   }
@@ -68,6 +69,7 @@ class MrCertificateTableController extends MrTableController
     $row[] = $certificate->getDescription();
     $row[] = $certificate->getDateUpdateEAES()->getShortDateTitleShortTime();
     $row[] = $certificate->getSingleListProductIndicator();
+    $row[] = $certificate->getApplicant() ? $certificate->getApplicant()->getName() : null;
 
     $row[] = array(
       MrLink::open('admin_certificate_delete', ['id' => $certificate->id()], ' Delete', 'btn btn-danger btn-sm fa  fa-xs',
