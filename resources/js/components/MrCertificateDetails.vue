@@ -128,9 +128,28 @@
     <div class="row no-gutters col-md-12" v-if="visible_kind === 3">
       <div class="col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size">
         <div v-if="documents">
+          <div v-if="documents[3]">
+            <h5 data-toggle="collapse" aria-controls="menu_3" href="#menu_3" class="mr_cursor mr-bold mt_table_header">
+              {{documents[3][0]['KindName']}}</h5>
+            <table id="menu_3" class="table table-striped table-sm">
+              <thead>
+              <tr class="mr-bold">
+                <td>Документ</td>
+                <td>Дата выдачи документа</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="row in documents[3]">
+                <td>{{row['Name']}} {{row['Number']}}</td>
+                <td>{{row['Date']}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
           <div v-if="documents[2]">
-            <h5 class="mr-bold mt_table_header">{{documents[2][0]['KindName']}}</h5>
-            <table class="table table-striped table-sm">
+            <h5 data-toggle="collapse" aria-controls="menu_2" href="#menu_2" class="mr_cursor mr-bold mt_table_header">
+              {{documents[2][0]['KindName']}}</h5>
+            <table id="menu_2" class="table table-striped table-sm">
               <thead>
               <tr class="mr-bold">
                 <td>Документ</td>
@@ -152,8 +171,9 @@
             </table>
           </div>
           <div v-if="documents[1]">
-            <h5 class="mr-bold mt_table_header">{{documents[1][0]['KindName']}}</h5>
-            <table class="table table-striped table-sm">
+            <h5 data-toggle="collapse" aria-controls="menu_1" href="#menu_1" class="mr_cursor mr-bold mt_table_header">
+              {{documents[1][0]['KindName']}}</h5>
+            <table id="menu_1" class="table table-striped table-sm">
               <thead>
               <tr class="mr-bold">
                 <td>Документ</td>
@@ -273,6 +293,15 @@
   .mr_btn:hover {
     box-shadow: 0 0 0 0.1rem rgba(209, 211, 235, 0.6);
     background-color: rgba(221, 223, 247, 0.6);
+  }
+  .mr_cursor {
+    cursor: pointer;
+    color: #0a1041;
+  }
+
+  .mr_cursor:hover {
+    background-color: rgba(230, 232, 254, 0.3);
+    color: #0a1041;
   }
 
 </style>

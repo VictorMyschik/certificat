@@ -35,10 +35,12 @@ class MrDocument extends ORM
   const KIND_UNKNOWN = 0;
   const KIND_GUARANTEE = 1;
   const KIND_EQUALS = 2;
+  const KIND_COMMON_GOOD = 3;
 
   private static $kinds = array(
-    self::KIND_GUARANTEE => 'Документы, обеспечивающие соблюдение требований',
-    self::KIND_EQUALS    => 'Документы, подтверждающие соответствие требованиям',
+    self::KIND_GUARANTEE   => 'Документы, обеспечивающие соблюдение требований',
+    self::KIND_EQUALS      => 'Документы, подтверждающие соответствие требованиям',
+    self::KIND_COMMON_GOOD => 'Реквизиты товаросопроводительной документации',
   );
 
   public static function getKindLis(): array

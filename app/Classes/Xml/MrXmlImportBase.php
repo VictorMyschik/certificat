@@ -90,18 +90,26 @@ class MrXmlImportBase extends Controller
       $certificate->setAuthorityID($conformity_authority->id());
     }
 
-    //// Производитель
+    //// Производитель и всё что связано с товаром
     if(isset($xml->technicalRegulationObjectDetails))
     {
-      $technical_xml = $xml->technicalRegulationObjectDetails;
-      if(isset($technical_xml->manufacturerDetails))
+      $tech_regulation = $xml->technicalRegulationObjectDetails;
+
+      // Производитель
+      if(isset($tech_regulation->manufacturerDetails))
       {
-        $manufacturer = self::importManufacturer($technical_xml->manufacturerDetails);
+        $manufacturer = self::importManufacturer($xml->manufacturerDetails);
 
         if($manufacturer)
         {
           $certificate->setManufacturerID($manufacturer->id());
         }
+      }
+
+      //Реквизиты товаросопроводительной документации
+      if(isset($tech_regulation->docInformationDetails) && ($product_documents_xml = $tech_regulation->docInformationDetails))
+      {
+        self::importDocument($product_documents_xml, $certificate);
       }
     }
 
@@ -337,6 +345,91 @@ class MrXmlImportBase extends Controller
         }
       }
     }
+
+    // Реквизиты товаросопроводительной документации
+    if(isset($xml_doc->element))
+    {
+      foreach ($xml_doc->element as $xml)
+      {
+        $document = null;;
+
+        $doc_number_xml = 'no_number';
+        if(isset($xml->docId) && ($number_xml = (string)$xml->docId))
+        {
+          if(strlen($number_xml))
+          {
+            $doc_number_xml = $number_xml;
+          }
+        }
+
+        $doc_name_xml = 'no_name';
+        if(isset($xml->docName) && ($name_xml = (string)$xml->docName))
+        {
+          if(strlen($name_xml))
+          {
+            $doc_name_xml = $name_xml;
+          }
+        }
+
+        $doc_date_xml = 'no_date';
+        if(isset($xml->docCreationDate) && ($date_xml = (string)$xml->docCreationDate))
+        {
+          if(strlen($date_xml))
+          {
+            $doc_date_xml = $date_xml;
+          }
+        }
+
+        $hash_name = null;
+        $hash_name = $doc_number_xml . '|' . $doc_name_xml . '|' . $doc_date_xml;
+        $hash = md5($hash_name);
+
+        $document = MrDocument::loadBy($hash, 'Hash');
+
+        /// Поиск дубликатов
+        $has = false;
+        if($document)
+        {
+          foreach ($certificate->GetDocuments() as $dil)
+          {
+            if($document->id() == $dil->getDocument()->id())
+            {
+              $has = true;
+              break;
+            }
+          }
+        }
+        else
+        {
+          $document = new MrDocument();
+        }
+
+        // Документ найден в этом серитфикате - следующая итерация
+        if($has)
+        {
+          continue;
+        }
+        else
+        {
+          $document->setKind(MrDocument::KIND_COMMON_GOOD);
+          $document->setName($doc_name_xml == 'no_name' ? null : $doc_name_xml);
+          $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
+          $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
+          $document->setIsInclude(null);
+          $document->setHash($hash);
+
+          $document->save_mr();
+          $document->reload();
+
+
+          $new_dil = new MrCertificateDocument();
+          $new_dil->setCertificateID($certificate->id());
+          $new_dil->setDocumentID($document->id());
+          $new_dil->save_mr();
+        }
+      }
+    }
+
   }
 
   /**
@@ -366,6 +459,13 @@ class MrXmlImportBase extends Controller
    */
   protected static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
   {
+    if(!isset($xml->manufacturerDetails))
+    {
+      return null;
+    }
+
+    $xml = $xml->manufacturerDetails;
+
     if(isset($xml->element))
     {
       $manufacturer_xml = $xml->element;
