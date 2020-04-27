@@ -78,17 +78,20 @@ class MrXmlImportBase extends Controller
   {
     // Сведения о сертификате
     $certificate = self::importCertificateDetails($xml, $link_out);
+    $certificate->save_mr();
+    $certificate->reload();
 
     //// Сведения об органе по оценке соответствия
     if(isset($xml->conformityAuthorityV2Details))
     {
       $conformity_authority = self::importConformityAuthority($xml->conformityAuthorityV2Details);
+
+      if($conformity_authority)
+      {
+        $certificate->setAuthorityID($conformity_authority->id());
+      }
     }
 
-    if(isset($conformity_authority))
-    {
-      $certificate->setAuthorityID($conformity_authority->id());
-    }
 
     //// Производитель и всё что связано с товаром
     if(isset($xml->technicalRegulationObjectDetails))
@@ -98,7 +101,7 @@ class MrXmlImportBase extends Controller
       // Производитель
       if(isset($tech_regulation->manufacturerDetails))
       {
-        $manufacturer = self::importManufacturer($xml->manufacturerDetails);
+        $manufacturer = self::importManufacturer($tech_regulation->manufacturerDetails);
 
         if($manufacturer)
         {
@@ -113,7 +116,7 @@ class MrXmlImportBase extends Controller
       }
     }
 
-    $certificate_id = $certificate->save_mr();
+    $certificate->save_mr();
     $certificate->reload();
 
     // Документы
@@ -329,7 +332,7 @@ class MrXmlImportBase extends Controller
         {
           $document->setKind(MrDocument::KIND_GUARANTEE);
           $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
-          $document->setName($doc_name_xml == 'no_number' ? null : $doc_name_xml);
+          $document->setName($doc_name_xml == 'no_name' ? null : $doc_name_xml);
           $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
           $document->setIsInclude($doc_indicator_xml == 'no_indicator' ? null : $doc_indicator_xml);
           $document->setHash($hash);
@@ -429,7 +432,6 @@ class MrXmlImportBase extends Controller
         }
       }
     }
-
   }
 
   /**
@@ -459,49 +461,44 @@ class MrXmlImportBase extends Controller
    */
   protected static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
   {
-
-    if(!isset($xml->manufacturerDetails))
+    if(!isset($xml->element))
     {
       return null;
     }
 
-    $xml = $xml->manufacturerDetails;
-    if(isset($xml->element))
+    $manufacturer_xml = $xml->element;
+    if(isset($manufacturer_xml->businessEntityName) && ($name_xml = (string)$manufacturer_xml->businessEntityName))
     {
-      $manufacturer_xml = $xml->element;
-      if(isset($manufacturer_xml->businessEntityName) && ($name_xml = (string)$manufacturer_xml->businessEntityName))
+      if(isset($manufacturer_xml->unifiedCountryCode) && ($country = self::__parsCountry($manufacturer_xml->unifiedCountryCode)))
       {
-        if(isset($manufacturer_xml->unifiedCountryCode) && ($country = self::__parsCountry($manufacturer_xml->unifiedCountryCode)))
-        {
-          $manufacturer = MrManufacturer::loadBy($name_xml, 'Name') ?: new MrManufacturer();
-          $manufacturer->setName($name_xml);
-          $manufacturer->setCountryID($country->id());
+        $manufacturer = MrManufacturer::loadBy($name_xml, 'Name') ?: new MrManufacturer();
+        $manufacturer->setName($name_xml);
+        $manufacturer->setCountryID($country->id());
 
-          if(isset($manufacturer_xml->addressV4Details))
+        if(isset($manufacturer_xml->addressV4Details))
+        {
+          $addresses = self::importAddress($manufacturer_xml, $manufacturer);
+          foreach ($addresses as $key => $address)
           {
-            $addresses = self::importAddress($manufacturer_xml, $manufacturer);
-            foreach ($addresses as $key => $address)
+            if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
             {
-              if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
-              {
-                $manufacturer->setAddress1ID($address->id());
-              }
-              elseif($key == MrAddress::ADDRESS_KIND_FACT)
-              {
-                $manufacturer->setAddress2ID($address->id());
-              }
-              else
-              {
-                dd('Тип адреса не известен: ' . $key);
-              }
+              $manufacturer->setAddress1ID($address->id());
+            }
+            elseif($key == MrAddress::ADDRESS_KIND_FACT)
+            {
+              $manufacturer->setAddress2ID($address->id());
+            }
+            else
+            {
+              dd('Тип адреса не известен: ' . $key);
             }
           }
-
-          $manufacturer->save_mr();
-          $manufacturer->reload();
-
-          return $manufacturer;
         }
+
+        $manufacturer->save_mr();
+        $manufacturer->reload();
+
+        return $manufacturer;
       }
     }
 

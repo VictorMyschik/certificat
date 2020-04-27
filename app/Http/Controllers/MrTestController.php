@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
 use App\Models\Certificate\MrAddress;
+use App\Models\Certificate\MrApplicant;
 use App\Models\Certificate\MrCertificate;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrDocument;
@@ -16,7 +17,7 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    dd(MrCertificate::loadBy(1)->getApplicant()->GetCommunicate());
+    dd(MrCertificate::loadBy(2));
 
 
     MrCertificate::AllDelete();
@@ -27,7 +28,7 @@ class MrTestController extends Controller
     MrManufacturer::AllDelete();
     MrAddress::AllDelete();
     MrFio::AllDelete();
-
+    MrApplicant::AllDelete();
 
     $this->qwe();
   }
@@ -52,7 +53,10 @@ class MrTestController extends Controller
     // перебор всех файлов
     foreach ($files as $key => $file_name)
     {
-
+      if($key < 5)
+      {
+        continue;
+      }
 
       $file = public_path() . '/files/' . $file_name;
 
@@ -63,7 +67,7 @@ class MrTestController extends Controller
       $str = 'File: ' . $file_name;
       print_r(count(MrCertificate::$hashed));
       print_r($str);
-
+      dd(1);
     }
   }
 }
