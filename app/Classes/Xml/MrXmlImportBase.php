@@ -882,6 +882,11 @@ class MrXmlImportBase extends Controller
     $applicant_id_xml = isset($xml->businessEntityId) && strlen((string)$xml->businessEntityId->value) ? (string)$xml->businessEntityId->value : 'no_business_id';
     $country_code = isset($xml->unifiedCountryCode) && ($country = self::__parsCountry($xml->unifiedCountryCode)) ? $country->getISO3166alpha2() : 'no_country';
 
+    if(!$country_code)
+    {
+      dd('Сертификат ID' . $certificate->id() . ' нет страны заявителя');
+    }
+
     $hash_name = $name_xml . '|' . $country_code . '|' . $applicant_id_xml;
     $hash = md5($hash_name);
     $applicant = MrApplicant::loadBy($hash, 'Hash') ?: new MrApplicant();
