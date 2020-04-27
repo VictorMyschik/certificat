@@ -17,7 +17,7 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    dd(MrCertificate::loadBy(2));
+    //dd(MrCertificate::loadBy(2)->GetDocuments()[0]->getDocument());
 
 
     MrCertificate::AllDelete();
@@ -55,7 +55,7 @@ class MrTestController extends Controller
     {
       if($key < 5)
       {
-        continue;
+       // continue;
       }
 
       $file = public_path() . '/files/' . $file_name;

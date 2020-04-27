@@ -33,7 +33,7 @@
             </tr>
             <tr>
               <td>Срок действия статуса</td>
-              <td>{{certificate['StatusDates']}}</td>
+              <td><span style="white-space:nowrap;">{{certificate['StatusDates']}}</span></td>
             </tr>
             <tr>
               <td>Документ, на основании которого установлен статус</td>
@@ -138,7 +138,8 @@
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_3">
       <h5 data-toggle="collapse" aria-controls="doc_menu" href="#doc_menu"
           class="mr_cursor col-md-12 mr-bold mt_table_header">Документы, привязанные к сертификату</h5>
-      <div id="doc_menu" class="collapse shadow-sm show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
+      <div id="doc_menu"
+           class="collapse  show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
         <div v-if="documents">
           <div v-if="documents[3]">
             <h5 data-toggle="collapse" aria-controls="doc_menu_3" href="#doc_menu_3"
@@ -173,7 +174,6 @@
                   <td>Дата выдачи документа</td>
                   <td>Орган выдачи</td>
                   <td>Номер и дата документа аккредитации</td>
-                  <td>Примечание</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -182,7 +182,6 @@
                   <td>{{row['Date']}}</td>
                   <td>{{row['Organisation']}}</td>
                   <td>{{row['Accreditation']}}</td>
-                  <td>{{row['Description']}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -222,7 +221,7 @@
           class="mr_cursor col-md-12 mr-bold mt_table_header">Заявитель</h5>
       <div id="applicant_base_menu"
            class="collapse show col-sm-12  no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
-        <h5 class="mr-bold mt_table_header">{{applicant['Name']}}</h5>
+        <h5 class="mr-bold mt_table_header_name">{{applicant['Name']}}</h5>
         <table class="table col-md-12 mr-auto-size table-sm">
           <tr>
             <td>Страна</td>
@@ -285,6 +284,7 @@
       this.manufacturer = this.certificate_json.manufacturer;
       this.documents = this.certificate_json.documents;
       this.applicant = this.certificate_json.applicant;
+
       console.log(this.applicant);
     },
     methods: {
@@ -318,10 +318,19 @@
 
   td {
     padding: 1px 1px 1px 1px;
+    border: 1px solid rgba(239, 242, 255, 0.9);
   }
 
   .mt_table_header {
-    background-color: rgba(221, 223, 247, 0.4);
+    background-color: rgba(221, 223, 247, 0.7);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .mt_table_header_name {
+    background-color: rgba(221, 223, 247, 0.3);
     border-radius: 5px;
     padding-left: 5px;
     padding-top: 2px;
