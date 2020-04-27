@@ -459,13 +459,13 @@ class MrXmlImportBase extends Controller
    */
   protected static function importManufacturer(SimpleXMLElement $xml): ?MrManufacturer
   {
+
     if(!isset($xml->manufacturerDetails))
     {
       return null;
     }
 
     $xml = $xml->manufacturerDetails;
-
     if(isset($xml->element))
     {
       $manufacturer_xml = $xml->element;
