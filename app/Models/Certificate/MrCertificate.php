@@ -471,23 +471,13 @@ class MrCertificate extends ORM
     {
       $out['authority']['Name'] = $authority->getName();
 
-      if($officer = $authority->getOfficerDetails())
-      {
-        $officer_out = $officer->GetFullName();
-        $officer_out .= $officer->getPositionName() ? ' (' . $officer->getPositionName() . ')' : null;
-      }
-      else
-      {
-        $officer_out = '';
-      }
-
-      $out['authority']['FIO'] = $officer_out;
+      $out['authority']['FIO'] = $authority->getOfficerDetails() ? $authority->getOfficerDetails()->GetFullNameWithPosition() : '';
 
       $out['authority']['Address1'] = $authority->getAddress1() ? $authority->getAddress1()->GetFullAddress() : null;
       $out['authority']['Address2'] = $authority->getAddress2() ? $authority->getAddress2()->GetFullAddress() : null;
       $out['authority']['DocumentNumber'] = $authority->getDocumentNumber();
       $out['authority']['DocumentDate'] = $authority->getDocumentDate() ? $authority->getDocumentDate()->getShortDate() : null;
-      $out['authority']['communicate'] = $officer ? $officer->GetCommunicateOut() : array();
+      $out['authority']['Communicate'] = $authority->getOfficerDetails() ? $authority->getOfficerDetails()->GetCommunicateOut() : array();
     }
 
     //// Производитель
@@ -495,21 +485,14 @@ class MrCertificate extends ORM
     if($manufacturer = $this->getManufacturer())
     {
       $out['manufacturer']['Name'] = $manufacturer->getName();
-      if($country = $manufacturer->getCountry())
-      {
-        $out['manufacturer']['Country'] = $country->getName();
-        $name_fl = mb_strtolower($country->getISO3166alpha2());
-        $flag_img_html = "https://img.geonames.org/flags/m/{$name_fl}.png";
-      }
-
-      $out['manufacturer']['CountryFlag'] = $flag_img_html ?? null;
+      $out['manufacturer']['Country'] = $manufacturer->getCountry() ? $manufacturer->getCountry()->getName() : '';
       $out['manufacturer']['Address1'] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetFullAddress() : null;
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
     }
 
     //// Документы
     $documents = $this->GetDocuments();
-
+    $out['documents'] = array();
     foreach ($documents as $dil)
     {
       $document = $dil->getDocument();
@@ -524,6 +507,21 @@ class MrCertificate extends ORM
         'Accreditation' => $document->getAccreditation(),
         'Description'   => $document->getDescription(),
         'IsIncludeIn'   => $document->isInclude(),
+      );
+    }
+
+    //// Заявитель
+    $out['applicant'] = array();
+    if($applicant = $this->getApplicant())
+    {
+      $out['applicant'] = array(
+        'Name'        => $applicant->getName(),
+        'BusinessId'  => $applicant->getBusinessEntityId(),
+        'Country'     => $applicant->getCountry()->getName(),
+        'Address1'    => $applicant->getAddress1() ? $applicant->getAddress1()->GetFullAddress() : null,
+        'Address2'    => $applicant->getAddress2() ? $applicant->getAddress2()->GetFullAddress() : null,
+        'Fio'         => $applicant->getFio() ? $applicant->getFio()->GetFullNameWithPosition() : '',
+        'Communicate' => $applicant->GetCommunicateOut(),
       );
     }
 

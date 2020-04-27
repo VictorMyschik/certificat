@@ -4,7 +4,8 @@
     <div class="row no-gutters col-md-12 m-r-5 m-l-5 m-b-10">
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(1)">Общее</div>
       <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(2)">Продукция</div>
-      <div class="btn border mr_btn btn-sm" v-on:click="change_data(3)">Документы</div>
+      <div class="btn border mr_btn btn-sm m-r-5" v-on:click="change_data(3)">Документы</div>
+      <div class="btn border mr_btn btn-sm" v-on:click="change_data(4)">Заявитель</div>
     </div>
 
     <div class="row no-gutters col-md-12" v-if="visible_kind === 1">
@@ -63,10 +64,10 @@
             <td>ФИО руководителя органа по сертификации</td>
             <td>{{authority['FIO']}}</td>
           </tr>
-          <tr v-if="authority['communicate']">
+          <tr v-if="authority['Communicate']">
             <td colspan="2" class="mr-bold" style="padding-top: 5px;">Связь</td>
           </tr>
-          <tr v-if="authority['communicate']" v-for="item in authority['communicate']">
+          <tr v-if="authority['Communicate']" v-for="item in authority['Communicate']">
             <td>
               <i class="m-r-5 mr-color-green" :class="item.icon"></i>{{item.kind}}
             </td>
@@ -175,6 +176,47 @@
       </div>
     </div>
 
+    <div class="row no-gutters col-md-12" v-if="visible_kind === 4">
+      <div class="col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size">
+        <div class="col-md-12 mr-auto-size-2 mt_table_header mr-bold">{{applicant['Name']}}</div>
+        <table class="table col-md-12 mr-auto-size table-sm">
+          <tr>
+            <td>Страна</td>
+            <td>{{applicant['Country']}}</td>
+          </tr>
+          <tr>
+            <td>Код государственной регистрации</td>
+            <td>{{applicant['BusinessId']}}</td>
+          </tr>
+          <tr v-if="applicant['Communicate']">
+            <td colspan="2" class="mr-bold" style="padding-top: 5px;">Связь</td>
+          </tr>
+          <tr v-if="applicant['Communicate']" v-for="item in applicant['Communicate']">
+            <td>
+              <i class="m-r-5 mr-color-green" :class="item.icon"></i>{{item.kind}}
+            </td>
+            <td>{{item.address}}</td>
+          </tr>
+          <tr v-if="applicant['Address2']">
+            <td>
+              <a target="_blank"
+                 v-bind:href="'https://yandex.ru/maps/?text=' + authority['Address2']">
+                <i class="fa mr-color-green fa-map fa-lg"></i></a> Место осуществления деятельности
+            </td>
+            <td>{{applicant['Address2']}}</td>
+          </tr>
+          <tr v-if="applicant['Address1']">
+            <td>
+              <a target="_blank"
+                 v-bind:href="'https://yandex.ru/maps/?text=' + authority['Address1']">
+                <i class="fa mr-color-green fa-map fa-lg"></i></a> Юридический адрес
+            </td>
+            <td>{{applicant['Address1']}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -195,7 +237,8 @@
       this.authority = this.certificate_json.authority;
       this.manufacturer = this.certificate_json.manufacturer;
       this.documents = this.certificate_json.documents;
-      console.log(this.documents);
+      this.applicant = this.certificate_json.applicant;
+      console.log(this.applicant);
     },
     methods: {
       change_data(kind) {

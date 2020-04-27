@@ -20,6 +20,7 @@ class MrCertificateApplicantTableController extends MrTableController
     return array(
       array('name' => 'id', 'sort' => 'id'),
       array('name' => 'Страна', 'sort' => 'CountryID'),
+      array('name' => 'Id регистрации', 'sort' => 'BusinessEntityId'),
       array('name' => 'Наименование', 'sort' => 'Name'),
       array('name' => 'Принявший сертификат', 'sort' => 'FioID'),
       array('name' => 'Адрес 1'),
@@ -35,8 +36,9 @@ class MrCertificateApplicantTableController extends MrTableController
     $authority = MrApplicant::loadBy($id);
 
     $row[] = $authority->id();
-    $row[] = $authority->getName();
     $row[] = $authority->getCountry()->getName();
+    $row[] = $authority->getBusinessEntityId();
+    $row[] = $authority->getName();
     $row[] = $authority->getFio() ? $authority->getFio()->GetFullName() : null;
     $row[] = $authority->getAddress1() ? $authority->getAddress1()->GetFullAddress() : null;
     $row[] = $authority->getAddress2() ? $authority->getAddress2()->GetFullAddress() : null;

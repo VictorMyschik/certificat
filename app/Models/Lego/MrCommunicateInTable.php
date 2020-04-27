@@ -2,6 +2,7 @@
 
 namespace App\Models\Lego;
 
+use App\Models\Certificate\MrApplicant;
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrFio;
@@ -30,12 +31,14 @@ class MrCommunicateInTable extends ORM
 
   const TABLE_KIND_FIO = 1;
   const TABLE_KIND_AUTHORITY = 2;
+  const TABLE_KIND_APPLICANT = 3;
 
   public static function getTableList(): array
   {
     return array(
       self::TABLE_KIND_FIO       => MrFio::$mr_table,
       self::TABLE_KIND_AUTHORITY => MrConformityAuthority::$mr_table,
+      self::TABLE_KIND_APPLICANT => MrApplicant::$mr_table,
     );
   }
 

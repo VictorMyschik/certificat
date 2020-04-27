@@ -17,6 +17,7 @@ class MrAdminDbMrApplicantTableController extends MrTableController
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
         array('name' => 'CountryID', 'sort' => 'CountryID'),
+        array('name' => 'BusinessEntityId', 'sort' => 'BusinessEntityId'),
         array('name' => 'Name', 'sort' => 'Name'),
         array('name' => 'Address1ID', 'sort' => 'Address1ID'),
         array('name' => 'Address2ID', 'sort' => 'Address2ID'),

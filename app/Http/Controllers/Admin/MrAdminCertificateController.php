@@ -424,6 +424,11 @@ class MrAdminCertificateController extends Controller
     $out = array();
 
     $certificate = MrCertificate::loadBy($id);
+    if(!$certificate)
+    {
+      abort('404');
+    }
+
     $country_name = $certificate->getCountry()->getName();
 
     $out['page_title'] = __("mr-t.$country_name") . ' ' . $certificate->getNumber();

@@ -879,47 +879,47 @@ class MrXmlImportBase extends Controller
   protected static function importApplicant(SimpleXMLElement $xml, MrCertificate $certificate): void
   {
     $name_xml = isset($xml->businessEntityName) && strlen((string)$xml->businessEntityName) ? (string)$xml->businessEntityName : 'no_name';
-
+    $applicant_id_xml = isset($xml->businessEntityId) && strlen((string)$xml->businessEntityId->value) ? (string)$xml->businessEntityId->value : 'no_business_id';
     $country_code = isset($xml->unifiedCountryCode) && ($country = self::__parsCountry($xml->unifiedCountryCode)) ? $country->getISO3166alpha2() : 'no_country';
 
-    $hash_name = $name_xml . '|' . $country_code;
+    $hash_name = $name_xml . '|' . $country_code . '|' . $applicant_id_xml;
     $hash = md5($hash_name);
-    $applicant = MrApplicant::loadBy($hash, 'Hash');
+    $applicant = MrApplicant::loadBy($hash, 'Hash') ?: new MrApplicant();
 
-    if($applicant)
+    $applicant->setName($name_xml == 'no_name' ? null : $name_xml);
+    $applicant->setBusinessEntityId($applicant_id_xml == 'no_business_id' ? null : $applicant_id_xml);
+    $applicant->setCountryID($country->id());
+    $applicant->setHash($hash);
+
+    $applicant_id = $applicant->save_mr();
+    $applicant->flush();
+
+    $certificate->setApplicantID($applicant_id);
+    $certificate->save_mr();
+
+    $addresses = self::importAddress($xml, $applicant);
+    foreach ($addresses as $key => $address)
     {
-      $certificate->setApplicantID($applicant->id());
-      $certificate->save_mr();
-    }
-    else
-    {
-      $applicant = new MrApplicant();
-      $applicant->setName($name_xml);
-      $applicant->setCountryID($country->id());
-      $applicant->setHash($hash);
-
-      $applicant->save_mr();
-      $applicant->flush();
-
-      $addresses = self::importAddress($xml, $applicant);
-      foreach ($addresses as $key => $address)
+      if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
       {
-        if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
-        {
-          $applicant->setAddress1ID($address->id());
-        }
-        elseif($key == MrAddress::ADDRESS_KIND_FACT)
-        {
-          $applicant->setAddress2ID($address->id());
-        }
-        else
-        {
-          dd('Тип адреса не известен: ' . $key);
-        }
+        $applicant->setAddress1ID($address->id());
       }
-
-      $applicant->save_mr();
-      $applicant->flush();
+      elseif($key == MrAddress::ADDRESS_KIND_FACT)
+      {
+        $applicant->setAddress2ID($address->id());
+      }
+      else
+      {
+        dd('Тип адреса не известен: ' . $key);
+      }
     }
+
+    if(isset($xml->communicationDetails) && isset($applicant))
+    {
+      self::importCommunicate($xml->communicationDetails, $applicant);
+    }
+
+    $applicant->save_mr();
+    $applicant->flush();
   }
 }

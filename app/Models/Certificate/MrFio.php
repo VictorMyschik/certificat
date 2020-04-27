@@ -132,4 +132,16 @@ class MrFio extends ORM
     return $r;
   }
 
+  public function GetFullNameWithPosition(): string
+  {
+    $r = $this->GetFullName();
+
+    if($this->getPositionName())
+    {
+      $r .= ' (' . $this->getPositionName() . ')';
+    }
+
+    return $r;
+  }
+
 }

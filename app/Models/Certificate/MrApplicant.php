@@ -5,12 +5,14 @@ namespace App\Models\Certificate;
 
 
 use App\Models\Lego\MrAddressTrait;
+use App\Models\Lego\MrCommunicateTrait;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
 
 class MrApplicant extends ORM
 {
   use MrAddressTrait;
+  use MrCommunicateTrait;
 
   public static $mr_table = 'mr_applicant';
   public static $className = MrApplicant::class;
@@ -18,6 +20,7 @@ class MrApplicant extends ORM
 
   protected static $dbFieldsMap = array(
     'CountryID',
+    'BusinessEntityId',//Код государственной регистрации
     'Name',
     'Address1ID',
     'Address2ID',
@@ -74,5 +77,15 @@ class MrApplicant extends ORM
   public function setHash(string $value): void
   {
     $this->Hash = $value;
+  }
+
+  public function getBusinessEntityId(): ?string
+  {
+    return $this->BusinessEntityId;
+  }
+
+  public function setBusinessEntityId(?string $value): void
+  {
+    $this->BusinessEntityId = $value;
   }
 }
