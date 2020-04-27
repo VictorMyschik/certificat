@@ -364,6 +364,11 @@ class MrAddress extends ORM
       $r .= ($r ? ', ' : '') . $this->getRoomNumberId();
     }
 
+    if($this->getAddressText())
+    {
+      $r .= ($r ? ', ' : '') . $this->getAddressText();
+    }
+
     return $r;
   }
 }

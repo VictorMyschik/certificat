@@ -488,6 +488,7 @@ class MrCertificate extends ORM
       $out['manufacturer']['Country'] = $manufacturer->getCountry() ? $manufacturer->getCountry()->getName() : '';
       $out['manufacturer']['Address1'] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetFullAddress() : null;
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
+
     }
 
     //// Документы

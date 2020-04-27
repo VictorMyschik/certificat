@@ -10,7 +10,7 @@ trait MrAddressTrait
 {
 
   /**
-   * Адрес производителя (юридический)
+   * Адрес (юридический)
    */
   public function getAddress1(): ?MrAddress
   {
@@ -23,7 +23,7 @@ trait MrAddressTrait
   }
 
   /**
-   * Адрес производителя (фактический)
+   * Адрес (фактический)
    */
   public function getAddress2(): ?MrAddress
   {

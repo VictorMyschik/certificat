@@ -13,8 +13,8 @@ class CreateMrManufacturerTable extends Migration
       $table->bigIncrements('id')->autoIncrement();
       $table->smallInteger('CountryID');//Страна производителя
       $table->string('Name');//Юр наименование
-      $table->string('Address1ID')->nullable();//Адрес
-      $table->string('Address2ID')->nullable();//Адрес
+      $table->string('Address1ID')->nullable();//адрес регистрации
+      $table->string('Address2ID')->nullable();//фактический адрес
     });
   }
 

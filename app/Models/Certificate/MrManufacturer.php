@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\Certificate;
-
 
 use App\Models\Lego\MrAddressTrait;
 use App\Models\MrUser;

@@ -369,7 +369,6 @@ class MrXmlImportBase extends Controller
     if(isset($xml->element))
     {
       $manufacturer_xml = $xml->element;
-
       if(isset($manufacturer_xml->businessEntityName) && ($name_xml = (string)$manufacturer_xml->businessEntityName))
       {
         if(isset($manufacturer_xml->unifiedCountryCode) && ($country = self::__parsCountry($manufacturer_xml->unifiedCountryCode)))
@@ -647,6 +646,10 @@ class MrXmlImportBase extends Controller
         $address->setPostCode($postCode);
       }
 
+      if(isset($address_xml->addressText) && ($address_text = (string)$address_xml->addressText))
+      {
+        $address->setAddressText($address_text);
+      }
 
       $address->save_mr();
       $address->reload();
