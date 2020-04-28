@@ -134,7 +134,7 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Подписка
   Route::get('/admin/subscription', "Admin\MrAdminSubscriptionController@index")->name('admin_subscription');
-  Route::get('/admin/subscription/delete/{id}',"Admin\MrAdminSubscriptionController@UnSubscription")->name('un_subscription');
+  Route::get('/admin/subscription/delete/{id}', "Admin\MrAdminSubscriptionController@UnSubscription")->name('un_subscription');
   Route::post('/admin/subscription/new', "Admin\MrAdminSubscriptionController@NewSubscription")->name('new_subscription');
   // Текстовый редактор
   Route::get('/elfinder/ckeditor', '\Barryvdh\Elfinder\ElfinderController@showCKeditor4');
@@ -249,6 +249,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Заявитель
   Route::get('/admin/certificate/applicant', "Admin\MrAdminCertificateController@ViewApplicant")->name('admin_applicant_page');
   Route::get('/admin/certificate/applicant/delete/{id}', "Admin\MrAdminCertificateController@ApplicantDelete")->name('admin_applicant_delete');
+  // Продукция
+  Route::get('/admin/certificate/product_info', "Admin\MrAdminCertificateController@ViewProductInfo")->name('admin_product_info_page');
+  Route::get('/admin/certificate/product_info/delete/{id}', "Admin\MrAdminCertificateController@ProductInfoDelete")->name('admin_product_info_delete');
 
 
   // Загрузка из XML

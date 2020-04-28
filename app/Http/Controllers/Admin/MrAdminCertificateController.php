@@ -14,6 +14,7 @@ use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateCommuni
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateDocumentTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateFioTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateManufacturerTableController;
+use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateProductInfoTableController;
 use App\Http\Controllers\TableControllers\Admin\Certificate\MrCertificateTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrAddress;
@@ -24,6 +25,7 @@ use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
+use App\Models\Certificate\MrProductInfo;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -289,6 +291,43 @@ class MrAdminCertificateController extends Controller
     }
 
     $applicant->mr_delete();
+
+    return back();
+  }
+
+  /**
+   * Страница сведения о товаре
+   */
+  public function ViewProductInfo()
+  {
+    $out = array();
+    $out['page_title'] = 'сведения о товаре (' . MrProductInfo::getCount() . ')';;
+    $out['route_name'] = route('list_product_info_table');
+
+    return View('Admin.Certificate.mir_admin_certificate_product_info')->with($out);
+  }
+
+  public function ProductInfoList()
+  {
+    return MrTableController::buildTable(MrCertificateProductInfoTableController::class);
+  }
+
+  /**
+   * Удаление заявителя
+   *
+   * @param int $id
+   * @return RedirectResponse
+   */
+  public function ProductInfoDelete(int $id)
+  {
+    $product_info = MrProductInfo::loadBy($id);
+
+    if(!$product_info->canEdit())
+    {
+      mr_access_violation();
+    }
+
+    $product_info->mr_delete();
 
     return back();
   }

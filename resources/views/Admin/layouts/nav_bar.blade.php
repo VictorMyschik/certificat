@@ -48,6 +48,7 @@
             <a class="dropdown-item" href="{{route('admin_authority_page')}}">Органы по оценке соответствия</a>
             <a class="dropdown-item" href="{{route('admin_document_page')}}">Документы</a>
             <a class="dropdown-item" href="{{route('admin_applicant_page')}}">Заявители</a>
+            <a class="dropdown-item" href="{{route('admin_product_info_page')}}">Сведения о продукции</a>
           </div>
         </li>
 
