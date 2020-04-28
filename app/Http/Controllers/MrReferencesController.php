@@ -9,8 +9,8 @@ use App\Http\Controllers\TableControllers\References\MrReferencesCertificateKind
 use App\Http\Controllers\TableControllers\References\MrReferencesCountryTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesCurrencyTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesMeasureTableController;
+use App\Http\Controllers\TableControllers\References\MrReferencesTechnicalReglamentTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesTechnicalRegulationTableController;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 class MrReferencesController extends Controller
@@ -46,6 +46,11 @@ class MrReferencesController extends Controller
   public function ListTechnicalRegulation()
   {
     return MrTableController::buildTable(MrReferencesTechnicalRegulationTableController::class);
+  }
+
+  public function ListTechnicalReglament()
+  {
+    return MrTableController::buildTable(MrReferencesTechnicalReglamentTableController::class);
   }
 
   /**

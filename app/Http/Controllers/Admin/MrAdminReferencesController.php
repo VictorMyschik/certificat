@@ -76,18 +76,6 @@ class MrAdminReferencesController extends Controller
   }
 
   /**
-   * Переустановка справочника
-   * @return RedirectResponse
-   */
-  public function RebuildCountry()
-  {
-    MrCountry::AllDelete();
-    MrCountry::RebuildReference();
-
-    return back();
-  }
-
-  /**
    * Удаление строки из справочника по ID
    *
    * @param string $reference
