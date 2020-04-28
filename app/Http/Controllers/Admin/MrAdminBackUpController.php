@@ -85,6 +85,8 @@ class MrAdminBackUpController extends Controller
       'mr_applicant'              => 'MrAdminDbMrApplicantTableController',
       'mr_technical_reglament'    => 'MrAdminDbMrTechnicalReglamentTableController',
       'mr_technical_regulation'   => 'MrAdminDbMrTechnicalRegulationTableController',
+      'mr_product'                => 'MrAdminDbMrProductTableController',
+      'mr_product_info'           => 'MrAdminDbMrProductInfoTableController',
     );
 
     if(isset($arr[$table_name]))
@@ -135,7 +137,7 @@ class MrAdminBackUpController extends Controller
   }
 
   public static $tables = array(
-    'mr_currency'         => array(
+    'mr_currency'            => array(
       array('ID' => '1', 'Code' => '784', 'TextCode' => 'AED', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Дирхам (ОАЭ)', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '2', 'Code' => '971', 'TextCode' => 'AFN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Афгани', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '3', 'Code' => '008', 'TextCode' => 'ALL', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Лек', 'Rounding' => '2', 'Description' => ''),
@@ -319,7 +321,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '181', 'Code' => '930', 'TextCode' => 'STN', 'DateFrom' => '2018-06-24 00:00:00', 'DateTo' => NULL, 'Name' => 'Добра', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '182', 'Code' => '928', 'TextCode' => 'VES', 'DateFrom' => '2019-06-16 00:00:00', 'DateTo' => NULL, 'Name' => 'Боливар Соберано', 'Rounding' => '2', 'Description' => NULL)
     ),
-    'mr_country'          => array(
+    'mr_country'             => array(
       array('id' => '1', 'Name' => 'Андорра', 'ISO3166alpha2' => 'AD', 'ISO3166alpha3' => 'AND', 'ISO3166numeric' => '20', 'Continent' => '3'),
       array('id' => '2', 'Name' => 'Объединенные Арабские Эмираты', 'ISO3166alpha2' => 'AE', 'ISO3166alpha3' => 'ARE', 'ISO3166numeric' => '784', 'Continent' => '2'),
       array('id' => '3', 'Name' => 'Афганистан', 'ISO3166alpha2' => 'AF', 'ISO3166alpha3' => 'AFG', 'ISO3166numeric' => '4', 'Continent' => '2'),
@@ -567,11 +569,11 @@ class MrAdminBackUpController extends Controller
       array('id' => '245', 'Name' => 'Замбия', 'ISO3166alpha2' => 'ZM', 'ISO3166alpha3' => 'ZMB', 'ISO3166numeric' => '894', 'Continent' => '1'),
       array('id' => '246', 'Name' => 'Зимбабве', 'ISO3166alpha2' => 'ZW', 'ISO3166alpha3' => 'ZWE', 'ISO3166numeric' => '716', 'Continent' => '1')
     ),
-    'mr_language'         => array(
+    'mr_language'            => array(
       array('id' => '1', 'Name' => 'RU', 'Description' => 'Русский'),
       array('id' => '2', 'Name' => 'EN', 'Description' => 'English')
     ),
-    'mr_certificate_kind' => array(
+    'mr_certificate_kind'    => array(
       array('id' => '1', 'Code' => '05', 'ShortName' => 'Сертификат соответствия ТР ЕАЭС', 'Name' => 'Сертификат соответствия требованиям технического регламента Евразийского экономического союза (технического регламента Таможенного союза)', 'Description' => 'Единая форма сертификата соответствия требованиям технического регламента Таможенного союза, утвержденная Решением Коллегии Евразийской экономической комиссии от 25 декабря 2012 г. № 293'),
       array('id' => '2', 'Code' => '10', 'ShortName' => 'Декларация о соответствии ТР ЕАЭС', 'Name' => 'Декларация о соответствии требованиям технического регламента Евразийского экономического союза (технического регламента Таможенного союза)', 'Description' => 'Единая форма декларации о соответствии требованиям технического регламента Таможенного союза, утвержденная Решением Коллегии Евразийской экономической комиссии от 25 декабря 2012 г. № 293'),
       array('id' => '3', 'Code' => '15', 'ShortName' => 'Сертификат соответствия по единой форме ЕАЭС', 'Name' => 'Сертификат соответствия, оформленный по единой форме Евразийского экономического союза', 'Description' => 'Единая форма сертификата соответствия, утвержденная Решением Комиссии Таможенного союза от 18 июня 2010 г. № 319'),
@@ -583,7 +585,7 @@ class MrAdminBackUpController extends Controller
       array('id' => '9', 'Code' => '45', 'ShortName' => 'Свидетельство о соответствии с внесенными изменениями ЕАЭС', 'Name' => 'Свидетельство о соответствии транспортного средства с внесенными в его конструкцию изменениями требованиям безопасности, подтверждающее соответствие требованиям технического регламента Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011)', 'Description' => 'Свидетельство о соответствии транспортного средства с внесенными в его конструкцию изменениями требованиям безопасности (форма) (приложение № 18 к техническому регламенту Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011), принятому Решением Комиссии Таможенного союза от 9 декабря 2011 г. № 877)'),
       array('id' => '10', 'Code' => '50', 'ShortName' => 'Документ об оценке соответствия национальным требованиям', 'Name' => 'Документ об оценке соответствия обязательным требованиям, установленным законодательством государства – члена Евразийского экономического союза, выданный в отношении объекта технического регулирования технического регламента Евразийского экономического союза (технического регламента Таможенного союза) до дня вступления в силу этого технического регламента', 'Description' => NULL)
     ),
-    'mr_measure'          => array(
+    'mr_measure'             => array(
       array('id' => '4', 'Code' => '006', 'TextCode' => 'M', 'Name' => 'МЕТР'),
       array('id' => '5', 'Code' => '055', 'TextCode' => 'М2', 'Name' => 'КВАДРАТНЫЙ МЕТР'),
       array('id' => '6', 'Code' => '112', 'TextCode' => 'Л', 'Name' => 'ЛИТР'),
@@ -611,7 +613,7 @@ class MrAdminBackUpController extends Controller
       array('id' => '28', 'Code' => '865', 'TextCode' => 'КГ P2O5', 'Name' => 'КИЛОГРАММ ПЯТИОКИСИ ФОСФОРА'),
       array('id' => '29', 'Code' => '867', 'TextCode' => 'КИЛОГРАММ УРАНА', 'Name' => 'КГ U')
     ),
-    'mr_translate'        => array(
+    'mr_translate'           => array(
       array('id' => '1', 'Name' => 'Столица', 'LanguageID' => '2', 'Translate' => 'Capital'),
       array('id' => '2', 'Name' => 'Флаг', 'LanguageID' => '2', 'Translate' => 'Flag'),
       array('id' => '6', 'Name' => 'Андорра', 'LanguageID' => '2', 'Translate' => 'Andorra'),
@@ -860,7 +862,56 @@ class MrAdminBackUpController extends Controller
       array('id' => '249', 'Name' => 'Майотта', 'LanguageID' => '2', 'Translate' => 'South Africa'),
       array('id' => '250', 'Name' => 'Замбия', 'LanguageID' => '2', 'Translate' => 'Zambia'),
       array('id' => '251', 'Name' => 'Зимбабве', 'LanguageID' => '2', 'Translate' => 'Zimbabwe')
-    )
-
+    ),
+    'mr_technical_reglament' => array(
+      array('id' => '1', 'Code' => 'ТР ТС 001/2011', 'Name' => 'О безопасности железнодорожного подвижного состава', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20Podvignoisostev%20PID.pdf'),
+      array('id' => '2', 'Code' => 'ТР ТС 002/2011', 'Name' => 'О безопасности высокоскоростного железнодорожного транспорта', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20HighSpeed%20PID.pdf'),
+      array('id' => '3', 'Code' => 'ТР ТС 003/2011', 'Name' => 'О безопасности инфраструктуры железнодорожного транспорта', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20Infrastruktura%20PID.pdf'),
+      array('id' => '4', 'Code' => 'ТР ТС 004/2011', 'Name' => 'О безопасности низковольтного оборудования', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20Downvolt.pdf'),
+      array('id' => '5', 'Code' => 'ТР ТС 005/2011', 'Name' => 'О безопасности упаковки', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20Upakovka.pdf'),
+      array('id' => '6', 'Code' => 'ТР ТС 006/2011', 'Name' => 'О безопасности пиротехнических изделий', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20Pirotechnika.pdf'),
+      array('id' => '7', 'Code' => 'ТР ТС 007/2011', 'Name' => 'О безопасности продукции, предназначенной для детей и подростков', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_797_1.pdf'),
+      array('id' => '8', 'Code' => 'ТР ТС 008/2011', 'Name' => 'О безопасности игрушек', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20Toys.pdf'),
+      array('id' => '9', 'Code' => 'ТР ТС 009/2011', 'Name' => 'О безопасности парфюмерно-косметической продукции', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20Parfum.pdf'),
+      array('id' => '10', 'Code' => 'ТР ТС 010/2011', 'Name' => 'О безопасности машин и оборудования', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_823_1.pdf'),
+      array('id' => '11', 'Code' => 'ТР ТС 011/2011', 'Name' => 'Безопасность лифтов', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_824_1.pdf'),
+      array('id' => '12', 'Code' => 'ТР ТС 012/2011', 'Name' => 'О безопасности оборудования для работы во взрывоопасных средах', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_825_1.pdf'),
+      array('id' => '13', 'Code' => 'ТР ТС 013/2011', 'Name' => 'О требованиях к автомобильному и авиационному бензину, дизельному и судовому топливу, топливу для реактивных двигателей и мазуту', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_826_1.pdf'),
+      array('id' => '14', 'Code' => 'ТР ТС 014/2011', 'Name' => 'Безопасность автомобильных дорог', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_827_1.pdf'),
+      array('id' => '15', 'Code' => 'ТР ТС 015/2011', 'Name' => 'О безопасности зерна', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a2%d0%a0_%d0%b7%d0%b5%d1%80%d0%bd%d0%be.pdf'),
+      array('id' => '16', 'Code' => 'ТР ТС 016/2011', 'Name' => 'О безопасности аппаратов, работающих на газообразном топливе', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20GazApt.pdf'),
+      array('id' => '17', 'Code' => 'ТР ТС 017/2011', 'Name' => 'О безопасности продукции легкой промышленности', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20ProduktLegProm.pdf'),
+      array('id' => '18', 'Code' => 'ТР ТС 018/2011', 'Name' => 'О безопасности колесных транспортных средств', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a2%d0%a0%20%d0%a2%d0%a1%20018-2011.pdf'),
+      array('id' => '19', 'Code' => 'ТР ТС 019/2011', 'Name' => 'О безопасности средств индивидуальной защиты', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TP%20TS%20SIZ.pdf'),
+      array('id' => '20', 'Code' => 'ТР ТС 020/2011', 'Name' => 'Электромагнитная совместимость технических средств', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TehReg%20TS%20EMS.pdf'),
+      array('id' => '21', 'Code' => 'ТР ТС 021/2011', 'Name' => 'Электромагнитная совместимость технических средств', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20PishevayaProd.pdf'),
+      array('id' => '22', 'Code' => 'ТР ТС 022/2011', 'Name' => 'Пищевая продукция в части ее маркировки', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TrTsPishevkaMarkirovka.pdf'),
+      array('id' => '23', 'Code' => 'ТР ТС 023/2011', 'Name' => 'Соковая продукция из фруктов и овощей', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20SokovayaProd.pdf'),
+      array('id' => '24', 'Code' => 'ТР ТС 024/2011', 'Name' => 'Технический регламент на масложировую продукцию', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20TS%20MasloGirov.pdf'),
+      array('id' => '25', 'Code' => 'ТР ТС 025/2012', 'Name' => 'О безопасности мебельной продукции', 'Link' => 'http://www.eurasiancommission.org/ru/Lists/EECDocs/RS_P_32.pdf'),
+      array('id' => '26', 'Code' => 'ТР ТС 026/2012', 'Name' => 'О безопасности маломерных судов', 'Link' => 'eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_33.pdf'),
+      array('id' => '27', 'Code' => 'ТР ТС 027/2012', 'Name' => 'О безопасности отдельных видов специализированной пищевой продукции', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_34.pdf'),
+      array('id' => '28', 'Code' => 'ТР ТС 028/2012', 'Name' => 'О безопасности взрывчатых веществ и изделий на их основе', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_57.pdf'),
+      array('id' => '29', 'Code' => 'ТР ТС 029/2012', 'Name' => 'Требования безопасности пищевых добавок, ароматизаторов и технологических вспомогательных средств', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_58.pdf'),
+      array('id' => '30', 'Code' => 'ТР ТС 030/2012', 'Name' => 'О требованиях к смазочным материалам, маслам и специальным жидкостям', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_59.pdf'),
+      array('id' => '31', 'Code' => 'ТР ТС 031/2012', 'Name' => 'О безопасности сельскохозяйственных и лесохозяйственных тракторов и прицепов к ним', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/P_60.pdf'),
+      array('id' => '32', 'Code' => 'ТР ТС 032/2013', 'Name' => 'О безопасности оборудования, работающего под избыточным давлением', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a0%d0%b5%d1%88%d0%b5%d0%bd%d0%b8%d0%b5%20%d0%a1%d0%be%d0%b2%d0%b5%d1%82%d0%b0%2041%20%d0%be%d1%82%202%20%d0%b8%d1%8e%d0%bb%d1%8f%202013%20%d0%b3.pdf'),
+      array('id' => '33', 'Code' => 'ТР ТС 033/2013', 'Name' => 'О безопасности молока и молочной продукции', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a2%d0%a0%20%d0%a2%d0%a1%20033-2013.pdf'),
+      array('id' => '34', 'Code' => 'ТР ТС 034/2013', 'Name' => 'О безопасности мяса и мясной продукции', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/0043629/cncd_11102013_68'),
+      array('id' => '35', 'Code' => 'ТР ТС 035/2014', 'Name' => 'Технический регламент на табачную продукцию', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/0143484/cncd_10122014_107'),
+      array('id' => '36', 'Code' => 'ТР ЕАЭС 036/2016', 'Name' => 'Требования к сжиженным углеводородным​ газам для использования их в качестве топлива', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01411590/cncd_19102016_68'),
+      array('id' => '37', 'Code' => 'ТР ЕАЭС 037/2016', 'Name' => 'Об ограничении применения опасных веществ в изделиях электротехники и радиоэлектроники', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01412363/cncd_23122016_113'),
+      array('id' => '38', 'Code' => 'ТР ЕАЭС 038/2016', 'Name' => 'О безопасности аттракционов', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a2%d0%a0%20%d0%95%d0%90%d0%ad%d0%a1%20%d0%b1%d0%b5%d0%b7%d0%be%d0%bf%20%d0%b0%d1%82%d1%82%d1%80%d0%b0%d0%ba.pdf'),
+      array('id' => '39', 'Code' => 'ТР ЕАЭС 039/2016', 'Name' => 'О требованиях к минеральным удобрениям', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a0%d0%b5%d1%88%d0%b5%d0%bd%d0%b8%d0%b5%20%d0%a1%d0%be%d0%b2%d0%b5%d1%82%d0%b0%20%e2%84%96%20150%20%d0%be%d1%82%2030%20%d0%bd%d0%be%d1%8f%d0%b1%d1%80%d1%8f%202016%20%d0%b3%20%282%29.pdf'),
+      array('id' => '40', 'Code' => 'ТР ЕАЭС 040/2016', 'Name' => 'О безопасности рыбы и рыбной продукции', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/%d0%a2%d0%a0%20%d0%95%d0%90%d0%ad%d0%a1%20040-2016.pdf'),
+      array('id' => '41', 'Code' => 'ТР ЕАЭС 041/2017', 'Name' => 'О безопасности химической продукции', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01413938/cncd_18052017_19'),
+      array('id' => '42', 'Code' => 'ТР ЕАЭС 042/2017', 'Name' => 'О безопасности оборудования для детских игровых площадок', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01413932/cncd_18052017_21'),
+      array('id' => '43', 'Code' => 'ТР ЕАЭС 043/2017', 'Name' => 'О требованиях к средствам обеспечения пожарной безопасности  и пожаротушения', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01414345/cncd_24072017_40'),
+      array('id' => '44', 'Code' => 'ТР ЕАЭС 044/2017', 'Name' => 'О безопасности упакованной питьевой воды, включая природную минеральную воду', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01414757/cncd_05092017_45'),
+      array('id' => '45', 'Code' => 'ТР ЕАЭС 045/2017', 'Name' => 'О безопасности нефти, подготовленной к транспортировке и (или) использованию', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01418010/cncd_26122017_89'),
+      array('id' => '46', 'Code' => 'ТР ЕАЭС 046/2018', 'Name' => 'О безопасности газа горючего природного, подготовленного к транспортированию и (или) использованию', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01419232/cncd_30102018_74'),
+      array('id' => '47', 'Code' => 'ТР ЕАЭС 047/2018', 'Name' => 'О безопасности алкогольной продукции', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01421305/cncd_10122018'),
+      array('id' => '48', 'Code' => 'ТР ЕАЭС 048/2019', 'Name' => '​О требованиях к энергетической эффективности энергопотребляющих устройств', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01424431/cncd_24122019_114')
+    ),
   );
 }

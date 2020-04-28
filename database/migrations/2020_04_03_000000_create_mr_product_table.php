@@ -13,6 +13,7 @@ class CreateMrProductTable extends Migration
       $table->bigIncrements('id')->autoIncrement();
       $table->integer('CertificateID');
       $table->string('Name', 120)->nullable();
+      $table->string('EANCommodityId', 13)->nullable();//Значение идентификатора в соответствии с правилами формирования штрихкода EAN-8 или EAN-13 стандарта GS1. Шаблон: \d{8}|\d{13}
     });
   }
 

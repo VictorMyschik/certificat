@@ -12,7 +12,7 @@ class CreateMrTechnicalReglamentTable extends Migration
       $table->bigIncrements('id')->autoIncrement();
       $table->string('Code', 20);
       $table->string('Name');
-      $table->string('Link');
+      $table->string('Link', 300);
     });
   }
 

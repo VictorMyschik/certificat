@@ -11,6 +11,7 @@ use App\Models\Certificate\MrConformityAuthority;
 use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
+use App\Models\Certificate\MrProduct;
 use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
@@ -1067,6 +1068,23 @@ class MrXmlImportBase extends Controller
     // Продукт
     foreach ($xml->element as $item_xml)
     {
+      $product = new MrProduct();
+      // Наименование
+      if(isset($item_xml->productName) && ($product_name_xml = (string)$item_xml->productName))
+      {
+        $product->setCertificateID($certificate->id());
+        $product->setName($product_name_xml);
+        $product->save_mr();
+      }
+
+      // Свеления о единице продукта
+      if(isset($item_xml->productInstanceDetails) && ($product_info_xml = $item_xml->productInstanceDetails))
+      {
+        foreach ($product_info_xml->element as $info_xml)
+        {
+
+        }
+      }
 
       //// Документы
       if(isset($item_xml->docInformationDetails))
