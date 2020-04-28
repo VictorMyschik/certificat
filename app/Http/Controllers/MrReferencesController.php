@@ -11,6 +11,7 @@ use App\Http\Controllers\TableControllers\References\MrReferencesCurrencyTableCo
 use App\Http\Controllers\TableControllers\References\MrReferencesMeasureTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesTechnicalReglamentTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesTechnicalRegulationTableController;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 class MrReferencesController extends Controller
@@ -21,6 +22,7 @@ class MrReferencesController extends Controller
     'measure'              => 'Классификатор единиц измерения',
     'certificate_kind'     => 'Классификатор видов документов об оценке соответствия',
     'technical_regulation' => 'Классификатор видов объектов технического регулирования',
+    'technical_reglament' => 'Принятые технические регламенты',
   );
 
   public function ListCountries()

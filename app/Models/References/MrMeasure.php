@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\References;
-
 
 use App\Models\ORM;
 

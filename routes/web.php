@@ -134,9 +134,8 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   // Подписка
   Route::get('/admin/subscription', "Admin\MrAdminSubscriptionController@index")->name('admin_subscription');
-  Route::get('/admin/subscription/delete/{id}',
-    "Admin\MrAdminSubscription@UnSubscription")->name('un_subscription');
-  Route::post('/admin/subscription/new', "Admin\MrAdminSubscription@NewSubscription")->name('new_subscription');
+  Route::get('/admin/subscription/delete/{id}',"Admin\MrAdminSubscriptionController@UnSubscription")->name('un_subscription');
+  Route::post('/admin/subscription/new', "Admin\MrAdminSubscriptionController@NewSubscription")->name('new_subscription');
   // Текстовый редактор
   Route::get('/elfinder/ckeditor', '\Barryvdh\Elfinder\ElfinderController@showCKeditor4');
   Route::any('/elfinder/connector', '\Barryvdh\Elfinder\ElfinderController@showConnector')->name('elfinder.connector');
@@ -185,35 +184,35 @@ Route::group(['middleware' => 'is_admin'], function () {
 
   //// Справочники
   // Удаление строки
-  Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferences@DeleteForID")->name('reference_item_delete');
+  Route::get('/admin/reference/{name}/delete/{id}', "Admin\MrAdminReferencesController@DeleteForID")->name('reference_item_delete');
 
   //// Классификатор стран
-  Route::get('/admin/reference/country', "Admin\MrAdminReferences@ViewCountry")->name('admin_country_page');
+  Route::get('/admin/reference/country', "Admin\MrAdminReferencesController@ViewCountry")->name('admin_country_page');
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@submitForm")->name('admin_reference_country_form_submit');
   Route::match(['get', 'post'], '/admin/reference/country/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCountryEditForm@getFormBuilder")->name('admin_reference_country_form_edit');
 
   //// Классификатор валют
-  Route::get('/admin/reference/currency', "Admin\MrAdminReferences@ViewCurrency")->name('admin_currency_page');
+  Route::get('/admin/reference/currency', "Admin\MrAdminReferencesController@ViewCurrency")->name('admin_currency_page');
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}/submit', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@submitForm")->name('admin_reference_currency_form_submit');
   Route::match(['get', 'post'], '/admin/reference/currency/edit/{id}', "\App\Forms\Admin\MrAdminReferenceCurrencyEditForm@getFormBuilder")->name('admin_reference_currency_form_edit');
 
   //// Классификатор единиц измерения
-  Route::get('/admin/reference/measure', "Admin\MrAdminReferences@ViewMeasure")->name('admin_measure_page');
+  Route::get('/admin/reference/measure', "Admin\MrAdminReferencesController@ViewMeasure")->name('admin_measure_page');
   Route::match(['get', 'post'], '/admin/reference/measure/edit/{id}/submit', "\App\Forms\Admin\MrAdminMeasureEditForm@submitForm")->name('admin_reference_measure_form_submit');
   Route::match(['get', 'post'], '/admin/reference/measure/edit/{id}', "\App\Forms\Admin\MrAdminMeasureEditForm@getFormBuilder")->name('admin_reference_measure_form_edit');
 
   //// Классификатор видов документов об оценке соответствия
-  Route::get('/admin/reference/certificate_kind', "Admin\MrAdminReferences@ViewCertificateKind")->name('admin_certificate_kind_page');
+  Route::get('/admin/reference/certificate_kind', "Admin\MrAdminReferencesController@ViewCertificateKind")->name('admin_certificate_kind_page');
   Route::match(['get', 'post'], '/admin/reference/certificate_kind/edit/{id}/submit', "\App\Forms\Admin\MrAdminCertificateKindEditForm@submitForm")->name('admin_reference_certificate_kind_form_submit');
   Route::match(['get', 'post'], '/admin/reference/certificate_kind/edit/{id}', "\App\Forms\Admin\MrAdminCertificateKindEditForm@getFormBuilder")->name('admin_reference_certificate_kind_form_edit');
 
   //// Классификатор видов документов об оценке соответствия
-  Route::get('/admin/reference/technical_regulation', "Admin\MrAdminReferences@ViewTechnicalRegulation")->name('admin_technical_regulation_page');
+  Route::get('/admin/reference/technical_regulation', "Admin\MrAdminReferencesController@ViewTechnicalRegulation")->name('admin_technical_regulation_page');
   Route::match(['get', 'post'], '/admin/reference/technical_regulation/edit/{id}/submit', "\App\Forms\Admin\MrAdminTechnicalRegulationEditForm@submitForm")->name('admin_reference_technical_regulation_form_submit');
   Route::match(['get', 'post'], '/admin/reference/technical_regulation/edit/{id}', "\App\Forms\Admin\MrAdminTechnicalRegulationEditForm@getFormBuilder")->name('admin_reference_technical_regulation_form_edit');
 
   //// Принятые технические регламенты
-  Route::get('/admin/reference/technical_reglament', "Admin\MrAdminReferences@ViewTechnicalReglament")->name('admin_technical_reglament_page');
+  Route::get('/admin/reference/technical_reglament', "Admin\MrAdminReferencesController@ViewTechnicalReglament")->name('admin_technical_reglament_page');
   Route::match(['get', 'post'], '/admin/reference/technical_reglament/edit/{id}/submit', "\App\Forms\Admin\MrAdminTechnicalReglamentEditForm@submitForm")->name('admin_reference_technical_reglament_form_submit');
   Route::match(['get', 'post'], '/admin/reference/technical_reglament/edit/{id}', "\App\Forms\Admin\MrAdminTechnicalReglamentEditForm@getFormBuilder")->name('admin_reference_technical_reglament_form_edit');
 
