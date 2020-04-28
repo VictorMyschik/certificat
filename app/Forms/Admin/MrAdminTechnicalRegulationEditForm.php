@@ -47,12 +47,12 @@ class MrAdminTechnicalRegulationEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $translate = MrTechnicalRegulation::loadBy($id) ?: new MrTechnicalRegulation();
+    $regulation = MrTechnicalRegulation::loadBy($id) ?: new MrTechnicalRegulation();
 
-    $translate->setName($v['Name']);
-    $translate->setCode($v['Code']);
+    $regulation->setName($v['Name']);
+    $regulation->setCode($v['Code']);
 
-    $translate->save_mr();
+    $regulation->save_mr();
 
     return;
   }

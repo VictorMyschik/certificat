@@ -22,6 +22,7 @@ class MrReferencesTechnicalReglamentTableController extends MrTableController
     $out = array(
       array('name' => __('mr-t.Код'), 'sort' => 'Code'),
       array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('name' => __('mr-t.Ссылка'), 'sort' => 'Link'),
     );
 
     if(self::$can_edit)
@@ -43,17 +44,19 @@ class MrReferencesTechnicalReglamentTableController extends MrTableController
 
     $row = array();
 
-    $regulation = MrTechnicalReglament::loadBy($id);
+    $reglament = MrTechnicalReglament::loadBy($id);
 
-    $row[] = $regulation->getCode();
-    $row[] = $regulation->getName();
+    $row[] = $reglament->getCode();
+    $row[] = $reglament->getName();
+    $row[] = $reglament->getLink();
 
     if(self::$can_edit)
     {
       $row[] = array(
-        $edit = MrForm::loadForm('admin_reference_technical_reglament_form_edit', ['id' => $regulation->id()], '', ['btn btn-success btn-sm fa fa-edit']),
+        $edit = MrForm::loadForm('admin_reference_technical_reglament_form_edit', ['id' => $reglament->id()],
+          '', ['btn btn-success btn-sm fa fa-edit']),
         $delete = MrLink::open('reference_item_delete',
-          ['name' => 'technical_regulation', 'id' => $regulation->id()], '',
+          ['name' => 'technical_reglament', 'id' => $reglament->id()], '',
           'm-l-5 btn btn-danger btn-sm fa fa-trash-alt',
           'Удалить', ['onclick' => "return confirm('Уверены?');"]),
       );

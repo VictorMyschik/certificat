@@ -9,12 +9,13 @@ use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use App\Models\References\MrCurrency;
 use App\Models\References\MrMeasure;
+use App\Models\References\MrTechnicalReglament;
 use App\Models\References\MrTechnicalRegulation;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class MrAdminReferences extends Controller
+class MrAdminReferencesController extends Controller
 {
   /**
    * Загрузка одного справочника
@@ -63,6 +64,15 @@ class MrAdminReferences extends Controller
     $out['route_name'] = MrTechnicalRegulation::getRouteTable();
 
     return View('Admin.References.mir_admin_reference_technical_regulation')->with($out);
+  }
+
+  public function ViewTechnicalReglament()
+  {
+    $out = array();
+    $out['page_title'] = 'Принятые технические регламенты';
+    $out['route_name'] = MrTechnicalReglament::getRouteTable();
+
+    return View('Admin.References.mir_admin_reference_technical_reglament')->with($out);
   }
 
   /**

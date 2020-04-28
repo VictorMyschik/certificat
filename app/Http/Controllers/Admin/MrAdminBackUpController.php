@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\Admin;
-
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
@@ -84,7 +82,9 @@ class MrAdminBackUpController extends Controller
       'mr_communicate_in_table'   => 'MrAdminDbMrCommunicateInTableTableController',
       'mr_document'               => 'MrAdminDbMrDocumentTableController',
       'mr_certificate_document'   => 'MrAdminDbMrCertificateDocumentTableController',
-      'mr_applicant'              => 'MrAdminDbMrApplicantTableController'
+      'mr_applicant'              => 'MrAdminDbMrApplicantTableController',
+      'mr_technical_reglament'    => 'MrAdminDbMrTechnicalReglamentTableController',
+      'mr_technical_regulation'   => 'MrAdminDbMrTechnicalRegulationTableController',
     );
 
     if(isset($arr[$table_name]))

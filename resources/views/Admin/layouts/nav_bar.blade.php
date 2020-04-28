@@ -20,6 +20,7 @@
               регулирования</a>
             <a class="dropdown-item" href="{{route('admin_certificate_kind_page')}}">Классификатор видов документов об
               оценке соответствия</a>
+            <a class="dropdown-item" href="{{route('admin_technical_reglament_page')}}">Принятые технические регламенты</a>
           </div>
         </li>
 
