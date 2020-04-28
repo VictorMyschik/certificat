@@ -13,9 +13,11 @@
             Справочники<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{route('admin_country_page')}}">Страны</a>
-            <a class="dropdown-item" href="{{route('admin_currency_page')}}">Валюты</a>
-            <a class="dropdown-item" href="{{route('admin_measure_page')}}">Единицы измерения</a>
+            <a class="dropdown-item" href="{{route('admin_country_page')}}">Классификатор стран</a>
+            <a class="dropdown-item" href="{{route('admin_currency_page')}}">Классификатор валют</a>
+            <a class="dropdown-item" href="{{route('admin_measure_page')}}">Классификатор единиц измерения</a>
+            <a class="dropdown-item" href="{{route('admin_technical_regulation_page')}}">Классификатор видов объектов технического
+              регулирования</a>
             <a class="dropdown-item" href="{{route('admin_certificate_kind_page')}}">Классификатор видов документов об
               оценке соответствия</a>
           </div>

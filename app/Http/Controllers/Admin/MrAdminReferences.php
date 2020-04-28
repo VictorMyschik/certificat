@@ -9,6 +9,7 @@ use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use App\Models\References\MrCurrency;
 use App\Models\References\MrMeasure;
+use App\Models\References\MrTechnicalRegulation;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -53,6 +54,15 @@ class MrAdminReferences extends Controller
     $out['route_name'] = MrCertificateKind::getRouteTable();
 
     return View('Admin.References.mir_admin_reference_certificate_kind')->with($out);
+  }
+
+  public function ViewTechnicalRegulation()
+  {
+    $out = array();
+    $out['page_title'] = 'Классификатор видов объектов технического регулирования';
+    $out['route_name'] = MrTechnicalRegulation::getRouteTable();
+
+    return View('Admin.References.mir_admin_reference_technical_regulation')->with($out);
   }
 
   /**

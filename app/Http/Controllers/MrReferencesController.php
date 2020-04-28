@@ -9,16 +9,18 @@ use App\Http\Controllers\TableControllers\References\MrReferencesCertificateKind
 use App\Http\Controllers\TableControllers\References\MrReferencesCountryTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesCurrencyTableController;
 use App\Http\Controllers\TableControllers\References\MrReferencesMeasureTableController;
+use App\Http\Controllers\TableControllers\References\MrReferencesTechnicalRegulationTableController;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 class MrReferencesController extends Controller
 {
   protected $references = array(
-    'country'          => 'Страны мира',
-    'currency'         => 'Валюты мира',
-    'measure'          => 'Классификатор единиц измерения',
-    'certificate_kind' => 'Классификатор видов документов об оценке соответствия',
+    'country'              => 'Классификатор стран',
+    'currency'             => 'Классификатор валют',
+    'measure'              => 'Классификатор единиц измерения',
+    'certificate_kind'     => 'Классификатор видов документов об оценке соответствия',
+    'technical_regulation' => 'Классификатор видов объектов технического регулирования',
   );
 
   public function ListCountries()
@@ -39,6 +41,11 @@ class MrReferencesController extends Controller
   public function ListCertificateKind()
   {
     return MrTableController::buildTable(MrReferencesCertificateKindTableController::class);
+  }
+
+  public function ListTechnicalRegulation()
+  {
+    return MrTableController::buildTable(MrReferencesTechnicalRegulationTableController::class);
   }
 
   /**

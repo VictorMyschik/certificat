@@ -207,6 +207,11 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/reference/certificate_kind/edit/{id}/submit', "\App\Forms\Admin\MrAdminCertificateKindEditForm@submitForm")->name('admin_reference_certificate_kind_form_submit');
   Route::match(['get', 'post'], '/admin/reference/certificate_kind/edit/{id}', "\App\Forms\Admin\MrAdminCertificateKindEditForm@getFormBuilder")->name('admin_reference_certificate_kind_form_edit');
 
+  //// Классификатор видов документов об оценке соответствия
+  Route::get('/admin/reference/technical_regulation', "Admin\MrAdminReferences@ViewTechnicalRegulation")->name('admin_technical_regulation_page');
+  Route::match(['get', 'post'], '/admin/reference/technical_regulation/edit/{id}/submit', "\App\Forms\Admin\MrAdminTechnicalRegulationEditForm@submitForm")->name('admin_reference_technical_regulation_form_submit');
+  Route::match(['get', 'post'], '/admin/reference/technical_regulation/edit/{id}', "\App\Forms\Admin\MrAdminTechnicalRegulationEditForm@getFormBuilder")->name('admin_reference_technical_regulation_form_edit');
+
 
   #region СЕРТИФИКАТЫ СООТВЕТСТВИЯ
   Route::get('/admin/certificate', "Admin\MrAdminCertificateController@View")->name('admin_certificate_page');

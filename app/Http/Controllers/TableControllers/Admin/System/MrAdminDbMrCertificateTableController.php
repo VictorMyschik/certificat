@@ -36,6 +36,10 @@ class MrAdminDbMrCertificateTableController extends MrTableController
         array('name' => 'SingleListProductIndicator', 'sort' => 'SingleListProductIndicator'),
         array('name' => 'WriteDate', 'sort' => 'WriteDate'),
         array('name' => 'ManufacturerID', 'sort' => 'ManufacturerID'),
+        array('name' => 'ApplicantID', 'sort' => 'ApplicantID'),
+        array('name' => 'TechnicalRegulationKindID', 'sort' => 'TechnicalRegulationKindID'),
+
+
       ),
 
       'body' => $body

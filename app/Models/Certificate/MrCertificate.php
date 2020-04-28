@@ -11,6 +11,7 @@ use App\Models\Lego\MrCertificateDocument;
 use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
+use App\Models\References\MrTechnicalRegulation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,7 @@ class MrCertificate extends ORM
 
     'ManufacturerID', // Производитель
     'ApplicantID',
+    'TechnicalRegulationKindID'// Кодовое обозначение вида объекта технического регулирования
   );
 
   const STATUS_ACTIVE = 1;
@@ -157,7 +159,7 @@ class MrCertificate extends ORM
   }
 
   // Страна
-  public function getCountry(): ?MrCountry
+  public function getCountry(): MrCountry
   {
     return MrCountry::loadBy($this->CountryID);
   }
@@ -165,6 +167,17 @@ class MrCertificate extends ORM
   public function setCountryID(int $value)
   {
     $this->CountryID = $value;
+  }
+
+  // Кодовое обозначение вида объекта технического регулирования
+  public function getTechnicalRegulationKind(): ?MrTechnicalRegulation
+  {
+    return MrTechnicalRegulation::loadBy($this->TechnicalRegulationKindID);
+  }
+
+  public function setTechnicalRegulationKindID(?int $value)
+  {
+    $this->TechnicalRegulationKindID = $value;
   }
 
   // Статус действия

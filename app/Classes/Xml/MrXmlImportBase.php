@@ -15,6 +15,7 @@ use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
+use App\Models\References\MrTechnicalRegulation;
 use SimpleXMLElement;
 
 /**
@@ -109,13 +110,43 @@ class MrXmlImportBase extends Controller
         }
       }
 
+      // Тип технического регулирования
+      if(isset($tech_regulation->TechnicalRegulationObjectKindCode) && ($technical_regulation_kind_xml = (string)$tech_regulation->TechnicalRegulationObjectKindCode))
+      {
+        if($regulation_kind = MrTechnicalRegulation::loadBy($technical_regulation_kind_xml, 'Code'))
+        {
+          $certificate->setTechnicalRegulationKindID($regulation_kind->id());
+        }
+        else
+        {
+          dd('Неизвестный код типа техничесвкого регулирования: ' . $technical_regulation_kind_xml);
+        }
+      }
+      elseif(isset($tech_regulation->TechnicalRegulationObjectKindName) && ($technical_regulation_kind_name_xml = (string)$tech_regulation->TechnicalRegulationObjectKindName))
+      {
+        if($regulation_kind = MrTechnicalRegulation::loadBy($technical_regulation_kind_name_xml, 'Name'))
+        {
+          $certificate->setTechnicalRegulationKindID($regulation_kind->id());
+        }
+        else
+        {
+          dd('Неизвестное наименование типа техничесвкого регулирования: ' . $technical_regulation_kind_name_xml);
+        }
+      }
+
       //Реквизиты товаросопроводительной документации
       if(isset($tech_regulation->docInformationDetails) && ($product_documents_xml = $tech_regulation->docInformationDetails))
       {
         self::importDocument($product_documents_xml, $certificate);
       }
-    }
 
+      //// Товары
+      if(isset($tech_regulation->productDetails) && ($product_details_xml = $tech_regulation->productDetails))
+      {
+        self::importProducts($product_details_xml, $certificate);
+      }
+    }
+    dd($xml);
     $certificate->save_mr();
     $certificate->reload();
 
@@ -130,7 +161,7 @@ class MrXmlImportBase extends Controller
     {
       self::importApplicant($xml->applicantDetails, $certificate);
     }
-
+    dd('Конец');
     return $certificate;
   }
 
@@ -139,8 +170,9 @@ class MrXmlImportBase extends Controller
    *
    * @param SimpleXMLElement $xml_doc
    * @param MrCertificate $certificate
+   * @param int $kind к чему относится документ
    */
-  protected static function importDocument(SimpleXMLElement $xml_doc, MrCertificate $certificate): void
+  protected static function importDocument(SimpleXMLElement $xml_doc, MrCertificate $certificate, int $kind = 0): void
   {
     // Документы, подтверждающие соответствие требованиям
     if(isset($xml_doc->complianceDocDetails))
@@ -350,6 +382,7 @@ class MrXmlImportBase extends Controller
     }
 
     // Реквизиты товаросопроводительной документации
+    // Информация о документе, в соответствии с которым изготовлена продукция
     if(isset($xml_doc->element))
     {
       foreach ($xml_doc->element as $xml)
@@ -414,7 +447,7 @@ class MrXmlImportBase extends Controller
         }
         else
         {
-          $document->setKind(MrDocument::KIND_COMMON_GOOD);
+          $document->setKind($kind ?: MrDocument::KIND_COMMON_GOOD);
           $document->setName($doc_name_xml == 'no_name' ? null : $doc_name_xml);
           $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
           $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
@@ -432,6 +465,7 @@ class MrXmlImportBase extends Controller
         }
       }
     }
+
   }
 
   /**
@@ -1026,5 +1060,22 @@ class MrXmlImportBase extends Controller
 
     $applicant->save_mr();
     $applicant->flush();
+  }
+
+  protected static function importProducts(SimpleXMLElement $xml, MrCertificate $certificate): void
+  {
+    // Продукт
+    foreach ($xml->element as $item_xml)
+    {
+
+      //// Документы
+      if(isset($item_xml->docInformationDetails))
+      {
+        foreach ($item_xml->docInformationDetails->element as $doc_xml)
+        {
+          self::importDocument($doc_xml, $certificate, MrDocument::KIND_GOOD);
+        }
+      }
+    }
   }
 }

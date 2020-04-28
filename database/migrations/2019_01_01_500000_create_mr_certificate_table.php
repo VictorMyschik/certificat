@@ -40,6 +40,7 @@ class CreateMrCertificateTable extends Migration
 
       $table->integer('ManufacturerID')->nullable();//Сведения об органе по оценке соответствия
       $table->integer('ApplicantID')->nullable();//Сведения об органе по оценке соответствия
+      $table->integer('TechnicalRegulationKindID')->nullable();// Кодовое обозначение вида объекта технического регулирования
     });
   }
 
