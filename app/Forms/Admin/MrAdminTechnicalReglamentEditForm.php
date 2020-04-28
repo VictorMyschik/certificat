@@ -3,27 +3,34 @@
 namespace App\Forms\Admin;
 
 use App\Forms\FormBase\MrFormBase;
-use App\Models\References\MrTechnicalRegulation;
+use App\Models\References\MrTechnicalReglament;
 use Illuminate\Http\Request;
 
-class MrAdminTechnicalRegulationEditForm extends MrFormBase
+class MrAdminTechnicalReglamentEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $regulation = MrTechnicalRegulation::loadBy($args['id']);
+    $reglament = MrTechnicalReglament::loadBy($args['id']);
 
     $form['Code'] = array(
       '#type'  => 'textfield',
       '#title' => 'Код',
       '#class' => ['mr-border-radius-5'],
-      '#value' => $regulation ? $regulation->getCode() : null,
+      '#value' => $reglament ? $reglament->getCode() : null,
     );
 
     $form['Name'] = array(
       '#type'  => 'textfield',
       '#title' => 'Наименование',
       '#class' => ['mr-border-radius-5'],
-      '#value' => $regulation ? $regulation->getName() : null,
+      '#value' => $reglament ? $reglament->getName() : null,
+    );
+
+    $form['Link'] = array(
+      '#type'  => 'textfield',
+      '#title' => 'Ссылка',
+      '#class' => ['mr-border-radius-5'],
+      '#value' => $reglament ? $reglament->getLink() : null,
     );
 
     return $form;
@@ -47,10 +54,11 @@ class MrAdminTechnicalRegulationEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $translate = MrTechnicalRegulation::loadBy($id) ?: new MrTechnicalRegulation();
+    $translate = MrTechnicalReglament::loadBy($id) ?: new MrTechnicalReglament();
 
     $translate->setName($v['Name']);
     $translate->setCode($v['Code']);
+    $translate->setLink($v['Link']);
 
     $translate->save_mr();
 

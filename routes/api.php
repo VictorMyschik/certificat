@@ -8,6 +8,7 @@ Route::match(['get', 'post'], '/reference/currency_table', 'MrReferencesControll
 Route::match(['get', 'post'], '/reference/measure_table', 'MrReferencesController@ListMeasure')->name('list_measure_table');
 Route::match(['get', 'post'], '/reference/certificate_kind', 'MrReferencesController@ListCertificateKind')->name('list_certificate_kind_table');
 Route::match(['get', 'post'], '/reference/technical_regulation', 'MrReferencesController@ListTechnicalRegulation')->name('list_technical_regulation_table');
+Route::match(['get', 'post'], '/reference/technical_reglament', 'MrReferencesController@ListTechnicalReglament')->name('list_technical_reglament_table');
 
 // BackUp
 Route::match(['get', 'post'], '/admin/system/backup/table/{table_name}', 'Admin\MrAdminBackUpController@GetTable')->name('list_db_table_table');
