@@ -10,6 +10,8 @@ use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
+use App\Models\Certificate\MrProduct;
+use App\Models\Certificate\MrProductInfo;
 use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 
@@ -29,6 +31,8 @@ class MrTestController extends Controller
     MrAddress::AllDelete();
     MrFio::AllDelete();
     MrApplicant::AllDelete();
+    MrProductInfo::AllDelete();
+    MrProduct::AllDelete();
 
     $this->qwe();
   }
@@ -55,7 +59,7 @@ class MrTestController extends Controller
     {
       if($key < 5)
       {
-       // continue;
+        // continue;
       }
 
       $file = public_path() . '/files/' . $file_name;

@@ -12,6 +12,7 @@ use App\Models\Certificate\MrDocument;
 use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use App\Models\Certificate\MrProduct;
+use App\Models\Certificate\MrProductInfo;
 use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
@@ -147,7 +148,7 @@ class MrXmlImportBase extends Controller
         self::importProducts($product_details_xml, $certificate);
       }
     }
-    dd($xml);
+    //dd($xml);
     $certificate->save_mr();
     $certificate->reload();
 
@@ -1082,7 +1083,46 @@ class MrXmlImportBase extends Controller
       {
         foreach ($product_info_xml->element as $info_xml)
         {
+          $product_info = new MrProductInfo();
+          $product_info->setProductID($product->id());
 
+          // Марка, модель...
+          if(isset($info_xml->productInstanceId) && ($productInstanceId_xml = (string)$info_xml->productInstanceId))
+          {
+            $product_info->setInstanceId($productInstanceId_xml);
+          }
+
+          // Код ТН ВЭД
+          if(isset($item_xml->commodityCode) && ($tnved_xml = (string)$item_xml->commodityCode))
+          {
+            $product_info->setTnved($tnved_xml);
+          }
+
+          // Дата изготовления
+          if(isset($info_xml->ProductInstanceManufacturedDate) && ($manufacturer_date_xml = $info_xml->ProductInstanceManufacturedDate))
+          {
+            $product_info->setManufacturedDate($manufacturer_date_xml);
+          }
+
+          // Срок годности
+          if(isset($info_xml->ProductInstanceExpiryDate) && ($expiryr_date_xml = $info_xml->ProductInstanceExpiryDate))
+          {
+            $product_info->setExpiryDate($expiryr_date_xml);
+          }
+
+          // Прочее описание продукта
+          if(isset($info_xml->ProductText) && ($description_xml = $info_xml->ProductText))
+          {
+            $product_info->setDescription($description_xml);
+          }
+
+          // Наименование
+          if(isset($info_xml->ProductName) && ($name_xml = $info_xml->ProductName))
+          {
+            $product_info->setName($name_xml);
+          }
+///TODO сделать количество и ед измерение
+          $product_info->save_mr();
         }
       }
 

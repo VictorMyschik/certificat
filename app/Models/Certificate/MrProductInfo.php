@@ -76,12 +76,12 @@ class MrProductInfo extends ORM
    *
    * @return string
    */
-  public function getName(): string
+  public function getName(): ?string
   {
     return $this->Name;
   }
 
-  public function setName(string $value): void
+  public function setName(?string $value): void
   {
     $this->Name = $value;
   }
@@ -91,12 +91,12 @@ class MrProductInfo extends ORM
    *
    * @return string
    */
-  public function getDescription(): string
+  public function getDescription(): ?string
   {
     return $this->Description;
   }
 
-  public function setDescription(string $value): void
+  public function setDescription(?string $value): void
   {
     $this->Description = $value;
   }
