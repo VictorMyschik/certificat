@@ -1121,8 +1121,13 @@ class MrXmlImportBase extends Controller
           {
             $product_info->setName($name_xml);
           }
-///TODO сделать количество и ед измерение
-          $product_info->save_mr();
+
+          ///TODO сделать количество и ед измерение
+
+          if($product_info->getName() || $product_info->getDescription() || $product_info->getTnved() || $product_info->getInstanceId() || $product_info->getManufacturedDate()|| $product_info->getExpiryDate())
+          {
+            $product_info->save_mr();
+          }
         }
       }
 

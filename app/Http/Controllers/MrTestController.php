@@ -19,9 +19,9 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    dd(MrCertificate::loadBy(4));
+    //dd(MrCertificate::loadBy(4));
 
-/*
+
     MrCertificate::AllDelete();
     MrCertificateDocument::AllDelete();
     MrCommunicate::AllDelete();
@@ -34,7 +34,7 @@ class MrTestController extends Controller
     MrProductInfo::AllDelete();
     MrProduct::AllDelete();
 
-    $this->qwe();*/
+    $this->qwe();
   }
 
   /**
@@ -57,10 +57,7 @@ class MrTestController extends Controller
     // перебор всех файлов
     foreach ($files as $key => $file_name)
     {
-      if($key < 5)
-      {
-        // continue;
-      }
+
 
       $file = public_path() . '/files/' . $file_name;
 
@@ -71,7 +68,7 @@ class MrTestController extends Controller
       $str = 'File: ' . $file_name;
       print_r(count(MrCertificate::$hashed));
       print_r($str);
-      dd(1);
+      //dd(1);
     }
   }
 }

@@ -18,6 +18,7 @@ class MrAdminDbMrProductTableController extends MrTableController
         array('name' => 'id', 'sort' => 'id'),
         array('name' => 'CertificateID', 'sort' => 'CertificateID'),
         array('name' => 'Name', 'sort' => 'Name'),
+        array('name' => 'Tnved', 'sort' => 'Tnved'),
       ),
 
       'body' => $body
