@@ -21,13 +21,7 @@ class MrTechnicalReglament extends ORM
 
   public static function getReferenceInfo()
   {
-    return array(
-      'classifier_group' => '',
-      'description'      => '',
-      'date'             => '',
-      'document'         => '',
-      'doc_link'         => '',
-    );
+    return array();
   }
 
   public static function getRouteTable()
@@ -61,7 +55,7 @@ class MrTechnicalReglament extends ORM
     return $this->Link;
   }
 
-  public function setLink(string $value)
+  public function setLink(string $value): void
   {
     $this->Link = $value;
   }
@@ -76,7 +70,7 @@ class MrTechnicalReglament extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }

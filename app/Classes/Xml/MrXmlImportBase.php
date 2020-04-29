@@ -1075,6 +1075,12 @@ class MrXmlImportBase extends Controller
       {
         $product->setCertificateID($certificate->id());
         $product->setName($product_name_xml);
+        // Код ТН ВЭД
+        if(isset($item_xml->commodityCode) && ($tnved_xml = (string)$item_xml->commodityCode))
+        {
+          $product->setTnved($tnved_xml);
+        }
+
         $product->save_mr();
       }
 

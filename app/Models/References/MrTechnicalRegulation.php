@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\References;
-
 
 use App\Models\ORM;
 
@@ -19,13 +17,7 @@ class MrTechnicalRegulation extends ORM
 
   public static function getReferenceInfo()
   {
-    return array(
-      'classifier_group' => '',
-      'description'      => '',
-      'date'             => '',
-      'document'         => '',
-      'doc_link'         => '',
-    );
+    return array();
   }
 
   public static function getRouteTable()
@@ -49,7 +41,7 @@ class MrTechnicalRegulation extends ORM
     return $this->Code;
   }
 
-  public function setCode(string $value)
+  public function setCode(string $value): void
   {
     $this->Code = $value;
   }
@@ -64,7 +56,7 @@ class MrTechnicalRegulation extends ORM
     return $this->Name;
   }
 
-  public function setName(?string $value)
+  public function setName(?string $value): void
   {
     $this->Name = $value;
   }

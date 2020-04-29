@@ -44,12 +44,12 @@ class MrApplicant extends ORM
   }
 
   // Наименование организации
-  public function getName(): string
+  public function getName(): ?string
   {
     return $this->Name;
   }
 
-  public function setName(string $value): void
+  public function setName(?string $value): void
   {
     $this->Name = $value;
   }

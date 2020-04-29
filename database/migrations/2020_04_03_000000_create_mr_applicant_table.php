@@ -16,7 +16,7 @@ class CreateMrApplicantTable extends Migration
       $table->bigIncrements('id')->autoIncrement();
       $table->integer('CountryID');
       $table->string('BusinessEntityId')->nullable();
-      $table->string('Name', 300);//Наименование хозяйствующего субъекта
+      $table->string('Name', 300)->nullable();//Наименование хозяйствующего субъекта
       $table->integer('Address1ID')->nullable();
       $table->integer('Address2ID')->nullable();
       $table->integer('FioID')->nullable();

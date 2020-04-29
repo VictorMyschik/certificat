@@ -22,14 +22,19 @@
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="mr-color-white">{{ __('mr-t.Справочники') }}</span><span class="caret"></span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="nav-link" href="{{route('references',['name'=>'country'])}}">{{ __('mr-t.Страны мира') }}</a>
-            <a class="nav-link padding-horizontal"
-               href="{{route('references',['name'=>'currency'])}}">{{ __('mr-t.Валюты мира') }}</a>
-            <a class="nav-link"
-               href="{{route('references',['name'=>'measure'])}}">{{ __('mr-t.Классификатор единиц измерения') }}</a>
-            <a class="nav-link" href="{{route('references',['name'=>'certificate_kind'])}}">Классификатор видов
-              документов об оценке соответствия</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{route('references',['name'=>'country'])}}">Классификатор стран</a>
+            <a class="dropdown-item" href="{{route('references',['name'=>'currency'])}}">Классификатор валют</a>
+            <a class="dropdown-item" href="{{route('references',['name'=>'measure'])}}">Классификатор единиц
+              измерения</a>
+            <a class="dropdown-item" href="{{route('references',['name'=>'technical_regulation'])}}">Классификатор видов
+              объектов технического
+              регулирования</a>
+            <a class="dropdown-item" href="{{route('references',['name'=>'certificate_kind'])}}">Классификатор видов
+              документов об
+              оценке соответствия</a>
+            <a class="dropdown-item" href="{{route('references',['name'=>'technical_reglament'])}}">Принятые технические
+              регламенты</a>
           </div>
         </li>
         <li class="nav-item">
@@ -54,9 +59,11 @@
                 <a class="nav-link m-b-10" href="{{ route('admin_page') }}">Админка</a>
               @endif
               @foreach($offices as $office)
-                <a class="nav-link" href="{{route('office_page',['office_id'=>$office->id()])}}">{{$office->getName()}}</a>
+                <a class="nav-link"
+                   href="{{route('office_page',['office_id'=>$office->id()])}}">{{$office->getName()}}</a>
               @endforeach
-                <a class="nav-link" href="#" onclick="mr_popup('{{route('admin_office_edit',['id'=>0])}}');return false;">Создать пустой офис</a>
+              <a class="nav-link" href="#" onclick="mr_popup('{{route('admin_office_edit',['id'=>0])}}');return false;">Создать
+                пустой офис</a>
               @if(isset($default_office) && $default_office->canView())
                 <a class="nav-link"
                    href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>

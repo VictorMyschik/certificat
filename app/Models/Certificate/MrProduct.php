@@ -17,6 +17,7 @@ class MrProduct extends ORM
     'CertificateID',
     'Name',
     'EANCommodityId',
+    'Tnved',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrProduct
@@ -67,5 +68,20 @@ class MrProduct extends ORM
   public function setEANCommodityId(?string $value): void
   {
     $this->EANCommodityId = $value;
+  }
+
+  /**
+   * Код ТН ВЭД
+   *
+   * @return string|null
+   */
+  public function getTnved(): ?string
+  {
+    return $this->Tnved;
+  }
+
+  public function setTnved(?string $value): void
+  {
+    $this->Tnved = $value;
   }
 }
