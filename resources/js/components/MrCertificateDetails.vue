@@ -1,15 +1,15 @@
 <template>
   <div class="row no-gutters col-md-12 padding-horizontal-0">
 
-    <div class="row no-gutters col-md-12 m-r-5 m-l-5 m-b-10">
-      <div class="mr_shadow btn border mr_btn btn-sm m-r-5" v-on:click="change_data('visible_1')">Общее</div>
-      <div class="mr_shadow btn border mr_btn btn-sm m-r-5" v-on:click="change_data('visible_2')">Продукция</div>
-      <div class="mr_shadow btn border mr_btn btn-sm m-r-5" v-on:click="change_data('visible_3')">Документы</div>
-      <div class="mr_shadow btn border mr_btn btn-sm" v-on:click="change_data('visible_4')">Заявитель</div>
+    <div class="row no-gutters col-md-3 col-sm-12 m-r-5 m-l-5 m-b-10">
+      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_1')">Общее</div>
+      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_2')">Продукция</div>
+      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_3')">Документы</div>
+      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_4')">Заявитель</div>
     </div>
 
     <div class="row no-gutters col-md-12" v-if="visible_1">
-      <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2 m-b-10">
+      <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
         <h5 data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1" href="#base_menu_1"
             class="mr_cursor mr-bold mt_table_header">Сведения о документе
         </h5>
@@ -58,9 +58,9 @@
           </table>
         </div>
       </div>
-      <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 p-md-2 m-b-10">
+      <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
         <h5 data-toggle="collapse" aria-controls="base_menu_2" href="#base_menu_2"
-            class="mr_cursor mr-bold mt_table_header">Орган по сертификации</h5>
+            class="mr_cursor mt_table_header">Орган по сертификации</h5>
         <div id="base_menu_2" class="collapse show">
           <table class="table col-md-12 mr-auto-size table-sm">
             <tr>
@@ -108,11 +108,13 @@
       </div>
     </div>
 
-    <div class="row no-gutters col-md-12" v-if="visible_2">
-      <div class="shadow-sm col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
-        <h5 data-toggle="collapse" aria-controls="manufacturer_menu" href="#manufacturer_menu"
-            class="mr_cursor mr-bold mt_table_header">
-          Производитель</h5>
+    <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_2">
+      <h5 data-toggle="collapse" aria-controls="product_base_menu" href="#product_base_menu"
+          class=" mr_cursor col-md-12 mt_table_header">Продукция</h5>
+      <div id="product_base_menu"
+           class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
+        <h6 data-toggle="collapse" aria-controls="manufacturer_menu" href="#manufacturer_menu"
+            class="mr_cursor mt_table_header_name">Производитель</h6>
         <div id="manufacturer_menu" class="collapse show">
           <div class="m-t-5 m-b-5"><i>{{manufacturer['Name']}}</i> {{manufacturer['Country']}}</div>
           <table class="table col-md-12 mr-auto-size table-sm m-t-10" style="width: 100%;">
@@ -132,21 +134,42 @@
             </tr>
           </table>
         </div>
+        <h6 data-toggle="collapse" aria-controls="product_base" href="#product_base"
+            class="mr_cursor mt_table_header_name">Продукт</h6>
+        <div id="product_base" class="collapse show">
+          <div class="m-t-5 m-b-5"><i>{{manufacturer['Name']}}</i> {{manufacturer['Country']}}</div>
+          <table class="table col-md-12 mr-auto-size table-sm m-t-10" style="width: 100%;">
+            <tr v-if="manufacturer['Address2']">
+              <td class="mr-bold">
+                <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address2']">
+                  <i class="fa mr-color-green fa-map fa-lg"></i></a> <span class=" p-r-10">Место осуществления деятельности:</span>
+              </td>
+              <td>{{manufacturer['Address2']}}</td>
+            </tr>
+            <tr v-if="manufacturer['Address1']">
+              <td class="mr-bold">
+                <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address1']">
+                  <i class="fa mr-color-green fa-map fa-lg"></i></a> <span class=" p-r-10">Юридический адрес:</span>
+              </td>
+              <td>{{manufacturer['Address1']}}</td>
+            </tr>
+          </table>
+        </div>
+
       </div>
     </div>
 
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_3">
-      <h5 data-toggle="collapse" aria-controls="doc_menu" href="#doc_menu"
-          class="mr_cursor col-md-12 mr-bold mt_table_header">Документы, привязанные к сертификату</h5>
+      <h5 data-toggle="collapse" aria-controls="doc_menu" href="#doc_menu" class="mr_cursor col-md-12 mt_table_header">
+        Документы, привязанные к сертификату</h5>
       <div id="doc_menu"
-           class="collapse  show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
+           class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
         <div v-if="documents">
           <div v-if="documents[3]">
-            <h5 data-toggle="collapse" aria-controls="doc_menu_3" href="#doc_menu_3"
-                class="mr_cursor mr-bold mt_table_header">
-              {{documents[3][0]['KindName']}}</h5>
+            <h6 data-toggle="collapse" aria-controls="doc_menu_3" href="#doc_menu_3"
+                class="mr_cursor mt_table_header_name">{{documents[3][0]['KindName']}}</h6>
             <div id="doc_menu_3" class="collapse show">
-              <table class="table table-striped table-sm">
+              <table class="table table-sm">
                 <thead>
                 <tr class="mr-bold">
                   <td>Документ</td>
@@ -163,11 +186,10 @@
             </div>
           </div>
           <div v-if="documents[2]">
-            <h5 data-toggle="collapse" aria-controls="doc_menu_2" href="#doc_menu_2"
-                class="mr_cursor mr-bold mt_table_header">
-              {{documents[2][0]['KindName']}}</h5>
+            <h6 data-toggle="collapse" aria-controls="doc_menu_2" href="#doc_menu_2"
+                class="mr_cursor mt_table_header_name">{{documents[2][0]['KindName']}}</h6>
             <div id="doc_menu_2" class="collapse show">
-              <table class="table table-striped table-sm">
+              <table class="table table-sm">
                 <thead>
                 <tr class="mr-bold">
                   <td>Документ</td>
@@ -188,11 +210,10 @@
             </div>
           </div>
           <div v-if="documents[1]">
-            <h5 data-toggle="collapse" aria-controls="doc_menu_1" href="#doc_menu_1"
-                class="mr_cursor mr-bold mt_table_header">
-              {{documents[1][0]['KindName']}}</h5>
+            <h6 data-toggle="collapse" aria-controls="doc_menu_1" href="#doc_menu_1"
+                class="mr_cursor mt_table_header_name">{{documents[1][0]['KindName']}}</h6>
             <div id="doc_menu_1" class="collapse show">
-              <table class="table table-striped table-sm">
+              <table class="table table-sm">
                 <thead>
                 <tr class="mr-bold">
                   <td>Документ</td>
@@ -218,10 +239,10 @@
 
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_4">
       <h5 data-toggle="collapse" aria-controls="applicant_base_menu" href="#applicant_base_menu"
-          class="mr_cursor col-md-12 mr-bold mt_table_header">Заявитель</h5>
+          class="mr_cursor col-md-12 mt_table_header">Заявитель</h5>
       <div id="applicant_base_menu"
-           class="collapse show col-sm-12  no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
-        <h5 class="mr-bold mt_table_header_name">{{applicant['Name']}}</h5>
+           class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
+        <h6 class="mt_table_header_name">{{applicant['Name']}}</h6>
         <table class="table col-md-12 mr-auto-size table-sm">
           <tr>
             <td>Страна</td>
@@ -312,8 +333,12 @@
 </script>
 
 <style scoped>
+  h5, h6 {
+    font-weight: bold;
+  }
+
   tr:hover {
-    background-color: rgba(221, 223, 247, 0.2);
+    background-color: rgba(119, 128, 229, 0.2);
   }
 
   td {
@@ -322,11 +347,12 @@
   }
 
   .mt_table_header {
-    background-color: rgba(221, 223, 247, 0.7);
+    background-color: rgba(108, 110, 245, 0.3);
     border-radius: 5px;
     padding-left: 5px;
     padding-top: 2px;
     padding-bottom: 2px;
+    border: #6cb2eb 1px solid;
   }
 
   .mt_table_header_name {
@@ -359,6 +385,8 @@
 
   .mr_shadow {
     box-shadow: 5px 5px rgba(221, 223, 247, 0.2);
+    border: #6cb2eb 1px solid;
+    color: #6cb2eb;
   }
 
 </style>

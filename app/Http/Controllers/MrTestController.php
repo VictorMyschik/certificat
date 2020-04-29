@@ -19,9 +19,9 @@ class MrTestController extends Controller
 {
   public function index()
   {
-    //dd(MrCertificate::loadBy(2)->GetDocuments()[0]->getDocument());
+    dd(MrCertificate::loadBy(4));
 
-
+/*
     MrCertificate::AllDelete();
     MrCertificateDocument::AllDelete();
     MrCommunicate::AllDelete();
@@ -34,7 +34,7 @@ class MrTestController extends Controller
     MrProductInfo::AllDelete();
     MrProduct::AllDelete();
 
-    $this->qwe();
+    $this->qwe();*/
   }
 
   /**
