@@ -163,7 +163,7 @@ class MrXmlImportBase extends Controller
     {
       self::importApplicant($xml->applicantDetails, $certificate);
     }
-    dd('Конец');
+
     return $certificate;
   }
 
@@ -908,9 +908,9 @@ class MrXmlImportBase extends Controller
     }
 
     // Схема сертификации
-    if(isset($xml->certificationSchemeCode) && ($schema_certificate = (string)$xml->certificationSchemeCode))
+    if(isset($xml->certificationSchemeCode) && ($schema_certificate_xml = $xml->certificationSchemeCode))
     {
-      if(isset($xml->certificationSchemeCode->element) && ($schema_certificate = (string)$xml->certificationSchemeCode->element))
+      if(isset($schema_certificate_xml->element) && ($schema_certificate = (string)$schema_certificate_xml->element))
       {
         $certificate->setSchemaCertificate($schema_certificate);
       }
