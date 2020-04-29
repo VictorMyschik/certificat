@@ -48,7 +48,7 @@ class MrReferencesTechnicalReglamentTableController extends MrTableController
 
     $row[] = $reglament->getCode();
     $row[] = $reglament->getName();
-    $row[] = $reglament->getLink();
+    $row[] = '<a href="'.$reglament->getLink().'" target="_blank"><i class="fa fa-eye"> PDF</a>';
 
     if(self::$can_edit)
     {

@@ -22,7 +22,7 @@ class MrReferencesController extends Controller
     'measure'              => 'Классификатор единиц измерения',
     'certificate_kind'     => 'Классификатор видов документов об оценке соответствия',
     'technical_regulation' => 'Классификатор видов объектов технического регулирования',
-    'technical_reglament' => 'Принятые технические регламенты',
+    'technical_reglament'  => 'Принятые технические регламенты',
   );
 
   public function ListCountries()
@@ -67,7 +67,7 @@ class MrReferencesController extends Controller
 
     if(isset($this->references[$name]) && ($reference = $this->references[$name]))
     {
-      $out['page_title'] = __('mr-t.' . $reference);
+      $out['page_title'] = $reference;
 
       $new_name = array();
       foreach (explode('_', $name) as $item)
