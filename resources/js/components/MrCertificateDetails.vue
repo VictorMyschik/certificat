@@ -1,14 +1,15 @@
 <template>
   <div class="row no-gutters col-md-12 padding-horizontal-0">
 
-    <div class="row no-gutters col-md-3 col-sm-12 m-r-5 m-l-5 m-b-10">
+    <div class="row no-gutters col-lg-4 col-md-5 col-sm-12 m-r-5 m-l-5 m-b-10">
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_1')">Общее</div>
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_2')">Продукция</div>
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_3')">Документы</div>
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_4')">Заявитель</div>
     </div>
 
-    <div class="row no-gutters col-md-12" v-if="visible_1">
+    <div class="row col-md-12 no-gutters" v-if="visible_1">
+
       <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
         <h5 data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1" href="#base_menu_1"
             class="mr_cursor mr-bold mt_table_header">Сведения о документе
@@ -58,6 +59,7 @@
           </table>
         </div>
       </div>
+
       <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
         <h5 data-toggle="collapse" aria-controls="base_menu_2" href="#base_menu_2"
             class="mr_cursor mt_table_header">Орган по сертификации</h5>
@@ -106,6 +108,7 @@
           </table>
         </div>
       </div>
+
     </div>
 
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_2">
@@ -296,7 +299,8 @@
         certificate: [],
         authority: [],
         manufacturer: [],
-        documents: []
+        documents: [],
+        applicant: [],
       }
     },
     mounted() {
