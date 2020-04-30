@@ -545,6 +545,11 @@ class MrCertificate extends ORM
       );
     }
 
+    foreach($this->GetProducts() as $product)
+    {
+
+    }
+
     return $out;
   }
 }

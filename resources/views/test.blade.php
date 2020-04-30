@@ -5,7 +5,14 @@
     <div class="container m-t-10">
       {{Form::open(array('url' => '/test', 'files' => true))}}
       @csrf
-      {{Form::file('file')}}
+      <table>
+        @foreach($file_name as $name)
+          <tr>
+            <td><input type="radio" name="file_name" value="{{$name}}"></td>
+            <td>{{$name}}</td>
+          </tr>
+        @endforeach
+      </table>
       {{Form::submit('Click Me!')}}
       {{ Form::close() }}
     </div>
