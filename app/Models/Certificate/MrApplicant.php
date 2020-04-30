@@ -33,12 +33,12 @@ class MrApplicant extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  public function getCountry(): MrCountry
+  public function getCountry(): ?MrCountry
   {
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(int $value): void
+  public function setCountryID(?int $value): void
   {
     $this->CountryID = $value;
   }

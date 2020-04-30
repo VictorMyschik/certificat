@@ -46,12 +46,12 @@ class MrManufacturer extends ORM
   /**
    * Страна производителя
    */
-  public function getCountry(): MrCountry
+  public function getCountry(): ?MrCountry
   {
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(int $value)
+  public function setCountryID(?int $value)
   {
     $this->CountryID = $value;
   }

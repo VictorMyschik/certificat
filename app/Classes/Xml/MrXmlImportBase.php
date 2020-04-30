@@ -100,7 +100,6 @@ class MrXmlImportBase extends Controller
       }
     }
 
-
     //// Производитель и всё что связано с товаром
     if(isset($xml->technicalRegulationObjectDetails))
     {
@@ -118,7 +117,7 @@ class MrXmlImportBase extends Controller
       }
 
       // Тип технического регулирования
-      if(isset($tech_regulation->TechnicalRegulationObjectKindCode) && ($technical_regulation_kind_xml = (string)$tech_regulation->TechnicalRegulationObjectKindCode))
+      if(isset($tech_regulation->technicalRegulationObjectKindCode) && ($technical_regulation_kind_xml = (string)$tech_regulation->TechnicalRegulationObjectKindCode))
       {
         if($regulation_kind = MrTechnicalRegulation::loadBy($technical_regulation_kind_xml, 'Code'))
         {
@@ -126,10 +125,11 @@ class MrXmlImportBase extends Controller
         }
         else
         {
-          dd('Неизвестный код типа техничесвкого регулирования: ' . $technical_regulation_kind_xml);
+          dump($tech_regulation);
+          dd('Неизвестный код типа технического регулирования: ' . $technical_regulation_kind_xml);
         }
       }
-      elseif(isset($tech_regulation->TechnicalRegulationObjectKindName) && ($technical_regulation_kind_name_xml = (string)$tech_regulation->TechnicalRegulationObjectKindName))
+      elseif(isset($tech_regulation->technicalRegulationObjectKindName) && ($technical_regulation_kind_name_xml = (string)$tech_regulation->technicalRegulationObjectKindName))
       {
         if($regulation_kind = MrTechnicalRegulation::loadBy($technical_regulation_kind_name_xml, 'Name'))
         {
@@ -137,7 +137,8 @@ class MrXmlImportBase extends Controller
         }
         else
         {
-          dd('Неизвестное наименование типа техничесвкого регулирования: ' . $technical_regulation_kind_name_xml);
+          dump($tech_regulation);
+          dd('Неизвестное наименование типа технического регулирования: ' . $technical_regulation_kind_name_xml);
         }
       }
 
@@ -515,37 +516,38 @@ class MrXmlImportBase extends Controller
     $manufacturer_xml = $xml->element;
     if(isset($manufacturer_xml->businessEntityName) && ($name_xml = (string)$manufacturer_xml->businessEntityName))
     {
+      $manufacturer = MrManufacturer::loadBy($name_xml, 'Name') ?: new MrManufacturer();
+      $manufacturer->setName($name_xml);
+
       if(isset($manufacturer_xml->unifiedCountryCode) && ($country = self::__parsCountry($manufacturer_xml->unifiedCountryCode)))
       {
-        $manufacturer = MrManufacturer::loadBy($name_xml, 'Name') ?: new MrManufacturer();
-        $manufacturer->setName($name_xml);
         $manufacturer->setCountryID($country->id());
+      }
 
-        if(isset($manufacturer_xml->addressV4Details))
+      if(isset($manufacturer_xml->addressV4Details))
+      {
+        $addresses = self::importAddress($manufacturer_xml, $manufacturer);
+        foreach ($addresses as $key => $address)
         {
-          $addresses = self::importAddress($manufacturer_xml, $manufacturer);
-          foreach ($addresses as $key => $address)
+          if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
           {
-            if($key == MrAddress::ADDRESS_KIND_REGISTRATION)
-            {
-              $manufacturer->setAddress1ID($address->id());
-            }
-            elseif($key == MrAddress::ADDRESS_KIND_FACT)
-            {
-              $manufacturer->setAddress2ID($address->id());
-            }
-            else
-            {
-              dd('Тип адреса не известен: ' . $key);
-            }
+            $manufacturer->setAddress1ID($address->id());
+          }
+          elseif($key == MrAddress::ADDRESS_KIND_FACT)
+          {
+            $manufacturer->setAddress2ID($address->id());
+          }
+          else
+          {
+            dd('Тип адреса не известен: ' . $key);
           }
         }
-
-        $manufacturer->save_mr();
-        $manufacturer->reload();
-
-        return $manufacturer;
       }
+
+      $manufacturer->save_mr();
+      $manufacturer->reload();
+
+      return $manufacturer;
     }
 
     return null;
@@ -751,10 +753,6 @@ class MrXmlImportBase extends Controller
         {
           $address->setCountryID($country->id());
         }
-        else
-        {
-          continue;
-        }
       }
 
       // Регион
@@ -822,6 +820,7 @@ class MrXmlImportBase extends Controller
       if(isset(MrCertificate::GetHashedList()[$number]))
       {
         $certificate = MrCertificate::loadBy($number, 'Number');
+        return null;
       }
       else
       {
@@ -1033,7 +1032,7 @@ class MrXmlImportBase extends Controller
 
     $applicant->setName($name_xml == 'no_name' ? null : $name_xml);
     $applicant->setBusinessEntityId($applicant_id_xml == 'no_business_id' ? null : $applicant_id_xml);
-    $applicant->setCountryID($country->id());
+    $applicant->setCountryID($country ? $country->id() : null);
     $applicant->setHash($hash);
 
     $applicant_id = $applicant->save_mr();

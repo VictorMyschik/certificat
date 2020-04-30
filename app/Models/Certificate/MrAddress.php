@@ -111,12 +111,12 @@ class MrAddress extends ORM
    *
    * @return MrCountry
    */
-  public function getCountry(): MrCountry
+  public function getCountry(): ?MrCountry
   {
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(int $value)
+  public function setCountryID(?int $value)
   {
     $this->CountryID = $value;
   }
@@ -308,8 +308,12 @@ class MrAddress extends ORM
   {
     $r = $this->getPostCode() ?: '';
 
-    $r .= '(' . $this->getCountry()->getContinentShortName() . ')';
-    $r .= ' ' . $this->getCountry()->getName();
+    if($this->getCountry())
+    {
+      $r .= '(' . $this->getCountry()->getContinentShortName() . ')';
+      $r .= ' ' . $this->getCountry()->getName();
+    }
+
     $r .= ' ' . $this->getCity();
 
     return $r;

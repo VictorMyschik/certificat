@@ -8,7 +8,6 @@ use App\Models\Certificate\MrAddress;
 
 trait MrAddressTrait
 {
-
   /**
    * Адрес (юридический)
    */

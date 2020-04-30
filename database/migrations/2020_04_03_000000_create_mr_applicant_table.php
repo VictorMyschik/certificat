@@ -14,7 +14,7 @@ class CreateMrApplicantTable extends Migration
   {
     Schema::create('mr_applicant', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
-      $table->integer('CountryID');
+      $table->integer('CountryID')->nullable();
       $table->string('BusinessEntityId')->nullable();
       $table->string('Name', 300)->nullable();//Наименование хозяйствующего субъекта
       $table->integer('Address1ID')->nullable();

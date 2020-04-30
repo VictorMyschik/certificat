@@ -21,7 +21,7 @@ class MrTestController extends Controller
   {
     //dd(MrCertificate::loadBy(4));
 
-
+/*
     MrCertificate::AllDelete();
     MrCertificateDocument::AllDelete();
     MrCommunicate::AllDelete();
@@ -32,7 +32,7 @@ class MrTestController extends Controller
     MrFio::AllDelete();
     MrApplicant::AllDelete();
     MrProductInfo::AllDelete();
-    MrProduct::AllDelete();
+    MrProduct::AllDelete();*/
 
     $this->qwe();
   }
@@ -57,18 +57,9 @@ class MrTestController extends Controller
     // перебор всех файлов
     foreach ($files as $key => $file_name)
     {
-
-
       $file = public_path() . '/files/' . $file_name;
-
       $xml = simplexml_load_file($file);
-
       MrXmlImportBase::parse($xml);
-
-      $str = 'File: ' . $file_name;
-      print_r(count(MrCertificate::$hashed));
-      print_r($str);
-
     }
   }
 }

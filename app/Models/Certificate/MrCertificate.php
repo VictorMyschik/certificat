@@ -537,7 +537,7 @@ class MrCertificate extends ORM
       $out['applicant'] = array(
         'Name'        => $applicant->getName(),
         'BusinessId'  => $applicant->getBusinessEntityId(),
-        'Country'     => $applicant->getCountry()->getName(),
+        'Country'     => $applicant->getCountry() ? $applicant->getCountry()->getName() : null,
         'Address1'    => $applicant->getAddress1() ? $applicant->getAddress1()->GetFullAddress() : null,
         'Address2'    => $applicant->getAddress2() ? $applicant->getAddress2()->GetFullAddress() : null,
         'Fio'         => $applicant->getFio() ? $applicant->getFio()->GetFullNameWithPosition() : '',
