@@ -370,6 +370,11 @@ class MrCertificate extends ORM
     return $out;
   }
 
+  /**
+   * Список номеров сертификатов
+   *
+   * @return array
+   */
   public static function GetHashedList()
   {
     if(count(self::$hashed))
@@ -387,13 +392,14 @@ class MrCertificate extends ORM
   }
 
   /**
-   * Оновление сертификата
+   * Обновление сертификата
    */
   public function CertificateUpdate(): array
   {
     $url = $this->getLinkOut();
 
     $xml = self::GetCertificateFromURL($url);
+
     return MrXmlImportBase::ParseXmlFromString($xml);
   }
 

@@ -3,7 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
+use App\Models\Certificate\MrAddress;
+use App\Models\Certificate\MrApplicant;
 use App\Models\Certificate\MrCertificate;
+use App\Models\Certificate\MrCommunicate;
+use App\Models\Certificate\MrDocument;
+use App\Models\Certificate\MrFio;
+use App\Models\Certificate\MrManufacturer;
+use App\Models\Certificate\MrProduct;
+use App\Models\Certificate\MrProductInfo;
+use App\Models\Lego\MrCertificateDocument;
+use App\Models\Lego\MrCommunicateInTable;
 
 class MrTestController extends Controller
 {
@@ -11,18 +21,18 @@ class MrTestController extends Controller
   {
     //dd(MrCertificate::loadBy(4));
 
-    /*
-        MrCertificate::AllDelete();
-        MrCertificateDocument::AllDelete();
-        MrCommunicate::AllDelete();
-        MrCommunicateInTable::AllDelete();
-        MrDocument::AllDelete();
-        MrManufacturer::AllDelete();
-        MrAddress::AllDelete();
-        MrFio::AllDelete();
-        MrApplicant::AllDelete();
-        MrProductInfo::AllDelete();
-        MrProduct::AllDelete();*/
+
+    MrCertificate::AllDelete();
+    MrCertificateDocument::AllDelete();
+    MrCommunicate::AllDelete();
+    MrCommunicateInTable::AllDelete();
+    MrDocument::AllDelete();
+    MrManufacturer::AllDelete();
+    MrAddress::AllDelete();
+    MrFio::AllDelete();
+    MrApplicant::AllDelete();
+    MrProductInfo::AllDelete();
+    MrProduct::AllDelete();
 
     $this->qwe();
   }
@@ -47,15 +57,7 @@ class MrTestController extends Controller
     // перебор всех файлов
     foreach ($files as $key => $file_name)
     {
-      if($file_name == '10000.xml'
-        || $file_name == '100000.xml'
-        || $file_name == '1000000.xml'
-        || $file_name == '1005000.xml'
-        || $file_name == '1010000.xml'
-      )
-      {
-        continue;
-      }
+
 
       $file = public_path() . '/files/' . $file_name;
 
@@ -66,7 +68,7 @@ class MrTestController extends Controller
       $str = 'File: ' . $file_name;
       print_r(count(MrCertificate::$hashed));
       print_r($str);
-      dd(1);
+
     }
   }
 }
