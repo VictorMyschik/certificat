@@ -16,6 +16,11 @@ Route::get('locale/{locale}', function ($locale) {
   return redirect()->back();
 });
 
+// Тест
+Route::get('/search', 'HomeController@SearchPage')->name('test_search');
+Route::get('/search/api', 'HomeController@SearchApi')->name('test_search');
+
+
 Route::get('/', 'HomeController@index')->name('welcome');
 Route::match(['get', 'post'], '/faq', 'MrFAQController@index')->name('faq_page');
 
@@ -30,9 +35,6 @@ Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 //// Справочники
 /// универсальная динамческая страница справочкика
 Route::get('/references/{name}', 'MrReferencesController@View')->name('references');
-
-// Поиск
-Route::match(['get', 'post'], '/search', 'MrApiController@Search')->name('search');
 
 // Страница инфо о сертификате
 Route::get('/certificate/{number}', 'MrCertificateController@View');
