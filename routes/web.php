@@ -18,7 +18,8 @@ Route::get('locale/{locale}', function ($locale) {
 
 // Тест
 Route::get('/search', 'HomeController@SearchPage')->name('test_search');
-Route::get('/search/api', 'HomeController@SearchApi')->name('test_search');
+Route::match(['get', 'post'], '/search/api', 'HomeController@SearchApi')->name('test_search');
+Route::match(['get', 'post'], '/search/api/get/{id}', 'HomeController@GetCertificate');
 
 
 Route::get('/', 'HomeController@index')->name('welcome');

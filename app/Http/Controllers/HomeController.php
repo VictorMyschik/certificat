@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Certificate\MrCertificate;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,16 @@ class HomeController extends Controller
 
   public function SearchApi(Request $request)
   {
-    return 123;
+    $certificate = MrCertificate::Search($request->get('text'));
+    if($certificate)
+    {
+      return ['data' => $certificate];
+    }
+    return null;
+  }
+
+  public function GetCertificate(int $id)
+  {
+    return MrCertificate::loadBy($id)->GetJsonData();
   }
 }

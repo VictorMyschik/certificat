@@ -568,4 +568,25 @@ class MrCertificate extends ORM
 
     return $out;
   }
+
+  /**
+   * Поиск сертификата
+   * @param string|null $text
+   * @return array
+   */
+  public static function Search(?string $text): array
+  {
+    if(!$text)
+    {
+      return array();
+    }
+
+    $list = DB::table(self::$mr_table)->where('Number', 'LIKE', '%' . $text . '%')->limit(5)->get(['id', 'Number']);
+    $out = array();
+    foreach ($list as $item)
+    {
+      $out[$item->id] = $item->Number;
+    }
+    return $out;
+  }
 }
