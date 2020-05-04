@@ -2,7 +2,9 @@
 
 namespace App\Models\Certificate;
 
+use App\Helpers\MrCacheHelper;
 use App\Models\ORM;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Общие данные о сертифицируемом продукте
@@ -104,5 +106,19 @@ class MrProduct extends ORM
   public function setDescription(?string $value)
   {
     $this->Description = $value;
+  }
+
+  //////////////////////////////////////////////////////////
+
+  /**
+   * Сведения о товаре
+   *
+   * @return MrProductInfo[]
+   */
+  public function GetProductInfo(): array
+  {
+    return MrCacheHelper::GetCachedObjectList('product_info' . '_' . $this->id() . '_list', MrProductInfo::class, function () {
+      return DB::table(MrProductInfo::$mr_table)->where('ProductID', $this->id())->pluck('id')->toArray();
+    });
   }
 }

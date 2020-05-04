@@ -137,26 +137,37 @@
             </tr>
           </table>
         </div>
+
         <h6 data-toggle="collapse" aria-controls="product_base" href="#product_base"
-            class="mr_cursor mt_table_header_name">Продукт</h6>
+            class="mr_cursor mt_table_header_name">Продукция</h6>
         <div id="product_base" class="collapse show">
-          <div class="m-t-5 m-b-5"><i>{{manufacturer['Name']}}</i> {{manufacturer['Country']}}</div>
-          <table class="table col-md-12 mr-auto-size table-sm m-t-10" style="width: 100%;">
-            <tr v-if="manufacturer['Address2']">
-              <td class="mr-bold">
-                <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address2']">
-                  <i class="fa mr-color-green fa-map fa-lg"></i></a> <span class=" p-r-10">Место осуществления деятельности:</span>
-              </td>
-              <td>{{manufacturer['Address2']}}</td>
-            </tr>
-            <tr v-if="manufacturer['Address1']">
-              <td class="mr-bold">
-                <a target="_blank" v-bind:href="'https://yandex.ru/maps/?text=' + manufacturer['Address1']">
-                  <i class="fa mr-color-green fa-map fa-lg"></i></a> <span class=" p-r-10">Юридический адрес:</span>
-              </td>
-              <td>{{manufacturer['Address1']}}</td>
-            </tr>
-          </table>
+          <div class="m-t-5 m-b-5" v-for="product in manufacturer['products']"><i><b>{{product['Name']}}</b></i>
+            <div class="mr-muted">{{product['Description']}}</div>
+            <table class="table table-sm mr-small">
+              <thead>
+              <tr>
+                <th>Наименование</th>
+                <th>Идентификатор или заводской номер</th>
+                <th>ТН ВЭД код</th>
+                <th>Дата производства</th>
+                <th>Срок годности</th>
+                <th>Примечание</th>
+                <th>Ед. измерения</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="info in product['Info']">
+                <td>{{info['Name']}}</td>
+                <td>{{info['InstanceId']}}</td>
+                <td>{{info['TnvedCode']}}</td>
+                <td>{{info['ManufacturedDate']}}</td>
+                <td>{{info['ExpiryDate']}}</td>
+                <td>{{info['Description']}}</td>
+                <td>{{info['Measure']}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>
@@ -310,7 +321,7 @@
       this.documents = this.certificate_json.documents;
       this.applicant = this.certificate_json.applicant;
 
-      console.log(this.applicant);
+      console.log(this.manufacturer);
     },
     methods: {
       change_data(kind) {

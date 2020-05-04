@@ -507,10 +507,26 @@ class MrCertificate extends ORM
       $out['manufacturer']['Address1'] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetFullAddress() : null;
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
 
-
-      foreach($manufacturer->GetProducts() as $product)
+      //// Товары
+      foreach ($manufacturer->GetProducts() as $key => $product)
       {
+        $out['manufacturer']['products'][$key] = array(
+          'Name'        => $product->getName(),
+          'Description' => $product->getDescription(),
+        );
 
+        foreach ($product->GetProductInfo() as $info)
+        {
+          $out['manufacturer']['products'][$key]['Info'][] = array(
+            'Name'             => $info->getName(),
+            'TnvedCode'        => $info->GetTnvedExt() ? $info->GetTnvedExt()->getCode() : null,
+            'ManufacturedDate' => $info->getManufacturedDate() ? $info->getManufacturedDate()->getShortDate() : null,
+            'ExpiryDate'       => $info->getExpiryDate() ? $info->getExpiryDate()->getShortDate() : null,
+            'InstanceId'       => $info->getInstanceId(),
+            'Description'      => $info->getDescription(),
+            'Measure'          => $info->getMeasure() ? $info->getMeasure()->getName() : null,
+          );
+        }
       }
 
     }

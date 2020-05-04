@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
+use App\Models\Certificate\MrCertificate;
 use Illuminate\Http\Request;
 
 class MrTestController extends Controller
@@ -10,7 +11,7 @@ class MrTestController extends Controller
   public function index(Request $request)
   {
 
-    //dd(MrCertificate::loadBy(4));
+    dd(MrCertificate::loadBy(275)->GetJsonData());
 
     /*
         MrCertificate::AllDelete();
