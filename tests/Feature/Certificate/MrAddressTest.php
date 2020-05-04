@@ -35,13 +35,6 @@ class MrAddressTest extends TestCase
 
     $address = new MrAddress();
     self::assertNotNull($address);
-
-    //'ObjectKind',
-    $KindObject = MrAddress::KIND_OBJECT_MANUFACTURER;
-    $address->setObjectKind($KindObject);
-    //'ObjectID',
-    $ObjectID = self::randomIDfromClass(MrManufacturer::class);
-    $address->setObjectID($ObjectID);
     //'AddressKind'
     $AddressKind = array_rand(MrAddress::GetAddressKindList());
     $address->setAddressKind($AddressKind);
@@ -95,8 +88,6 @@ class MrAddressTest extends TestCase
     //// Asserts
     $address = MrAddress::loadBy($address_id);
     self::assertNotNull($address);
-    $this->assertEquals($KindObject, $address->getObjectKind());
-    $this->assertEquals($ObjectID, $address->getObject()->id());
     $this->assertEquals($AddressKind, $address->getAddressKind());
     $this->assertEquals($TerritoryCode, $address->getTerritoryCode());
     $this->assertEquals($RegionName, $address->getRegionName());
@@ -115,12 +106,6 @@ class MrAddressTest extends TestCase
 
 
     //// Update
-    //'ObjectKind',
-    $KindObject = MrAddress::KIND_OBJECT_MANUFACTURER;
-    $address->setObjectKind($KindObject);
-    //'ObjectID',
-    $ObjectID = self::randomIDfromClass(MrManufacturer::class);
-    $address->setObjectID($ObjectID);
     //'AddressKind'
     $AddressKind = array_rand(MrAddress::GetAddressKindList());
     $address->setAddressKind($AddressKind);
@@ -174,8 +159,6 @@ class MrAddressTest extends TestCase
     //// Asserts
     $address = MrAddress::loadBy($address_id);
     self::assertNotNull($address);
-    $this->assertEquals($KindObject, $address->getObjectKind());
-    $this->assertEquals($ObjectID, $address->getObject()->id());
     $this->assertEquals($AddressKind, $address->getAddressKind());
     $this->assertEquals($TerritoryCode, $address->getTerritoryCode());
     $this->assertEquals($RegionName, $address->getRegionName());

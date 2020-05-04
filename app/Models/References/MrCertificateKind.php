@@ -11,10 +11,10 @@ class MrCertificateKind extends ORM
   protected $table = 'mr_measure';
 
   protected static $dbFieldsMap = array(
-    'Code',
+    'Code', // 2
     'ShortName',
-    'Name',
-    'Description',
+    'Name', // 255
+    'Description', //350
   );
 
   public static function getReferenceInfo()
@@ -43,7 +43,7 @@ class MrCertificateKind extends ORM
 
   }
 
-  //  Цифоровой код
+  //  Цифровой код
   public function getCode(): string
   {
     return $this->Code;
@@ -54,6 +54,11 @@ class MrCertificateKind extends ORM
     $this->Code = $value;
   }
 
+  /**
+   * Описание
+   *
+   * @return string|null
+   */
   public function getDescription(): ?string
   {
     return $this->Description;

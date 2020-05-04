@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Tests\Feature;
-
+namespace Tests\Feature\Certificate;
 
 use App\Models\Certificate\MrCommunicate;
 use App\Models\Certificate\MrManufacturer;
@@ -20,12 +18,6 @@ class MrCommunicateTest extends TestCase
      */
 
     $communicate = new MrCommunicate();
-    //'KindObject'
-    $KindObject = MrCommunicate::KIND_OBJECT_MANUFACTURER;
-    $communicate->setObjectKind($KindObject);
-    //'ObjectID'
-    $ObjectID = self::randomIDfromClass(MrManufacturer::class);
-    $communicate->setObjectID($ObjectID);
     //'Kind'
     $Kind = array_rand(MrCommunicate::getAddressKinds());
     $communicate->setKind($Kind);
@@ -40,18 +32,10 @@ class MrCommunicateTest extends TestCase
     //// Asserts
     $communicate = MrCommunicate::loadBy($communicate_id);
     $this->assertNotNull($communicate);
-    $this->assertEquals($KindObject, $communicate->getObjectKind());
-    $this->assertEquals($ObjectID, $communicate->getObject()->id());
     $this->assertEquals($Kind, $communicate->getKind());
     $this->assertEquals($Address, $communicate->getAddress());
 
     //// Update
-    //'KindObject'
-    $KindObject = MrCommunicate::KIND_OBJECT_MANUFACTURER;
-    $communicate->setObjectKind($KindObject);
-    //'ObjectID'
-    $ObjectID = self::randomIDfromClass(MrManufacturer::class);
-    $communicate->setObjectID($ObjectID);
     //'Kind'
     $Kind = array_rand(MrCommunicate::getAddressKinds());
     $communicate->setKind($Kind);
@@ -66,8 +50,6 @@ class MrCommunicateTest extends TestCase
     //// Asserts
     $communicate = MrCommunicate::loadBy($communicate_id);
     $this->assertNotNull($communicate);
-    $this->assertEquals($KindObject, $communicate->getObjectKind());
-    $this->assertEquals($ObjectID, $communicate->getObject()->id());
     $this->assertEquals($Kind, $communicate->getKind());
     $this->assertEquals($Address, $communicate->getAddress());
 

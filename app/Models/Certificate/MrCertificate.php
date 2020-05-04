@@ -23,7 +23,6 @@ class MrCertificate extends ORM
   protected $table = 'mr_certificate';
 
   protected static $dbFieldsMap = array(
-    'id',// $table->bigIncrements('id')->autoIncrement();
     'CertificateKindID',// $table->integer('Kind');//Тип документа
     'Number',// $table->string('Number');//Регистрационный номер документа
     'DateFrom',// $table->date('DateFrom');//Дата начала срока действия

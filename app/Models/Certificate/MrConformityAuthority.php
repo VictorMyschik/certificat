@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\Certificate;
-
 
 use App\Helpers\MrDateTime;
 use App\Models\Lego\MrAddressTrait;
@@ -30,9 +28,9 @@ class MrConformityAuthority extends ORM
   protected $table = 'mr_conformity_authority';
 
   protected static $dbFieldsMap = array(
-    'CountryID', // businessEntityName max 300
-    'Name',//номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
-    'ConformityAuthorityId', // кодовое обозначение страны, в которой зарегистрирован орган по оценке соответствия
+    'CountryID',
+    'Name', // max 300
+    'ConformityAuthorityId',
     'DocumentNumber', // номер документа, подтверждающего аккредитацию органа по оценке соответствия
     'DocumentDate', // дата регистрации документа подтверждающего аккредитацию органа по оценке соответствия
     'OfficerDetailsID',// Руководитель органа по оценке соответствия
@@ -71,7 +69,7 @@ class MrConformityAuthority extends ORM
     return parent::loadBy((string)$value, $field);
   }
 
-  //номер органа по оценке соответствия в национальной части единого реестра органов по оценке соответствия
+  //Наименование органа по оценке соответствия
   public function getName(): string
   {
     return $this->Name;

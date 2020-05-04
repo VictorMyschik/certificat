@@ -388,6 +388,9 @@ class ORM extends Model
     return false;
   }
 
+  /**
+   * Удаляет из кэша текущий объект
+   */
   public function flush()
   {
     $id = $this->id();

@@ -87,7 +87,7 @@ class MrBaseLog extends ORM
       $value = 'xml';
     }
 
-    $this->Value = serialize($value);
+    $this->Value = $value;
   }
 
   // ID строки

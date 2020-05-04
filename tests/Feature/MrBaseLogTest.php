@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Feature;
-
 
 use App\Models\MrBaseLog;
 use App\Models\MrLogIdent;

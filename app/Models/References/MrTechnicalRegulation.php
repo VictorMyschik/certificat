@@ -35,13 +35,13 @@ class MrTechnicalRegulation extends ORM
 
   }
 
-  //  Цифоровой код
-  public function getCode(): string
+  //  Цифровой код
+  public function getCode(): int
   {
     return $this->Code;
   }
 
-  public function setCode(string $value): void
+  public function setCode(int $value): void
   {
     $this->Code = $value;
   }

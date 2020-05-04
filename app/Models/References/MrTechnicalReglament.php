@@ -39,7 +39,7 @@ class MrTechnicalReglament extends ORM
 
   }
 
-  //  Цифоровой код
+  //  Цифровой код
   public function getCode(): string
   {
     return $this->Code;
