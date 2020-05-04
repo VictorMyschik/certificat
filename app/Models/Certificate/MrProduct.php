@@ -14,10 +14,10 @@ class MrProduct extends ORM
   protected $table = 'mr_product';
 
   protected static $dbFieldsMap = array(
-    'CertificateID',
+    'ManufacturerID',
     'Name',
     'EANCommodityId',
-    'Tnved',
+    'TnvedID',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrProduct
@@ -30,14 +30,19 @@ class MrProduct extends ORM
 
   }
 
-  public function getCertificate(): MrCertificate
+  /**
+   * Производитель продукта
+   *
+   * @return MrManufacturer
+   */
+  public function getManufacturer(): MrManufacturer
   {
-    return MrCertificate::loadBy($this->CertificateID);
+    return MrManufacturer::loadBy($this->ManufacturerID);
   }
 
-  public function setCertificateID(int $value): void
+  public function setManufacturerID(int $value): void
   {
-    $this->CertificateID = $value;
+    $this->ManufacturerID = $value;
   }
 
   /**
@@ -56,7 +61,7 @@ class MrProduct extends ORM
   }
 
   /**
-   * Европейский номер товара, предназначенный для передачи штрихкода товара и производителя
+   * Европейский номер товара, предназначенный для передачи штрих-кода товара и производителя
    *
    * @return string
    */
@@ -71,16 +76,16 @@ class MrProduct extends ORM
   }
 
   /**
-   * Код ТН ВЭД
+   * ТН ВЭД
    *
-   * @return string|null
+   * @return MrTnved|null
    */
-  public function getTnved(): ?string
+  public function getTnved(): ?MrTnved
   {
-    return $this->Tnved;
+    return MrTnved::loadBy($this->Tnved);
   }
 
-  public function setTnved(?string $value): void
+  public function setTnved(?int $value): void
   {
     $this->Tnved = $value;
   }

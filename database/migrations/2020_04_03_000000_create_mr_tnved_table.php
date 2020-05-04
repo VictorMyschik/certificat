@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrFaqTable extends Migration
+class CreateMrTnvedTable extends Migration
 {
   public function up()
   {
-    Schema::create('mr_faq', function (Blueprint $table) {
+    Schema::create('mr_tnved', function (Blueprint $table) {
       $table->smallIncrements('id')->autoIncrement();
-      $table->string('Title')->unique();
-      $table->string('Text', 8000);
-      $table->tinyInteger('LanguageID')->default(0);
+      $table->string('Code',10)->unique();
+      $table->string('Name', 120)->nullable();
     });
   }
 
@@ -23,6 +22,6 @@ class CreateMrFaqTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('mr_faq');
+    Schema::dropIfExists('mr_tnved');
   }
 }

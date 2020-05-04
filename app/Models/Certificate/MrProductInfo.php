@@ -23,7 +23,7 @@ class MrProductInfo extends ORM
     'Description',
     'ManufacturedDate',
     'ExpiryDate',
-    'Tnved',
+    'TnvedID',
   );
 
   public static function loadBy($value, $field = 'id'): ?MrProductInfo
@@ -132,17 +132,17 @@ class MrProductInfo extends ORM
   }
 
   /**
-   * Код ТН ВЭД
+   * ТН ВЭД
    *
-   * @return string|null
+   * @return MrTnved|null
    */
-  public function getTnved(): ?string
+  public function getTnved(): ?MrTnved
   {
-    return $this->Tnved;
+    return MrTnved::loadBy($this->TnvedID);
   }
 
   public function setTnved(?string $value): void
   {
-    $this->Tnved = $value;
+    $this->TnvedID = $value;
   }
 }
