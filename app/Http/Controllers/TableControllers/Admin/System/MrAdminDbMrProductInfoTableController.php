@@ -21,7 +21,7 @@ class MrAdminDbMrProductInfoTableController extends MrTableController
         array('name' => 'Description', 'sort' => 'Description'),
         array('name' => 'ManufacturedDate', 'sort' => 'ManufacturedDate'),
         array('name' => 'ExpiryDate', 'sort' => 'ExpiryDate'),
-        array('name' => 'Tnved', 'sort' => 'Tnved'),
+        array('name' => 'TnvedID', 'sort' => 'TnvedID'),
       ),
 
       'body' => $body

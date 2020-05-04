@@ -117,6 +117,4 @@ class MrCurrency extends ORM
   {
     $this->Description = $value;
   }
-
-
 }

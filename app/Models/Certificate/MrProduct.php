@@ -18,6 +18,7 @@ class MrProduct extends ORM
     'Name',
     'EANCommodityId',
     'TnvedID',
+    'Description' // Макс. длина: 4000
   );
 
   public static function loadBy($value, $field = 'id'): ?MrProduct
@@ -82,11 +83,26 @@ class MrProduct extends ORM
    */
   public function getTnved(): ?MrTnved
   {
-    return MrTnved::loadBy($this->Tnved);
+    return MrTnved::loadBy($this->TnvedID);
   }
 
   public function setTnved(?int $value): void
   {
-    $this->Tnved = $value;
+    $this->TnvedID = $value;
+  }
+
+  /**
+   * Дополнительные сведения о продукции, обеспечивающие ее идентификацию
+   *
+   * @return string|null
+   */
+  public function getDescription(): ?string
+  {
+    return $this->Description;
+  }
+
+  public function setDescription(?string $value)
+  {
+    $this->Description = $value;
   }
 }

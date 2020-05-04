@@ -507,6 +507,12 @@ class MrCertificate extends ORM
       $out['manufacturer']['Address1'] = $manufacturer->getAddress1() ? $manufacturer->getAddress1()->GetFullAddress() : null;
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
 
+
+      foreach($manufacturer->GetProducts() as $product)
+      {
+
+      }
+
     }
 
     //// Документы
@@ -542,11 +548,6 @@ class MrCertificate extends ORM
         'Fio'         => $applicant->getFio() ? $applicant->getFio()->GetFullNameWithPosition() : '',
         'Communicate' => $applicant->GetCommunicateOut(),
       );
-    }
-
-    foreach($this->GetProducts() as $product)
-    {
-
     }
 
     return $out;

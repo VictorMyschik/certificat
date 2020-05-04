@@ -16,9 +16,10 @@ class MrAdminDbMrProductTableController extends MrTableController
     return array(
       'header' => array(
         array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'CertificateID', 'sort' => 'CertificateID'),
+        array('name' => 'ManufacturerID', 'sort' => 'ManufacturerID'),
         array('name' => 'Name', 'sort' => 'Name'),
-        array('name' => 'Tnved', 'sort' => 'Tnved'),
+        array('name' => 'EANCommodityId', 'sort' => 'EANCommodityId'),
+        array('name' => 'TnvedID', 'sort' => 'TnvedID'),
       ),
 
       'body' => $body

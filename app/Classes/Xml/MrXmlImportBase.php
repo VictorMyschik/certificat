@@ -13,6 +13,7 @@ use App\Models\Certificate\MrFio;
 use App\Models\Certificate\MrManufacturer;
 use App\Models\Certificate\MrProduct;
 use App\Models\Certificate\MrProductInfo;
+use App\Models\Certificate\MrTnved;
 use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
@@ -114,6 +115,12 @@ class MrXmlImportBase extends Controller
         {
           $certificate->setManufacturerID($manufacturer->id());
         }
+
+        //// Товары
+        if(isset($tech_regulation->productDetails) && ($product_details_xml = $tech_regulation->productDetails))
+        {
+          self::importProducts($product_details_xml, $manufacturer, $certificate);
+        }
       }
 
       // Тип технического регулирования
@@ -146,12 +153,6 @@ class MrXmlImportBase extends Controller
       if(isset($tech_regulation->docInformationDetails) && ($product_documents_xml = $tech_regulation->docInformationDetails))
       {
         self::importDocument($product_documents_xml, $certificate);
-      }
-
-      //// Товары
-      if(isset($tech_regulation->productDetails) && ($product_details_xml = $tech_regulation->productDetails))
-      {
-        self::importProducts($product_details_xml, $certificate);
       }
     }
     //dd($xml);
@@ -820,7 +821,7 @@ class MrXmlImportBase extends Controller
       if(isset(MrCertificate::GetHashedList()[$number]))
       {
         $certificate = MrCertificate::loadBy($number, 'Number');
-        return null;
+        //return null;
       }
       else
       {
@@ -1067,7 +1068,14 @@ class MrXmlImportBase extends Controller
     $applicant->flush();
   }
 
-  protected static function importProducts(SimpleXMLElement $xml, MrCertificate $certificate): void
+  /**
+   * Импорт товаров
+   *
+   * @param SimpleXMLElement $xml
+   * @param MrManufacturer $manufacturer
+   * @param MrCertificate $certificate
+   */
+  protected static function importProducts(SimpleXMLElement $xml, MrManufacturer $manufacturer, MrCertificate $certificate): void
   {
     // Продукт
     foreach ($xml->element as $item_xml)
@@ -1080,9 +1088,35 @@ class MrXmlImportBase extends Controller
           $product = new MrProduct();
         }
 
-        $product->setCertificateID($certificate->id());
+        // Примечание
+        if(isset($item_xml->productText) && ($description_xml = (string)$item_xml->productText))
+        {
+          $product->setDescription($description_xml);
+        }
+
+        $product->setManufacturerID($manufacturer->id());
         $product->setName($product_name_xml);
+        if(isset($item_xml->commodityCode) && ($product_tnved_xml = $item_xml->commodityCode))
+        {
+          if(isset($product_tnved_xml->element) && $tnved_xml = (string)$product_tnved_xml->element)
+          {
+            if($tnved = MrTnved::loadBy($tnved_xml, 'Code'))
+            {
+              $product->setTnved($tnved->id());
+            }
+            else
+            {
+              $tnved = new MrTnved();
+              $tnved->setCode($tnved_xml);
+              $tnved->save_mr();
+              $tnved->reload();
+              $product->setTnved($tnved->id());
+            }
+          }
+        }
+
         $product->save_mr();
+        $product_tnved_xml = null;
       }
 
       // Сведения о единице продукта
@@ -1102,7 +1136,19 @@ class MrXmlImportBase extends Controller
           // Код ТН ВЭД
           if(isset($item_xml->commodityCode) && ($tnved_xml = (string)$item_xml->commodityCode))
           {
-            $product_info->setTnved($tnved_xml);
+            if($tnved = MrTnved::loadBy($tnved_xml, 'Code'))
+            {
+              $product_info->setTnved($tnved->id());
+            }
+            else
+            {
+              $tnved = new MrTnved();
+              $tnved->setCode($tnved_xml);
+              $tnved->save_mr();
+              $tnved->reload();
+
+              $product_info->setTnved($tnved->id());
+            }
           }
 
           // Дата изготовления

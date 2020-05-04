@@ -141,7 +141,12 @@ class MrProductInfo extends ORM
     return MrTnved::loadBy($this->TnvedID);
   }
 
-  public function setTnved(?string $value): void
+  public function GetTnvedExt(): ?MrTnved
+  {
+    return $this->getTnved() ?: $this->getProduct()->getTnved();
+  }
+
+  public function setTnved(?int $value): void
   {
     $this->TnvedID = $value;
   }

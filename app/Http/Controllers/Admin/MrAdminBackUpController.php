@@ -24,7 +24,7 @@ class MrAdminBackUpController extends Controller
   }
 
   /**
-   * Получение тадлицы всех таблиц
+   * Получение таблицы всех таблиц
    */
   public function getSummaryList()
   {
@@ -87,6 +87,7 @@ class MrAdminBackUpController extends Controller
       'mr_technical_regulation'   => 'MrAdminDbMrTechnicalRegulationTableController',
       'mr_product'                => 'MrAdminDbMrProductTableController',
       'mr_product_info'           => 'MrAdminDbMrProductInfoTableController',
+      'mr_tnved'                  => 'MrAdminDbMrTnvedTableController',
     );
 
     if(isset($arr[$table_name]))
@@ -137,7 +138,7 @@ class MrAdminBackUpController extends Controller
   }
 
   public static $tables = array(
-    'mr_currency'            => array(
+    'mr_currency'             => array(
       array('ID' => '1', 'Code' => '784', 'TextCode' => 'AED', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Дирхам (ОАЭ)', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '2', 'Code' => '971', 'TextCode' => 'AFN', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Афгани', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '3', 'Code' => '008', 'TextCode' => 'ALL', 'DateFrom' => NULL, 'DateTo' => NULL, 'Name' => 'Лек', 'Rounding' => '2', 'Description' => ''),
@@ -321,7 +322,7 @@ class MrAdminBackUpController extends Controller
       array('ID' => '181', 'Code' => '930', 'TextCode' => 'STN', 'DateFrom' => '2018-06-24 00:00:00', 'DateTo' => NULL, 'Name' => 'Добра', 'Rounding' => '2', 'Description' => ''),
       array('ID' => '182', 'Code' => '928', 'TextCode' => 'VES', 'DateFrom' => '2019-06-16 00:00:00', 'DateTo' => NULL, 'Name' => 'Боливар Соберано', 'Rounding' => '2', 'Description' => NULL)
     ),
-    'mr_country'             => array(
+    'mr_country'              => array(
       array('id' => '1', 'Name' => 'Андорра', 'ISO3166alpha2' => 'AD', 'ISO3166alpha3' => 'AND', 'ISO3166numeric' => '20', 'Continent' => '3'),
       array('id' => '2', 'Name' => 'Объединенные Арабские Эмираты', 'ISO3166alpha2' => 'AE', 'ISO3166alpha3' => 'ARE', 'ISO3166numeric' => '784', 'Continent' => '2'),
       array('id' => '3', 'Name' => 'Афганистан', 'ISO3166alpha2' => 'AF', 'ISO3166alpha3' => 'AFG', 'ISO3166numeric' => '4', 'Continent' => '2'),
@@ -569,11 +570,11 @@ class MrAdminBackUpController extends Controller
       array('id' => '245', 'Name' => 'Замбия', 'ISO3166alpha2' => 'ZM', 'ISO3166alpha3' => 'ZMB', 'ISO3166numeric' => '894', 'Continent' => '1'),
       array('id' => '246', 'Name' => 'Зимбабве', 'ISO3166alpha2' => 'ZW', 'ISO3166alpha3' => 'ZWE', 'ISO3166numeric' => '716', 'Continent' => '1')
     ),
-    'mr_language'            => array(
+    'mr_language'             => array(
       array('id' => '1', 'Name' => 'RU', 'Description' => 'Русский'),
       array('id' => '2', 'Name' => 'EN', 'Description' => 'English')
     ),
-    'mr_certificate_kind'    => array(
+    'mr_certificate_kind'     => array(
       array('id' => '1', 'Code' => '05', 'ShortName' => 'Сертификат соответствия ТР ЕАЭС', 'Name' => 'Сертификат соответствия требованиям технического регламента Евразийского экономического союза (технического регламента Таможенного союза)', 'Description' => 'Единая форма сертификата соответствия требованиям технического регламента Таможенного союза, утвержденная Решением Коллегии Евразийской экономической комиссии от 25 декабря 2012 г. № 293'),
       array('id' => '2', 'Code' => '10', 'ShortName' => 'Декларация о соответствии ТР ЕАЭС', 'Name' => 'Декларация о соответствии требованиям технического регламента Евразийского экономического союза (технического регламента Таможенного союза)', 'Description' => 'Единая форма декларации о соответствии требованиям технического регламента Таможенного союза, утвержденная Решением Коллегии Евразийской экономической комиссии от 25 декабря 2012 г. № 293'),
       array('id' => '3', 'Code' => '15', 'ShortName' => 'Сертификат соответствия по единой форме ЕАЭС', 'Name' => 'Сертификат соответствия, оформленный по единой форме Евразийского экономического союза', 'Description' => 'Единая форма сертификата соответствия, утвержденная Решением Комиссии Таможенного союза от 18 июня 2010 г. № 319'),
@@ -585,7 +586,7 @@ class MrAdminBackUpController extends Controller
       array('id' => '9', 'Code' => '45', 'ShortName' => 'Свидетельство о соответствии с внесенными изменениями ЕАЭС', 'Name' => 'Свидетельство о соответствии транспортного средства с внесенными в его конструкцию изменениями требованиям безопасности, подтверждающее соответствие требованиям технического регламента Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011)', 'Description' => 'Свидетельство о соответствии транспортного средства с внесенными в его конструкцию изменениями требованиям безопасности (форма) (приложение № 18 к техническому регламенту Таможенного союза «О безопасности колесных транспортных средств» (ТР ТС 018/2011), принятому Решением Комиссии Таможенного союза от 9 декабря 2011 г. № 877)'),
       array('id' => '10', 'Code' => '50', 'ShortName' => 'Документ об оценке соответствия национальным требованиям', 'Name' => 'Документ об оценке соответствия обязательным требованиям, установленным законодательством государства – члена Евразийского экономического союза, выданный в отношении объекта технического регулирования технического регламента Евразийского экономического союза (технического регламента Таможенного союза) до дня вступления в силу этого технического регламента', 'Description' => NULL)
     ),
-    'mr_measure'             => array(
+    'mr_measure'              => array(
       array('id' => '4', 'Code' => '006', 'TextCode' => 'M', 'Name' => 'МЕТР'),
       array('id' => '5', 'Code' => '055', 'TextCode' => 'М2', 'Name' => 'КВАДРАТНЫЙ МЕТР'),
       array('id' => '6', 'Code' => '112', 'TextCode' => 'Л', 'Name' => 'ЛИТР'),
@@ -613,7 +614,7 @@ class MrAdminBackUpController extends Controller
       array('id' => '28', 'Code' => '865', 'TextCode' => 'КГ P2O5', 'Name' => 'КИЛОГРАММ ПЯТИОКИСИ ФОСФОРА'),
       array('id' => '29', 'Code' => '867', 'TextCode' => 'КИЛОГРАММ УРАНА', 'Name' => 'КГ U')
     ),
-    'mr_translate'           => array(
+    'mr_translate'            => array(
       array('id' => '1', 'Name' => 'Столица', 'LanguageID' => '2', 'Translate' => 'Capital'),
       array('id' => '2', 'Name' => 'Флаг', 'LanguageID' => '2', 'Translate' => 'Flag'),
       array('id' => '6', 'Name' => 'Андорра', 'LanguageID' => '2', 'Translate' => 'Andorra'),
@@ -863,7 +864,7 @@ class MrAdminBackUpController extends Controller
       array('id' => '250', 'Name' => 'Замбия', 'LanguageID' => '2', 'Translate' => 'Zambia'),
       array('id' => '251', 'Name' => 'Зимбабве', 'LanguageID' => '2', 'Translate' => 'Zimbabwe')
     ),
-    'mr_technical_reglament' => array(
+    'mr_technical_reglament'  => array(
       array('id' => '1', 'Code' => 'ТР ТС 001/2011', 'Name' => 'О безопасности железнодорожного подвижного состава', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20Podvignoisostev%20PID.pdf'),
       array('id' => '2', 'Code' => 'ТР ТС 002/2011', 'Name' => 'О безопасности высокоскоростного железнодорожного транспорта', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20HighSpeed%20PID.pdf'),
       array('id' => '3', 'Code' => 'ТР ТС 003/2011', 'Name' => 'О безопасности инфраструктуры железнодорожного транспорта', 'Link' => 'http://www.eurasiancommission.org/ru/act/texnreg/deptexreg/tr/Documents/TR%20Infrastruktura%20PID.pdf'),
@@ -912,6 +913,11 @@ class MrAdminBackUpController extends Controller
       array('id' => '46', 'Code' => 'ТР ЕАЭС 046/2018', 'Name' => 'О безопасности газа горючего природного, подготовленного к транспортированию и (или) использованию', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01419232/cncd_30102018_74'),
       array('id' => '47', 'Code' => 'ТР ЕАЭС 047/2018', 'Name' => 'О безопасности алкогольной продукции', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01421305/cncd_10122018'),
       array('id' => '48', 'Code' => 'ТР ЕАЭС 048/2019', 'Name' => '​О требованиях к энергетической эффективности энергопотребляющих устройств', 'Link' => 'https://docs.eaeunion.org/docs/ru-ru/01424431/cncd_24122019_114')
+    ),
+    'mr_technical_regulation' => array(
+      array('id' => '1', 'Code' => '1', 'Name' => 'серийный выпуск'),
+      array('id' => '2', 'Code' => '2', 'Name' => 'партия'),
+      array('id' => '3', 'Code' => '3', 'Name' => 'единичное изделие')
     ),
   );
 }

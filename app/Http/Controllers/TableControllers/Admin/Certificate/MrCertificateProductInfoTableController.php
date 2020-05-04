@@ -45,7 +45,7 @@ class MrCertificateProductInfoTableController extends MrTableController
     $row[] = $product_info->getDescription();
     $row[] = $product_info->getManufacturedDate() ? $product_info->getManufacturedDate()->getShortDate() : null;
     $row[] = $product_info->getExpiryDate() ? $product_info->getExpiryDate()->getShortDate() : null;
-    $row[] = $product_info->getTnved();
+    $row[] = $product_info->GetTnvedExt() ? $product_info->GetTnvedExt()->getCode() : null;
 
     $row[] = array(
       MrLink::open('admin_product_info_delete', ['id' => $product_info->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
