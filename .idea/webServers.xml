@@ -10,7 +10,7 @@
         </fileTransfer>
       </webServer>
       <webServer id="63c49f79-67d8-47c3-acf5-2964a5e8421f" name="sftp" url="http://83.220.169.39">
-        <fileTransfer rootFolder="/home/mir/certificat" accessType="SFTP" host="83.220.169.39" port="22" sshConfigId="a991e9cf-4626-4c1c-a621-eebb4f7d6f84" sshConfig="root@83.220.169.39:22 password">
+        <fileTransfer rootFolder="/var/www/certificat" accessType="SFTP" host="83.220.169.39" port="22" sshConfigId="a991e9cf-4626-4c1c-a621-eebb4f7d6f84" sshConfig="root@83.220.169.39:22 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

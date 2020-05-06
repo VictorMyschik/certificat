@@ -42,9 +42,10 @@
         }
       },
 
-      getCertificate() {
-        let url = '/search/api/get/2';
+      getCertificate(id) {
+        let url = '/search/api/get/' + id;
 
+        this.certificate_json = null;
         axios.post(url).then(response => {
               console.log(response);
               this.certificate_json = response.data;
