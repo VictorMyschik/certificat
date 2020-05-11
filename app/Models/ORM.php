@@ -144,7 +144,7 @@ class ORM extends Model
    *
    * @param string $value
    * @param string $field
-   * @return object|null
+   * @return static|object|null
    */
   public static function loadBy(string $value, string $field = 'id')
   {
@@ -153,29 +153,25 @@ class ORM extends Model
       return null;
     }
 
-    if($field == 'id')
-    {
-      $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
-        return DB::table(static::$mr_table)->where($field, '=', $value)->get()->first();
-      });
-    }
-    else
-    {
-      $out = DB::table(static::$mr_table)->where($field, '=', $value)->get()->first();
-    }
+    $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
+      $class_name = static::class;
+      return $class_name::where($field, $value)->get()->first();
+    });
 
     if($out)
     {
-      $mr_object = self::convertToMr($out);
-
       // Вставка имени кэшированного объекта
-      $mr_object->CachedKey = (string)(static::$mr_table . '_' . $mr_object->id());
-      $mr_object->original = $out;
+      $out->CachedKey = (string)(static::$mr_table . '_' . $out->attributes['id']);
 
-      return $mr_object;
+      return $out;
     }
 
     return null;
+  }
+
+  public function id()
+  {
+    return $this->attributes['id'];
   }
 
   /**
@@ -288,11 +284,6 @@ class ORM extends Model
     {
       return false;
     }
-  }
-
-  public function id(): ?int
-  {
-    return $this->id ?: null;
   }
 
   protected function getDateNullableField(string $field): ?MrDateTime
