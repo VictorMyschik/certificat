@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\Admin;
-
 
 use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrMessageHelper;
@@ -36,7 +34,7 @@ class MrAdminCertificateController extends Controller
   public function View()
   {
     $out = array();
-    $out['page_title'] = 'Сертификаты (' . MrCertificate::getCount() . ')';
+    $out['page_title'] = 'Сертификаты (' . MrCertificate::all()->count() . ')';
     $out['route_name'] = route('list_certificate_table');
 
     return View('Admin.Certificate.mir_admin_certificate')->with($out);
@@ -68,7 +66,7 @@ class MrAdminCertificateController extends Controller
   public function ViewCommunicate()
   {
     $out = array();
-    $out['page_title'] = 'Связь (' . MrCommunicate::getCount() . ')';
+    $out['page_title'] = 'Связь (' . MrCommunicate::all()->count() . ')';
     $out['route_name'] = route('list_communicate_table');
 
     return View('Admin.Certificate.mir_admin_certificate_communicate')->with($out);
@@ -108,7 +106,7 @@ class MrAdminCertificateController extends Controller
   public function ViewDocument()
   {
     $out = array();
-    $out['page_title'] = 'Документы (' . MrDocument::getCount() . ')';
+    $out['page_title'] = 'Документы (' . MrDocument::all()->count() . ')';
     $out['route_name'] = route('list_document_table');
 
     return View('Admin.Certificate.mir_admin_certificate_document')->with($out);
@@ -148,7 +146,7 @@ class MrAdminCertificateController extends Controller
   public function ViewManufacturer()
   {
     $out = array();
-    $out['page_title'] = 'Производители (' . MrManufacturer::getCount() . ')';;
+    $out['page_title'] = 'Производители (' . MrManufacturer::all()->count() . ')';;
     $out['route_name'] = route('list_manufacturer_table');
 
     return View('Admin.Certificate.mir_admin_certificate_manufacturer')->with($out);
@@ -190,7 +188,7 @@ class MrAdminCertificateController extends Controller
   public function ViewAddress()
   {
     $out = array();
-    $out['page_title'] = 'Адреса (' . MrAddress::getCount() . ')';;
+    $out['page_title'] = 'Адреса (' . MrAddress::all()->count() . ')';;
     $out['route_name'] = route('list_address_table');
 
     return View('Admin.Certificate.mir_admin_certificate_address')->with($out);
@@ -227,7 +225,7 @@ class MrAdminCertificateController extends Controller
   public function ViewFio()
   {
     $out = array();
-    $out['page_title'] = 'ФИО (' . MrFio::getCount() . ')';;
+    $out['page_title'] = 'ФИО (' . MrFio::all()->count() . ')';;
     $out['route_name'] = route('list_fio_table');
 
     return View('Admin.Certificate.mir_admin_certificate_fio')->with($out);
@@ -264,7 +262,7 @@ class MrAdminCertificateController extends Controller
   public function ViewApplicant()
   {
     $out = array();
-    $out['page_title'] = 'Заявитель (' . MrApplicant::getCount() . ')';;
+    $out['page_title'] = 'Заявитель (' . MrApplicant::all()->count() . ')';;
     $out['route_name'] = route('list_applicant_table');
 
     return View('Admin.Certificate.mir_admin_certificate_applicant')->with($out);
@@ -301,7 +299,7 @@ class MrAdminCertificateController extends Controller
   public function ViewProductInfo()
   {
     $out = array();
-    $out['page_title'] = 'сведения о товаре (' . MrProductInfo::getCount() . ')';;
+    $out['page_title'] = 'сведения о товаре (' . MrProductInfo::all()->count() . ')';;
     $out['route_name'] = route('list_product_info_table');
 
     return View('Admin.Certificate.mir_admin_certificate_product_info')->with($out);
@@ -338,7 +336,7 @@ class MrAdminCertificateController extends Controller
   public function ViewAuthority()
   {
     $out = array();
-    $out['page_title'] = 'Органы по оценке соответствия (' . MrConformityAuthority::getCount() . ')';;
+    $out['page_title'] = 'Органы по оценке соответствия (' . MrConformityAuthority::all()->count() . ')';;
     $out['route_name'] = route('list_authority_table');
 
     return View('Admin.Certificate.mir_admin_certificate_authority')->with($out);

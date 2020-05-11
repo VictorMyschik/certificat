@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\TableControllers\Admin\Certificate;
-
 
 use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;

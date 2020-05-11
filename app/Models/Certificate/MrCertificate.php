@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 
 class MrCertificate extends ORM
 {
-  public static $mr_table = 'mr_certificate';
   public static $className = MrCertificate::class;
   protected $table = 'mr_certificate';
 
@@ -64,24 +63,27 @@ class MrCertificate extends ORM
     self::STATUS_ARHIVED   => 'архивный',
   );
 
+
+
   public static function getStatuses()
   {
     return self::$statuses;
   }
 
-  public static function loadBy($value, $field = 'id'): ?MrCertificate
+  /*public static function loadBy($value, $field = 'id'): ?MrCertificate
   {
     return parent::loadBy((string)$value, $field);
-  }
+  }*/
 
   protected function before_delete()
   {
 
   }
 
-  public function flush()
+  protected function flush()
   {
-    parent::flush();
+    parent::CacheObjectFlush();
+    // Список документов сертификата
     Cache::forget('documents' . '_' . $this->id() . '_list');
   }
 

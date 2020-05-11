@@ -8,7 +8,7 @@ class MrLanguage extends ORM
 {
   public static $mr_table = 'mr_language';
   public static $className = MrLanguage::class;
-
+  protected $table = 'mr_language';
   protected static $dbFieldsMap = array(
     'Name',
     'Description',
@@ -48,6 +48,7 @@ class MrLanguage extends ORM
   }
 
   ////////////////////////////////////////////////////////////////////////
+
   /**
    * Текущий язык
    *
@@ -64,7 +65,7 @@ class MrLanguage extends ORM
   {
     $out = array();
     $out[0] = '[не выбрано]';
-    foreach (self::GetAll() as $item)
+    foreach (self::all() as $item)
     {
       $out[$item->id()] = $item->getName();
     }

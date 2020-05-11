@@ -19,10 +19,10 @@ class MrAdminUsersController extends Controller
   {
     $out = array();
     $out['page_title'] = 'Пользователи';
-    $out['users'] = MrUser::GetAll();
-    $out['new_users'] = $new = MrNewUsers::GetAll();
+    $out['users'] = MrUser::all();
+    $out['new_users'] = $new = MrNewUsers::all();
     $out['users_blocked'] = MrUserBlocked::GetAllBlocked();
-    $out['history'] = MrUserBlocked::GetAll();
+    $out['history'] = MrUserBlocked::all();
 
     return View('Admin.mir_admin_users')->with($out);
   }

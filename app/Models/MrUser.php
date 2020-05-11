@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\DB;
 class MrUser extends ORM
 {
   private $admin_email = 'allximik50@gmail.com';
-  protected static $className = MrUser::class;
-  public static $mr_table = 'mr_user';
-
+  protected $table = 'mr_user';
   const super_token = 'c10ea6679d1336c6f3e60fd29752cee96154967e';
 
   protected static $dbFieldsMap = array(
@@ -29,10 +27,6 @@ class MrUser extends ORM
     'Phone'
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrUser
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function canEdit()
   {

@@ -4,7 +4,6 @@
 namespace App\Helpers;
 
 
-use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
 
 class MrCacheHelper extends Cache
@@ -49,22 +48,6 @@ class MrCacheHelper extends Cache
     });
   }
 
-  /**
-   * Get object
-   *
-   * @param string $key ключ
-   * @param string $class_name класс который надо загрузить
-   * @param callable $object
-   * @return object
-   */
-  public static function GetCachedObject(string $key, string $class_name, callable $object)
-  {
-    $object = Cache::rememberForever($key, function () use ($object) {
-      return $object();
-    });
-
-    return ORM::convertToMr($object, $class_name);
-  }
 
   /**
    * Получение объекта по ID из кэша
@@ -74,7 +57,7 @@ class MrCacheHelper extends Cache
    * @param callable $object
    * @return mixed
    */
-  public static function GetCachedObjectByID(int $id, string $table, callable $object): ?object
+  public static function GetCachedObject(int $id, string $table, callable $object): ?object
   {
     $cache_key = $table . '_' . $id;
     return Cache::rememberForever($cache_key, function () use ($object) {

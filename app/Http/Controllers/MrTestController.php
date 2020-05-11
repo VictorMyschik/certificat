@@ -11,6 +11,9 @@ class MrTestController extends Controller
   public function index(Request $request)
   {
 
+    $certificate = new MrCertificate();
+    dd($certificate->id());
+
     dd(MrCertificate::loadBy(275)->GetJsonData());
 
     /*

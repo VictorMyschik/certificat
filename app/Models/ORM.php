@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class ORM extends Model
 {
-  protected static $mr_table;
   protected static $dbFieldsMap;
   protected static $className;
   protected $id = 0;
@@ -58,7 +57,7 @@ class ORM extends Model
 
   private static function getTableName(): string
   {
-    return static::$mr_table;
+    return with(new static)->getTable();
   }
 
   private static function getTableFields(): array
@@ -67,80 +66,15 @@ class ORM extends Model
   }
 
   /**
-   * @return array ::$className[]
-   */
-  public static function GetAll()
-  {
-    $list_id = DB::table(static::$mr_table)->limit(10000)->get(['*']);
-
-    return self::LoadArray($list_id, static::$className);
-  }
-
-  /**
    * Удалить все записи в таблице
    */
   public static function AllDelete()
   {
-    DB::table(static::$mr_table)->truncate();
+    DB::table(static::getTableName())->truncate();
   }
 
   /**
-   * Количество записей в таблице
-   *
-   * @return int
-   */
-  public static function getCount(): int
-  {
-    return DB::table(static::$mr_table)->count();
-  }
-
-  /**
-   * Конвертирует объект Eloquem в обьет Mr
-   *
-   * @param $out
-   * @param string $class_name
-   * @return self::$class_name
-   */
-  public static function convertToMr($out, string $class_name = null): object
-  {
-    $object = $class_name ? new $class_name() : new static();
-
-    foreach ($out as $key => $value)
-    {
-      $object->$key = $value;
-    }
-
-    return $object;
-  }
-
-  protected function convertMrToArray(): array
-  {
-    $out = array();
-
-    foreach (static::$dbFieldsMap as $properties)
-    {
-      if(is_object($this->$properties))
-      {
-        if(!isset($this->$properties->id))
-        {
-          $out[$properties] = $this->$properties;
-        }
-        else
-        {
-          $out[$properties] = $this->$properties->id;
-        }
-      }
-      else
-      {
-        $out[$properties] = $this->$properties;
-      }
-    }
-
-    return $out;
-  }
-
-  /**
-   * Загрузка объекта
+   * Load object (get first result)
    *
    * @param string $value
    * @param string $field
@@ -153,25 +87,44 @@ class ORM extends Model
       return null;
     }
 
-    $out = MrCacheHelper::GetCachedObjectByID((int)$value, static::$mr_table, function () use ($field, $value) {
+    // If field 'id' -> can save in cache
+    if($field == 'id')
+    {
+      return MrCacheHelper::GetCachedObject((int)$value, self::getTableName(), function () use ($field, $value) {
+        $class_name = static::class;
+        return $class_name::find($value)->get()->first();
+      });
+    }
+    else
+    {
       $class_name = static::class;
       return $class_name::where($field, $value)->get()->first();
-    });
-
-    if($out)
-    {
-      // Вставка имени кэшированного объекта
-      $out->CachedKey = (string)(static::$mr_table . '_' . $out->attributes['id']);
-
-      return $out;
     }
-
-    return null;
   }
 
-  public function id()
+  /**
+   * Clear cache object
+   */
+  protected function CacheObjectFlush(): void
   {
-    return $this->attributes['id'];
+    $id = $this->id();
+    $table_name = $this->table;
+    Cache::forget($table_name . '_' . $id);
+  }
+
+  /**
+   * Object name for identify in cache
+   *
+   * @return string
+   */
+  public function GetCachedKey(): string
+  {
+    return (string)(static::getTableName() . '_' . $this->attributes['id']);
+  }
+
+  public function id(): ?int
+  {
+    return $this->attributes['id'] ?? null;
   }
 
   /**
@@ -192,9 +145,14 @@ class ORM extends Model
     return $out;
   }
 
+  /**
+   * Reload with flush cache
+   *
+   * @return ORM|object|null
+   */
   public function reload()
   {
-    Cache::forget($this->CachedKey);
+    Cache::forget($this->GetCachedKey());
     return self::loadBy($this->id);
   }
 
@@ -379,13 +337,4 @@ class ORM extends Model
     return false;
   }
 
-  /**
-   * Удаляет из кэша текущий объект
-   */
-  public function flush()
-  {
-    $id = $this->id();
-    $table_name = $this::$mr_table;
-    Cache::forget($table_name . '_' . $id);
-  }
 }

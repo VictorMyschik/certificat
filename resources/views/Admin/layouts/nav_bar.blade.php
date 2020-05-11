@@ -101,7 +101,7 @@
             {{ mb_strtoupper(app()->getLocale()) }}<span class="caret"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            @foreach(\App\Models\MrLanguage::GetAll() as $item)
+            @foreach(\App\Models\MrLanguage::all() as $item)
               @if($item->getName() == mb_strtoupper(app()->getLocale()))
                 @continue
               @endif

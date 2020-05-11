@@ -22,7 +22,7 @@ class MrAdminLanguageController extends Controller
     $out['page_title'] = 'Страница управления языками';
     $out['route_name'] = route('admin_translate_word_table');
     $out['users'] = array();
-    $out['languages'] = MrLanguage::GetAll();
+    $out['languages'] = MrLanguage::all();
 
     return View('Admin.mir_admin_language')->with($out);
   }

@@ -6,9 +6,8 @@ use App\Models\ORM;
 
 class MrCertificateKind extends ORM
 {
-  public static $mr_table = 'mr_certificate_kind';
   public static $className = MrCertificateKind::class;
-  protected $table = 'mr_measure';
+  protected $table = 'mr_certificate_kind';
 
   protected static $dbFieldsMap = array(
     'Code', // 2
@@ -31,11 +30,6 @@ class MrCertificateKind extends ORM
   public static function getRouteTable()
   {
     return 'list_certificate_kind_table';
-  }
-
-  public static function loadBy($value, $field = 'id'): ?MrCertificateKind
-  {
-    return parent::loadBy((string)$value, $field);
   }
 
   protected function before_delete()

@@ -14,7 +14,7 @@ class MrAdminEmailController extends Controller
   public function List()
   {
     $out = array();
-    $out['list'] = MrEmailLog::GetAll();
+    $out['list'] = MrEmailLog::all();
     $out['page_title'] = 'Отправленная почта';
     $out['route_name'] = route('admin_email_table');
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class MrTranslate extends ORM
 {
-  public static $mr_table = 'mr_translate';
+  protected $table = 'mr_translate';
   public static $className = MrTranslate::class;
 
   protected static $dbFieldsMap = array(
@@ -112,7 +112,7 @@ class MrTranslate extends ORM
    */
   public static function GetAllRusWords(): array
   {
-    $list = self::GetAll();
+    $list = self::all();
     $out = array();
     foreach ($list as $item)
     {

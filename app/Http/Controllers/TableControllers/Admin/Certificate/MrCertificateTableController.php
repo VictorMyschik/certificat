@@ -48,10 +48,10 @@ class MrCertificateTableController extends MrTableController
     $certificate = MrCertificate::loadBy($id);
 
     $row[] = $certificate->id();
-    $link_out = $certificate->getLinkOut();
     $row[] = array(
       "<div class='m-t-5'>" . MrLink::open('admin_certificate_details', ['id' => $certificate->id()], ' local', 'btn btn-success btn-sm fa fa-link fa-xs') . '</div>',
     );
+
     $row[] = $certificate->getCertificateKind()->getShortName();
 
     $row[] = $certificate->getNumber();

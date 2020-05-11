@@ -9,7 +9,7 @@ use App\Models\ORM;
  */
 class MrCountry extends ORM
 {
-  public static $mr_table = 'mr_country';
+  protected $table = 'mr_country';
   public static $className = MrCountry::class;
 
   public static function getRouteTable()
@@ -34,11 +34,6 @@ class MrCountry extends ORM
       'document'         => 'О классификаторах, используемых для заполнения таможенных деклараций Решение №378 (имеются изменения и дополнения: Решения Комиссии Таможенного союза №№ 441, 719, 858, 906, Решение Совета Евразийской экономической комиссии № 9)',
       'doc_link'         => 'https://docs.eaeunion.org/_layouts/15/Portal.EEC.NPB/Pages/RedirectToDisplayForm.aspx?mode=Document&UseSearch=1&docId=6690653a-2f1d-4428-b6fc-cf43fa5d4095',
     );
-  }
-
-  public static function loadBy($value, $field = 'id'): ?MrCountry
-  {
-    return parent::loadBy((string)$value, $field);
   }
 
   const CONTINENT_UNKNOWN = 0;
