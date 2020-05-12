@@ -7,7 +7,6 @@ use App\Models\ORM;
 
 class MrCurrency extends ORM
 {
-  public static $mr_table = 'mr_currency';
   public static $className = MrCurrency::class;
   protected $table = 'mr_currency';
 
@@ -37,17 +36,12 @@ class MrCurrency extends ORM
     return 'list_currency_table';
   }
 
-  public static function loadBy($value, $field = 'id'): ?MrCurrency
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   protected function before_delete()
   {
 
   }
 
-  //  Цифоровой код
+  //  Цифровой код
   public function getCode(): string
   {
     return $this->Code;
@@ -63,7 +57,7 @@ class MrCurrency extends ORM
     return $this->TextCode;
   }
 
-  public function setTextCode(string $value)
+  public function setTextCode(string $value): void
   {
     $this->TextCode = $value;
   }
@@ -73,7 +67,7 @@ class MrCurrency extends ORM
     return $this->getDateNullableField('DateFrom');
   }
 
-  public function setDateFrom($value)
+  public function setDateFrom($value): void
   {
     $this->setDateNullableField($value, 'DateFrom');
   }
@@ -83,7 +77,7 @@ class MrCurrency extends ORM
     return $this->getDateNullableField('DateTo');
   }
 
-  public function setDateTo($value)
+  public function setDateTo($value): void
   {
     $this->setDateNullableField($value, 'DateTo');
   }
@@ -93,7 +87,7 @@ class MrCurrency extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }
@@ -103,7 +97,7 @@ class MrCurrency extends ORM
     return $this->Rounding;
   }
 
-  public function setRounding(int $value)
+  public function setRounding(int $value): void
   {
     $this->Rounding = $value;
   }
@@ -113,7 +107,7 @@ class MrCurrency extends ORM
     return $this->Description;
   }
 
-  public function setDescription(?string $value)
+  public function setDescription(?string $value): void
   {
     $this->Description = $value;
   }

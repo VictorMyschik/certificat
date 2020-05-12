@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\Certificate;
-
 
 use App\Models\Lego\MrCommunicateTrait;
 use App\Models\MrUser;
@@ -13,7 +11,6 @@ class MrFio extends ORM
 {
   use MrCommunicateTrait;
 
-  public static $mr_table = 'mr_fio';
   public static $className = MrFio::class;
   protected $table = 'mr_fio';
 
@@ -35,14 +32,9 @@ class MrFio extends ORM
     return false;
   }
 
-  public static function loadBy($value, $field = 'id'): ?MrFio
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   public function before_save()
   {
-    $data = DB::table(self::$mr_table)
+    $data = DB::table(self::getTableName())
       ->where('FirstName', $this->getFirstName())
       ->where('MiddleName', $this->getMiddleName())
       ->where('LastName', $this->getLastName())
@@ -69,7 +61,7 @@ class MrFio extends ORM
     return $this->FirstName;
   }
 
-  public function setFirstName(?string $value)
+  public function setFirstName(?string $value): void
   {
     $this->FirstName = $value;
   }
@@ -84,7 +76,7 @@ class MrFio extends ORM
     return $this->MiddleName;
   }
 
-  public function setMiddleName(?string $value)
+  public function setMiddleName(?string $value): void
   {
     $this->MiddleName = $value;
   }
@@ -99,7 +91,7 @@ class MrFio extends ORM
     return $this->LastName;
   }
 
-  public function setLastName(?string $value)
+  public function setLastName(?string $value): void
   {
     $this->LastName = $value;
   }
@@ -114,7 +106,7 @@ class MrFio extends ORM
     return $this->PositionName;
   }
 
-  public function setPositionName(?string $value)
+  public function setPositionName(?string $value): void
   {
     $this->PositionName = $value;
   }

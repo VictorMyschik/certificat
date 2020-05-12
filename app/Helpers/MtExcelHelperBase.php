@@ -126,12 +126,12 @@ class MtExcelHelperBase
       $has_content_disposition = false;
       foreach (headers_list() as $http_header)
       {
-        if(MtStringUtils::StartsWith($http_header, 'Content-Type:'))
+        if(MrStringUtils::StartsWith($http_header, 'Content-Type:'))
         {
           $has_content_type = true;
         }
 
-        if(MtStringUtils::StartsWith($http_header, 'Content-Disposition:'))
+        if(MrStringUtils::StartsWith($http_header, 'Content-Disposition:'))
         {
           $has_content_disposition = true;
         }
@@ -146,12 +146,12 @@ class MtExcelHelperBase
       {
         $filename = $filename ?: 'ExcelExport.xlsx';
 
-        if(!MtStringUtils::EndsWith($filename, '.xlsx'))
+        if(!MrStringUtils::EndsWith($filename, '.xlsx'))
         {
           $filename = $filename . '.xlsx';
         }
 
-        $filename = MtStringUtils::SanitizeFileName($filename);
+        $filename = MrStringUtils::SanitizeFileName($filename);
 
         header('Content-Disposition: attachment;filename="' . $filename . '"');
       }

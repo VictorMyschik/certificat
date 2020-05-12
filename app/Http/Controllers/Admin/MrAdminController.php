@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\Helpers\MrStringUtils;
 use App\Http\Controllers\Controller;
 use App\Models\MrUser;
 use App\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Redis;
@@ -21,8 +22,6 @@ class MrAdminController extends Controller
 
   /**
    * Получение данных по нагрузке на сайт
-   *
-   * @return array
    */
   public function GetData()
   {
@@ -39,9 +38,9 @@ class MrAdminController extends Controller
     $data->select(4);
 
     return array(
-      ['Title' => 'Пользователей', 'Value' => MrUser::getCount()],
-      ['Title' => 'Used Memory', 'Value' => $redis_info['used_memory']],
-      ['Title' => 'Max Memory', 'Value' => $redis_info['maxmemory']],
+      ['Title' => 'Пользователей', 'Value' => MrUser::count()],
+      ['Title' => 'Used Memory', 'Value' => MrStringUtils::formatSize($redis_info['used_memory'])],
+      ['Title' => 'Max Memory', 'Value' => MrStringUtils::formatSize($redis_info['maxmemory'])],
       ['Title' => 'Количество объектов Redis', 'Value' => $data->dbSize()],
     );
   }
@@ -51,7 +50,7 @@ class MrAdminController extends Controller
    *
    * @param int $id
    * @return RedirectResponse
-   * @throws \Exception
+   * @throws Exception
    */
   public function userDeleteForever(int $id)
   {

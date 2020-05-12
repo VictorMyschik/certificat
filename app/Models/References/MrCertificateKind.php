@@ -43,7 +43,7 @@ class MrCertificateKind extends ORM
     return $this->Code;
   }
 
-  public function setCode(string $value)
+  public function setCode(string $value): void
   {
     $this->Code = $value;
   }
@@ -58,7 +58,7 @@ class MrCertificateKind extends ORM
     return $this->Description;
   }
 
-  public function setDescription(?string $value)
+  public function setDescription(?string $value): void
   {
     $this->Description = $value;
   }
@@ -73,7 +73,7 @@ class MrCertificateKind extends ORM
     return $this->ShortName;
   }
 
-  public function setShortName(string $value)
+  public function setShortName(string $value): void
   {
     $this->ShortName = $value;
   }
@@ -88,7 +88,7 @@ class MrCertificateKind extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }

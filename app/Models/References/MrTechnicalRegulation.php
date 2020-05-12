@@ -6,7 +6,6 @@ use App\Models\ORM;
 
 class MrTechnicalRegulation extends ORM
 {
-  public static $mr_table = 'mr_technical_regulation';
   public static $className = MrTechnicalRegulation::class;
   protected $table = 'mr_technical_regulation';
 

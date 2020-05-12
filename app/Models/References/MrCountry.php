@@ -5,13 +5,13 @@ namespace App\Models\References;
 use App\Models\ORM;
 
 /**
- * Данные берутся с https://www.geonames.org/countries/
+ * Данные берутся https://www.geonames.org/countries/
  */
 class MrCountry extends ORM
 {
   protected $table = 'mr_country';
   public static $className = MrCountry::class;
-
+  protected $primaryKey = 'id';
   public static function getRouteTable()
   {
     return 'list_country_table';
@@ -91,7 +91,7 @@ class MrCountry extends ORM
     return self::$continent_short[$this->getContinent()];
   }
 
-  public function setContinent(int $value)
+  public function setContinent(int $value): void
   {
     $this->Continent = $value;
   }
@@ -101,7 +101,7 @@ class MrCountry extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }
@@ -111,7 +111,7 @@ class MrCountry extends ORM
     return $this->ISO3166alpha2;
   }
 
-  public function setISO3166alpha2(string $value)
+  public function setISO3166alpha2(string $value): void
   {
     $this->ISO3166alpha2 = $value;
   }
@@ -121,7 +121,7 @@ class MrCountry extends ORM
     return $this->ISO3166alpha3;
   }
 
-  public function setISO3166alpha3(string $value)
+  public function setISO3166alpha3(string $value): void
   {
     $this->ISO3166alpha3 = $value;
   }
@@ -131,7 +131,7 @@ class MrCountry extends ORM
     return $this->ISO3166numeric;
   }
 
-  public function setISO3166numeric(string $value)
+  public function setISO3166numeric(string $value): void
   {
     $this->ISO3166numeric = $value;
   }

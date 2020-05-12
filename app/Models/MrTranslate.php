@@ -1,10 +1,6 @@
 <?php
 
-
 namespace App\Models;
-
-
-use Illuminate\Support\Facades\DB;
 
 class MrTranslate extends ORM
 {
@@ -17,11 +13,6 @@ class MrTranslate extends ORM
     'Translate',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrTranslate
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   /**
    *  На русском
    *
@@ -33,7 +24,7 @@ class MrTranslate extends ORM
   }
 
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }
@@ -48,7 +39,7 @@ class MrTranslate extends ORM
    *
    * @param string $value
    */
-  public function setLanguageID(string $value)
+  public function setLanguageID(string $value): void
   {
     $this->LanguageID = $value;
   }
@@ -63,11 +54,10 @@ class MrTranslate extends ORM
     return $this->Translate;
   }
 
-  public function setTranslate(string $value)
+  public function setTranslate(string $value): void
   {
     $this->Translate = $value;
   }
-
 
   /**
    * Загрузка массива MrTranslate для одного языка
@@ -77,9 +67,7 @@ class MrTranslate extends ORM
    */
   public static function GetByLg(MrLanguage $lg): array
   {
-    $list = DB::table(MrTranslate::$mr_table)->where('LanguageID', '=', $lg->id())->get();
-
-    return parent::LoadArray($list, MrTranslate::class);
+    return MrTranslate::LoadArray(['LanguageID' => $lg->id()]);
   }
 
   /**

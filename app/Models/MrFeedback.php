@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class MrFeedback extends ORM
 {
-  public static $mr_table = 'mr_feedback';
   public static $className = MrFeedback::class;
   protected $table = 'mr_feedback';
-  
+
   protected static $dbFieldsMap = array(
     'Name',
     'Email',
@@ -19,18 +17,13 @@ class MrFeedback extends ORM
     'Date',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrFeedback
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
-  // Текст собщения
+  // Текст сообщения
   public function getText(): string
   {
     return $this->Text;
   }
 
-  public function setText(string $value)
+  public function setText(string $value): void
   {
     $this->Text = $value;
   }
@@ -41,7 +34,7 @@ class MrFeedback extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }
@@ -52,18 +45,18 @@ class MrFeedback extends ORM
     return $this->Email;
   }
 
-  public function setEmail(string $value)
+  public function setEmail(string $value): void
   {
     $this->Email = $value;
   }
 
-  // Отчечено на входящее сообщение
+  // Отвечено на входящее сообщение
   public function getSendMessage(): ?string
   {
     return $this->SendMessage;
   }
 
-  public function setSendMessage(?string $value)
+  public function setSendMessage(?string $value): void
   {
     $this->SendMessage = $value;
   }
@@ -74,7 +67,7 @@ class MrFeedback extends ORM
     return $this->ReadMessage;
   }
 
-  public function setReadMessage(bool $value)
+  public function setReadMessage(bool $value): void
   {
     $this->ReadMessage = $value;
   }
@@ -85,30 +78,10 @@ class MrFeedback extends ORM
     return new Carbon($this->Date);
   }
 
-  public function setDate()
+  public function setDate(): void
   {
     $this->Date = new Carbon();
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * @return MrFeedback[]
-   */
-  public static function GetAll(): array
-  {
-    $list = DB::table(static::$mr_table)->get(['id']);
-    $out = array();
-    foreach ($list as $id)
-    {
-      $out[] = MrFeedback::loadBy($id->id);
-    }
-
-    return $out;
-  }
-
-  public static function CountAll(): int
-  {
-    return $list = DB::table(static::$mr_table)->count();
-  }
 }

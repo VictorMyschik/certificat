@@ -9,7 +9,6 @@ use App\Models\ORM;
  */
 class MrTechnicalReglament extends ORM
 {
-  public static $mr_table = 'mr_technical_reglament';
   public static $className = MrTechnicalReglament::class;
   protected $table = 'mr_technical_reglament';
 
@@ -45,7 +44,7 @@ class MrTechnicalReglament extends ORM
     return $this->Code;
   }
 
-  public function setCode(string $value)
+  public function setCode(string $value): void
   {
     $this->Code = $value;
   }

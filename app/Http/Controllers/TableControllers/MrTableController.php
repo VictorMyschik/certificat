@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\TableControllers;
-
 
 use App\Http\Controllers\Controller;
 
@@ -26,11 +24,9 @@ class MrTableController extends Controller
 
     $header = $class_name::getHeader();
 
-    $out = array(
+    return array(
       'header' => $header,
       'body'   => $data
     );
-
-    return $out;
   }
 }

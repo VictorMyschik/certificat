@@ -11,7 +11,6 @@ use App\Models\References\MrMeasure;
  */
 class MrProductInfo extends ORM
 {
-  public static $mr_table = 'mr_product_info';
   public static $className = MrProductInfo::class;
   protected $table = 'mr_product_info';
 
@@ -25,11 +24,6 @@ class MrProductInfo extends ORM
     'ExpiryDate',
     'TnvedID',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrProductInfo
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   protected function before_delete()
   {

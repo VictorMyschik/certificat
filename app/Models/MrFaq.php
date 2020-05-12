@@ -1,14 +1,10 @@
 <?php
 
-
 namespace App\Models;
-
-
-use Illuminate\Support\Facades\DB;
 
 class MrFaq extends ORM
 {
-  public static $mr_table = 'mr_faq';
+  protected $table = 'mr_faq';
   public static $className = MrFaq::class;
 
   protected static $dbFieldsMap = array(
@@ -17,18 +13,13 @@ class MrFaq extends ORM
     'LanguageID',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrFaq
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   // Наименование статьи
   public function getTitle(): string
   {
     return $this->Title;
   }
 
-  public function setTitle(string $value)
+  public function setTitle(string $value): void
   {
     $this->Title = $value;
   }
@@ -40,7 +31,7 @@ class MrFaq extends ORM
     return $this->Text;
   }
 
-  public function setText(string $value)
+  public function setText(string $value): void
   {
     $this->Text = $value;
   }
@@ -50,7 +41,7 @@ class MrFaq extends ORM
     return MrLanguage::loadBy($this->LanguageID);
   }
 
-  public function setLanguageID(int $value)
+  public function setLanguageID(int $value): void
   {
     $this->LanguageID = $value;
   }
@@ -59,7 +50,6 @@ class MrFaq extends ORM
   public static function GetByLanguage()
   {
     $lang = MrLanguage::getCurrentLanguage();
-    $list = DB::table(self::$mr_table)->where('LanguageID', $lang->id())->get();
-    return parent::LoadArray($list, self::class);
+    return self::LoadArray(['LanguageID' => $lang->id()]);
   }
 }

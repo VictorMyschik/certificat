@@ -13,7 +13,6 @@ class MrManufacturer extends ORM
 {
   use MrAddressTrait;
 
-  public static $mr_table = 'mr_manufacturer';
   public static $className = MrManufacturer::class;
   protected $table = 'mr_manufacturer';
 
@@ -23,11 +22,6 @@ class MrManufacturer extends ORM
     'Address1ID',
     'Address2ID',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrManufacturer
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   protected function before_delete()
   {
@@ -53,7 +47,7 @@ class MrManufacturer extends ORM
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(?int $value)
+  public function setCountryID(?int $value): void
   {
     $this->CountryID = $value;
   }
@@ -68,7 +62,7 @@ class MrManufacturer extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }
@@ -83,7 +77,7 @@ class MrManufacturer extends ORM
   public function GetProducts(): array
   {
     return MrCacheHelper::GetCachedObjectList('product' . '_' . $this->id() . '_list', MrProduct::class, function () {
-      return DB::table(MrProduct::$mr_table)->where('ManufacturerID', $this->id())->pluck('id')->toArray();
+      return DB::table(MrProduct::getTableName())->where('ManufacturerID', $this->id())->pluck('id')->toArray();
     });
   }
 }

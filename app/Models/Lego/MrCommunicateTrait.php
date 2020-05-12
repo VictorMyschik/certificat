@@ -1,10 +1,6 @@
 <?php
 
-
 namespace App\Models\Lego;
-
-
-use Illuminate\Support\Facades\DB;
 
 trait MrCommunicateTrait
 {
@@ -25,10 +21,7 @@ trait MrCommunicateTrait
    */
   public function GetCommunicate(): array
   {
-    $list = DB::table(MrCommunicateInTable::$mr_table)->where('TableKind', '=', $this->GetTableKind())
-      ->where('RowID', '=', $this->id())->get();
-
-    return parent::LoadArray($list, MrCommunicateInTable::class);
+    return MrCommunicateInTable::LoadArray(array(['TableKind' => $this->GetTableKind()], ['RowID' => $this->id()]));
   }
 
   /**

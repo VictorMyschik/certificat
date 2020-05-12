@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models;
-
 
 use App\Helpers\MrDateTime;
 use SimpleXMLElement;
@@ -12,7 +10,6 @@ use SimpleXMLElement;
  */
 class MrBaseLog extends ORM
 {
-  public static $mr_table = 'mr_base_log';
   public static $className = MrBaseLog::class;
   protected $table = 'mr_base_log';
 
@@ -31,18 +28,13 @@ class MrBaseLog extends ORM
     //'WriteDate',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrBaseLog
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   // Посетитель
   public function getLogIdent(): ?MrLogIdent
   {
     return MrLogIdent::loadBy($this->LogIdentID);
   }
 
-  public function setLogIdentID(int $value)
+  public function setLogIdentID(int $value): void
   {
     $this->LogIdentID = $value;
   }
@@ -53,7 +45,7 @@ class MrBaseLog extends ORM
     return $this->TableName;
   }
 
-  public function setTName(string $value)
+  public function setTName(string $value): void
   {
     $this->TableName = $value;
   }
@@ -64,7 +56,7 @@ class MrBaseLog extends ORM
     return $this->Field;
   }
 
-  public function setField(string $value)
+  public function setField(string $value): void
   {
     $this->Field = $value;
   }
@@ -75,7 +67,7 @@ class MrBaseLog extends ORM
     return $this->Value;
   }
 
-  public function setValue($value)
+  public function setValue($value): void
   {
     if($value instanceof MrDateTime)
     {
@@ -96,7 +88,7 @@ class MrBaseLog extends ORM
     return $this->RowId;
   }
 
-  public function setRowId(int $value)
+  public function setRowId(int $value): void
   {
     $this->RowId = $value;
   }

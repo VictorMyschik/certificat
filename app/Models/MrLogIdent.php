@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class MrLogIdent extends ORM
 {
-  public static $mr_table = 'mr_log_ident';
+  protected $table = 'mr_log_ident';
   public static $className = MrLogIdent::class;
   public static $ident_id = '0';
   protected static $dbFieldsMap = array(
@@ -20,17 +20,12 @@ class MrLogIdent extends ORM
     'Link',
     'Ip',
     'UserID',    // Если из зарегистрированных
-    'UserAgent', //Браузер пользоваетля
+    'UserAgent', //Браузер пользователя
     'City',
     'Country',
     'Cookie',
     'LanguageID',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrLogIdent
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function after_save()
   {
@@ -49,7 +44,7 @@ class MrLogIdent extends ORM
     return $this->Referer;
   }
 
-  public function setReferer(?string $value)
+  public function setReferer(?string $value): void
   {
     $this->Referer = $value;
   }
@@ -60,7 +55,7 @@ class MrLogIdent extends ORM
     return $this->Link;
   }
 
-  public function setLink(?string $value)
+  public function setLink(?string $value): void
   {
     $this->Link = $value;
   }
@@ -71,7 +66,7 @@ class MrLogIdent extends ORM
     return MrUser::loadBy($this->UserID);
   }
 
-  public function setUserID(?int $value)
+  public function setUserID(?int $value): void
   {
     $this->UserID = $value;
   }
@@ -82,7 +77,7 @@ class MrLogIdent extends ORM
     return $this->Ip;
   }
 
-  public function setIp(?string $value)
+  public function setIp(?string $value): void
   {
     $this->Ip = $value;
   }
@@ -93,7 +88,7 @@ class MrLogIdent extends ORM
     return $this->UserAgent;
   }
 
-  public function setUserAgent(?string $value)
+  public function setUserAgent(?string $value): void
   {
     $this->UserAgent = $value;
   }
@@ -104,7 +99,7 @@ class MrLogIdent extends ORM
     return $this->City;
   }
 
-  public function setCity(?string $value)
+  public function setCity(?string $value): void
   {
     $this->City = $value;
   }
@@ -115,7 +110,7 @@ class MrLogIdent extends ORM
     return $this->Country;
   }
 
-  public function setCountry(?string $value)
+  public function setCountry(?string $value): void
   {
     $this->Country = $value;
   }
@@ -126,7 +121,7 @@ class MrLogIdent extends ORM
     return $this->Cookie;
   }
 
-  public function setCookie(?string $value)
+  public function setCookie(?string $value): void
   {
     $this->Cookie = $value;
   }
@@ -137,7 +132,7 @@ class MrLogIdent extends ORM
     return MrLanguage::loadBy($this->LanguageID);
   }
 
-  public function setLanguageID(?int $value)
+  public function setLanguageID(?int $value): void
   {
     $this->LanguageID = $value;
   }
@@ -168,28 +163,28 @@ class MrLogIdent extends ORM
     {
       if($type == 'bot')
       {
-        $list = DB::table(static::$mr_table)
+        $list = DB::table(static::getTableName())
           ->whereNotNull('BotID')
           ->WHERE('Date', '>', $date)
           ->orderBy('id', 'DESC')->get(['id']);
       }
       elseif($type == 'user')
       {
-        $list = DB::table(static::$mr_table)
+        $list = DB::table(static::getTableName())
           ->WHERE('Date', '>', $date)
           ->whereNull('BotID')
           ->orderBy('id', 'DESC')->get(['id']);
       }
       else
       {
-        $list = DB::table(static::$mr_table)
+        $list = DB::table(static::getTableName())
           ->WHERE('Date', '>', $date)
           ->orderBy('id', 'DESC')->get(['id']);
       }
     }
     else
     {
-      $list = DB::table(static::$mr_table)->orderBy('Date', 'DESC')->get(['id']);
+      $list = DB::table(static::getTableName())->orderBy('Date', 'DESC')->get(['id']);
     }
 
     foreach ($list as $item)
@@ -215,11 +210,6 @@ class MrLogIdent extends ORM
       {
         $out['users'][] = $item;
         $out['users_unique'][$item->getUser()->id()] = $item;
-      }
-      elseif($item->getBot())
-      {
-        $out['bot'][] = $item;
-        $out['bot_unique'][$item->getBot()->id()] = $item;
       }
       else
       {

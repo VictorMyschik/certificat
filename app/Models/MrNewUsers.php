@@ -1,15 +1,17 @@
 <?php
 
-
 namespace App\Models;
-
 
 use App\Helpers\MrBaseHelper;
 use App\Helpers\MrDateTime;
+use App\Models\Office\MrOffice;
 
+/**
+ * Приглашённый пользователь
+ */
 class MrNewUsers extends ORM
 {
-  public static $mr_table = 'mr_new_users';
+  protected $table = 'mr_new_users';
   public static $className = MrNewUsers::class;
 
   protected static $dbFieldsMap = array(
@@ -109,6 +111,7 @@ class MrNewUsers extends ORM
     return $this->getDateNullableField('WriteDate');
   }
 //////////////////////////////////////////////////////////////////////////////
+
   /**
    * Генерация ссылки для добавления нового пользователя
    *

@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 
-class MtStringUtils
+class MrStringUtils
 {
   public static function SanitizeFileName(string $filename, bool $transliterate = true)
   {

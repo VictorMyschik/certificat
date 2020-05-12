@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-
+use App\Helpers\MrDateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class MrUserBlocked extends ORM
 {
-  public static $mr_table = 'mr_user_blocked';
+  protected $table = 'mr_user_blocked';
   public static $className = MrUserBlocked::class;
 
   protected static $dbFieldsMap = array(
@@ -17,11 +17,6 @@ class MrUserBlocked extends ORM
     'DateTo',
     'Description',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrUserBlocked
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function getUser(): ?MrUser
   {
@@ -34,25 +29,25 @@ class MrUserBlocked extends ORM
   }
 
   // Дата начала блокировки
-  public function getDateFrom(): Carbon
+  public function getDateFrom(): MrDateTime
   {
-    return new Carbon($this->DateFrom);
+    return $this->getDateNullableField('DateFrom');
   }
 
-  public function setDateFrom()
+  public function setDateFrom(): void
   {
-    $this->DateFrom = Carbon::now();
+    $this->setDateNullableField('DateTo', MrDateTime::now());
   }
 
   // Дата окончания
-  public function getDateTo(): Carbon
+  public function getDateTo(): MrDateTime
   {
-    return new Carbon($this->DateTo);
+    return $this->getDateNullableField('DateTo');
   }
 
-  public function setDateTo(Carbon $value)
+  public function setDateTo(Carbon $value): void
   {
-    $this->DateTo = $value;
+    $this->setDateNullableField('DateTo', $value);
   }
 
   // Описание
@@ -61,32 +56,21 @@ class MrUserBlocked extends ORM
     return $this->Description;
   }
 
-  public function setDescription(?string $value)
+  public function setDescription(?string $value): void
   {
     $this->Description = $value;
   }
 
 ////////////////////////////////////////////////////////////////
-  public static function GetAll()
-  {
-    $list = DB::table(static::$mr_table)->get(['id']);
-    $out = array();
-    foreach ($list as $id)
-    {
-      $out[] = self::loadBy($id->id);
-    }
-
-    return $out;
-  }
 
   /**
-   * Список всех заблокированых пользователей
+   * Список всех заблокированных пользователей
    *
    * @return self[]
    */
   public static function GetAllBlocked()
   {
-    $list = DB::table(static::$mr_table)->where('DateTo','>', Carbon::now())->get(['id']);
+    $list = DB::table(static::getTableName())->where('DateTo', '>', Carbon::now())->get(['id']);
     $out = array();
     foreach ($list as $id)
     {

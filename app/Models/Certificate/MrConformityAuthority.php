@@ -23,7 +23,6 @@ class MrConformityAuthority extends ORM
 {
   use MrCommunicateTrait, MrAddressTrait;
 
-  public static $mr_table = 'mr_conformity_authority';
   public static $className = MrConformityAuthority::class;
   protected $table = 'mr_conformity_authority';
 
@@ -40,7 +39,7 @@ class MrConformityAuthority extends ORM
 
   public function before_save()
   {
-    $data = DB::table(self::$mr_table)
+    $data = DB::table(self::getTableName())
       ->where('CountryID', $this->getCountry()->id())
       ->where('Name', $this->getName())
       ->where('ConformityAuthorityId', $this->getConformityAuthorityId())
@@ -64,11 +63,6 @@ class MrConformityAuthority extends ORM
     return false;
   }
 
-  public static function loadBy($value, $field = 'id'): ?MrConformityAuthority
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   //Наименование органа по оценке соответствия
   public function getName(): string
   {
@@ -86,7 +80,7 @@ class MrConformityAuthority extends ORM
     return $this->ConformityAuthorityId;
   }
 
-  public function setConformityAuthorityId(string $value)
+  public function setConformityAuthorityId(string $value): void
   {
     $this->ConformityAuthorityId = $value;
   }
@@ -97,7 +91,7 @@ class MrConformityAuthority extends ORM
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(int $value)
+  public function setCountryID(int $value): void
   {
     $this->CountryID = $value;
   }
@@ -108,7 +102,7 @@ class MrConformityAuthority extends ORM
     return $this->DocumentNumber;
   }
 
-  public function setDocumentNumber(string $value)
+  public function setDocumentNumber(string $value): void
   {
     $this->DocumentNumber = $value;
   }
@@ -119,9 +113,9 @@ class MrConformityAuthority extends ORM
     return $this->getDateNullableField('DocumentDate');
   }
 
-  public function setDocumentDate($value)
+  public function setDocumentDate($value): void
   {
-    return $this->setDateNullableField($value, 'DocumentDate');
+    $this->setDateNullableField($value, 'DocumentDate');
   }
 
   // Руководитель органа по оценке соответствия
@@ -130,7 +124,7 @@ class MrConformityAuthority extends ORM
     return MrFio::loadBy($this->OfficerDetailsID);
   }
 
-  public function setOfficerDetailsID(?int $value)
+  public function setOfficerDetailsID(?int $value): void
   {
     $this->OfficerDetailsID = $value;
   }

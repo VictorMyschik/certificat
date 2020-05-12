@@ -1,28 +1,21 @@
 <?php
 
-
 namespace App\Models;
-
 
 use App\Helpers\MrDateTime;
 
 class MrEmailLog extends ORM
 {
-  public static $mr_table = 'mr_email_log';
+  protected $table = 'mr_email_log';
   public static $className = MrEmailLog::class;
 
   protected static $dbFieldsMap = array(
-      'UserID',
-      'Email',
-      'Title',
-      'Text',
+    'UserID',
+    'Email',
+    'Title',
+    'Text',
     //'WriteDate',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrEmailLog
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function after_save()
   {
@@ -34,7 +27,7 @@ class MrEmailLog extends ORM
     return MrUser::loadBy($this->UserID);
   }
 
-  public function setUserID(int $value)
+  public function setUserID(int $value): void
   {
     $this->UserID = $value;
   }
@@ -45,7 +38,7 @@ class MrEmailLog extends ORM
     return $this->Email;
   }
 
-  public function setEmail(string $value)
+  public function setEmail(string $value): void
   {
     $this->Email = $value;
   }
@@ -57,7 +50,7 @@ class MrEmailLog extends ORM
     return $this->Title;
   }
 
-  public function setTitle(string $value)
+  public function setTitle(string $value): void
   {
     $this->Title = $value;
   }
@@ -69,7 +62,7 @@ class MrEmailLog extends ORM
     return $this->Text;
   }
 
-  public function setText(?string $value)
+  public function setText(?string $value): void
   {
     $this->Text = $value;
   }

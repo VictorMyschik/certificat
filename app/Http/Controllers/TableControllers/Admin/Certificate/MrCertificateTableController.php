@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\TableControllers\Admin\Certificate;
-
 
 use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
@@ -12,7 +10,7 @@ class MrCertificateTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())
   {
-    return MrCertificate::Select()->paginate(20);
+    return MrCertificate::Select()->paginate(100);
   }
 
   protected static function getHeader(): array

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-
 use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
 use App\Models\Certificate\MrCertificateMonitoring;
+use App\Models\Office\MrOffice;
+use App\Models\Office\MrUserInOffice;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -26,7 +27,6 @@ class MrUser extends ORM
     'DateLastVisit',
     'Phone'
   );
-
 
   public function canEdit()
   {
@@ -251,7 +251,7 @@ class MrUser extends ORM
    */
   public static function GetAll(): array
   {
-    $list = DB::table(static::$mr_table)->get(['id']);
+    $list = DB::table(static::getTableName())->get(['id']);
     $out = array();
     foreach ($list as $id)
     {
@@ -273,7 +273,7 @@ class MrUser extends ORM
   public function getPreviousUrl(): string
   {
     $log_authed = MrLogIdent::loadBy($this->id(), 'UserID');
-    $links = DB::table(MrLogIdent::$mr_table)
+    $links = DB::table(MrLogIdent::getTableName())
       ->WHERE('Cookie', '=', $log_authed->getCookie())
       ->whereNull('UserID')
       ->orderBy('Date', 'desc')
@@ -367,10 +367,10 @@ class MrUser extends ORM
   public function GetUserOffices(): array
   {
     return MrCacheHelper::GetCachedObjectList('user_offices' . '_' . $this->id(), MrOffice::$className, function () {
-      return DB::table(MrOffice::$mr_table)
-        ->leftJoin(MrUserInOffice::$mr_table, MrUserInOffice::$mr_table . '.OfficeID', '=', MrOffice::$mr_table . '.id')
-        ->where(MrUserInOffice::$mr_table . '.UserID', $this->id())
-        ->pluck(MrOffice::$mr_table . '.id')->toArray();
+      return DB::table(MrOffice::getTableName())
+        ->leftJoin(MrUserInOffice::getTableName(), MrUserInOffice::getTableName() . '.OfficeID', '=', MrOffice::getTableName() . '.id')
+        ->where(MrUserInOffice::getTableName() . '.UserID', $this->id())
+        ->pluck(MrOffice::getTableName() . '.id')->toArray();
     });
   }
 

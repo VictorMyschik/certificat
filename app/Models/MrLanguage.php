@@ -1,23 +1,15 @@
 <?php
 
-
 namespace App\Models;
-
 
 class MrLanguage extends ORM
 {
-  public static $mr_table = 'mr_language';
   public static $className = MrLanguage::class;
   protected $table = 'mr_language';
   protected static $dbFieldsMap = array(
     'Name',
     'Description',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrLanguage
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function before_delete()
   {
@@ -32,7 +24,7 @@ class MrLanguage extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = mb_strtoupper($value);
   }
@@ -42,7 +34,7 @@ class MrLanguage extends ORM
     return $this->Description;
   }
 
-  public function setDescription(?string $value)
+  public function setDescription(?string $value): void
   {
     $this->Description = $value;
   }
@@ -56,9 +48,7 @@ class MrLanguage extends ORM
    */
   public static function getCurrentLanguage(): self
   {
-    $locate = app()->getLocale();
-
-    return MrLanguage::loadBy($locate, 'Name');
+    return MrLanguage::loadBy(app()->getLocale(), 'Name');
   }
 
   public static function SelectList()

@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Models\Certificate;
 
 use App\Models\ORM;
 
 class MrCommunicate extends ORM
 {
-  public static $mr_table = 'mr_communicate';
   public static $className = MrCommunicate::class;
   protected $table = 'mr_communicate';
 
@@ -15,8 +13,6 @@ class MrCommunicate extends ORM
     'Kind',// Тип: телефон, email, факс...
     'Address',
   );
-
-  const KIND_OBJECT_MANUFACTURER = 1;
 
   const CODE_TE = 1;
   const CODE_FX = 2;
@@ -64,12 +60,6 @@ class MrCommunicate extends ORM
     return self::$address_kinds;
   }
 
-
-  public static function loadBy($value, $field = 'id'): ?MrCommunicate
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   public function getKind(): int
   {
     return $this->Kind;
@@ -80,7 +70,7 @@ class MrCommunicate extends ORM
     return self::getAddressKinds()[$this->Kind];
   }
 
-  public function setKind(int $value)
+  public function setKind(int $value): void
   {
     if(isset(self::getAddressKinds()[$value]))
     {
@@ -98,7 +88,7 @@ class MrCommunicate extends ORM
     return $this->Address;
   }
 
-  public function setAddress(string $value)
+  public function setAddress(string $value): void
   {
     $this->Address = $value;
   }

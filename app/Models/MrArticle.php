@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models;
-
 
 use App\Helpers\MrDateTime;
 use Illuminate\Support\Facades\Cache;
@@ -10,10 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class MrArticle extends ORM
 {
-  public static $mr_table = 'mr_articles';
+  protected $table = 'mr_articles';
   public static $className = MrArticle::class;
-
-  protected $id = 0;
 
   protected static $dbFieldsMap = array(
     'Kind',
@@ -21,22 +17,17 @@ class MrArticle extends ORM
     'Text',
     'DateUpdate',
     'IsPublic',
-  //'WriteDate',
+    //'WriteDate',
   );
 
-  const KIND_KINDUNKNOWN = 0;
+  const KIND_UNKNOWN = 0;
   const KIND_POLICY = 1;
   const KIND_API = 2;
 
   protected static $kinds = array(
     self::KIND_POLICY => 'Политика приватности',
-    self::KIND_API => 'API',
+    self::KIND_API    => 'API',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrArticle
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function canDelete(): bool
   {
@@ -58,7 +49,7 @@ class MrArticle extends ORM
     return $this->Kind;
   }
 
-  public function setKind(int $value)
+  public function setKind(int $value): void
   {
     if(self::getKinds()[$value])
     {
@@ -80,7 +71,7 @@ class MrArticle extends ORM
     return MrLanguage::loadBy($this->LanguageID);
   }
 
-  public function setLanguageID(int $value)
+  public function setLanguageID(int $value): void
   {
     $this->LanguageID = $value;
   }
@@ -90,7 +81,7 @@ class MrArticle extends ORM
     return $this->Text;
   }
 
-  public function setText(string $value)
+  public function setText(string $value): void
   {
     $this->Text = $value;
   }
@@ -100,9 +91,9 @@ class MrArticle extends ORM
     return $this->getDateNullableField('DateUpdate');
   }
 
-  public function setDateUpdate($value)
+  public function setDateUpdate($value): void
   {
-    return $this->setDateNullableField($value, 'DateUpdate');
+    $this->setDateNullableField($value, 'DateUpdate');
   }
 
   public function getIsPublic(): bool
@@ -110,7 +101,7 @@ class MrArticle extends ORM
     return (bool)$this->IsPublic;
   }
 
-  public function setIsPublic(bool $value)
+  public function setIsPublic(bool $value): void
   {
     $this->IsPublic = $value;
   }
@@ -128,7 +119,7 @@ class MrArticle extends ORM
   public static function GetIds()
   {
     return Cache::rememberForever('MrArticles_ids', function () {
-      return DB::table(MrArticle::$mr_table)->get(['id','Kind', 'LanguageID','IsPublic'])->toArray();
+      return DB::table(MrArticle::getTableName())->get(['id', 'Kind', 'LanguageID', 'IsPublic'])->toArray();
     });
   }
 

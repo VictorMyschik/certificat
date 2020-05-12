@@ -1,16 +1,16 @@
 <?php
 
-
-namespace App\Models;
-
+namespace App\Models\Office;
 
 use App\Helpers\MrDateTime;
+use App\Models\MrNewUsers;
+use App\Models\MrUser;
+use App\Models\ORM;
 use App\Models\References\MrCountry;
-use Illuminate\Support\Facades\DB;
 
 class MrOffice extends ORM
 {
-  public static $mr_table = 'mr_offices';
+  protected $table = 'mr_offices';
   public static $className = MrOffice::class;
 
   protected static $dbFieldsMap = array(
@@ -41,11 +41,6 @@ class MrOffice extends ORM
     'PersonFIO',
     //'CreateDate'
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrOffice
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function canEdit(): bool
   {
@@ -101,12 +96,12 @@ class MrOffice extends ORM
   }
 
   /**
+   * Пользователи ВО
    * @return MrUserInOffice[]
    */
   public function GetUsers(): array
   {
-    $list = DB::table(MrUserInOffice::$mr_table)->where('OfficeID', $this->id())->get();
-    return parent::LoadArray($list, MrUserInOffice::class);
+    return MrUserInOffice::LoadArray(['OfficeID' => $this->id()]);
   }
 
 
@@ -116,7 +111,7 @@ class MrOffice extends ORM
     return $this->Description;
   }
 
-  public function setDescription(?string $value)
+  public function setDescription(?string $value): void
   {
     $this->Description = $value;
   }
@@ -127,7 +122,7 @@ class MrOffice extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }
@@ -144,7 +139,7 @@ class MrOffice extends ORM
     return $this->UNP;
   }
 
-  public function setUNP(?string $value)
+  public function setUNP(?string $value): void
   {
     $this->UNP = $value;
   }
@@ -155,7 +150,7 @@ class MrOffice extends ORM
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(?int $value)
+  public function setCountryID(?int $value): void
   {
     $this->CountryID = $value;
   }
@@ -166,7 +161,7 @@ class MrOffice extends ORM
     return $this->Email;
   }
 
-  public function setEmail(?string $value)
+  public function setEmail(?string $value): void
   {
     $this->Email = $value;
   }
@@ -177,7 +172,7 @@ class MrOffice extends ORM
     return $this->Phone;
   }
 
-  public function setPhone(?string $value)
+  public function setPhone(?string $value): void
   {
     $this->Phone = $value;
   }
@@ -188,7 +183,7 @@ class MrOffice extends ORM
     return $this->POPostalCode;
   }
 
-  public function setPOPostalCode(?string $value)
+  public function setPOPostalCode(?string $value): void
   {
     $this->POPostalCode = $value;
   }
@@ -199,7 +194,7 @@ class MrOffice extends ORM
     return $this->PORegion;
   }
 
-  public function setPORegion(?string $value)
+  public function setPORegion(?string $value): void
   {
     $this->PORegion = $value;
   }
@@ -210,7 +205,7 @@ class MrOffice extends ORM
     return $this->POCity;
   }
 
-  public function setPOCity(?string $value)
+  public function setPOCity(?string $value): void
   {
     $this->POCity = $value;
   }
@@ -221,7 +216,7 @@ class MrOffice extends ORM
     return $this->POAddress;
   }
 
-  public function setPOAddress(?string $value)
+  public function setPOAddress(?string $value): void
   {
     $this->POAddress = $value;
   }
@@ -232,7 +227,7 @@ class MrOffice extends ORM
     return $this->URPostalCode;
   }
 
-  public function setURPostalCode(?string $value)
+  public function setURPostalCode(?string $value): void
   {
     $this->URPostalCode = $value;
   }
@@ -243,7 +238,7 @@ class MrOffice extends ORM
     return $this->URRegion;
   }
 
-  public function setURRegion(?string $value)
+  public function setURRegion(?string $value): void
   {
     $this->URRegion = $value;
   }
@@ -254,7 +249,7 @@ class MrOffice extends ORM
     return $this->URCity;
   }
 
-  public function setURCity(?string $value)
+  public function setURCity(?string $value): void
   {
     $this->URCity = $value;
   }
@@ -265,7 +260,7 @@ class MrOffice extends ORM
     return $this->URAddress;
   }
 
-  public function setURAddress(?string $value)
+  public function setURAddress(?string $value): void
   {
     $this->URAddress = $value;
   }
@@ -276,7 +271,7 @@ class MrOffice extends ORM
     return $this->BankRS;
   }
 
-  public function setBankRS(?string $value)
+  public function setBankRS(?string $value): void
   {
     $this->BankRS = $value;
   }
@@ -287,7 +282,7 @@ class MrOffice extends ORM
     return $this->BankName;
   }
 
-  public function setBankName(?string $value)
+  public function setBankName(?string $value): void
   {
     $this->BankName = $value;
   }
@@ -298,7 +293,7 @@ class MrOffice extends ORM
     return $this->BankCode;
   }
 
-  public function setBankCode(?string $value)
+  public function setBankCode(?string $value): void
   {
     $this->BankCode = $value;
   }
@@ -309,7 +304,7 @@ class MrOffice extends ORM
     return $this->BankAddress;
   }
 
-  public function setBankAddress(?string $value)
+  public function setBankAddress(?string $value): void
   {
     $this->BankAddress = $value;
   }
@@ -320,7 +315,7 @@ class MrOffice extends ORM
     return $this->PersonSign;
   }
 
-  public function setPersonSign(?string $value)
+  public function setPersonSign(?string $value): void
   {
     $this->PersonSign = $value;
   }
@@ -331,7 +326,7 @@ class MrOffice extends ORM
     return $this->PersonPost;
   }
 
-  public function setPersonPost(?string $value)
+  public function setPersonPost(?string $value): void
   {
     $this->PersonPost = $value;
   }
@@ -342,7 +337,7 @@ class MrOffice extends ORM
     return $this->PersonFIO;
   }
 
-  public function setPersonFIO(?string $value)
+  public function setPersonFIO(?string $value): void
   {
     $this->PersonFIO = $value;
   }
@@ -388,13 +383,12 @@ class MrOffice extends ORM
   }
 
   /**
-   * Список приглашённых но ещё не добавленных пользователей
+   * Список приглашённых, но ещё не добавленных пользователей
    *
    * @return MrNewUsers[]
    */
   public function GetNewUsers(): array
   {
-    $list = DB::table(MrNewUsers::$mr_table)->where('OfficeID', $this->id())->get();
-    return parent::LoadArray($list, MrNewUsers::class);
+    return MrNewUsers::LoadArray(['OfficeID' => $this->id()]);
   }
 }

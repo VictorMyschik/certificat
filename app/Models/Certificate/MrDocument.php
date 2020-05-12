@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Models\Certificate;
-
 
 use App\Helpers\MrDateTime;
 use App\Models\ORM;
 
 class MrDocument extends ORM
 {
-  public static $mr_table = 'mr_document';
   public static $className = MrDocument::class;
   protected $table = 'mr_document';
 

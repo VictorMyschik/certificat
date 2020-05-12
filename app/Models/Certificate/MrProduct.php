@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
  */
 class MrProduct extends ORM
 {
-  public static $mr_table = 'mr_product';
   public static $className = MrProduct::class;
   protected $table = 'mr_product';
 
@@ -22,11 +21,6 @@ class MrProduct extends ORM
     'TnvedID',
     'Description' // Макс. длина: 4000
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrProduct
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   protected function before_delete()
   {

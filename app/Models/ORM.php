@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-
 class ORM extends Model
 {
   protected static $dbFieldsMap;
@@ -55,7 +54,7 @@ class ORM extends Model
     return DB::table(self::getTableName())->select($fields)->orderBy($field_name, $sort);
   }
 
-  private static function getTableName(): string
+  public static function getTableName(): string
   {
     return with(new static)->getTable();
   }
@@ -80,7 +79,7 @@ class ORM extends Model
    * @param string $field
    * @return static|object|null
    */
-  public static function loadBy(string $value, string $field = 'id')
+  public static function loadBy(?string $value, string $field = 'id')
   {
     if(!$value)
     {
@@ -92,7 +91,7 @@ class ORM extends Model
     {
       return MrCacheHelper::GetCachedObject((int)$value, self::getTableName(), function () use ($field, $value) {
         $class_name = static::class;
-        return $class_name::find($value)->get()->first();
+        return $class_name::where($field, $value)->get()->first();
       });
     }
     else
@@ -113,7 +112,7 @@ class ORM extends Model
   }
 
   /**
-   * Object name for identify in cache
+   * Object name for identify in a cache
    *
    * @return string
    */
@@ -128,18 +127,20 @@ class ORM extends Model
   }
 
   /**
-   * Конвертация массива объектов Laravel в массив Mr
+   * Load objects use cache
    *
-   * @param array $list
-   * @param       $class
-   * @return object[]
+   * @param array $conditions
+   * @return mixed
    */
-  public static function LoadArray($list, string $class): array
+  public static function LoadArray(array $conditions): array
   {
+    $class_name = static::class;
+    $ids = $class_name::where($conditions)->pluck('id');// from DB
+
     $out = array();
-    foreach ($list as $item)
+    foreach ($ids as $id)
     {
-      $out[] = self::convertToMr($item, $class);
+      $out[] = $class_name::loadBy($id); // from cache, else DB
     }
 
     return $out;

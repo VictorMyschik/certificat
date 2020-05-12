@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\Certificate;
-
 
 use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrCacheHelper;
@@ -64,7 +62,6 @@ class MrCertificate extends ORM
   );
 
 
-
   public static function getStatuses()
   {
     return self::$statuses;
@@ -99,7 +96,7 @@ class MrCertificate extends ORM
     return MrCertificateKind::loadBy($this->CertificateKindID);
   }
 
-  public function setCertificateKindID(int $value)
+  public function setCertificateKindID(int $value): void
   {
     $this->CertificateKindID = $value;
   }
@@ -110,7 +107,7 @@ class MrCertificate extends ORM
     return $this->Number;
   }
 
-  public function setNumber(string $value)
+  public function setNumber(string $value): void
   {
     $this->Number = $value;
   }
@@ -132,7 +129,7 @@ class MrCertificate extends ORM
     return $this->DateTo ? MrDateTime::fromValue($this->DateTo) : null;
   }
 
-  public function setDateTo($value)
+  public function setDateTo($value): void
   {
     if(is_string($value))
     {
@@ -148,7 +145,7 @@ class MrCertificate extends ORM
     return $this->LinkOut;
   }
 
-  public function setLinkOut(?string $value)
+  public function setLinkOut(?string $value): void
   {
     $this->LinkOut = $value;
   }
@@ -165,7 +162,7 @@ class MrCertificate extends ORM
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(int $value)
+  public function setCountryID(int $value): void
   {
     $this->CountryID = $value;
   }
@@ -192,7 +189,7 @@ class MrCertificate extends ORM
     return self::$statuses[$this->Status];
   }
 
-  public function setStatus(int $value)
+  public function setStatus(int $value): void
   {
     //if(isset(self::$statuses[$value]))
     //{
@@ -214,7 +211,7 @@ class MrCertificate extends ORM
     return MrFio::loadBy($this->AuditorID);
   }
 
-  public function setAuditorID(?int $value)
+  public function setAuditorID(?int $value): void
   {
     $this->AuditorID = $value;
   }
@@ -229,7 +226,7 @@ class MrCertificate extends ORM
     return MrConformityAuthority::loadBy($this->AuthorityID);
   }
 
-  public function setAuthorityID(?int $value)
+  public function setAuthorityID(?int $value): void
   {
     $this->AuthorityID = $value;
   }
@@ -240,7 +237,7 @@ class MrCertificate extends ORM
     return $this->BlankNumber;
   }
 
-  public function setBlankNumber(?string $value)
+  public function setBlankNumber(?string $value): void
   {
     $this->BlankNumber = $value;
   }
@@ -266,7 +263,7 @@ class MrCertificate extends ORM
     return $this->getDateNullableField('DateStatusFrom');
   }
 
-  public function setDateStatusFrom($value)
+  public function setDateStatusFrom($value): void
   {
     $this->setDateNullableField($value, 'DateStatusFrom');
   }
@@ -276,7 +273,7 @@ class MrCertificate extends ORM
     return $this->getDateNullableField('DateStatusTo');
   }
 
-  public function setDateStatusTo($value)
+  public function setDateStatusTo($value): void
   {
     $this->setDateNullableField($value, 'DateStatusTo');
   }
@@ -287,9 +284,9 @@ class MrCertificate extends ORM
     return $this->DocumentBase;
   }
 
-  public function setDocumentBase(?string $value)
+  public function setDocumentBase(?string $value): void
   {
-    return $this->DocumentBase = $value;
+    $this->DocumentBase = $value;
   }
 
   // Причина изменения статуса
@@ -298,9 +295,9 @@ class MrCertificate extends ORM
     return $this->WhyChange;
   }
 
-  public function setWhyChange(?string $value)
+  public function setWhyChange(?string $value): void
   {
-    return $this->WhyChange = $value;
+    $this->WhyChange = $value;
   }
 
   // Схема сертификации (декларирования) | 1с
@@ -309,9 +306,9 @@ class MrCertificate extends ORM
     return $this->SchemaCertificate;
   }
 
-  public function setSchemaCertificate(?string $value)
+  public function setSchemaCertificate(?string $value): void
   {
-    return $this->SchemaCertificate = $value;
+    $this->SchemaCertificate = $value;
   }
 
   // Дополнительные сведения
@@ -320,9 +317,9 @@ class MrCertificate extends ORM
     return $this->Description;
   }
 
-  public function setDescription(?string $value)
+  public function setDescription(?string $value): void
   {
-    return $this->Description = $value;
+    $this->Description = $value;
   }
 
   // Производитель
@@ -331,9 +328,9 @@ class MrCertificate extends ORM
     return MrManufacturer::loadBy($this->ManufacturerID);
   }
 
-  public function setManufacturerID(?int $value)
+  public function setManufacturerID(?int $value): void
   {
-    return $this->ManufacturerID = $value;
+    $this->ManufacturerID = $value;
   }
 
   // Заявитель
@@ -342,9 +339,9 @@ class MrCertificate extends ORM
     return MrApplicant::loadBy($this->ApplicantID);
   }
 
-  public function setApplicantID(?int $value)
+  public function setApplicantID(?int $value): void
   {
-    return $this->ApplicantID = $value;
+    $this->ApplicantID = $value;
   }
 
   public function getDateUpdateEAES(): ?MrDateTime
@@ -352,9 +349,9 @@ class MrCertificate extends ORM
     return $this->getDateNullableField('DateUpdateEAES');
   }
 
-  public function setDateUpdateEAES($value)
+  public function setDateUpdateEAES($value): void
   {
-    return $this->setDateNullableField($value, 'DateUpdateEAES');
+    $this->setDateNullableField($value, 'DateUpdateEAES');
   }
 
 

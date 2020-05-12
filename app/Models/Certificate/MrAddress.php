@@ -8,7 +8,6 @@ use App\Models\References\MrCountry;
 
 class MrAddress extends ORM
 {
-  public static $mr_table = 'mr_address';
   public static $className = MrAddress::class;
   protected $table = 'mr_address';
 
@@ -53,11 +52,6 @@ class MrAddress extends ORM
       self::ADDRESS_KIND_FACT         => 'фактический адрес',
       self::ADDRESS_KIND_POSTAL       => 'почтовый адрес',
     );
-  }
-
-  public static function loadBy($value, $field = 'id'): ?MrAddress
-  {
-    return parent::loadBy((string)$value, $field);
   }
 
   public function canView()
@@ -116,7 +110,7 @@ class MrAddress extends ORM
     return MrCountry::loadBy($this->CountryID);
   }
 
-  public function setCountryID(?int $value)
+  public function setCountryID(?int $value): void
   {
     $this->CountryID = $value;
   }
@@ -131,7 +125,7 @@ class MrAddress extends ORM
     return $this->TerritoryCode;
   }
 
-  public function setTerritoryCode(?string $value)
+  public function setTerritoryCode(?string $value): void
   {
     $this->TerritoryCode = $value;
   }
@@ -146,7 +140,7 @@ class MrAddress extends ORM
     return $this->RegionName;
   }
 
-  public function setRegionName(?string $value)
+  public function setRegionName(?string $value): void
   {
     $this->RegionName = $value;
   }
@@ -161,7 +155,7 @@ class MrAddress extends ORM
     return $this->DistrictName;
   }
 
-  public function setDistrictName(?string $value)
+  public function setDistrictName(?string $value): void
   {
     $this->DistrictName = $value;
   }
@@ -176,7 +170,7 @@ class MrAddress extends ORM
     return $this->City;
   }
 
-  public function setCity(?string $value)
+  public function setCity(?string $value): void
   {
     $this->City = $value;
   }
@@ -191,7 +185,7 @@ class MrAddress extends ORM
     return $this->SettlementName;
   }
 
-  public function setSettlementName(?string $value)
+  public function setSettlementName(?string $value): void
   {
     $this->SettlementName = $value;
   }
@@ -206,7 +200,7 @@ class MrAddress extends ORM
     return $this->StreetName;
   }
 
-  public function setStreetName(?string $value)
+  public function setStreetName(?string $value): void
   {
     $this->StreetName = $value;
   }
@@ -217,7 +211,7 @@ class MrAddress extends ORM
     return $this->BuildingNumberId;
   }
 
-  public function setBuildingNumberId(?string $value)
+  public function setBuildingNumberId(?string $value): void
   {
     $this->BuildingNumberId = $value;
   }
@@ -232,7 +226,7 @@ class MrAddress extends ORM
     return $this->RoomNumberId;
   }
 
-  public function setRoomNumberId(?string $value)
+  public function setRoomNumberId(?string $value): void
   {
     $this->RoomNumberId = $value;
   }
@@ -247,7 +241,7 @@ class MrAddress extends ORM
     return $this->PostCode;
   }
 
-  public function setPostCode(?string $value)
+  public function setPostCode(?string $value): void
   {
     $this->PostCode = $value;
   }
@@ -262,7 +256,7 @@ class MrAddress extends ORM
     return $this->PostOfficeBoxId;
   }
 
-  public function setPostOfficeBoxId(?string $value)
+  public function setPostOfficeBoxId(?string $value): void
   {
     $this->PostOfficeBoxId = $value;
   }
@@ -277,7 +271,7 @@ class MrAddress extends ORM
     return $this->AddressText;
   }
 
-  public function setAddressText(?string $value)
+  public function setAddressText(?string $value): void
   {
     $this->AddressText = $value;
   }
@@ -287,7 +281,7 @@ class MrAddress extends ORM
     return $this->Lat;
   }
 
-  public function setLat(?string $value)
+  public function setLat(?string $value): void
   {
     $this->Lat = $value;
   }
@@ -297,7 +291,7 @@ class MrAddress extends ORM
     return $this->Lon;
   }
 
-  public function setLon(?string $value)
+  public function setLon(?string $value): void
   {
     $this->Lon = $value;
   }

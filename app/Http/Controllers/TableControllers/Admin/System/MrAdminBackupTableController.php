@@ -89,10 +89,10 @@ class MrAdminBackupTableController extends MrTableController
 
       $row[] = $model->id;
 
-      $row[] = MrLink::open('admin_view_table_page', ['table_name' => $object::$mr_table], $object::$mr_table, '');
-      $row[] = MtFloatHelper::formatCommon($object::getCount());
+      $row[] = MrLink::open('admin_view_table_page', ['table_name' => $object::getTableName()], $object::getTableName(), '');
+      $row[] = MtFloatHelper::formatCommon($object::count());
       $row[] = MrLink::open('migration_refresh_table', ['table_name' => $model->migration], ' refresh', 'btn btn-danger btn-sm fa fa-edit');
-      $row[] = isset(MrAdminBackUpController::$tables[$object::$mr_table]) ? MrLink::open('recovery_table_data', ['table_name' => $object::$mr_table], ' Recovery', 'btn btn-success btn-sm fa fa-edit') : '';
+      $row[] = isset(MrAdminBackUpController::$tables[$object::getTableName()]) ? MrLink::open('recovery_table_data', ['table_name' => $object::getTableName()], ' Recovery', 'btn btn-success btn-sm fa fa-edit') : '';
     }
 
     return $row;

@@ -6,7 +6,6 @@ use App\Models\ORM;
 
 class MrTnved extends ORM
 {
-  public static $mr_table = 'mr_tnved';
   public static $className = MrTnved::class;
   protected $table = 'mr_tnved';
 
@@ -14,11 +13,6 @@ class MrTnved extends ORM
     'Code',
     'Name',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrTnved
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function before_save()
   {

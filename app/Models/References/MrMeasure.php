@@ -6,7 +6,6 @@ use App\Models\ORM;
 
 class MrMeasure extends ORM
 {
-  public static $mr_table = 'mr_measure';
   public static $className = MrMeasure::class;
   protected $table = 'mr_measure';
 
@@ -32,23 +31,18 @@ class MrMeasure extends ORM
     return 'list_measure_table';
   }
 
-  public static function loadBy($value, $field = 'id'): ?MrMeasure
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   protected function before_delete()
   {
 
   }
 
-  //  Цифоровой код
+  //  Цифровой код
   public function getCode(): string
   {
     return $this->Code;
   }
 
-  public function setCode(string $value)
+  public function setCode(string $value): void
   {
     $this->Code = $value;
   }
@@ -58,7 +52,7 @@ class MrMeasure extends ORM
     return $this->TextCode;
   }
 
-  public function setTextCode(string $value)
+  public function setTextCode(string $value): void
   {
     $this->TextCode = $value;
   }
@@ -73,7 +67,7 @@ class MrMeasure extends ORM
     return $this->Name;
   }
 
-  public function setName(string $value)
+  public function setName(string $value): void
   {
     $this->Name = $value;
   }

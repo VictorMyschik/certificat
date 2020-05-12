@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class MrCommunicateInTable extends ORM
 {
-  public static $mr_table = 'mr_communicate_in_table';
   public static $className = MrCommunicateInTable::class;
   protected $table = 'mr_communicate_in_table';
 
@@ -23,12 +22,6 @@ class MrCommunicateInTable extends ORM
     'CommunicateID',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrCommunicateInTable
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
-
   const TABLE_KIND_FIO = 1;
   const TABLE_KIND_AUTHORITY = 2;
   const TABLE_KIND_APPLICANT = 3;
@@ -36,9 +29,9 @@ class MrCommunicateInTable extends ORM
   public static function getTableList(): array
   {
     return array(
-      self::TABLE_KIND_FIO       => MrFio::$mr_table,
-      self::TABLE_KIND_AUTHORITY => MrConformityAuthority::$mr_table,
-      self::TABLE_KIND_APPLICANT => MrApplicant::$mr_table,
+      self::TABLE_KIND_FIO       => MrFio::getTableName(),
+      self::TABLE_KIND_AUTHORITY => MrConformityAuthority::getTableName(),
+      self::TABLE_KIND_APPLICANT => MrApplicant::getTableName(),
     );
   }
 
@@ -52,7 +45,7 @@ class MrCommunicateInTable extends ORM
     return self::getTableList()[$this->getTableKind()];
   }
 
-  public function setTableKind(int $value)
+  public function setTableKind(int $value): void
   {
     if(isset(self::getTableList()[$value]))
     {
@@ -65,14 +58,14 @@ class MrCommunicateInTable extends ORM
   }
 
   /**
-   * ID строки к которй привязан объект
+   * ID строки к которой привязан объект
    */
   public function getRow(): int
   {
     return $this->RowID;
   }
 
-  public function setRowID(int $value)
+  public function setRowID(int $value): void
   {
     $this->RowID = $value;
   }
@@ -87,7 +80,7 @@ class MrCommunicateInTable extends ORM
     return MrCommunicate::loadBy($this->CommunicateID);
   }
 
-  public function setCommunicateID(int $value)
+  public function setCommunicateID(int $value): void
   {
     $this->CommunicateID = $value;
   }

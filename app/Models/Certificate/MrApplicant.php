@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Models\Certificate;
-
 
 use App\Models\Lego\MrAddressTrait;
 use App\Models\Lego\MrCommunicateTrait;
@@ -14,7 +12,6 @@ class MrApplicant extends ORM
   use MrAddressTrait;
   use MrCommunicateTrait;
 
-  public static $mr_table = 'mr_applicant';
   public static $className = MrApplicant::class;
   protected $table = 'mr_applicant';
 
@@ -27,11 +24,6 @@ class MrApplicant extends ORM
     'FioID', // Лицо, принявшее сертификат
     'Hash',
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrApplicant
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function getCountry(): ?MrCountry
   {

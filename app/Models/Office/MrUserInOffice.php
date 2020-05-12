@@ -1,14 +1,14 @@
 <?php
 
+namespace App\Models\Office;
 
-namespace App\Models;
-
-
+use App\Models\MrUser;
+use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
 
 class MrUserInOffice extends ORM
 {
-  public static $mr_table = 'mr_user_in_office';
+  protected $table = 'mr_user_in_office';
   public static $className = MrUserInOffice::class;
   protected static $dbFieldsMap = array(
     'UserID',
@@ -16,11 +16,6 @@ class MrUserInOffice extends ORM
     'IsAdmin',
     //'WriteDate'
   );
-
-  public static function loadBy($value, $field = 'id'): ?MrUserInOffice
-  {
-    return parent::loadBy((string)$value, $field);
-  }
 
   public function canDelete(): bool
   {
@@ -63,9 +58,9 @@ class MrUserInOffice extends ORM
     return MrUser::loadBy($this->UserID);
   }
 
-  public function setUserID(int $value)
+  public function setUserID(int $value): void
   {
-    return $this->UserID = $value;
+    $this->UserID = $value;
   }
 
   public function getOffice(): MrOffice
@@ -73,9 +68,9 @@ class MrUserInOffice extends ORM
     return MrOffice::loadBy($this->OfficeID);
   }
 
-  public function setOfficeID(int $value)
+  public function setOfficeID(int $value): void
   {
-    return $this->OfficeID = $value;
+    $this->OfficeID = $value;
   }
 
   public function getIsAdmin()
@@ -83,9 +78,9 @@ class MrUserInOffice extends ORM
     return $this->IsAdmin;
   }
 
-  public function setIsAdmin($value)
+  public function setIsAdmin($value): void
   {
-    return $this->IsAdmin = $value;
+    $this->IsAdmin = $value;
   }
 
 

@@ -18,10 +18,9 @@
     "laravel/ui": "^1.1",
     "laravelcollective/html": "^6.0",
     "phpoffice/phpspreadsheet": "^1.9",
-    "rodenastyle/stream-parser": "^1.2",
-    "symfony/dom-crawler": "^4.2",
     "ext-simplexml": "*",
-    "ext-libxml": "*"
+    "ext-libxml": "*",
+    "ext-redis": "*"
   },
   "require-dev": {
     "facade/ignition": "^1.4",

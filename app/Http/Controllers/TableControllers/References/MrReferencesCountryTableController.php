@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\TableControllers\References;
-
 
 use App\Forms\FormBase\MrForm;
 use App\Helpers\MrLink;
@@ -59,7 +57,7 @@ class MrReferencesCountryTableController extends MrTableController
     $row[] = $country->getContinentName();
 
     $img_name = mb_strtolower($country->getISO3166alpha2());
-    $row[] = "<img style='width: 30px;' title='Flag {$country->getName() }'
+    $row[] = "<img style='width: 30px;' title='Flag {$country->getName()}'
                        src='https://img.geonames.org/flags/m/{$img_name}.png'
                        alt='{$country->getName()}'>";
     if(self::$can_edit)

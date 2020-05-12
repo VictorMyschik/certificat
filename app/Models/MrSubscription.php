@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-
+use App\Helpers\MrDateTime;
 use App\Helpers\MrMessageHelper;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class MrSubscription extends ORM
 {
-  public static $mr_table = 'mr_subscription';
+  protected $table = 'mr_subscription';
   public static $className = MrSubscription::class;
 
   protected static $dbFieldsMap = array(
@@ -18,33 +17,26 @@ class MrSubscription extends ORM
     'Token',
   );
 
-
-  public static function loadBy($value, $field = 'id'): ?MrSubscription
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   // Эл. почта
   public function getEmail(): string
   {
     return $this->Email;
   }
 
-  public function setEmail(string $value)
+  public function setEmail(string $value): void
   {
     $this->Email = $value;
   }
 
   // Дата подписки
-  public function getDate(): Carbon
+  public function getDate(): MrDateTime
   {
-
-    return new Carbon($this->Date);
+    return $this->getDateNullableField('Date');
   }
 
-  public function setDate(Carbon $value)
+  public function setDate($value): void
   {
-    $this->Date = $value;
+    $this->setDateNullableField($value, 'Date');
   }
 
   // Токен для удаления
@@ -53,7 +45,7 @@ class MrSubscription extends ORM
     return $this->Token;
   }
 
-  public function setToken(string $value)
+  public function setToken(string $value): void
   {
     $this->Token = $value;
   }
@@ -81,17 +73,5 @@ class MrSubscription extends ORM
     {
       MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Такой Email уже имеется');
     }
-  }
-
-  public static function GetAll()
-  {
-    $list = DB::table(static::$mr_table)->get(['id']);
-    $out = array();
-    foreach ($list as $id)
-    {
-      $out[] = parent::loadBy((string)$id->id);
-    }
-
-    return $out;
   }
 }
