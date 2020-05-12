@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Helpers\MrDateTime;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MrArticle extends ORM
 {
+  public $timestamps = false;
   protected $table = 'mr_articles';
   public static $className = MrArticle::class;
 

@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 class ORM extends Model
 {
   protected static $dbFieldsMap;
-  protected static $className;
   protected $id = 0;
 
   public function canEdit()
@@ -159,8 +158,6 @@ class ORM extends Model
 
   public function save_mr(): ?int
   {
-    $array = $this->convertMrToArray();
-
     if(method_exists($this, 'before_save'))
     {
       $this->before_save();
@@ -168,21 +165,16 @@ class ORM extends Model
 
     if($this->id)
     {
-      //$array = $this->equals_data();
-
-      if(count($array))
-      {
-        DB::table(static::$mr_table)->where('id', '=', (int)$this->id)->update($array);
-        // Запись в лог изменений БД
-        //MrBaseLog::SaveData(static::$mr_table, $this->id, $array);
-      }
+      $this->save();
+      // Запись в лог изменений БД
+      //MrBaseLog::SaveData(static::$mr_table, $this->id, $array);
 
       $last_id = (int)$this->id;
     }
     else
     {
-      $last_id = DB::table(static::$mr_table)->insertGetId($array);
-      $this->id = $last_id;
+      $this->save();
+      $this->id = $this->id();
       // Запись в лог изменений БД
       //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
     }
