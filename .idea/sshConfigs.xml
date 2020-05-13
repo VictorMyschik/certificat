@@ -2,7 +2,9 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="83.220.169.39" id="a991e9cf-4626-4c1c-a621-eebb4f7d6f84" port="22" nameFormat="DESCRIPTIVE" username="root" />
+      <sshConfig authType="PASSWORD" host="192.168.12.110" id="c0edd9b8-ce7a-472b-b75d-bba056d2464d" port="22" customName="http://certificat" nameFormat="CUSTOM" username="user" />
+      <sshConfig authType="PASSWORD" host="83.220.169.39" id="418cb23a-068b-43bc-b37a-5bf385ed418e" port="22" customName="sftp" nameFormat="CUSTOM" username="root" />
+      <sshConfig authType="PASSWORD" host="83.220.169.39" id="4c7d7dbf-6945-4de2-b9ee-1abb313ba9b6" port="22" customName="sftp" nameFormat="CUSTOM" username="root" />
     </configs>
   </component>
 </project>

@@ -99,21 +99,10 @@ class MrUser extends ORM
   {
     if($this['UserLaravelID'])
     {
-      $object = User::where('id', $this['UserLaravelID'])->get();
-    }
-    else
-    {
-      return null;
+      return User::find($this['UserLaravelID'])->get()->first();
     }
 
-    if(!count($object))
-    {
-      return null;
-    }
-
-    $object = $object[0];
-
-    return $object;
+    return null;
   }
 
   public function setUserLaravelID(int $value)
@@ -141,7 +130,7 @@ class MrUser extends ORM
   // Эл. почта
   public function getEmail(): ?string
   {
-    return $this->getUserLaravel() ? $this->getUserLaravel()->getEmail() : null;
+    return $this->getUserLaravel() ? $this->getUserLaravel()->Email : null;
   }
 
   // Эл. почта
@@ -245,7 +234,7 @@ class MrUser extends ORM
   }
 
   /**
-   * Список всех поьзователей
+   * Список всех пользователей
    *
    * @return self[]
    */

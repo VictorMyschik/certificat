@@ -1,7 +1,5 @@
 <?php
 
-use App\Helpers\MrBaseHelper;
-
 return [
 
     /*
@@ -52,13 +50,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root'   => base_path().'/public',
-        ],
-
-        'upload' => [ // Вот он
-            'driver' => 'local',
-            'root' => public_path().'/uploads',
-            'url' => MrBaseHelper::MR_SITE_URL.'/uploads',
+            'root' => storage_path('/uploads'),
+            'url' => env('APP_URL').'/uploads',
             'visibility' => 'public',
         ],
 
@@ -69,8 +62,24 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+            'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Symbolic Links
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the symbolic links that will be created when the
+    | `storage:link` Artisan command is executed. The array keys should be
+    | the locations of the links and the values should be their targets.
+    |
+    */
+
+    'links' => [
+        public_path('storage') => storage_path('app/public'),
     ],
 
 ];

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\MrDateTime;
 use App\Http\Controllers\Controller;
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 use App\Models\MrUser;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;

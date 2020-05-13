@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ORM extends Model
 {
+  protected $updated_at = false;
   protected static $dbFieldsMap;
   protected $id = 0;
 
@@ -163,31 +164,16 @@ class ORM extends Model
       $this->before_save();
     }
 
-    if($this->id)
-    {
       $this->save();
-      // Запись в лог изменений БД
-      //MrBaseLog::SaveData(static::$mr_table, $this->id, $array);
-
-      $last_id = (int)$this->id;
-    }
-    else
-    {
-      $this->save();
-      $this->id = $this->id();
-      // Запись в лог изменений БД
-      //MrBaseLog::SaveData(static::$mr_table, $last_id, $array);
-    }
 
     if(method_exists($this, 'after_save'))
     {
-      $this->id = $last_id;
       $this->after_save();
     }
 
     Cache::forget($this->CachedKey);
 
-    return $last_id;
+    return $this->id;
   }
 
   /**

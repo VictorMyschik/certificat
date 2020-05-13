@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MrOffice;
 use App\Models\MrUser;
+use App\Models\Office\MrOffice;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,10 +17,12 @@ class Controller extends BaseController
     {
       $user = MrUser::me();
       $office = MrOffice::loadBy($office_id);
+
       if(!$office || !$office->canView())
       {
         mr_access_violation();
       }
+
       $user->setDefaultOfficeID($office->id());
       $user->save_mr();
 
