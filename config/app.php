@@ -225,11 +225,11 @@ return [
     'URL'          => Illuminate\Support\Facades\URL::class,
     'Validator'    => Illuminate\Support\Facades\Validator::class,
     'View'         => Illuminate\Support\Facades\View::class,
-    'MrBtn' => App\Forms\FormBase\MrForm::class,
-    'MrMessage' => App\Helpers\MrMessageHelper::class,
+    'MrBtn'        => App\Forms\FormBase\MrForm::class,
+    'MrMessage'    => App\Helpers\MrMessageHelper::class,
     'MrBaseHelper' => App\Helpers\MrBaseHelper::class,
-    'MrLink' => App\Helpers\MrLink::class,
-    'MrUser' => \App\Models\MrUser::class,
+    'MrLink'       => App\Helpers\MrLink::class,
+    'MrUser'       => App\Models\MrUser::class,
   ],
 
 ];

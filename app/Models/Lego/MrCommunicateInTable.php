@@ -96,7 +96,7 @@ class MrCommunicateInTable extends ORM
   {
     if($table_kind = $object->GetTableKind())
     {
-      $query = DB::table(self::$mr_table)
+      $query = DB::table(self::getTableName())
         ->where('CommunicateID', '=', $communicative_id)
         ->Where('RowID', '=', $object->id())
         ->Where('TableKind', '=', $table_kind);

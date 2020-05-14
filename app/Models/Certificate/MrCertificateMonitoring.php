@@ -73,8 +73,8 @@ class MrCertificateMonitoring extends ORM
   {
     return Cache::rememberForever('user_certificate_' . $user_in_office->id(), function () use ($user_in_office) {
       $list = DB::table(MrCertificate::getTableName())
-        ->join(MrCertificateMonitoring::$mr_table, MrCertificateMonitoring::$mr_table . '.CertificateID', '=', MrCertificate::getTableName() . '.id')
-        ->where(MrCertificateMonitoring::$mr_table . '.UserInOfficeID', '=', $user_in_office->id())
+        ->join(MrCertificateMonitoring::getTableName(), MrCertificateMonitoring::getTableName() . '.CertificateID', '=', MrCertificate::getTableName() . '.id')
+        ->where(MrCertificateMonitoring::getTableName() . '.UserInOfficeID', '=', $user_in_office->id())
         ->get()->toArray();
 
       if(count($list))

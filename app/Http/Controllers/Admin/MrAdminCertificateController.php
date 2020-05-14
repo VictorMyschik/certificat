@@ -61,7 +61,7 @@ class MrAdminCertificateController extends Controller
   }
 
   /**
-   * Страница седений об адресах, таких как Email, Телефон и прочее
+   * Страница сведений об адресах, таких как Email, Телефон и прочее
    */
   public function ViewCommunicate()
   {

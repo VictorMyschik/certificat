@@ -205,11 +205,11 @@ class ORM extends Model
       $this->before_delete();
     }
 
-    if(static::$mr_table && $this->id())
+    if(static::getTableName() && $this->id())
     {
-      DB::table(static::$mr_table)->delete($this->id());
+      DB::table(static::getTableName())->delete($this->id());
 
-      MrBaseLog::SaveData(static::$mr_table, $this->id(), []);
+      MrBaseLog::SaveData(static::getTableName(), $this->id(), []);
 
       if(method_exists($this, 'after_delete'))
       {
@@ -289,7 +289,7 @@ class ORM extends Model
       }
     }
 
-    $last_id_out = DB::table(static::$mr_table)->insertGetId($array);
+    $last_id_out = DB::table(static::getTableName())->insertGetId($array);
     return static::$className::loadBy($last_id_out);
   }
 

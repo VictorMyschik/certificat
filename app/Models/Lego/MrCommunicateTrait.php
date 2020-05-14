@@ -21,7 +21,7 @@ trait MrCommunicateTrait
    */
   public function GetCommunicate(): array
   {
-    return MrCommunicateInTable::LoadArray(array(['TableKind' => $this->GetTableKind()], ['RowID' => $this->id()]));
+    return MrCommunicateInTable::LoadArray(array([$this->GetTableKind() => 'TableKind'], [$this->id() => 'RowID']));
   }
 
   /**

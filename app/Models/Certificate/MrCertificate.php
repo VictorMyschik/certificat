@@ -380,7 +380,7 @@ class MrCertificate extends ORM
       return self::$hashed;
     }
 
-    $list = DB::table(self::$mr_table)->pluck('Number')->toArray();
+    $list = DB::table(self::getTableName())->pluck('Number')->toArray();
     foreach ($list as $item)
     {
       self::$hashed[$item] = $item;
@@ -458,7 +458,7 @@ class MrCertificate extends ORM
   public function GetDocuments(): array
   {
     return MrCacheHelper::GetCachedObjectList('documents' . '_' . $this->id() . '_list', MrCertificateDocument::class, function () {
-      return DB::table(MrCertificateDocument::$mr_table)->where('CertificateID', $this->id())->pluck('id')->toArray();
+      return DB::table(MrCertificateDocument::getTableName())->where('CertificateID', $this->id())->pluck('id')->toArray();
     });
   }
 
@@ -580,7 +580,7 @@ class MrCertificate extends ORM
       return array();
     }
 
-    $list = DB::table(self::$mr_table)->where('Number', 'LIKE', '%' . $text . '%')->limit(5)->get(['id', 'Number']);
+    $list = DB::table(self::getTableName())->where('Number', 'LIKE', '%' . $text . '%')->limit(5)->get(['id', 'Number']);
     $out = array();
     foreach ($list as $item)
     {

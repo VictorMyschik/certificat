@@ -130,7 +130,7 @@ class MrUser extends ORM
   // Эл. почта
   public function getEmail(): ?string
   {
-    return $this->getUserLaravel() ? $this->getUserLaravel()->Email : null;
+    return $this->getUserLaravel() ? $this->getUserLaravel()->email : null;
   }
 
   // Эл. почта

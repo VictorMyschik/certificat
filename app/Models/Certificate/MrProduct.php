@@ -112,7 +112,7 @@ class MrProduct extends ORM
   public function GetProductInfo(): array
   {
     return MrCacheHelper::GetCachedObjectList('product_info' . '_' . $this->id() . '_list', MrProductInfo::class, function () {
-      return DB::table(MrProductInfo::$mr_table)->where('ProductID', $this->id())->pluck('id')->toArray();
+      return DB::table(MrProductInfo::getTableName())->where('ProductID', $this->id())->pluck('id')->toArray();
     });
   }
 }
