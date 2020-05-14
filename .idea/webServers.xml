@@ -2,13 +2,6 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="56b1494d-86fd-4d01-b59d-aabd7a3d5d06" name="http://certificat" url="http://certificat">
-        <fileTransfer rootFolder="/home/sites/certificat" accessType="SFTP" host="192.168.12.110" port="22" sshConfigId="c0edd9b8-ce7a-472b-b75d-bba056d2464d" sshConfig="http://certificat">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
-          </advancedOptions>
-        </fileTransfer>
-      </webServer>
       <webServer id="63c49f79-67d8-47c3-acf5-2964a5e8421f" name="sftp" url="http://83.220.169.39">
         <fileTransfer rootFolder="/var/www/certificat" accessType="SFTP" host="83.220.169.39" port="22" sshConfigId="4c7d7dbf-6945-4de2-b9ee-1abb313ba9b6" sshConfig="sftp">
           <advancedOptions>

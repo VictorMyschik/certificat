@@ -89,7 +89,7 @@ class MrUser extends ORM
   public function getDateVerify(): ?MrDateTime
   {
     $date = null;
-    $date = $this->getUserLaravel()->getEmailVerifiedDate();
+    $date = $this->getUserLaravel()->EmailVerifiedDate;
 
     return $date;
   }

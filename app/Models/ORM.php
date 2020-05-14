@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class ORM extends Model
 {
-  protected $updated_at = false;
   protected static $dbFieldsMap;
   protected $id = 0;
 
@@ -156,6 +155,8 @@ class ORM extends Model
     Cache::forget($this->GetCachedKey());
     return self::loadBy($this->id);
   }
+  public $timestamps = false;
+
 
   public function save_mr(): ?int
   {
@@ -164,7 +165,7 @@ class ORM extends Model
       $this->before_save();
     }
 
-      $this->save();
+    $this->save();
 
     if(method_exists($this, 'after_save'))
     {

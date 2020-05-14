@@ -14,7 +14,7 @@ class Allximik extends Middleware
 {
   public function handle($request, Closure $next)
   {
-//    $this->saveMrLogIdent();
+    $this->saveMrLogIdent();
 
     return $next($request);
   }
