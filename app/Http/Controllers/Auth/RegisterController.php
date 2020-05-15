@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\MrDateTime;
 use App\Http\Controllers\Controller;
-use App\Models\Office\MrOffice;
 use App\Models\MrUser;
+use App\Models\Office\MrOffice;
+use App\Models\Office\MrUserInOffice;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\RedirectResponse;
@@ -54,9 +55,9 @@ class RegisterController extends Controller
   protected function validator(array $data)
   {
     return Validator::make($data, [
-      'name' => ['required', 'string', 'max:255'],
-      'office' => ['required', 'string', 'max:255', 'unique:mr_offices'],
-      'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+      'name'     => ['required', 'string', 'max:255'],
+      //'office' => ['required', 'string', 'max:255', 'unique:mr_offices'],
+      'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
       'password' => ['required', 'string', 'min:8', 'confirmed'],
     ]);
   }
@@ -72,8 +73,8 @@ class RegisterController extends Controller
   protected function create(array $data)
   {
     $user = User::create([
-      'name' => $data['name'],
-      'email' => $data['email'],
+      'name'     => $data['name'],
+      'email'    => $data['email'],
       'password' => Hash::make($data['password']),
     ]);
 
@@ -87,7 +88,14 @@ class RegisterController extends Controller
     $mr_user->setDateLastVisit(MrDateTime::now());
     $mr_user->setDateLogin();
     $mr_user->setDefaultOfficeID($office_id);
-    $mr_user->save_mr();
+    $mr_user_id = $mr_user->save_mr();
+
+    $uio = new MrUserInOffice();
+    $uio->setIsAdmin(true);
+    $uio->setOfficeID($office_id);
+    $uio->setUserID($mr_user_id);
+
+    $uio->save_mr();
 
     return $user;
   }

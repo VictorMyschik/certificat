@@ -12,8 +12,6 @@ class MrTestController extends Controller
   public function index(Request $request)
   {
 
-    $offices = MrCountry::loadBy(5);
-   dd($offices);
 
     dd(1);
 

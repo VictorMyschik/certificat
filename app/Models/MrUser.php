@@ -99,7 +99,7 @@ class MrUser extends ORM
   {
     if($this['UserLaravelID'])
     {
-      return User::find($this['UserLaravelID'])->get()->first();
+      return User::find($this['UserLaravelID']);
     }
 
     return null;
@@ -234,26 +234,6 @@ class MrUser extends ORM
   }
 
   /**
-   * Список всех пользователей
-   *
-   * @return self[]
-   */
-  public static function GetAll(): array
-  {
-    $list = DB::table(static::getTableName())->get(['id']);
-    $out = array();
-    foreach ($list as $id)
-    {
-      if($user = parent::loadBy((string)$id->id))
-      {
-        $out[] = $user;
-      }
-    }
-
-    return $out;
-  }
-
-  /**
    * Последняя страница на которой был неавторизованный пользователь
    * Нужно для редиректа после авторизации на предыдущую страницу
    *
@@ -300,7 +280,14 @@ class MrUser extends ORM
       'valuxin@live.com',
     );
 
-    return in_array($this->getEmail(), $admins);
+    if($this->getEmail())
+    {
+      return in_array($this->getEmail(), $admins);
+    }
+    else
+    {
+      return false;
+    }
   }
 
   public function GetFullName()

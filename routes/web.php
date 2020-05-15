@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::get('/personal', "Office\MrUserController@PersonalPage")->name('personal_page');
 
   //// Кабинет пользователя
+  Route::get('/office', "Office\MrOfficeController@officePageDefault")->name('office_page_default');
   Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
   Route::get('/office/{office_id}/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
 

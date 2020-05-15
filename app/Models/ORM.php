@@ -181,9 +181,9 @@ class ORM extends Model
       $this->after_save();
     }
 
-    Cache::forget($this->CachedKey);
+    Cache::forget($this->GetCachedKey());
 
-    return $this->id;
+    return $this->id();
   }
 
   /**

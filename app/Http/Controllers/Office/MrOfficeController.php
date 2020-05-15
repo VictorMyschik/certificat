@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\Office;
-
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\MrDiscountTableController;
@@ -13,14 +11,16 @@ use App\Models\MrOffice;
 use App\Models\MrTariffInOffice;
 use App\Models\MrUser;
 use App\Models\MrUserInOffice;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class MrOfficeController extends Controller
 {
   /**
-   * Настроки ВО, отчёты и прочие инструменты
+   * Настройки ВО, отчёты и прочие инструменты
    * @param int $office_id
    * @return Factory|View
    */
@@ -38,6 +38,21 @@ class MrOfficeController extends Controller
     $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
     $out['discounts'] = MrDiscountTableController::buildTable($office->GetDiscount());
     return View('Office.office_settings_page')->with($out);
+  }
+
+  /**
+   * @return Application|RedirectResponse|Redirector
+   */
+  public function officePageDefault()
+  {
+    $office = MrUser::me()->getDefaultOffice();
+
+    if(!$office)
+    {
+      return redirect('/');
+    }
+
+    return redirect()->route('office_page', ['office_id' => $office->id()]);
   }
 
   /**
