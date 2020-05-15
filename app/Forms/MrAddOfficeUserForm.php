@@ -1,15 +1,13 @@
 <?php
 
-
 namespace App\Forms;
 
-
 use App\Forms\FormBase\MrFormBase;
-use App\Http\Controllers\Helpers\MrEmailHelper;
+use App\Helpers\MrEmailHelper;
 use App\Models\MrNewUsers;
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 use App\Models\MrUser;
-use App\Models\MrUserInOffice;
+use App\Models\Office\MrUserInOffice;
 use Illuminate\Http\Request;
 
 class MrAddOfficeUserForm extends MrFormBase

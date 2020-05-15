@@ -1,13 +1,10 @@
 <?php
 
-
 namespace App\Helpers;
 
-
 use App\Http\Controllers\Controller;
-use App\Jobs\SendReminderEmail;
 use App\Models\MrNewUsers;
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 use App\Models\MrUser;
 
 class MrEmailHelper extends Controller
@@ -47,7 +44,6 @@ HTML;
       'email_to' => $email_to,
     );
 
-    SendReminderEmail::dispatch($data);
 
     return true;
   }
