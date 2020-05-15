@@ -1,18 +1,16 @@
 <?php
 
-
 namespace App\Forms\Admin;
 
-
 use App\Forms\FormBase\MrFormBase;
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 use Illuminate\Http\Request;
 
 class MrAdminOfficeURDetailsEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($args['id']);
+    $office = MrOffice::loadBy($args['office_id']);
 
     $form[] = '<h3>Юредические данные</h3>';
     $form['URPostalCode'] = array(
@@ -43,7 +41,7 @@ class MrAdminOfficeURDetailsEditForm extends MrFormBase
       '#value' => $office->getURAddress() ?: null,
     );
 
-    $form[] = '<h3 class="margin-t-10">Банковские реквизиты</h3>';
+    $form[] = '<h3 class="m-t-10">Банковские реквизиты</h3>';
 
     $form['BankName'] = array(
       '#type' => 'textfield',

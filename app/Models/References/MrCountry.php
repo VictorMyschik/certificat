@@ -12,6 +12,7 @@ class MrCountry extends ORM
   protected $table = 'mr_country';
   public static $className = MrCountry::class;
   protected $primaryKey = 'id';
+
   public static function getRouteTable()
   {
     return 'list_country_table';
@@ -138,11 +139,21 @@ class MrCountry extends ORM
 
   public function getCodeWithName()
   {
-    $r = $this->getISO3166alpha3();
+    $r = $this->getISO3166alpha2();
     $r .= ' ';
-    $r .= $this->getName();
+    $r .= __('mr-t.' . $this->getName());
 
     return $r;
+  }
+
+  public static function SelectList()
+  {
+    $out = array();
+    foreach (self::all() as $item)
+    {
+      $out[$item->id()] = __('mr-t.' . $item->getName());
+    }
+    return $out;
   }
 
 }

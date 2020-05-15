@@ -48,24 +48,33 @@ Route::match(['get', 'post'], '/telegram/webhook', 'MrApiController@TelegramWebH
 
 //// для авторизованных
 Route::group(['middleware' => ['auth', 'verified']], function () {
+  #region Personal
+
   Route::match(['get', 'post'], '/users/edit/{id}/submit', "\App\Forms\MrUserEditForm@submitForm")->name('user_form_submit');
   Route::match(['get', 'post'], '/users/edit/{id}', "\App\Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 
   // Личная страница
   Route::get('/personal', "Office\MrUserController@PersonalPage")->name('personal_page');
+  #endregion
 
+  #region Office
+
+  // Форма редактирования офиса
+  Route::match(['get', 'post'], '/office/{office_id}/edit/submit', "\App\Forms\Admin\MrOfficeEditForm@submitForm")->name('admin_office_submit');
+  Route::match(['get', 'post'], '/office/{office_id}/edit', "\App\Forms\Admin\MrOfficeEditForm@getFormBuilder")->name('admin_office_edit');
+  #endregion
   //// Кабинет пользователя
   Route::get('/office', "Office\MrOfficeController@officePageDefault")->name('office_page_default');
   Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
   Route::get('/office/{office_id}/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
 
   // форма для редактирования почтовых данных офиса
-  Route::match(['get', 'post'], '/admin/office/{id}/po/details/edit/submit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
-  Route::match(['get', 'post'], '/admin/office/{id}/po/details/edit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
+  Route::match(['get', 'post'], '/office/{office_id}/po/details/edit/submit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
+  Route::match(['get', 'post'], '/office/{office_id}/po/details/edit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
 
   // форма для редактирования юридических данных офиса
-  Route::match(['get', 'post'], '/admin/office/{id}/ur/details/edit/submit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
-  Route::match(['get', 'post'], '/admin/office/{id}/ur/details/edit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
+  Route::match(['get', 'post'], '/office/{office_id}/ur/details/edit/submit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
+  Route::match(['get', 'post'], '/office/{office_id}/ur/details/edit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
   // Смена статуса пользователя в офисе
   Route::get('/office/{office_id}/userinoffice/{id}/isadmin', "Office\MrOfficeController@userOfficeIsAdmin")->name('user_office_toggle_admin');
@@ -81,7 +90,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::get('/office/{new_user_id}/resend', "Office\MrUserController@ResendForNewUser")->name('resend_message_for_new_user');
 
   //// Telegram Оповещение
-  //Форма добавления нового аккаунта телеграм
+  //Форма добавления нового аккаунта телеграмм
   Route::match(['get', 'post'], 'personal/telegram/edit/{id}/submit', "\App\Forms\User\MrUserTelegramEditForm@submitForm")->name('user_telegram_submit');
   Route::match(['get', 'post'], 'personal/telegram/edit/{id}', "\App\Forms\User\MrUserTelegramEditForm@getFormBuilder")->name('user_telegram_edit');
 
@@ -269,10 +278,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');
   Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
   Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
-
-  // Форма для создания пустого офиса
-  Route::match(['get', 'post'], '/admin/office/edit/{id}/submit', "\App\Forms\Admin\MrOfficeEditForm@submitForm")->name('admin_office_submit');
-  Route::match(['get', 'post'], '/admin/office/edit/{id}', "\App\Forms\Admin\MrOfficeEditForm@getFormBuilder")->name('admin_office_edit');
 
   // Добавление тарифа для офиса
   Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\MrOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');

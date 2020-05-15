@@ -10,11 +10,10 @@
       <div>
         {!! MrBtn::loadForm('user_form_edit', ['id' => $user->id()], '', ['btn-primary btn-sm fa fa-edit'],'xs') !!}  {{__('mr-t.Изменить параметры входа')}}
       </div>
-      <div class="margin-t-5">
+      <div class="m-t-5">
         {!! MrBtn::loadForm('user_telegram_edit', ['id' => $user->id()], '', ['btn-primary btn-sm fa fa-edit'],'xs') !!}  {{__('mr-t.Telegram оповещение')}}
-
       </div>
-      <div class="margin-t-5">
+      <div class="m-t-5">
         @if($user->getIsSubscription())
           <a class="btn btn-danger btn-sm fa fa-trash"
              href="{{ route('toggle_subscription', ['id'=>$user->id()]) }}"></a>
@@ -25,7 +24,7 @@
           {{__('mr-t.Подписаться на новости')}}
         @endif
       </div>
-      <div class="margin-t-20">
+      <div class="m-t-20">
         <a href="{{ route('self_delete') }}" class="mr-color-red"
            onclick="return confirm('Вы уверены? Будет удалён Ваш акаунт вместе со всеми данными! Это действие необратимо!');">
           {{__('mr-t.Удалить акаунт')}}</a>

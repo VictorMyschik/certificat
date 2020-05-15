@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
   <div class="mr-main-div">
     @include('layouts.mr_nav')
@@ -11,10 +10,9 @@
             <li class="mr-color-red">{{ $err }}</li>
           @endforeach
           <h5 class="mr-bold">{{$office->getName()}}</h5>
-          <div class="mr-bold mr-middle margin-b-10"
-               style="border-bottom: #0c175b 1px solid">
-            <a onclick="mr_popup('{{ route('admin_office_edit',['id'=>$office->id()]) }}'); return false;"><span
-                  class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
+          <div class="mr-bold mr-middle margin-b-10" style="border-bottom: #0c175b 1px solid">
+            <a onclick="mr_popup('{{ route('admin_office_edit',['office_id'=>$office->id()]) }}'); return false;">
+              <span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
             {{__('mr-t.Офис создан')}}
             : {{ $office->getCreateDate()->GetShortDateShortTime() }}
             @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: {{ $office->getDescription() }}@endif()
@@ -25,7 +23,7 @@
               <div class="">
                 <h5 class="mr-bold" style="padding-right: 20px;">
                   @if($office->canEdit())
-                    {!! MrBtn::loadForm('office_po_details_edit', ['id'=> $office->id()], '', ['btn-primary btn-sm fa fa-edit']) !!}
+                    {!! MrBtn::loadForm('office_po_details_edit', ['office_id'=> $office->id()], '', ['btn-primary btn-sm fa fa-edit']) !!}
                   @endif Контактная информация и <br>лицо с правом подписи
                 </h5>
                 <div class="margin-b-10">
@@ -38,7 +36,7 @@
                 <table class="margin-b-10 col-md-12">
                   <tr>
                     <td class="mr-bold">Страна:</td>
-                    <td>{{ $office->getCountry() ? $office->getCountry()->getCode() . ' ' . $office->getCountry()->getNameRus():null }}</td>
+                    <td>{{ $office->getCountry() ? $office->getCountry()->getCodeWithName() : null }}</td>
                   </tr>
                   <tr>
                     <td class="mr-bold">Регион:</td>
@@ -76,7 +74,7 @@
               <div class="">
                 <h5 class="mr-bold margin-b-5">
                   @if($office->canEdit())
-                    {!! MrBtn::loadForm('office_ur_details_edit', ['id' => $office->id()], '', ['btn btn-primary btn-sm fa fa-edit']) !!}@endif
+                    {!! MrBtn::loadForm('office_ur_details_edit', ['office_id' => $office->id()], '', ['btn btn-primary btn-sm fa fa-edit']) !!}@endif
                   Юридическая информация
                 </h5>
                 <table class="margin-b-10">
@@ -125,19 +123,15 @@
                   {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-sm'],'xs') !!}
                 @endif
                 {{__('mr-t.Тарифы')}}</h5>
-              <div>{!! $tariffs !!}</div>
-
               <h5 class="mr-bold">
                 @if($me->IsSuperAdmin())
                   {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-sm'],'xs') !!}
-                @endif{{__('mr-t.Скидки')}}</h5>
-              <div>
-                {!! $discounts !!}
-              </div>
+                @endif
+                  {{__('mr-t.Скидки')}}</h5>
             </div> <!--тарифы и скидки-->
           </div>
           <hr>
-          <div class="row col-md-12 p-0 margin-t-20">
+          <div class="row col-md-12 p-0 m-t-20">
             <div class="d-md-inline col-md-4 mr-middle">
               <h5 class="mr-bold">{{__('mr-t.Личные настройки')}}</h5>
               <div>{!! MrLink::open('personal_page', [],'', 'btn-primary btn-sm fa fa-eye') !!}
@@ -152,7 +146,6 @@
                 </span>
                 @endif
               </h5>
-              {!! $user_in_office !!}
             </div>
           </div>
         </div>

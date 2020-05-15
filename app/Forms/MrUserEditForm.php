@@ -48,7 +48,7 @@ class MrUserEditForm extends MrFormBase
   {
     parent::ValidateBase($out, $v);
 
-    foreach (MrUser::GetAll() as $user)
+    foreach (MrUser::all() as $user)
     {
       if($user->id() !== $v['id'])
       {

@@ -34,9 +34,10 @@ class MrOfficeController extends Controller
     $out['me'] = $user;
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $office;
-    $out['tariffs'] = MrOfficeTariffTableController::buildTable($office->GetTariffs());
-    $out['user_in_office'] = MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
-    $out['discounts'] = MrDiscountTableController::buildTable($office->GetDiscount());
+    $out['tariffs'] = array();//MrOfficeTariffTableController::buildTable($office->GetTariffs());
+    $out['user_in_office'] =  array();//MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
+    $out['discounts'] = array();// MrDiscountTableController::buildTable($office->GetDiscount());
+
     return View('Office.office_settings_page')->with($out);
   }
 

@@ -1,23 +1,21 @@
 <?php
 
-
 namespace App\Forms\Admin;
 
-
 use App\Forms\FormBase\MrFormBase;
-use App\Models\MrCountry;
-use App\Models\MrOffice;
+use App\Models\References\MrCountry;
+use App\Models\Office\MrOffice;
 use Illuminate\Http\Request;
 
 class MrAdminOfficePostDetailsEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $office_id)
+  protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($office_id);
+    $office = MrOffice::loadBy($args['office_id']);
 
     $form['CountryID'] = array(
       '#type' => 'select',
-      '#title' => 'Страна',
+      '#title' => __('mr-t.Страна'),
       '#default_value' => $office->getCountry() ? $office->getCountry()->id() : 0,
       '#value' => MrCountry::SelectList(),
       '#attributes' => ['style' => 'max-width: 150px;'],
@@ -39,7 +37,7 @@ class MrAdminOfficePostDetailsEditForm extends MrFormBase
 
     $form['Phone'] = array(
       '#type' => 'textfield',
-      '#title' => 'Телефон',
+      '#title' => __('mr-t.Телефон'),
       '#class' => ['mr-border-radius-5'],
       '#value' => $office->getPhone() ?: null,
     );

@@ -65,7 +65,7 @@
                 <a class="nav-link"
                    href="{{route('office_page',['office_id'=>$office->id()])}}">{{$office->getName()}}</a>
               @endforeach
-              <a class="nav-link" href="#" onclick="mr_popup('{{route('admin_office_edit',['id'=>0])}}');return false;">Создать
+              <a class="nav-link" href="#" onclick="mr_popup('{{route('admin_office_edit',['office_id'=>0])}}');return false;">Создать
                 пустой офис</a>
               @if(isset($default_office) && $default_office->canView())
                 <a class="nav-link"

@@ -5,7 +5,7 @@
     @include('layouts.mr_nav')
     <div class="container m-t-10">
 
-      <div class="row no-gutters align-items-center justify-content-center margin-t-10" data-scrollax-parent="true">
+      <div class="row no-gutters align-items-center justify-content-center m-t-10" data-scrollax-parent="true">
         <h1 class="mb-3 mt-2">{{ __('mr-t.Ваши вопросы - наши ответы') }}</h1>
       </div>
 

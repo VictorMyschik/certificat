@@ -13,7 +13,7 @@
                    required
                    type="search" placeholder="{{ __('mr-t.Поиск сертификата') }}">
           </div>
-          <ul id="resSearch" class="margin-t-5 col-md-12"></ul>
+          <ul id="resSearch" class="m-t-5 col-md-12"></ul>
           <h5>Краткая информация</h5>
         </div>
 
@@ -21,7 +21,7 @@
           <div id="accordion">
 
             <a data-toggle="collapse" href="#menu_1" aria-controls="menu_1">
-              <div class="mr-color-black margin-t-5 mr-border-radius-10 mr-bold padding_all_0 mr-bg-footer col-md-12">
+              <div class="mr-color-black m-t-5 mr-border-radius-10 mr-bold padding_all_0 mr-bg-footer col-md-12">
                 Недавно искали
               </div>
             </a>
