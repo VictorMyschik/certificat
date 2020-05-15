@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Forms;
-
 
 use App\Forms\FormBase\MrFormBase;
 use App\Helpers\MrMessageHelper;
@@ -12,32 +10,32 @@ use Illuminate\Support\Facades\Hash;
 
 class MrUserEditForm extends MrFormBase
 {
-  protected function builderForm(&$form, $id)
+  protected function builderForm(&$form, $args)
   {
-    $user = MrUser::loadBy($id);
+    $user = MrUser::loadBy($args['id']);
     $form['Login'] = array(
-      '#type' => 'textfield',
+      '#type'  => 'textfield',
       '#title' => 'Login',
       '#class' => ['mr-border-radius-5'],
       '#value' => $user ? $user->getName() : null,
     );
 
     $form['Email'] = array(
-      '#type' => 'textfield',
+      '#type'  => 'textfield',
       '#title' => 'Email',
       '#class' => ['mr-border-radius-5'],
       '#value' => $user ? $user->getEmail() : null,
     );
 
     $form['Password'] = array(
-      '#type' => 'textfield',
+      '#type'  => 'textfield',
       '#title' => 'Password',
       '#class' => ['mr-border-radius-5'],
       '#value' => null,
     );
 
     $form['Password_confirm'] = array(
-      '#type' => 'textfield',
+      '#type'  => 'textfield',
       '#title' => 'Password repeat',
       '#class' => ['mr-border-radius-5'],
       '#value' => null,

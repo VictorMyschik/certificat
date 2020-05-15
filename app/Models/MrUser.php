@@ -113,7 +113,7 @@ class MrUser extends ORM
   // Login
   public function getName(): ?string
   {
-    return $this->getUserLaravel() ? $this->getUserLaravel()->getName() : null;
+    return $this->getUserLaravel() ? $this->getUserLaravel()->name : null;
   }
 
   // Telegram
