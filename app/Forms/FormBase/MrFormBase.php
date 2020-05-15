@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Forms\FormBase;
-
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
@@ -56,14 +54,14 @@ class MrFormBase extends Controller
     $form['#title'] = isset(Route::getFacadeRoot()->current()->parameters()['id']) ? __('mr-t.Изменить') : __('mr-t.Создать');
     $this->builderForm($form, $route_parameters);
 
-    // Получеине роута для сохранения
+    // Получение Rout для сохранения
     $route_referer_name = Route::getFacadeRoot()->current()->action['as'];
 
     $route_submit = explode('_', $route_referer_name);
     $route_submit[count($route_submit) - 1] = 'submit';
 
 
-    $form['#url'] = route(implode($route_submit, '_'), $route_parameters);
+    $form['#url'] = route(implode('_', $route_submit), $route_parameters);
 
     if(!isset($form['#btn_info']))
     {
