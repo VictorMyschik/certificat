@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Helpers;
 
 use DateTimeZone;
@@ -43,7 +42,7 @@ class MrDateTime extends \DateTime
         $r .= ' - ';
       }
 
-      $r .= 'по '.$to->format('d.m.Y');
+      $r .= 'по ' . $to->format('d.m.Y');
     }
 
     return $r;
@@ -165,4 +164,32 @@ class MrDateTime extends \DateTime
 
     return $r;
   }
+
+  #region Research
+  private static $time_spent = null;
+
+  public static function Start()
+  {
+    self::$time_spent = microtime(true);
+  }
+
+  public static $spent_result = array();
+
+  public static function StopItem(?string $note)
+  {
+    if($note)
+    {
+      self::$spent_result[$note] = sprintf('%.4f sec', microtime(true) - self::$time_spent);
+    }
+    else
+    {
+      self::$spent_result[] = sprintf('%.4f sec', microtime(true) - self::$time_spent);
+    }
+  }
+
+  public static function GetTimeResult(): array
+  {
+    return self::$spent_result;
+  }
+  #endregion
 }

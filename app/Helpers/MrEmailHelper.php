@@ -3,9 +3,11 @@
 namespace App\Helpers;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailJob;
 use App\Models\MrNewUsers;
-use App\Models\Office\MrOffice;
 use App\Models\MrUser;
+use App\Models\Office\MrOffice;
+use Illuminate\Support\Facades\Artisan;
 
 class MrEmailHelper extends Controller
 {
@@ -38,10 +40,10 @@ class MrEmailHelper extends Controller
 HTML;
 
     $data = array(
-      'user' => $user,
-      'subject' => $subject,
+      'user'         => $user,
+      'subject'      => $subject,
       'message_text' => $message_text,
-      'email_to' => $email_to,
+      'email_to'     => $email_to,
     );
 
 
@@ -51,37 +53,36 @@ HTML;
   /**
    * Отправка почты для нового пользователя добавленного из уже зарегистрированных
    *
-   * @param int $id Office
+   * @param int $office_id Office
    * @param string $email
    */
-  public static function SendNewUserRole(int $id, string $email)
+  public static function SendNewUserRole(int $office_id, string $email)
   {
     $system = MrBaseHelper::MR_SITE_NAME;
     $site_url = MrBaseHelper::MR_SITE_URL;
-    $link_login = "<a href='{$site_url}/login'>Вход</a>";
+    $link_login = $site_url.'/login';
     $user = MrUser::me();
     $subject = __('mr-t.Предоставление доступа к системе') . ' ' . MrBaseHelper::MR_SITE_NAME;
-    $checklist = MrOffice::loadBy($id);
-    $message_text = <<< HTML
-        <body>
-        <h3>Здравствуйте!</h3>
-<p>Вам был предоставлен доступ к виртуальному офису {$checklist->getName()} в Системе {$system}.</p>
-<p>Для входа в Систему {$system} вы можете воспользоваться следующей ссылкой: {$link_login}
-</p>
-<p>Если Вы получили данное письмо по ошибке, проигнорируйте его.</p>
-        </body>
-HTML;
 
     $data = array(
-      'user' => $user,
-      'subject' => $subject,
-      'message_text' => $message_text,
-      'email_to' => $email,
+      'user'       => $user,
+      'title'      => $subject,
+      'email_to'   => $email,
+      'office'     => MrOffice::loadBy($office_id),
+      'template'   => 'email_has_user',
+      'link_login' => $link_login,
+      'system'     => $system,
     );
 
-    SendReminderEmail::dispatch($data);
+    dispatch((new SendEmailJob($data))->delay(now()->addSeconds(3)));
+    Artisan::call('queue:work --once');
   }
 
+  /**
+   * Переотправить письмо существующему пользователю
+   *
+   * @param MrNewUsers $user
+   */
   public static function ReSendNewUser(MrNewUsers $user)
   {
     if(MrUser::LoadUserByEmail($user->getEmail()))

@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
-use App\Models\Office\MrOffice;
-use App\Models\References\MrCountry;
+use App\Helpers\MrDateTime;
+use App\Helpers\MrEmailHelper;
 use Illuminate\Http\Request;
 
 class MrTestController extends Controller
 {
   public function index(Request $request)
   {
+    MrDateTime::Start();
+    $id = 1;
+    $Email = 'mega-ximik@mail.ru';
+    MrEmailHelper::SendNewUserRole($id, $Email);
+    MrDateTime::StopItem(null);
 
-
+    print_r(MrDateTime::GetTimeResult());
     dd(1);
 
     /*

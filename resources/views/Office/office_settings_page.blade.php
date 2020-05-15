@@ -118,16 +118,6 @@
             </div>
 
             <div class="d-md-inline col-md-4 mr-middle">
-              <h5 class="mr-bold">
-                @if($me->IsSuperAdmin())
-                  {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-sm'],'xs') !!}
-                @endif
-                {{__('mr-t.Тарифы')}}</h5>
-              <h5 class="mr-bold">
-                @if($me->IsSuperAdmin())
-                  {!! MrBtn::loadForm('office_tariffs_edit', ['id' => $office->id()], 'Добавить', ['btn btn-primary btn-sm'],'xs') !!}
-                @endif
-                  {{__('mr-t.Скидки')}}</h5>
             </div> <!--тарифы и скидки-->
           </div>
           <hr>

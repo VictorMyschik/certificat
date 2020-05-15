@@ -62,7 +62,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // Форма редактирования офиса
   Route::match(['get', 'post'], '/office/{office_id}/edit/submit', "\App\Forms\Admin\MrOfficeEditForm@submitForm")->name('admin_office_submit');
   Route::match(['get', 'post'], '/office/{office_id}/edit', "\App\Forms\Admin\MrOfficeEditForm@getFormBuilder")->name('admin_office_edit');
+
+  // Добавление пользователя в ВО
+  Route::get('/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
   #endregion
+
   //// Кабинет пользователя
   Route::get('/office', "Office\MrOfficeController@officePageDefault")->name('office_page_default');
   Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
@@ -278,26 +282,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/offices', "Admin\MrAdminOfficeController@List")->name('admin_offices');
   Route::get('/admin/office/{id}', "Admin\MrAdminOfficeController@OfficePage")->name('admin_office_page');
   Route::get('/admin/office/delete/{id}', "Admin\MrAdminOfficeController@officeDelete")->name('office_delete');
-
-  // Добавление тарифа для офиса
-  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}/submit', "Forms\MrOfficeTariffEditForm@submitForm")->name('office_tariffs_submit');
-  Route::match(['get', 'post'], '/admin/office/edit_office_tariffs/edit/{id}', "Forms\MrOfficeTariffEditForm@getFormBuilder")->name('office_tariffs_edit');
-  Route::get('/admin/office/{office_id}/tariffinoffice/{id}/delete/', "Admin\MrAdminOfficeController@tariffOfficeDelete")->name('tariff_office_delete');
-
-  // Добавление пользователя в ВО
-  Route::get('/admin/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
-
-
-  // Тарифы
-  Route::get('/admin/tariffs', "Admin\MrAdminTariffController@List")->name('tariffs');
-  Route::get('/admin/tariff/delete/{id}', "Admin\MrAdminTariffController@tariffDelete")->name('tariff_delete');
-  Route::match(['get', 'post'], '/admin/tariff/edit/{id}/submit', "\App\Forms\Admin\MrAdminTariffEditForm@submitForm")->name('tariff_submit');
-  Route::match(['get', 'post'], '/admin/tariff/edit/{id}', "\App\Forms\Admin\MrAdminTariffEditForm@getFormBuilder")->name('tariff_edit');
-
-  // Скидки
-  Route::get('/admin/discount/delete/{id}', "Admin\MrAdminOfficeController@discountDelete")->name('discount_delete');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/discount/edit/{id}/submit', "\App\Forms\Admin\MrAdminOfficeDiscountEditForm@submitForm")->name('office_discount_submit');
-  Route::match(['get', 'post'], '/admin/office/{office_id}/discount/edit/{id}', "\App\Forms\Admin\MrAdminOfficeDiscountEditForm@getFormBuilder")->name('office_discount_edit');
 });
 
 

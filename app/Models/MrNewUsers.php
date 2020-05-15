@@ -23,11 +23,6 @@ class MrNewUsers extends ORM
     // 'WriteDate',
   );
 
-  public static function loadBy($value, $field = 'id'): ?MrNewUsers
-  {
-    return parent::loadBy((string)$value, $field);
-  }
-
   public function canDelete(): bool
   {
     return $this->canEdit();

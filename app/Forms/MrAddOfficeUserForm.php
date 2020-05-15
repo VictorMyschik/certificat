@@ -10,6 +10,9 @@ use App\Models\MrUser;
 use App\Models\Office\MrUserInOffice;
 use Illuminate\Http\Request;
 
+/**
+ *Добавление нового пользователя в ВО
+ */
 class MrAddOfficeUserForm extends MrFormBase
 {
   protected function builderForm(&$form, $id)
@@ -17,13 +20,13 @@ class MrAddOfficeUserForm extends MrFormBase
     $form['#title'] = 'Добавить пользователя в ВО';
 
     $form['Email'] = array(
-      '#type' => 'email',
+      '#type'  => 'email',
       '#title' => 'Email',
       '#value' => '',
     );
 
     $form['IsAdmin'] = array(
-      '#type' => 'checkbox',
+      '#type'  => 'checkbox',
       '#title' => 'Администратор',
       '#value' => 0,
     );
@@ -40,7 +43,7 @@ class MrAddOfficeUserForm extends MrFormBase
     $office = MrOffice::loadBy($v['id']);
     if(!$office->canEdit())
     {
-      abort(503, __('mr-t.Нет прав доступа'));
+      abort(1);
     }
 
 
@@ -74,7 +77,7 @@ class MrAddOfficeUserForm extends MrFormBase
     $is_admin = isset($v['IsAdmin']) ? $v['IsAdmin'] : false;
 
     // Email есть в системе - просто даём доступ и отправляем уведомление
-    if ($has_user = MrUser::LoadUserByEmail($v['Email']))
+    if($has_user = MrUser::LoadUserByEmail($v['Email']))
     {
       $uio = new MrUserInOffice();
       $uio->setUserID($has_user->id());
