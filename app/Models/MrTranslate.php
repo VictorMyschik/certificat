@@ -7,7 +7,7 @@ class MrTranslate extends ORM
   protected $table = 'mr_translate';
   public static $className = MrTranslate::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Name',
     'LanguageID',
     'Translate',

@@ -17,7 +17,7 @@ class MrAdminBackUpController extends Controller
   {
     $out = array();
 
-    $out['page_title'] = 'Бэкап БД';
+    $out['page_title'] = 'DB BackUp';
     $out['route_name'] = route('summary_list_table');
 
     return View('Admin.mir_admin_backup_list')->with($out);
@@ -54,55 +54,50 @@ class MrAdminBackUpController extends Controller
    */
   public function GetTable(string $table_name)
   {
-    $arr = array(
-      'mr_faq'                    => 'MrAdminDbMrFaqTableController',
-      'mr_currency'               => 'MrAdminDbMrCurrencyTableController',
-      'mr_country'                => 'MrAdminDbMrCountryTableController',
-      'mr_base_log'               => 'MrAdminDbMrBaseLogTableController',
-      'mr_offices'                => 'MrAdminDbMrOfficesTableController',
-      'mr_language'               => 'MrAdminDbMrLanguageTableController',
-      'mr_communicate'            => 'MrAdminDbMrCommunicateTableController',
-      'mr_new_users'              => 'MrAdminDbMrNewUsersTableController',
-      'mr_user_in_office'         => 'MrAdminDbMrUserInOfficeTableController',
-      'mr_user_blocked'           => 'MrAdminDbMrUserBlockedTableController',
-      'mr_translate'              => 'MrAdminDbMrTranslateTableController',
-      'mr_subscription'           => 'MrAdminDbMrSubscriptionTableController',
-      'mr_log_ident'              => 'MrAdminDbMrLogIdentTableController',
-      'mr_email_log'              => 'MrAdminDbMrEmailLogTableController',
-      'mr_certificate'            => 'MrAdminDbMrCertificateTableController',
-      'mr_certificate_monitoring' => 'MrAdminDbMrCertificateMonitoringTableController',
-      'mr_feedback'               => 'MrAdminDbMrFeedbackTableController',
-      'mr_user'                   => 'MrAdminDbMrUserTableController',
-      'mr_address'                => 'MrAdminDbMrAddressTableController',
-      'mr_fio'                    => 'MrAdminDbMrFioTableController',
-      'mr_conformity_authority'   => 'MrAdminDbMrConformityAuthorityTableController',
-      'mr_measure'                => 'MrAdminDbMrMeasureTableController',
-      'mr_certificate_kind'       => 'MrAdminDbMrCertificateKindTableController',
-      'mr_manufacturer'           => 'MrAdminDbMrManufacturerTableController',
-      'mr_communicate_in_table'   => 'MrAdminDbMrCommunicateInTableTableController',
-      'mr_document'               => 'MrAdminDbMrDocumentTableController',
-      'mr_certificate_document'   => 'MrAdminDbMrCertificateDocumentTableController',
-      'mr_applicant'              => 'MrAdminDbMrApplicantTableController',
-      'mr_technical_reglament'    => 'MrAdminDbMrTechnicalReglamentTableController',
-      'mr_technical_regulation'   => 'MrAdminDbMrTechnicalRegulationTableController',
-      'mr_product'                => 'MrAdminDbMrProductTableController',
-      'mr_product_info'           => 'MrAdminDbMrProductInfoTableController',
-      'mr_tnved'                  => 'MrAdminDbMrTnvedTableController',
-    );
-
-    if(isset($arr[$table_name]))
+    $new_name = array();
+    foreach (explode('_', $table_name) as $item)
     {
-      if(class_exists("App\\Http\\Controllers\\TableControllers\\Admin\\System\\" . $arr[$table_name], true))
-      {
-        $object = "App\\Http\\Controllers\\TableControllers\\Admin\\System\\" . $arr[$table_name];
-        return $object::SystemBuildTable(50);
-      }
+      $new_name[] = ucfirst($item);
+    }
+    $class_name = implode('', $new_name);
+
+    if(class_exists("App\\Models\\" . $class_name, true))
+    {
+      $object = "App\\Models\\" . $class_name;
+    }
+    elseif(class_exists("App\\Models\\Certificate\\" . $class_name, true))
+    {
+      $object = "App\\Models\\Certificate\\" . $class_name;
+    }
+    elseif(class_exists("App\\Models\\Lego\\" . $class_name, true))
+    {
+      $object = "App\\Models\\Lego\\" . $class_name;
+    }
+    elseif(class_exists("App\\Models\\Office\\" . $class_name, true))
+    {
+      $object = "App\\Models\\Office\\" . $class_name;
+    }
+    elseif(class_exists("App\\Models\\References\\" . $class_name, true))
+    {
+      $object = "App\\Models\\References\\" . $class_name;
     }
 
-    return array(
-      'header' => array(),
-      'body'   => array(),
-    );
+    if($object ?? null)
+    {
+      $body = $object::Select(['*'])->paginate(50);
+      $header = array();
+      foreach ($body->items()[0] as $key => $field)
+      {
+        $header[] = array('name' => $key, 'sort' => $key);
+      }
+
+      return array(
+        'header' => $header,
+        'body'   => $body
+      );
+    }
+
+    return array();
   }
 
   public static function getTableNameFromFileName(string $item)

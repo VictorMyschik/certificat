@@ -18,7 +18,7 @@ class MrUser extends ORM
   protected $table = 'mr_user';
   const super_token = 'c10ea6679d1336c6f3e60fd29752cee96154967e';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'UserLaravelID',
     'Telegram',
     'DateFirstVisit',

@@ -11,7 +11,7 @@ class MrCertificateDocument extends ORM
   public static $className = MrCertificateDocument::class;
   protected $table = 'mr_certificate_document';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'CertificateID',
     'DocumentID',
   );

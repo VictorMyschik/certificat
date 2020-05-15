@@ -15,7 +15,7 @@ class MrApplicant extends ORM
   public static $className = MrApplicant::class;
   protected $table = 'mr_applicant';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'CountryID',
     'BusinessEntityId',//Код государственной регистрации
     'Name',

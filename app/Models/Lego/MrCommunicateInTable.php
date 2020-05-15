@@ -16,7 +16,7 @@ class MrCommunicateInTable extends ORM
   public static $className = MrCommunicateInTable::class;
   protected $table = 'mr_communicate_in_table';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'TableKind',
     'RowID',
     'CommunicateID',

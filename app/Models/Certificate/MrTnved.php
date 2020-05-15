@@ -9,7 +9,7 @@ class MrTnved extends ORM
   public static $className = MrTnved::class;
   protected $table = 'mr_tnved';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Code',
     'Name',
   );

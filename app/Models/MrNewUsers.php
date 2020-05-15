@@ -14,7 +14,7 @@ class MrNewUsers extends ORM
   protected $table = 'mr_new_users';
   public static $className = MrNewUsers::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Email',
     'UserID',
     'Code',

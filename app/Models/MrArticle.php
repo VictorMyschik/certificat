@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\MrDateTime;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +12,7 @@ class MrArticle extends ORM
   protected $table = 'mr_articles';
   public static $className = MrArticle::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Kind',
     'LanguageID',
     'Text',

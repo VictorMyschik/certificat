@@ -9,7 +9,7 @@ class MrMeasure extends ORM
   public static $className = MrMeasure::class;
   protected $table = 'mr_measure';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Code',
     'TextCode',
     'Name',

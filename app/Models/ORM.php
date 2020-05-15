@@ -11,8 +11,16 @@ use Illuminate\Support\Facades\DB;
 
 class ORM extends Model
 {
-  protected static $dbFieldsMap;
+  protected $fillable;
   protected $id = 0;
+
+  public static function getFieldMap(): array
+  {
+    $class_name = static::class;
+    $object = new $class_name();
+
+    return $object->fillable;
+  }
 
   public function canEdit()
   {
@@ -44,7 +52,7 @@ class ORM extends Model
       {
         $sort = $param[1];
       }
-      elseif($param[0] == 'field' && in_array($param[1], self::getTableFields()))
+      elseif($param[0] == 'field' && in_array($param[1], self::getFieldMap()))
       {
         $field_name = $param[1];
       }
@@ -56,11 +64,6 @@ class ORM extends Model
   public static function getTableName(): string
   {
     return with(new static)->getTable();
-  }
-
-  private static function getTableFields(): array
-  {
-    return static::$dbFieldsMap;
   }
 
   /**
@@ -103,11 +106,16 @@ class ORM extends Model
   /**
    * Clear cache object
    */
-  protected function CacheObjectFlush(): void
+  public function CacheObjectFlush(): void
   {
     $id = $this->id();
     $table_name = $this->table;
     Cache::forget($table_name . '_' . $id);
+  }
+
+  public function flush()
+  {
+    $this->CacheObjectFlush();
   }
 
   /**
@@ -155,6 +163,7 @@ class ORM extends Model
     Cache::forget($this->GetCachedKey());
     return self::loadBy($this->id);
   }
+
   public $timestamps = false;
 
 

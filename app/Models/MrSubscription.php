@@ -11,7 +11,7 @@ class MrSubscription extends ORM
   protected $table = 'mr_subscription';
   public static $className = MrSubscription::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Email',
     'Date',
     'Token',

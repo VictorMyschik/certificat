@@ -15,7 +15,7 @@ class MrLogIdent extends ORM
   protected $table = 'mr_log_ident';
   public static $className = MrLogIdent::class;
   public static $ident_id = '0';
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Referer',
     'Link',
     'Ip',

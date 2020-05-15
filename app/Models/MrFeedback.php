@@ -10,7 +10,7 @@ class MrFeedback extends ORM
   public static $className = MrFeedback::class;
   protected $table = 'mr_feedback';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Name',
     'Email',
     'Text',

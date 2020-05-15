@@ -13,7 +13,7 @@ class MrOffice extends ORM
   protected $table = 'mr_offices';
   public static $className = MrOffice::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Name',
     'Description',
 

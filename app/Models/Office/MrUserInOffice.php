@@ -10,7 +10,7 @@ class MrUserInOffice extends ORM
 {
   protected $table = 'mr_user_in_office';
   public static $className = MrUserInOffice::class;
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'UserID',
     'OfficeID',
     'IsAdmin',

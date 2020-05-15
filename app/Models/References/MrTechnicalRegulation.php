@@ -9,7 +9,7 @@ class MrTechnicalRegulation extends ORM
   public static $className = MrTechnicalRegulation::class;
   protected $table = 'mr_technical_regulation';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Code',
     'Name',
   );

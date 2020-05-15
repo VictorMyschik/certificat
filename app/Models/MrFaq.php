@@ -7,7 +7,7 @@ class MrFaq extends ORM
   protected $table = 'mr_faq';
   public static $className = MrFaq::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Title',
     'Text',
     'LanguageID',

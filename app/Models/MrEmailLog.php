@@ -9,7 +9,7 @@ class MrEmailLog extends ORM
   protected $table = 'mr_email_log';
   public static $className = MrEmailLog::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'UserID',
     'Email',
     'Title',

@@ -6,7 +6,7 @@ class MrLanguage extends ORM
 {
   public static $className = MrLanguage::class;
   protected $table = 'mr_language';
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Name',
     'Description',
   );

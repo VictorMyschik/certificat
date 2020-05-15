@@ -1,8 +1,6 @@
 <?php
 
-
-namespace App\Http\Controllers\TableControllers\Admin\System;
-
+namespace App\Http\Controllers\TableControllers\Admin;
 
 use App\Helpers\MrLink;
 use App\Helpers\MtFloatHelper;
@@ -10,6 +8,9 @@ use App\Http\Controllers\Admin\MrAdminBackUpController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Строит таблицу с имеющимися таблицами в базе данных
+ */
 class MrAdminBackupTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())

@@ -11,7 +11,7 @@ class MrAddress extends ORM
   public static $className = MrAddress::class;
   protected $table = 'mr_address';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'AddressKind',
     'CountryID',
     'TerritoryCode',//17

@@ -14,7 +14,7 @@ class MrProductInfo extends ORM
   public static $className = MrProductInfo::class;
   protected $table = 'mr_product_info';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'ProductID',
     'MeasureID',
     'InstanceId',//Заводской номер единичного изделия или обозначение у группы одинаковых единиц продукции

@@ -14,7 +14,7 @@ class MrCertificateMonitoring extends ORM
   protected $table = 'mr_certificate_monitoring';
   public static $className = MrCertificateMonitoring::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'UserInOfficeID',
     'CertificateID',
     'Description',

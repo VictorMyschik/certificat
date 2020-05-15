@@ -10,7 +10,7 @@ class MrDocument extends ORM
   public static $className = MrDocument::class;
   protected $table = 'mr_document';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Kind',
     'Name',
     'Number',

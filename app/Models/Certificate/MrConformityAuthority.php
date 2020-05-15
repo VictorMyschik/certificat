@@ -26,7 +26,7 @@ class MrConformityAuthority extends ORM
   public static $className = MrConformityAuthority::class;
   protected $table = 'mr_conformity_authority';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'CountryID',
     'Name', // max 300
     'ConformityAuthorityId',

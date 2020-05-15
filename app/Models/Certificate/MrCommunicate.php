@@ -9,7 +9,7 @@ class MrCommunicate extends ORM
   public static $className = MrCommunicate::class;
   protected $table = 'mr_communicate';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Kind',// Тип: телефон, email, факс...
     'Address',
   );

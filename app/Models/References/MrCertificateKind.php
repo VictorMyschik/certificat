@@ -9,7 +9,7 @@ class MrCertificateKind extends ORM
   public static $className = MrCertificateKind::class;
   protected $table = 'mr_certificate_kind';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Code', // 2
     'ShortName',
     'Name', // 255

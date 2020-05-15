@@ -19,7 +19,7 @@ class MrCertificate extends ORM
   public static $className = MrCertificate::class;
   protected $table = 'mr_certificate';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'CertificateKindID',// $table->integer('Kind');//Тип документа
     'Number',// $table->string('Number');//Регистрационный номер документа
     'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
@@ -77,9 +77,10 @@ class MrCertificate extends ORM
 
   }
 
-  protected function flush()
+  public function flush()
   {
-    parent::CacheObjectFlush();
+    parent::flush();
+
     // Список документов сертификата
     Cache::forget('documents' . '_' . $this->id() . '_list');
   }

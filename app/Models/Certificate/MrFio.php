@@ -14,7 +14,7 @@ class MrFio extends ORM
   public static $className = MrFio::class;
   protected $table = 'mr_fio';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'FirstName',//Имя max 120
     'MiddleName',//Отчество max 120
     'LastName', //Фамилия max 120

@@ -11,7 +11,7 @@ class MrUserBlocked extends ORM
   protected $table = 'mr_user_blocked';
   public static $className = MrUserBlocked::class;
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'UserID',
     'DateFrom',
     'DateTo',

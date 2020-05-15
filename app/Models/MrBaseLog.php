@@ -13,19 +13,20 @@ class MrBaseLog extends ORM
   public static $className = MrBaseLog::class;
   protected $table = 'mr_base_log';
 
-  public static $ignoring_tables = array(
-    'mr_log_ident',
-    'mr_base_log',
-    'mr_user'
-  );
-
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'LogIdentID',
     'RowId',
     'TableName',
     'Field',
     'Value',
     //'WriteDate',
+  );
+
+  // таблицы для которых не надо следить
+  public static $ignoring_tables = array(
+    'mr_log_ident',
+    'mr_base_log',
+    'mr_user'
   );
 
   // Посетитель

@@ -14,7 +14,7 @@ class MrProduct extends ORM
   public static $className = MrProduct::class;
   protected $table = 'mr_product';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'ManufacturerID',
     'Name',
     'EANCommodityId',

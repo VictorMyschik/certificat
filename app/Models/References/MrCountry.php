@@ -17,7 +17,7 @@ class MrCountry extends ORM
     return 'list_country_table';
   }
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'Name',
     'ISO3166alpha2',
     'ISO3166alpha3',

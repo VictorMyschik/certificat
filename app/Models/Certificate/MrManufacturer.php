@@ -16,7 +16,7 @@ class MrManufacturer extends ORM
   public static $className = MrManufacturer::class;
   protected $table = 'mr_manufacturer';
 
-  protected static $dbFieldsMap = array(
+  protected $fillable = array(
     'CountryID',
     'Name',
     'Address1ID',
