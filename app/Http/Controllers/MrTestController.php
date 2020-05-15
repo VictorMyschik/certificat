@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
-use App\Helpers\MrDateTime;
-use App\Helpers\MrEmailHelper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MrTestController extends Controller
 {
   public function index(Request $request)
   {
-    MrDateTime::Start();
-    $id = 1;
-    $Email = 'mega-ximik@mail.ru';
-    MrEmailHelper::SendNewUserRole($id, $Email);
-    MrDateTime::StopItem(null);
 
-    print_r(MrDateTime::GetTimeResult());
+    $r = DB::table('failed_jobs')->get();
+
+    foreach ($r as $item)
+    {
+      dd($item);
+    }
+
     dd(1);
 
     /*

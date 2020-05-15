@@ -2,7 +2,7 @@
 @section('content')
   <div class="mr-main-div">
     @include('layouts.mr_nav')
-    <div class="container col-md-9 col-sm-12 m-t-10">
+    <div class="container col-md-11 col-sm-12">
       <div class="d-inline col-md-8 ">
         <div class="">
           {!! MrMessage::GetMessage() !!}
@@ -15,7 +15,7 @@
               <span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
             {{__('mr-t.Офис создан')}}
             : {{ $office->getCreateDate()->GetShortDateShortTime() }}
-            @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: {{ $office->getDescription() }}@endif()
+            @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: <span style="font-weight: normal">{{ $office->getDescription() }}</span>@endif()
           </div>
 
           <div class="row col-md-12 p-0">

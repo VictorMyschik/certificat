@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Forms\Admin;
 
-
 use App\Forms\FormBase\MrFormBase;
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 use App\Models\MrUser;
-use App\Models\MrUserInOffice;
+use App\Models\Office\MrUserInOffice;
 use Illuminate\Http\Request;
 
 /**
@@ -17,8 +15,8 @@ class MrOfficeEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($args['id']);
-    $form['#title'] = $args['id'] ? 'Переименовать офис' : 'Создание нового офиса';
+    $office = MrOffice::loadBy($args['office_id']);
+    $form['#title'] = $args['office_id'] ? 'Переименовать офис' : 'Создание нового офиса';
 
     $form['Name'] = array(
       '#type' => 'textfield',

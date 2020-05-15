@@ -11,8 +11,8 @@ class CreateMrEmailLogTable extends Migration
   {
     Schema::create('mr_email_log', function (Blueprint $table) {
       $table->increments('id')->autoIncrement();
-      $table->integer('UserID');
-      $table->string('Email');
+      $table->integer('AuthorUserID'); // кто отправил
+      $table->string('EmailTo');
       $table->string('Title');
       $table->text('Text')->nullable();
       $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

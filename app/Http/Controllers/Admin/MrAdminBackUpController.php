@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\TableControllers\Admin\System\MrAdminBackupTableController;
+use App\Http\Controllers\TableControllers\Admin\MrAdminBackupTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\MrBackup;
 use Illuminate\Contracts\View\Factory;
