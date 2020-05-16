@@ -15,7 +15,8 @@
               <span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
             {{__('mr-t.Офис создан')}}
             : {{ $office->getCreateDate()->GetShortDateShortTime() }}
-            @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: <span style="font-weight: normal">{{ $office->getDescription() }}</span>@endif()
+            @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: <span
+              style="font-weight: normal">{{ $office->getDescription() }}</span>@endif()
           </div>
 
           <div class="row col-md-12 p-0">
@@ -136,6 +137,7 @@
                 </span>
                 @endif
               </h5>
+              {!! $uio_table !!}
             </div>
           </div>
         </div>

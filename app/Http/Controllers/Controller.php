@@ -11,21 +11,29 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+  use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function has_permission(int $office_id)
+  /**
+   * Загрузка офиса, проверка доступа, переключение на офис
+   *
+   * @param int $office_id
+   * @return MrOffice
+   */
+  public function has_permission(int $office_id): MrOffice
+  {
+    $user = MrUser::me();
+    $office = MrOffice::loadBy($office_id);
+
+    if(!$office || !$office->canView())
     {
-      $user = MrUser::me();
-      $office = MrOffice::loadBy($office_id);
-
-      if(!$office || !$office->canView())
-      {
-        mr_access_violation();
-      }
-
-      $user->setDefaultOfficeID($office->id());
-      $user->save_mr();
-
-      return $office;
+      mr_access_violation();
     }
+
+    $user->setDefaultOfficeID($office->id());
+
+    $user->save_mr();
+    $user->reload();
+
+    return $office;
+  }
 }

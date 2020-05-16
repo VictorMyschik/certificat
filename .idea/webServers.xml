@@ -2,11 +2,12 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="63c49f79-67d8-47c3-acf5-2964a5e8421f" name="sftp" url="http://83.220.169.39">
-        <fileTransfer rootFolder="/var/www/certificat" accessType="SFTP" host="83.220.169.39" port="22" sshConfigId="4c7d7dbf-6945-4de2-b9ee-1abb313ba9b6" sshConfig="sftp">
+      <webServer id="226ae918-1a77-4223-ac05-8b3763a9b468" name="sftp" url="http://83.220.169.39">
+        <fileTransfer host="83.220.169.39" port="22" rootFolder="/var/www/certificat" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
+          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
     </option>

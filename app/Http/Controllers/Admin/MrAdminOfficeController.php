@@ -1,16 +1,14 @@
 <?php
 
-
 namespace App\Http\Controllers\Admin;
-
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\Admin\Office\MrAdminOfficeTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
-use App\Models\MrOffice;
-use App\Models\MrUserInOffice;
+use App\Models\Office\MrOffice;
+use App\Models\Office\MrUserInOffice;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -75,30 +73,12 @@ class MrAdminOfficeController extends Controller
     }
   }
 
-  public function tariffOfficeDelete(int $id)
-  {
-    $tariff_office = MrTariffInOffice::loadBy($id);
-    $tariff_office->mr_delete();
-    MrMessageHelper::SetMessage(true, 'Тариф удалён из ВО');
-
-    return back();
-  }
-
   public function userOfficeDelete(int $id)
   {
     $tariff_office = MrUserInOffice::loadBy($id);
     $tariff_office->mr_delete();
     MrMessageHelper::SetMessage(true, 'Пользователь удалён из ВО');
 
-    return back();
-  }
-
-  public function discountDelete(int $id)
-  {
-    $discount = MrDiscount::loadBy($id);
-    $discount->mr_delete();
-
-    MrMessageHelper::SetMessage(true, 'Скидка из ВО удалена');
     return back();
   }
 }

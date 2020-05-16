@@ -6,6 +6,9 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Админ'                                                                                        => 'Admin',
+    'Доступ'                                                                                       => 'Permission',
+    'Имя'                                                                                          => 'Name',
     'Страна'                                                                                       => 'Country',
     'Ссылка'                                                                                       => 'Link',
     'Электронная почта'                                                                            => 'Email',

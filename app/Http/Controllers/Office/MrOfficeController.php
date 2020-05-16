@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\TableControllers\MrDiscountTableController;
-use App\Http\Controllers\TableControllers\MrOfficeTariffTableController;
+use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Models\MrNewUsers;
-use App\Models\MrOffice;
-use App\Models\MrTariffInOffice;
 use App\Models\MrUser;
-use App\Models\MrUserInOffice;
+use App\Models\Office\MrOffice;
+use App\Models\Office\MrUserInOffice;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +19,7 @@ class MrOfficeController extends Controller
 {
   /**
    * Настройки ВО, отчёты и прочие инструменты
+   *
    * @param int $office_id
    * @return Factory|View
    */
@@ -34,9 +33,9 @@ class MrOfficeController extends Controller
     $out['me'] = $user;
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $office;
-    $out['tariffs'] = array();//MrOfficeTariffTableController::buildTable($office->GetTariffs());
-    $out['user_in_office'] =  array();//MrUserInOfficeTableController::buildTable($office->GetUsers(), $office->GetNewUsers(), $office);
-    $out['discounts'] = array();// MrDiscountTableController::buildTable($office->GetDiscount());
+
+    $uio_table = MrTableController::buildTable(MrUserInOfficeTableController::class, ['office_id' => $office->id()]);
+    $out['uio_table'] = MrTableController::Render($uio_table, ['#thead' => 'mr_small']);
 
     return View('Office.office_settings_page')->with($out);
   }

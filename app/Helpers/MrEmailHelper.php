@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
+use App\Models\MrEmailLog;
 use App\Models\MrNewUsers;
 use App\Models\MrUser;
 use App\Models\Office\MrOffice;
@@ -60,7 +61,7 @@ HTML;
   {
     $system = MrBaseHelper::MR_SITE_NAME;
     $site_url = MrBaseHelper::MR_SITE_URL;
-    $link_login = $site_url.'/login';
+    $link_login = $site_url . '/login';
     $user = MrUser::me();
     $subject = __('mr-t.Предоставление доступа к системе') . ' ' . MrBaseHelper::MR_SITE_NAME;
 
@@ -76,6 +77,14 @@ HTML;
 
     dispatch((new SendEmailJob($data))->delay(now()->addSeconds(3)));
     Artisan::call('queue:work --once');
+
+    // В лог
+    $log = new MrEmailLog();
+    $log->setUserID($user->id());
+    $log->setEmail($email);
+    $log->setTitle($subject);
+    $log->setText('template "email_has_user"');
+    $log->save_mr();
   }
 
   /**

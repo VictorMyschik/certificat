@@ -7,11 +7,9 @@ use App\Helpers\MrDateTime;
 class MrEmailLog extends ORM
 {
   protected $table = 'mr_email_log';
-  public static $className = MrEmailLog::class;
-
   protected $fillable = array(
-    'UserID',
-    'Email',
+    'AuthorUserID',
+    'EmailTo',
     'Title',
     'Text',
     //'WriteDate',
@@ -22,25 +20,25 @@ class MrEmailLog extends ORM
   }
 
   // Email
-  public function getUser(): MrUser
+  public function getAuthorUser(): MrUser
   {
-    return MrUser::loadBy($this->UserID);
+    return MrUser::loadBy($this->AuthorUserID);
   }
 
-  public function setUserID(int $value): void
+  public function setAuthorUserID(int $value): void
   {
-    $this->UserID = $value;
+    $this->AuthorUserID = $value;
   }
 
   // Email
-  public function getEmail(): string
+  public function getEmailTo(): string
   {
-    return $this->Email;
+    return $this->EmailTo;
   }
 
-  public function setEmail(string $value): void
+  public function setEmailTo(string $value): void
   {
-    $this->Email = $value;
+    $this->EmailTo = $value;
   }
 
 
