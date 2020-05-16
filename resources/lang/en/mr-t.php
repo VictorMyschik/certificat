@@ -95,7 +95,7 @@ return $translate_arr + [
     'Тарифные планы'                                                                               => 'Tariffs',
     'Услуги'                                                                                       => 'Services',
     'Мониторинг'                                                                                   => 'Monitoring',
-    'Пользователи'                                                                                 => 'Users',
+    'Пользователи виртуального офиса'                                                              => 'Office Users',
     'Пользователь'                                                                                 => 'User',
     'Финансы'                                                                                      => 'Finance',
     'Виртуальный офис'                                                                             => 'Virtual Office',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Office;
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\MrNewUserInOfficeTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
 use App\Models\MrNewUsers;
@@ -35,6 +36,7 @@ class MrOfficeController extends Controller
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $office;
     $out['uio_table'] = MrTableController::buildTable(MrUserInOfficeTableController::class, ['office_id' => $office->id()]);
+    $out['new_table'] = MrTableController::buildTable(MrNewUserInOfficeTableController::class, ['office_id' => $office->id()]);
 
     return View('Office.office_settings_page')->with($out);
   }
@@ -125,6 +127,7 @@ class MrOfficeController extends Controller
   public function UserInOfficeDelete(int $id)
   {
     $uio = MrUserInOffice::loadBy($id);
+
     if(!$uio->catEdit())
     {
       mr_access_violation();
@@ -176,10 +179,11 @@ class MrOfficeController extends Controller
   /**
    * Удалить приглашённого пользователя
    *
+   * @param int $office_id
    * @param int $id
    * @return RedirectResponse
    */
-  public function NewUserDelete(int $id)
+  public function NewUserDelete(int $office_id, int $id)
   {
     $new_user = MrNewUsers::loadBy($id);
     if(!$new_user->canDelete())

@@ -128,13 +128,16 @@
               </div>
             </div>
             <div class="d-md-inline col-md-8 mr-middle">
-              <h5 class="mr-bold">{{__('mr-t.Пользователи')}}
+              <h5 class="mr-bold">{{__('mr-t.Пользователи виртуального офиса')}}
                 @if($office->canEdit())
                   <span title="{{ __('mr-t.Добавить нового пользователя') }}">
                 {!! MrBtn::loadForm('add_office_user_edit', ['office_id'=>$office->id(),'id' => $office->id()], __('mr-t.Добавить'), ['btn-primary btn-sm'],'sm') !!}
                 </span>
                 @endif
               </h5>
+              @if(count($office->GetNewUsers()))
+                @include('layouts.Elements.table',['data'=>$new_table])
+              @endif
               @include('layouts.Elements.table',['data'=>$uio_table])
             </div>
           </div>
