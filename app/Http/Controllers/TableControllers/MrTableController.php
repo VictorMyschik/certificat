@@ -37,19 +37,4 @@ class MrTableController extends Controller
       'body'   => $data
     );
   }
-
-  /**
-   * @param array $data
-   * @param array $table_attr
-   * @return Factory|View
-   */
-  public static function Render(array $data, array $table_attr)
-  {
-    $out = array(
-      'table' => $data,
-      'attr'  => $table_attr,
-    );
-
-    return View('layouts.Elements.table')->with($out);
-  }
 }

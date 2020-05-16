@@ -33,9 +33,7 @@ class MrOfficeController extends Controller
     $out['me'] = $user;
     $out['page_title'] = 'Персональные настройки';
     $out['office'] = $office;
-
-    $uio_table = MrTableController::buildTable(MrUserInOfficeTableController::class, ['office_id' => $office->id()]);
-    $out['uio_table'] = MrTableController::Render($uio_table, ['#thead' => 'mr_small']);
+    $out['uio_table'] = MrTableController::buildTable(MrUserInOfficeTableController::class, ['office_id' => $office->id()]);
 
     return View('Office.office_settings_page')->with($out);
   }

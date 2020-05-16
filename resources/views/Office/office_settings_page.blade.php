@@ -137,7 +137,7 @@
                 </span>
                 @endif
               </h5>
-              {!! $uio_table !!}
+              @include('layouts.Elements.table',['data'=>$uio_table])
             </div>
           </div>
         </div>

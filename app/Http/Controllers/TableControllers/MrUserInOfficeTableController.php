@@ -25,6 +25,7 @@ class MrUserInOfficeTableController extends MrTableController
     $row = array();
 
     $uio = MrUserInOffice::loadBy($id);
+
     $row[] = $uio->getUser()->getName();
     $row[] = $uio->getIsAdmin() ? __('mr-t.Админ') : __('mr-t.Пользователь');
     $row[] = '1';
