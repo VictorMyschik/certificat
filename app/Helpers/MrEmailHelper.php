@@ -80,8 +80,8 @@ HTML;
 
     // В лог
     $log = new MrEmailLog();
-    $log->setUserID($user->id());
-    $log->setEmail($email);
+    $log->setAuthorUserID($user->id());
+    $log->setEmailTo($email);
     $log->setTitle($subject);
     $log->setText('template "email_has_user"');
     $log->save_mr();

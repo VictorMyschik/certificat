@@ -6,17 +6,15 @@
       <div class="d-inline col-md-8 ">
         <div class="">
           {!! MrMessage::GetMessage() !!}
-          @foreach($errors->all() as $err)
-            <li class="mr-color-red">{{ $err }}</li>
-          @endforeach
           <h5 class="mr-bold">{{$office->getName()}}</h5>
           <div class="mr-bold mr-middle margin-b-10" style="border-bottom: #0c175b 1px solid">
             <a onclick="mr_popup('{{ route('admin_office_edit',['office_id'=>$office->id()]) }}'); return false;">
               <span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
             {{__('mr-t.Офис создан')}}
             : {{ $office->getCreateDate()->GetShortDateShortTime() }}
-            @if($me->IsSuperAdmin()) | {{__('mr-t.Примечание')}}: <span
-              style="font-weight: normal">{{ $office->getDescription() }}</span>@endif()
+            @if($me->IsSuperAdmin())
+              | {{__('mr-t.Примечание')}}: <span style="font-weight: normal">{{ $office->getDescription() }}</span>
+            @endif()
           </div>
 
           <div class="row col-md-12 p-0">
@@ -141,8 +139,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

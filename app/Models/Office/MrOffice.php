@@ -47,7 +47,7 @@ class MrOffice extends ORM
     $me = MrUser::me();
     if($me->IsSuperAdmin())
     {
-      return true;
+     //return true;
     }
 
     foreach ($this->GetUsers() as $uio)

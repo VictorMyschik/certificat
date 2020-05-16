@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Office;
 
+use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
@@ -68,10 +69,10 @@ class MrOfficeController extends Controller
   }
 
   /**
-   * Смена статуса пользователя в ВО: админ или пользователь
+   * Смена полномочий пользователя в ВО
    *
    * @param int $office_id
-   * @param int $id
+   * @param int $id User in office
    * @return RedirectResponse
    */
   public function userOfficeIsAdmin(int $office_id, int $id)
@@ -86,14 +87,31 @@ class MrOfficeController extends Controller
 
     if($uio->getIsAdmin())
     {
-      $uio->setIsAdmin(0);
+      $i = 0;
+      foreach ($office->GetUsers() as $uio_item)
+      {
+        if($uio_item->getIsAdmin())
+        {
+          $i++;
+        }
+      }
+
+      if($i == 1)
+      {
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Нельзя оставить виртуальный офис без администратора');
+        return back();
+      }
+
+      $uio->setIsAdmin(false);
     }
     else
     {
-      $uio->setIsAdmin(1);
+      $uio->setIsAdmin(true);
     }
 
     $uio->save_mr();
+    $uio->getOffice()->flush();
+    $uio->flush();
 
     return back();
   }
@@ -115,7 +133,7 @@ class MrOfficeController extends Controller
     // Очистка из getDefaultOffice
     $user = $uio->getUser();
 
-    if($uio->getOffice()->equals($user->getDefaultOffice()))
+    if($uio->getOffice()->id() == $user->getDefaultOffice())
     {
       $user->setDefaultOfficeID(null);
 
@@ -123,6 +141,7 @@ class MrOfficeController extends Controller
 
     $uio->mr_delete();
     $user->save_mr();
+    $user->flush();
 
     if(!MrUser::me()->getDefaultOffice())
     {
@@ -158,7 +177,6 @@ class MrOfficeController extends Controller
    * Удалить приглашённого пользователя
    *
    * @param int $id
-   * @param int $office_id
    * @return RedirectResponse
    */
   public function NewUserDelete(int $id)

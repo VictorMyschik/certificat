@@ -5,8 +5,8 @@ namespace App\Forms;
 use App\Forms\FormBase\MrFormBase;
 use App\Helpers\MrEmailHelper;
 use App\Models\MrNewUsers;
-use App\Models\Office\MrOffice;
 use App\Models\MrUser;
+use App\Models\Office\MrOffice;
 use App\Models\Office\MrUserInOffice;
 use Illuminate\Http\Request;
 
@@ -28,7 +28,7 @@ class MrAddOfficeUserForm extends MrFormBase
     $form['IsAdmin'] = array(
       '#type'  => 'checkbox',
       '#title' => 'Администратор',
-      '#value' => 0,
+      '#value' => 1,
     );
 
     $form[] = '<p><i class="fa fa-info-circle mr-color-green"></i> На электронный адрес придёт ссылка на активацию акаунта</p>';
@@ -43,9 +43,8 @@ class MrAddOfficeUserForm extends MrFormBase
     $office = MrOffice::loadBy($v['id']);
     if(!$office->canEdit())
     {
-      abort(1);
+      mr_access_violation();
     }
-
 
     if($v['Email'])
     {
@@ -58,6 +57,25 @@ class MrAddOfficeUserForm extends MrFormBase
     else
     {
       $out['Email'] = 'Email обязателен';
+    }
+
+    if($v['Email'] && !isset($out['Email']))
+    {
+      foreach ($office->GetUsers() as $uio)
+      {
+        if($uio->getUser()->getEmail() == $v['Email'])
+        {
+          $out['Email'] = 'Пользователь уже добавлен в ВО';
+        }
+      }
+
+      foreach ($office->GetNewUsers() as $nuio)
+      {
+        if($nuio->getEmail() == $v['Email'])
+        {
+          $out['Email'] = 'Пользователь уже приглашён в ВО';
+        }
+      }
     }
 
     return $out;

@@ -362,5 +362,22 @@ class MrUser extends ORM
     return MrUser::loadBy($user->id ?? null, 'UserLaravelID');
   }
 
+  /**
+   * Админ или нету в офисе
+   *
+   * @param MrOffice $office
+   * @return bool
+   */
+  public function IsAdminInOffice(MrOffice $office): bool
+  {
+    foreach ($office->GetUsers() as $uio)
+    {
+      if($this->id() == $uio->getUser()->id() && $uio->getIsAdmin())
+      {
+        return true;
+      }
+    }
 
+    return false;
+  }
 }
