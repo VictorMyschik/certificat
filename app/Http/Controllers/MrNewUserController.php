@@ -53,7 +53,7 @@ class MrNewUserController extends Controller
       'name'              => $request->get('name'),
       'email'             => $request->get('email'),
       'password'          => Hash::make($request->get('password')),
-      'email_verified_at' => MrDateTime::now(),
+      'email_verified_at' => now(),
     ]);
 
     Auth::guard()->login($user);

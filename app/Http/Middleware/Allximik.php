@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-
 use App\Helpers\MrDateTime;
 use App\Models\MrLanguage;
 use App\Models\MrLogIdent;
