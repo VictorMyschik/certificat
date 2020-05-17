@@ -93,14 +93,31 @@ class ORM extends Model
     {
       return MrCacheHelper::GetCachedObject((int)$value, self::getTableName(), function () use ($field, $value) {
         $class_name = static::class;
-        return $class_name::where($field, $value)->get()->first();
+        return $class_name::where($field, $value)->get()->last();
       });
     }
     else
     {
       $class_name = static::class;
-      return $class_name::where($field, $value)->get()->first();
+      return $class_name::where($field, $value)->get()->last();
     }
+  }
+
+  /**
+   * Загрузи или умри
+   *
+   * @param $value
+   * @param $field
+   * @return static|object
+   */
+  public static function loadByOrDie(?string $value, string $field = 'id')
+  {
+    if(!$object = self::loadBy($value, $field))
+    {
+      abort(500, 'Object not loaded:' . $value . 'by' . $field);
+    }
+
+    return $object;
   }
 
   /**

@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Http\Controllers\Office;
-
 
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Helpers\MrEmailHelper;
-use App\Http\Controllers\Helpers\MrTelegramHelper;
+use App\Helpers\MrEmailHelper;
+use App\Helpers\MrTelegramHelper;
 use App\Models\MrNewUsers;
 use App\Models\MrSubscription;
 use App\Models\MrUser;
@@ -155,18 +153,5 @@ class MrUserController extends Controller
     $user = MrUser::me();
     $user->AccountDelete();
     return redirect('/');
-  }
-
-  /**
-   * Переотправить письмо со ссылкой для приглашённого пользователя
-   * @param int $new_user_id
-   */
-  public function ResendForNewUser(int $new_user_id)
-  {
-    $new_user = MrNewUsers::loadBy($new_user_id);
-    if(!$new_user || !$new_user->canEdit())
-    {
-      MrEmailHelper::ReSendNewUser($new_user);
-    }
   }
 }

@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Office;
 
+use App\Helpers\MrDateTime;
+use App\Helpers\MrEmailHelper;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TableControllers\MrNewUserInOfficeTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Http\Controllers\TableControllers\MrUserInOfficeTableController;
+use App\Models\MrEmailLog;
 use App\Models\MrNewUsers;
 use App\Models\MrUser;
 use App\Models\Office\MrOffice;
 use App\Models\Office\MrUserInOffice;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -42,7 +44,7 @@ class MrOfficeController extends Controller
   }
 
   /**
-   * @return Application|RedirectResponse|Redirector
+   * @return RedirectResponse|Redirector
    */
   public function officePageDefault()
   {
@@ -79,10 +81,10 @@ class MrOfficeController extends Controller
    */
   public function userOfficeIsAdmin(int $office_id, int $id)
   {
-    $uio = MrUserInOffice::loadBy($id);
-    $office = MrOffice::loadBy($office_id);
+    $uio = MrUserInOffice::loadByOrDie($id);
+    $office = MrOffice::loadByOrDie($office_id);
 
-    if(!$office || !$office->canEdit() || !$uio || $uio->getOffice()->id() != $office->id())
+    if(!$office->canEdit() || $uio->getOffice()->id() != $office->id())
     {
       mr_access_violation();
     }
@@ -115,6 +117,51 @@ class MrOfficeController extends Controller
     $uio->getOffice()->flush();
     $uio->flush();
 
+    return back();
+  }
+
+  /**
+   * Переотправка письма для приглашённого пользователя
+   *
+   * @param int $office_id
+   * @param int $new_user_id
+   * @return RedirectResponse
+   */
+  public function ResendEmailForNewUser(int $office_id, int $new_user_id)
+  {
+    $new_user = MrNewUsers::loadByOrDie($new_user_id);
+    $office = MrOffice::loadByOrDie($office_id);
+
+    if(!$office->canEdit())
+    {
+      mr_access_violation();
+    }
+
+    // Новый пользователь должен быть привязан к офису
+    foreach ($office->GetNewUsers() as $new_exist_user)
+    {
+      if($new_exist_user->id() == $new_user->id())
+      {
+
+        // Предовращение серии писем
+        if($email_log = MrEmailLog::loadBy($new_user->getEmail(), 'EmailTo'))
+        {
+          $diff = $email_log->getWriteDate()->diff(MrDateTime::now())->i;
+          if($diff < 3) // период 3 минуты
+          {
+            MrMessageHelper::SetMessage(MrMessageHelper::KIND_WARNING, 'Повоторите попытку через несколько минут');
+            return back();
+          }
+        }
+
+        MrEmailHelper::SendNewUser($new_user);
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, __('mr-t.Сообщение было переотправлено'));
+
+        return back();
+      }
+    }
+
+    MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, __('mr-t.Пользователь не найден'));
     return back();
   }
 
@@ -192,27 +239,6 @@ class MrOfficeController extends Controller
     }
 
     $new_user->mr_delete();
-
-    return back();
-  }
-
-  public function DeleteTariffFromOffice(int $office_id, int $id)
-  {
-    $user = MrUser::me();
-    if(!$user->IsSuperAdmin())
-    {
-      mr_access_violation();
-    }
-
-    $tariff_in_office = MrTariffInOffice::loadBy($id);
-    $office = MrOffice::loadBy($office_id);
-    foreach ($office->GetTariffs() as $tariff)
-    {
-      if($tariff->id() == $tariff_in_office->id())
-      {
-        $tariff_in_office->mr_delete();
-      }
-    }
 
     return back();
   }

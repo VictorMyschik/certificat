@@ -138,5 +138,6 @@ return $translate_arr + [
     'обязательно'                                                                                  => 'is necessarily',
     'Неправильный формат сообщения'                                                                => 'Message format are wrong',
     'Не найдены данные'                                                                            => 'Data not found',
-    'Валюты мира'                                                                                  => 'Currencies'
+    'Валюты мира'                                                                                  => 'Currencies',
+    'Сообщение было переотправлено'                                                                     => 'Message has been re-send',
   ];

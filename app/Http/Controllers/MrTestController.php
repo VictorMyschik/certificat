@@ -3,21 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
+use App\Helpers\MrDateTime;
+use App\Models\MrEmailLog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MrTestController extends Controller
 {
   public function index(Request $request)
   {
-
-    $r = DB::table('failed_jobs')->get();
-
-    foreach ($r as $item)
-    {
-      dd($item);
-    }
-
+    $email_log = MrEmailLog::loadBy(9);
+    dd($email_log->getWriteDate()->diff(MrDateTime::now()));
     dd(1);
 
     /*

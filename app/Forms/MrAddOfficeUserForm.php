@@ -118,9 +118,10 @@ class MrAddOfficeUserForm extends MrFormBase
       $new_user->setIsAdmin((bool)$is_admin);
       $new_user->setCode($code);
 
-      $new_user_id = $new_user->save_mr();
+      $new_user->save_mr();
+      $new_user->reload();
 
-      MrEmailHelper::SendNewUser($new_user_id);
+      MrEmailHelper::SendNewUser($new_user);
     }
 
     return;

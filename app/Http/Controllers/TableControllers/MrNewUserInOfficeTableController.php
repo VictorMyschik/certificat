@@ -38,6 +38,10 @@ class MrNewUserInOfficeTableController extends MrTableController
     // смена прав пользователя
     if($me->IsAdminInOffice($office))
     {
+      $btn_resend_email = MrLink::open('resend_message_for_new_user',
+        ['office_id' => $office->id(), 'new_user_id' => $new_users->id()], '',
+        'btn btn-success btn-sm fa fa-at', 'Переотправить сообщение', ['onclick' => 'return confirm("Переотправить?");']);
+
       $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $id], '', 'btn btn-primary btn-sm fa fa-edit');
 
       $delete = MrLink::open(
@@ -49,7 +53,7 @@ class MrNewUserInOfficeTableController extends MrTableController
       );
     }
 
-    $row[] = array($btn_edit ?? null, $delete ?? null);
+    $row[] = array($btn_resend_email ?? null, $btn_edit ?? null, $delete ?? null);
 
 
     return $row;

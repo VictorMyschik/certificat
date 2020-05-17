@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\TableControllers\Admin;
-
 
 use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
@@ -19,7 +17,7 @@ class MrAdminEmailTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Кому', 'sort' => 'UserID'),
+      array('name' => 'Автор письма', 'sort' => 'UserID'),
       array('name' => 'Email', 'sort' => 'Email'),
       array('name' => 'Title', 'sort' => 'Title'),
       array('name' => 'Text', 'sort' => 'Text'),
@@ -33,16 +31,14 @@ class MrAdminEmailTableController extends MrTableController
     $row = array();
 
     $log = MrEmailLog::loadBy($id);
-
     $row[] = $log->id();
-    $row[] = $log->getUser()->getName();
-    $row[] = $log->getEmail();
+    $row[] = $log->getAuthorUser()->GetFullName();
+    $row[] = $log->getEmailTo();
     $row[] = $log->getTitle();
     $row[] = $log->getText();
     $row[] = $log->getWriteDate()->getShortDateShortTime();
 
     $row[] = array(
-
       MrLink::open('admin_email_delete', ['id' => $log->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
         'Удалить', ['onclick' => 'return confirm("Уверены?");']),
     );
