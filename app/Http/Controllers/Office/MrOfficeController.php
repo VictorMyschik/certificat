@@ -147,7 +147,7 @@ class MrOfficeController extends Controller
         if($email_log = MrEmailLog::loadBy($new_user->getEmail(), 'EmailTo'))
         {
           $diff = $email_log->getWriteDate()->diff(MrDateTime::now())->i;
-          if($diff < 3) // период 3 минуты
+          if($diff < 1) // период 3 минуты
           {
             MrMessageHelper::SetMessage(MrMessageHelper::KIND_WARNING, 'Повоторите попытку через несколько минут');
             return back();

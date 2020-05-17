@@ -44,7 +44,7 @@ class MrMessageHelper extends Controller
       if ($message = session($key))
       {
         $out .= '<div class="alert ' . $key . '" role="alert">';
-        $out .= '<span class="badge badge-pill ' . $key . '">' . mb_strtoupper($kind) . '</span> ';
+        $out .= '<span class="badge badge-pill ' . $key . '">' . '</span> ';
         $out .= $message . "</div>";
       }
     }

@@ -41,6 +41,7 @@ Route::get('/references/{name}', 'MrReferencesController@View')->name('reference
 Route::get('/certificate/{number}', 'MrCertificateController@View');
 
 
+Route::POST('/newuser/{string}/register', 'MrNewUserController@RegNewUser')->name('new_user_register');
 Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
 // Приём данных с Telegram
@@ -49,7 +50,6 @@ Route::match(['get', 'post'], '/telegram/webhook', 'MrApiController@TelegramWebH
 //// для авторизованных
 Route::group(['middleware' => ['auth', 'verified']], function () {
   #region Personal
-
   Route::match(['get', 'post'], '/users/edit/{id}/submit', "\App\Forms\MrUserEditForm@submitForm")->name('user_form_submit');
   Route::match(['get', 'post'], '/users/edit/{id}', "\App\Forms\MrUserEditForm@getFormBuilder")->name('user_form_edit');
 

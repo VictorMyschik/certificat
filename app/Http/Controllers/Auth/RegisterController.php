@@ -56,7 +56,7 @@ class RegisterController extends Controller
   {
     return Validator::make($data, [
       'name'     => ['required', 'string', 'max:255'],
-      //'office' => ['required', 'string', 'max:255', 'unique:mr_offices'],
+      'office'   => ['required', 'string', 'max:255', 'exists:mr_offices,Name'],
       'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
       'password' => ['required', 'string', 'min:8', 'confirmed'],
     ]);
@@ -66,7 +66,6 @@ class RegisterController extends Controller
    * Create a new user instance after a valid registration.
    *
    * @param array $data
-   * @param array $mr_validate
    * @return RedirectResponse
    * @throws \Exception
    */

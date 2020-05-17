@@ -25,6 +25,6 @@ class SendMailable extends Mailable
   public function build()
   {
     $template = 'Email.' . $this->data['template'];
-    return $this->view($template)->with($this->data);
+    return $this->view($template)->with($this->data)->subject($this->data['title']);
   }
 }

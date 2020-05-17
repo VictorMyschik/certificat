@@ -42,6 +42,10 @@ class MrOffice extends ORM
     //'CreateDate'
   );
 
+  public function after_delete()
+  {
+  }
+
   public function canEdit(): bool
   {
     $me = MrUser::me();

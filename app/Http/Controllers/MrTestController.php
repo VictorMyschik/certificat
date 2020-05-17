@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
-use App\Helpers\MrDateTime;
-use App\Models\MrEmailLog;
+use App\Models\Office\MrOffice;
 use Illuminate\Http\Request;
 
 class MrTestController extends Controller
 {
   public function index(Request $request)
   {
-    $email_log = MrEmailLog::loadBy(9);
-    dd($email_log->getWriteDate()->diff(MrDateTime::now()));
-    dd(1);
+
+    $object = new MrOffice();
+    $object->setName(23213213);
+    $object_id = $object->save_mr();
+
+    $object->mr_delete();
+
+
+
+
+    dd(MrOffice::loadBy($object_id));
 
     /*
         MrCertificate::AllDelete();

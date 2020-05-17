@@ -29,7 +29,7 @@ class MrEmailHelper extends Controller
       'new_user' => $new_user
     );
 
-    dispatch(new SendEmailJob($data));
+    dispatch((new SendEmailJob($data)))->afterResponse();
     Artisan::call('queue:work --once');
 
     // В лог
@@ -67,7 +67,7 @@ class MrEmailHelper extends Controller
       'system'     => $system,
     );
 
-    dispatch((new SendEmailJob($data))->delay(now()->addSeconds(3)));
+    dispatch((new SendEmailJob($data)))->afterResponse();
     Artisan::call('queue:work --once');
 
     // В лог

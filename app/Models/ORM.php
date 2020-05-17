@@ -114,7 +114,7 @@ class ORM extends Model
   {
     if(!$object = self::loadBy($value, $field))
     {
-      abort(500, 'Object not loaded:' . $value . 'by' . $field);
+      abort(response('Object not loaded:"' . $value . '" by ' . $field, 500));
     }
 
     return $object;
@@ -231,23 +231,18 @@ class ORM extends Model
       $this->before_delete();
     }
 
-    if(static::getTableName() && $this->id())
+    Cache::forget($this->GetCachedKey());
+
+    $this->delete();
+
+    MrBaseLog::SaveData(static::getTableName(), $this->id(), []);
+
+    if(method_exists($this, 'after_delete'))
     {
-      DB::table(static::getTableName())->delete($this->id());
-
-      MrBaseLog::SaveData(static::getTableName(), $this->id(), []);
-
-      if(method_exists($this, 'after_delete'))
-      {
-        $this->after_delete();
-      }
-
-      return true;
+      $this->after_delete();
     }
-    else
-    {
-      return false;
-    }
+
+    return true;
   }
 
   protected function getDateNullableField(string $field): ?MrDateTime

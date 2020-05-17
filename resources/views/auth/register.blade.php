@@ -8,23 +8,18 @@
           <div class="">
             <div class="card-body">
               <h5 class="mr-bold"> {{ __('mr-t.Регистрация') }} <span class="fa-pull-right"><i
-                      class="fa fa-info-circle mr-color-green"></i>Все поля обязательны для заполнения</span></h5>
+                    class="fa fa-info-circle mr-color-green"></i>Все поля обязательны для заполнения</span></h5>
               <hr>
               {!!  MrMessage::GetMessage() !!}
               <h5 class="mr-bold">{{ $text??null }}</h5>
               <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="form-group row">
-                  <label for="office"
-                         class="col-md-4 col-form-label text-md-right">{{ __('mr-t.Виртуальный офис') }}</label>
-
+                  <label for="office" class="col-md-4 col-form-label text-md-right">{{ __('mr-t.Виртуальный офис') }}</label>
                   <div class="col-md-6">
-                    <input id="office" type="text"
-                           {{ isset($office)?'readonly':null }} class="form-control @error('office') is-invalid @enderror"
-                           name="office"
-                           value="{{ old('office')??$office??null }}" required autocomplete="office" autofocus>
-
-                    @error('name')
+                    <input id="office" type="text" class="form-control @error('office') is-invalid @enderror"
+                           name="office" value="{{ old('office') }}" required autocomplete="office" autofocus>
+                    @error('office')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
                   </div>
@@ -36,7 +31,6 @@
                   <div class="col-md-6">
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                            value="{{ old('name') }}" required autocomplete="name" autofocus>
-
                     @error('name')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
@@ -45,7 +39,6 @@
 
                 <div class="form-group row">
                   <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('mr-t.Email') }}</label>
-
                   <div class="col-md-6">
                     <input id="email" type="email"
                            {{ isset($email)?'readonly':null }} class="form-control @error('email') is-invalid @enderror"
