@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MrMessageHelper;
 use App\Models\MrUser;
 use App\Models\Office\MrOffice;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -27,6 +28,11 @@ class Controller extends BaseController
     if(!$office || !$office->canView())
     {
       mr_access_violation();
+    }
+
+    if($office_id != $user->getDefaultOffice()->id())
+    {
+      MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, __('mr-t.Офис переключен'));
     }
 
     $user->setDefaultOfficeID($office->id());

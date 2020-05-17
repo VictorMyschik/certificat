@@ -6,6 +6,7 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Офис переключен'                                                                              => 'Office changed',
     'Админ'                                                                                        => 'Admin',
     'Доступ'                                                                                       => 'Permission',
     'Имя'                                                                                          => 'Name',
@@ -139,5 +140,5 @@ return $translate_arr + [
     'Неправильный формат сообщения'                                                                => 'Message format are wrong',
     'Не найдены данные'                                                                            => 'Data not found',
     'Валюты мира'                                                                                  => 'Currencies',
-    'Сообщение было переотправлено'                                                                     => 'Message has been re-send',
+    'Сообщение было переотправлено'                                                                => 'Message has been re-send',
   ];

@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Http\Controllers\TableControllers\Admin\Office;
-
 
 use App\Forms\FormBase\MrForm;
 use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 
 class MrAdminOfficeTableController extends MrTableController
 {
@@ -44,8 +42,8 @@ class MrAdminOfficeTableController extends MrTableController
     $row[] = $office->getPersonFIO();
     $row[] = $office->getPersonPost();
     $row[] = array(
-      MrForm::loadForm('admin_office_edit', ['id' => $office->id()], '', ['btn btn-primary btn-sm fa fa-edit']),
-      MrLink::open('admin_article_delete', ['id' => $office->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
+      MrForm::loadForm('admin_office_edit', ['office_id' => $office->id()], '', ['btn btn-primary btn-sm fa fa-edit']),
+      MrLink::open('admin_article_delete', ['office_id' => $office->id()], '', 'btn btn-danger btn-sm fa fa-trash m-l-5',
         'Удалить', ['onclick' => 'return confirm("Уверены?");']),
     );
 

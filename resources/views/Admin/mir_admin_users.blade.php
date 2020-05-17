@@ -73,8 +73,8 @@
             <td>{{ $new_user->getIsAdmin()?'Админ':'Пользователь' }}</td>
             <td>{{ $new_user->getWriteDate()->getShortDateShortTime() }}</td>
             <td>
-              {{ MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-sm fa fa-trash','Удалить') }}
-              {!! MrLink::open('resend_message_for_new_user', ['new_user_id' => $new_user->id()],'','btn btn-primary btn-sm fa fa-mail-reply','Переотправить') !!}
+              {!! MrLink::open('new_user_delete', ['office_id'=>$new_user->getOffice()->id(),'id' => $new_user->id()], '', 'btn btn-danger btn-sm fa fa-trash','Удалить') !!}
+              {!! MrLink::open('resend_message_for_new_user', ['office_id'=>$new_user->getOffice()->id(),'new_user_id' => $new_user->id()],'','btn btn-primary btn-sm fa fa-at','Переотправить') !!}
               <i class="fa fa-mail-reply"></i>
             </td>
           </tr>
