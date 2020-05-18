@@ -4,9 +4,9 @@
       <h4 class="mr-bold" :class="'mr_cert_status_certificate_'+certificate['Status']"><img style='height: 21px; border-radius: 4px;' :src="src" :alt="certificate['Country']"> {{certificate['StatusName']}}</h4>
     </div>
     <div class="col-md-12 no-gutters">
-      <h5 class="mr-bold" style="color: #090d2f">
+      <h6 class="mr-bold" style="color: #090d2f">
         {{certificate['Number']}}
-      </h5>
+      </h6>
     </div>
     <div class="row no-gutters col-lg-4 col-md-5 col-sm-12 m-r-5 m-l-5 m-b-10">
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_1')">Общее</div>
@@ -17,9 +17,9 @@
     <div class="row col-md-12 no-gutters" v-if="visible_1">
 
       <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
-        <h5 data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1" href="#base_menu_1"
+        <h6 data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1" href="#base_menu_1"
             class="mr_cursor mr-bold mt_table_header">{{certificate['CertificateKindShortName']}}
-        </h5>
+        </h6>
         <div id="base_menu_1" class="collapse show">
           <table class="table table-sm table-striped col-md-12 mr-auto-size">
             <tr>
@@ -67,8 +67,8 @@
       </div>
 
       <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
-        <h5 data-toggle="collapse" aria-controls="base_menu_2" href="#base_menu_2"
-            class="mr_cursor mt_table_header">Орган по сертификации</h5>
+        <h6 data-toggle="collapse" aria-controls="base_menu_2" href="#base_menu_2"
+            class="mr_cursor mt_table_header">Орган по сертификации</h6>
         <div id="base_menu_2" class="collapse show">
           <table class="table col-md-12 mr-auto-size table-sm">
             <tr>
@@ -117,8 +117,8 @@
 
     </div>
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_2">
-      <h5 data-toggle="collapse" aria-controls="product_base_menu" href="#product_base_menu"
-          class=" mr_cursor col-md-12 mt_table_header">Продукция</h5>
+      <h6 data-toggle="collapse" aria-controls="product_base_menu" href="#product_base_menu"
+          class=" mr_cursor col-md-12 mt_table_header">Продукция</h6>
       <div id="product_base_menu"
            class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
         <h6 data-toggle="collapse" aria-controls="manufacturer_menu" href="#manufacturer_menu"
@@ -178,8 +178,8 @@
       </div>
     </div>
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_3">
-      <h5 data-toggle="collapse" aria-controls="doc_menu" href="#doc_menu" class="mr_cursor col-md-12 mt_table_header">
-        Документы, привязанные к сертификату</h5>
+      <h6 data-toggle="collapse" aria-controls="doc_menu" href="#doc_menu" class="mr_cursor col-md-12 mt_table_header">
+        Документы, привязанные к сертификату</h6>
       <div id="doc_menu"
            class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
         <div v-if="documents">
@@ -255,8 +255,8 @@
       </div>
     </div>
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_4">
-      <h5 data-toggle="collapse" aria-controls="applicant_base_menu" href="#applicant_base_menu"
-          class="mr_cursor col-md-12 mt_table_header">Заявитель</h5>
+      <h6 data-toggle="collapse" aria-controls="applicant_base_menu" href="#applicant_base_menu"
+          class="mr_cursor col-md-12 mt_table_header">Заявитель</h6>
       <div id="applicant_base_menu"
            class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
         <h6 class="mt_table_header_name">{{applicant['Name']}}</h6>
@@ -362,7 +362,7 @@
 </script>
 
 <style scoped>
-  h5, h6 {
+  h6, h6 {
     font-weight: bold;
   }
 

@@ -6,6 +6,8 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetWords('en');
 
 return $translate_arr + [
+    'Номер'                                                                                        => 'Number',
+    'Статус'                                                                                       => 'Status',
     'Офис переключен'                                                                              => 'Office changed',
     'Админ'                                                                                        => 'Admin',
     'Доступ'                                                                                       => 'Permission',

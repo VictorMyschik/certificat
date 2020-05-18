@@ -24,7 +24,7 @@ class MrTableController extends Controller
     {
       $id = $model->id;
 
-      $row[] = $class_name::buildRow($id);
+      $row[] = $class_name::buildRow($id, $args);
 
 
       $data->setCollection(collect($row));

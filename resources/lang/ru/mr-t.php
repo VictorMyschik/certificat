@@ -6,6 +6,8 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetAllRusWords();
 
 return $translate_arr + [
+    'Номер'                                                                                        => 'Номер',
+    'Статус'                                                                                       => 'Статус',
     'Офис переключен'                                                                              => 'Офис переключен',
     'Админ'                                                                                        => 'Админ',
     'Доступ'                                                                                       => 'Доступ',

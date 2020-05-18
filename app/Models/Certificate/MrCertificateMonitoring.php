@@ -64,37 +64,4 @@ class MrCertificateMonitoring extends ORM
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /**
-   * Список сертификатов, загруженных пользователем
-   *
-   * @param MrUserInOffice $user_in_office
-   * @return MrCertificate[]
-   */
-  public static function GetUserCertificateMonitoringList(MrUserInOffice $user_in_office): array
-  {
-    return Cache::rememberForever('user_certificate_' . $user_in_office->id(), function () use ($user_in_office) {
-      $list = DB::table(MrCertificate::getTableName())
-        ->join(MrCertificateMonitoring::getTableName(), MrCertificateMonitoring::getTableName() . '.CertificateID', '=', MrCertificate::getTableName() . '.id')
-        ->where(MrCertificateMonitoring::getTableName() . '.UserInOfficeID', '=', $user_in_office->id())
-        ->get()->toArray();
-
-      if(count($list))
-      {
-        return $list;
-      }
-      else
-      {
-        return array();
-      }
-    });
-  }
-
-  /**
-   * @param MrUserInOffice $uio
-   * @return MrCertificateMonitoring[]
-   */
-  public static function GetByUserInOffice(MrUserInOffice $uio)
-  {
-    return MrCertificateMonitoring::LoadArray(['UserInOfficeID' => $uio->id()]);
-  }
 }

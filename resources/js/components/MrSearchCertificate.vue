@@ -1,9 +1,9 @@
 <template>
-  <div class="container col-md-10 col-sm-12 m-t-10">
+  <div class="container col-md-11 col-sm-12 m-t-10">
     <div class="row no-gutters padding-horizontal">
       <div class="d-inline col-md-3 m-t-15">
         <label><b>Введите номер сертификата, артикул, наименование...</b>
-          <input v-model="message" type="text" @input="getResults($event)" placeholder="search..." onfocus="this"
+          <input v-model="message" type="text" @input="getResults($event)" placeholder="search..." autofocus
                  class="form-control col-md-12 mr-border-radius-10 p-l-5"></label>
         <div class="">
           <div class="history_search"></div>
@@ -46,9 +46,9 @@
         if (this.message.length > 2)
         {
           axios.post(url, {'text': this.message}).then(response =>
-              {
-                this.result = response.data.data;
-              }
+            {
+              this.result = response.data.data;
+            }
           );
         }
         else
@@ -64,10 +64,10 @@
 
         this.certificate_json = null;
         axios.post(url).then(response =>
-            {
-              this.certificate_json = response.data;
-              this.watch_id = id;
-            }
+          {
+            this.certificate_json = response.data;
+            this.watch_id = id;
+          }
         );
       },
 
@@ -76,9 +76,9 @@
         let url = '/watch/add/' + this.watch_id;
 
         axios.post(url).then(response =>
-            {
-              alert('Сертификат №' + response.data['certificate'] + ' отслеживается');
-            }
+          {
+            alert('Сертификат №' + response.data['certificate'] + ' отслеживается');
+          }
         );
       }
     },
