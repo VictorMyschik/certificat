@@ -29,6 +29,11 @@ Route::match(['get', 'post'], '/admin/certificate/product_info', 'Admin\MrAdminC
 //Страница бэкапа с миграциями
 Route::match(['get', 'post'], '/admin/system/backup/summary_table', 'Admin\MrAdminBackUpController@getSummaryList')->name('summary_list_table');
 
+/// Для авторизованных
+Route::group(['middleware' => 'auth'], function () {
+  Route::match(['get', 'post'], '/watch/list', 'Office\MrOfficeController@CertificateMonitoringList')->name('list_certificate_monitoring');
+});
+
 /// Для Админов
 Route::group(['middleware' => 'is_admin'], function () {
   Route::match(['get', 'post'], '/admin/systemdata', 'Admin\MrAdminController@GetData')->name('admin_redis_data');

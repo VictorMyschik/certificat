@@ -4,6 +4,7 @@ namespace App\Models\Certificate;
 
 use App\Helpers\MrDateTime;
 use App\Models\MrUser;
+use App\Models\Office\MrOffice;
 use App\Models\Office\MrUserInOffice;
 use App\Models\ORM;
 use Illuminate\Support\Facades\Cache;
@@ -15,7 +16,7 @@ class MrCertificateMonitoring extends ORM
   public static $className = MrCertificateMonitoring::class;
 
   protected $fillable = array(
-    'UserInOfficeID',
+    'OfficeID',
     'CertificateID',
     'Description',
     //'WriteDate',
@@ -26,14 +27,14 @@ class MrCertificateMonitoring extends ORM
     Cache::forget('user_certificate_' . MrUser::me()->id());
   }
 
-  public function getUserInOffice(): MrUserInOffice
+  public function getOffice(): MrOffice
   {
-    return MrUserInOffice::loadBy($this->UserInOfficeID);
+    return MrOffice::loadBy($this->OfficeID);
   }
 
-  public function setUserInOfficeID(int $value): void
+  public function setOfficeID(int $value): void
   {
-    $this->UserInOfficeID = $value;
+    $this->OfficeID = $value;
   }
 
   public function getCertificate(): MrCertificate

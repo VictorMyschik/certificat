@@ -20,29 +20,29 @@ class MrCertificate extends ORM
   protected $table = 'mr_certificate';
 
   protected $fillable = array(
-    'CertificateKindID',// $table->integer('Kind');//Тип документа
-    'Number',// $table->string('Number');//Регистрационный номер документа
-    'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
-    'DateTo',// $table->date('DateTo')->nullable();//Дата окончания срока действия
-    'CountryID',// $table->integer('CountryID');//Страна
-    'Status',// $table->tinyInteger('Status')->default(0);//Статус действия | Действует
-    'AuditorID',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
-    'BlankNumber',// $table->string('BlankNumber', 50)->nullable();//Номер бланка | BY 0008456
-    'DateStatusFrom',// $table->date('DateStatusFrom')->nullable();//Срок действия статуса | c 02.04.2020 по 01.04.2025
-    'DateStatusTo',// $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
-    'DocumentBase',// $table->string('DocumentBase')->nullable();//Документ, на основании которого установлен статус
-    'WhyChange',// $table->string('WhyChange')->nullable();//Причина изменения статуса
-    'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
-    'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
-    'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
-    'AuthorityID',//Сведения об органе по оценке соответствия
-    'DateUpdateEAES',// Дата обновления на ЕАЭС
-    'SingleListProductIndicator', //признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
+      'CertificateKindID',// $table->integer('Kind');//Тип документа
+      'Number',// $table->string('Number');//Регистрационный номер документа
+      'DateFrom',// $table->date('DateFrom');//Дата начала срока действия
+      'DateTo',// $table->date('DateTo')->nullable();//Дата окончания срока действия
+      'CountryID',// $table->integer('CountryID');//Страна
+      'Status',// $table->tinyInteger('Status')->default(0);//Статус действия | Действует
+      'AuditorID',// $table->string('Auditor', 80);//Эксперт - аудитор (ФИО) | Игорь Владимирович Гурин
+      'BlankNumber',// $table->string('BlankNumber', 50)->nullable();//Номер бланка | BY 0008456
+      'DateStatusFrom',// $table->date('DateStatusFrom')->nullable();//Срок действия статуса | c 02.04.2020 по 01.04.2025
+      'DateStatusTo',// $table->date('DateStatusTo')->nullable();  //Срок действия статуса | c 02.04.2020 по 01.04.2025
+      'DocumentBase',// $table->string('DocumentBase')->nullable();//Документ, на основании которого установлен статус
+      'WhyChange',// $table->string('WhyChange')->nullable();//Причина изменения статуса
+      'SchemaCertificate',// $table->string('SchemaCertificate', 3)->nullable();//Схема сертификации (декларирования) | 1с
+      'Description',// $table->string('Description', 1000)->nullable();//Примечание для себя
+      'LinkOut',// $table->string('LinkOut')->nullable();//Ссылка на оригинальный сертификат
+      'AuthorityID',//Сведения об органе по оценке соответствия
+      'DateUpdateEAES',// Дата обновления на ЕАЭС
+      'SingleListProductIndicator', //признак включения продукции в единый перечень продукции, подлежащей обязательному подтверждению соответствия с выдачей сертификатов соответствия и деклараций о соответствии по единой форме: 1 – продукция включена в единый перечень; 0 – продукция исключена из единого перечня
     ///'WriteDate' // $table->timestamp('WriteDate')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));//Момент записи
 
-    'ManufacturerID', // Производитель
-    'ApplicantID',
-    'TechnicalRegulationKindID'// Кодовое обозначение вида объекта технического регулирования
+      'ManufacturerID', // Производитель
+      'ApplicantID',
+      'TechnicalRegulationKindID'// Кодовое обозначение вида объекта технического регулирования
   );
 
   const STATUS_ACTIVE = 1;
@@ -53,12 +53,12 @@ class MrCertificate extends ORM
   const STATUS_ARHIVED = 6;
 
   protected static $statuses = array(
-    self::STATUS_ACTIVE    => 'действует',
-    self::STATUS_PAUSED    => 'приостановлен',
-    self::STATUS_STOPPED   => 'прекращен',
-    self::STATUS_CONTINUED => 'продлен',
-    self::STATUS_REOPENED  => 'возобновлен',
-    self::STATUS_ARHIVED   => 'архивный',
+      self::STATUS_ACTIVE    => 'действует',
+      self::STATUS_PAUSED    => 'приостановлен',
+      self::STATUS_STOPPED   => 'прекращен',
+      self::STATUS_CONTINUED => 'продлен',
+      self::STATUS_REOPENED  => 'возобновлен',
+      self::STATUS_ARHIVED   => 'архивный',
   );
 
 
@@ -132,7 +132,7 @@ class MrCertificate extends ORM
 
   public function setDateTo($value): void
   {
-    if(is_string($value))
+    if (is_string($value))
     {
       $value = new Carbon($value);
     }
@@ -376,7 +376,7 @@ class MrCertificate extends ORM
    */
   public static function GetHashedList()
   {
-    if(count(self::$hashed))
+    if (count(self::$hashed))
     {
       return self::$hashed;
     }
@@ -471,21 +471,28 @@ class MrCertificate extends ORM
     $out = array();
 
     $out['certificate'] = array(
-      'DateFrom'          => $this->getDateFrom() ? $this->getDateFrom()->getShortDate() : null,
-      'DateTo'            => $this->getDateTo() ? $this->getDateTo()->getShortDate() : null,
-      'Auditor'           => $this->getAuditor() ? $this->getAuditor()->GetFullName() : null,
-      'BlankNumber'       => $this->getBlankNumber(),
-      'StatusDates'       => MrDateTime::GetFromToDate($this->getDateStatusFrom(), $this->getDateStatusTo()),
-      'BaseDocument'      => $this->getDocumentBase(),
-      'WhyChange'         => $this->getWhyChange(),
-      'SchemaCertificate' => $this->getSchemaCertificate(),
-      'Description'       => $this->getDescription(),
+        'Country'                  => __('mr-t.' . $this->getCountry()->getName()),
+        'StatusName'               => $this->getStatusName(),
+        'Status'                   => $this->getStatus(),
+        'CertificateKindName'      => $this->getCertificateKind()->getName(),
+        'CertificateKindShortName' => $this->getCertificateKind()->getShortName(),
+        'CountryAlpha2'            => mb_strtolower($this->getCountry()->getISO3166alpha2()),
+        'Number'                   => $this->getNumber(),
+        'DateFrom'                 => $this->getDateFrom() ? $this->getDateFrom()->getShortDate() : null,
+        'DateTo'                   => $this->getDateTo() ? $this->getDateTo()->getShortDate() : null,
+        'Auditor'                  => $this->getAuditor() ? $this->getAuditor()->GetFullName() : null,
+        'BlankNumber'              => $this->getBlankNumber(),
+        'StatusDates'              => MrDateTime::GetFromToDate($this->getDateStatusFrom(), $this->getDateStatusTo()),
+        'BaseDocument'             => $this->getDocumentBase(),
+        'WhyChange'                => $this->getWhyChange(),
+        'SchemaCertificate'        => $this->getSchemaCertificate(),
+        'Description'              => $this->getDescription(),
     );
 
     //// Орган по сертификации
     $out['authority'] = array();
 
-    if($authority = $this->getAuthority())
+    if ($authority = $this->getAuthority())
     {
       $out['authority']['Name'] = $authority->getName();
 
@@ -500,7 +507,7 @@ class MrCertificate extends ORM
 
     //// Производитель
     $out['manufacturer'] = array();
-    if($manufacturer = $this->getManufacturer())
+    if ($manufacturer = $this->getManufacturer())
     {
       $out['manufacturer']['Name'] = $manufacturer->getName();
       $out['manufacturer']['Country'] = $manufacturer->getCountry() ? $manufacturer->getCountry()->getName() : '';
@@ -511,20 +518,20 @@ class MrCertificate extends ORM
       foreach ($manufacturer->GetProducts() as $key => $product)
       {
         $out['manufacturer']['products'][$key] = array(
-          'Name'        => $product->getName(),
-          'Description' => $product->getDescription(),
+            'Name'        => $product->getName(),
+            'Description' => $product->getDescription(),
         );
 
         foreach ($product->GetProductInfo() as $info)
         {
           $out['manufacturer']['products'][$key]['Info'][] = array(
-            'Name'             => $info->getName(),
-            'TnvedCode'        => $info->GetTnvedExt() ? $info->GetTnvedExt()->getCode() : null,
-            'ManufacturedDate' => $info->getManufacturedDate() ? $info->getManufacturedDate()->getShortDate() : null,
-            'ExpiryDate'       => $info->getExpiryDate() ? $info->getExpiryDate()->getShortDate() : null,
-            'InstanceId'       => $info->getInstanceId(),
-            'Description'      => $info->getDescription(),
-            'Measure'          => $info->getMeasure() ? $info->getMeasure()->getName() : null,
+              'Name'             => $info->getName(),
+              'TnvedCode'        => $info->GetTnvedExt() ? $info->GetTnvedExt()->getCode() : null,
+              'ManufacturedDate' => $info->getManufacturedDate() ? $info->getManufacturedDate()->getShortDate() : null,
+              'ExpiryDate'       => $info->getExpiryDate() ? $info->getExpiryDate()->getShortDate() : null,
+              'InstanceId'       => $info->getInstanceId(),
+              'Description'      => $info->getDescription(),
+              'Measure'          => $info->getMeasure() ? $info->getMeasure()->getName() : null,
           );
         }
       }
@@ -538,31 +545,31 @@ class MrCertificate extends ORM
     {
       $document = $dil->getDocument();
       $out['documents'][$document->getKind()][] = array(
-        'KindName'      => $document->getKindName(),
-        'Name'          => $document->getName(),
-        'Number'        => $document->getNumber(),
-        'Date'          => $document->getDate() ? $document->getDate()->getShortDate() : null,
-        'DateFrom'      => $document->getDateFrom() ? $document->getDateFrom()->getShortDate() : null,
-        'DateTo'        => $document->getDateTo() ? $document->getDateTo()->getShortDate() : null,
-        'Organisation'  => $document->getOrganisation(),
-        'Accreditation' => $document->getAccreditation(),
-        'Description'   => $document->getDescription(),
-        'IsIncludeIn'   => $document->isInclude(),
+          'KindName'      => $document->getKindName(),
+          'Name'          => $document->getName(),
+          'Number'        => $document->getNumber(),
+          'Date'          => $document->getDate() ? $document->getDate()->getShortDate() : null,
+          'DateFrom'      => $document->getDateFrom() ? $document->getDateFrom()->getShortDate() : null,
+          'DateTo'        => $document->getDateTo() ? $document->getDateTo()->getShortDate() : null,
+          'Organisation'  => $document->getOrganisation(),
+          'Accreditation' => $document->getAccreditation(),
+          'Description'   => $document->getDescription(),
+          'IsIncludeIn'   => $document->isInclude(),
       );
     }
 
     //// Заявитель
     $out['applicant'] = array();
-    if($applicant = $this->getApplicant())
+    if ($applicant = $this->getApplicant())
     {
       $out['applicant'] = array(
-        'Name'        => $applicant->getName(),
-        'BusinessId'  => $applicant->getBusinessEntityId(),
-        'Country'     => $applicant->getCountry() ? $applicant->getCountry()->getName() : null,
-        'Address1'    => $applicant->getAddress1() ? $applicant->getAddress1()->GetFullAddress() : null,
-        'Address2'    => $applicant->getAddress2() ? $applicant->getAddress2()->GetFullAddress() : null,
-        'Fio'         => $applicant->getFio() ? $applicant->getFio()->GetFullNameWithPosition() : '',
-        'Communicate' => $applicant->GetCommunicateOut(),
+          'Name'        => $applicant->getName(),
+          'BusinessId'  => $applicant->getBusinessEntityId(),
+          'Country'     => $applicant->getCountry() ? $applicant->getCountry()->getName() : null,
+          'Address1'    => $applicant->getAddress1() ? $applicant->getAddress1()->GetFullAddress() : null,
+          'Address2'    => $applicant->getAddress2() ? $applicant->getAddress2()->GetFullAddress() : null,
+          'Fio'         => $applicant->getFio() ? $applicant->getFio()->GetFullNameWithPosition() : '',
+          'Communicate' => $applicant->GetCommunicateOut(),
       );
     }
 
@@ -576,12 +583,12 @@ class MrCertificate extends ORM
    */
   public static function Search(?string $text): array
   {
-    if(!$text)
+    if (!$text)
     {
       return array();
     }
 
-    $list = DB::table(self::getTableName())->where('Number', 'LIKE', '%' . $text . '%')->limit(5)->get(['id', 'Number']);
+    $list = DB::table(self::getTableName())->where('Number', 'LIKE', '%' . $text . '%')->limit(15)->get(['id', 'Number']);
     $out = array();
     foreach ($list as $item)
     {

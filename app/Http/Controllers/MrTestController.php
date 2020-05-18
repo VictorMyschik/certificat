@@ -11,17 +11,12 @@ class MrTestController extends Controller
   public function index(Request $request)
   {
 
-    $object = new MrOffice();
-    $object->setName(23213213);
-    $object_id = $object->save_mr();
+    $object = MrOffice::loadBy(20);
+    $certs = $object->GetMonitoringCertificates();
 
-    $object->mr_delete();
+    dd($certs);
 
-
-
-
-    dd(MrOffice::loadBy($object_id));
-
+dd(1);
     /*
         MrCertificate::AllDelete();
         MrCertificateDocument::AllDelete();
@@ -44,16 +39,16 @@ class MrTestController extends Controller
     // удаление шлака
     foreach ($files as $key => $file_q)
     {
-      if(strlen($file_q) < 3)
+      if (strlen($file_q) < 3)
       {
         unset($files[$key]);
       }
     }
 
 
-    if($name = $request->get('file_name'))
+    if ($name = $request->get('file_name'))
     {
-      if(array_search($name, $files))
+      if (array_search($name, $files))
       {
         ini_set('max_execution_time', 50000);
         $file = public_path() . '/files/' . $name;
@@ -76,7 +71,7 @@ class MrTestController extends Controller
     // удаление шлака
     foreach ($files as $key => $file_q)
     {
-      if(strlen($file_q) < 3)
+      if (strlen($file_q) < 3)
       {
         unset($files[$key]);
       }

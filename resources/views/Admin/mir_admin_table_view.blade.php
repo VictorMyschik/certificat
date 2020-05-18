@@ -6,7 +6,7 @@
       {!! MrLink::open('admin_backup_page',[],'Назад','btn btn-primary btn-sm') !!}
       @include('Admin.layouts.page_title')
       {!!  MrMessage::GetMessage() !!}
-      @include('layouts.Elements.table', ['route_name'=>$route_name])
+      <mr-table :mr_route="'{{$route_name}}'"></mr-table>
     </div>
   </div>
 @endsection

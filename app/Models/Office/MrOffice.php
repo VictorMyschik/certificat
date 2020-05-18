@@ -3,10 +3,13 @@
 namespace App\Models\Office;
 
 use App\Helpers\MrDateTime;
+use App\Models\Certificate\MrCertificateMonitoring;
 use App\Models\MrNewUsers;
 use App\Models\MrUser;
 use App\Models\ORM;
 use App\Models\References\MrCountry;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class MrOffice extends ORM
 {
@@ -14,31 +17,31 @@ class MrOffice extends ORM
   public static $className = MrOffice::class;
 
   protected $fillable = array(
-    'Name',
-    'Description',
+      'Name',
+      'Description',
 
-    'UNP',
-    'CountryID',
-    'Email',
-    'Phone',
+      'UNP',
+      'CountryID',
+      'Email',
+      'Phone',
     // для свзяи и отправки почты
-    'POPostalCode',
-    'PORegion',
-    'POCity',
-    'POAddress',
+      'POPostalCode',
+      'PORegion',
+      'POCity',
+      'POAddress',
     // Юр. данные
-    'URPostalCode',
-    'URRegion',
-    'URCity',
-    'URAddress',
+      'URPostalCode',
+      'URRegion',
+      'URCity',
+      'URAddress',
     // Банковские данные
-    'BankRS',
-    'BankName',
-    'BankCode',
-    'BankAddress',
-    'PersonSign',
-    'PersonPost',
-    'PersonFIO',
+      'BankRS',
+      'BankName',
+      'BankCode',
+      'BankAddress',
+      'PersonSign',
+      'PersonPost',
+      'PersonFIO',
     //'CreateDate'
   );
 
@@ -49,15 +52,18 @@ class MrOffice extends ORM
   public function canEdit(): bool
   {
     $me = MrUser::me();
-    if($me->IsSuperAdmin())
+    if (!$this->canView())
+      return false;
+
+    if ($me->IsSuperAdmin())
     {
-     //return true;
+      //return true;
     }
 
     foreach ($this->GetUsers() as $uio)
     {
       $user = $uio->getUser();
-      if($user->id() == $me->id())
+      if ($user->id() == $me->id())
       {
         return $uio->getIsAdmin();
       }
@@ -69,7 +75,7 @@ class MrOffice extends ORM
   public function canView(): bool
   {
     $me = MrUser::me();
-    if($me->IsSuperAdmin())
+    if ($me->IsSuperAdmin())
     {
       //return true;
     }
@@ -77,7 +83,7 @@ class MrOffice extends ORM
     foreach ($this->GetUsers() as $uio)
     {
       $user = $uio->getUser();
-      if($user->id() == $me->id())
+      if ($user->id() == $me->id())
       {
         return true;
       }
@@ -358,7 +364,7 @@ class MrOffice extends ORM
   {
     foreach ($this->GetUsers() as $item)
     {
-      if($item->getUser()->id() == $user->id())
+      if ($item->getUser()->id() == $user->id())
       {
         return true;
       }
@@ -377,7 +383,7 @@ class MrOffice extends ORM
     $i = 0;
     foreach ($this->GetUsers() as $uio)
     {
-      if($uio->getIsAdmin())
+      if ($uio->getIsAdmin())
       {
         $i++;
       }
@@ -394,5 +400,21 @@ class MrOffice extends ORM
   public function GetNewUsers(): array
   {
     return MrNewUsers::LoadArray(['OfficeID' => $this->id()]);
+  }
+
+  /**
+   * Список отслеживаемых сертификатов
+   *
+   * @return Collection
+   */
+  public function GetMonitoringCertificates()
+  {
+    $uio_id = array();
+    foreach ($this->GetUsers() as $uio)
+    {
+      $uio_id[] = $uio->id();
+    }
+
+    return DB::table(MrCertificateMonitoring::getTableName())->whereIn('UserInOfficeID', [$uio_id])->get();
   }
 }

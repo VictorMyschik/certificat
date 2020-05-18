@@ -16,12 +16,6 @@ Route::get('locale/{locale}', function ($locale) {
   return redirect()->back();
 });
 
-// Тест
-Route::get('/search', 'HomeController@SearchPage')->name('test_search');
-Route::match(['get', 'post'], '/search/api', 'HomeController@SearchApi')->name('test_search');
-Route::match(['get', 'post'], '/search/api/get/{id}', 'HomeController@GetCertificate');
-
-
 Route::get('/', 'HomeController@index')->name('welcome');
 Route::match(['get', 'post'], '/faq', 'MrFAQController@index')->name('faq_page');
 
@@ -108,6 +102,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
   // Удалить приглашённого пользователя
   Route::get('/office/{office_id}/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
+
+
+  //// Работа пользователя с сертификатами
+  // Поиск
+  Route::match(['get', 'post'], '/search/api', 'Office\MrOfficeController@SearchApi')->name('certificate_search');
+  Route::match(['get', 'post'], '/search/api/get/{id}', 'Office\MrOfficeController@GetCertificate');
+
+  // Добавление отслеживания
+  Route::match(['get', 'post'], '/watch/add/{certificate_id}', 'Office\MrOfficeController@AddCertificateToMonitoring');
+
 });
 
 
@@ -131,9 +135,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
   Route::get('/admin/feedback/edit/{id}', "Admin\MrAdminFeedbackController@edit")->name('admin_feedback_edit');
   Route::get('/admin/feedback/edit/read/{id}',
-    "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
+      "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
   Route::match(['get', 'post'], '/admin/feedback/edit/send/{id}',
-    "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
+      "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
 
   // Почта

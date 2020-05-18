@@ -18,6 +18,8 @@ Vue.component('mr-table', require('./components/MrTable.vue').default);
 Vue.component('mr-search-certificate', require('./components/MrSearchCertificate.vue').default);
 Vue.component('mr-admin-redis-data', require('./components/Admin/MrAdminRedisData.vue').default);
 Vue.component('mr-certificate-details', require('./components/MrCertificateDetails.vue').default);
+Vue.component('mr-excel-block', require('./components/MrExcelBlock.vue').default);
+Vue.component('mr-my-certificate', require('./components/MrMyCertificate.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

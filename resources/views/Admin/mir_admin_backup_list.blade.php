@@ -13,7 +13,7 @@
                                                                        href="#">Recovery</a> восстановит данные
         </div>
       </div>
-      @include('layouts.Elements.table', ['route_name'=>$route_name])
+      <mr-table :mr_route="'{{$route_name}}'"></mr-table>
     </div>
   </div>
 @endsection

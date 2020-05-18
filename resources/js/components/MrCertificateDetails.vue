@@ -1,18 +1,24 @@
 <template>
   <div class="row no-gutters col-md-12 padding-horizontal-0">
-
+    <div class="col-md-12 no-gutters">
+      <h4 class="mr-bold" :class="'mr_cert_status_certificate_'+certificate['Status']"><img style='height: 21px; border-radius: 4px;' :src="src" :alt="certificate['Country']"> {{certificate['StatusName']}}</h4>
+    </div>
+    <div class="col-md-12 no-gutters">
+      <h5 class="mr-bold" style="color: #090d2f">
+        {{certificate['Number']}}
+      </h5>
+    </div>
     <div class="row no-gutters col-lg-4 col-md-5 col-sm-12 m-r-5 m-l-5 m-b-10">
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_1')">Общее</div>
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_2')">Продукция</div>
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_3')">Документы</div>
       <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_4')">Заявитель</div>
     </div>
-
     <div class="row col-md-12 no-gutters" v-if="visible_1">
 
       <div class="shadow-sm col-sm-12 no-gutters col-md-6 mr-sm-0 m-b-10">
         <h5 data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1" href="#base_menu_1"
-            class="mr_cursor mr-bold mt_table_header">Сведения о документе
+            class="mr_cursor mr-bold mt_table_header">{{certificate['CertificateKindShortName']}}
         </h5>
         <div id="base_menu_1" class="collapse show">
           <table class="table table-sm table-striped col-md-12 mr-auto-size">
@@ -110,7 +116,6 @@
       </div>
 
     </div>
-
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_2">
       <h5 data-toggle="collapse" aria-controls="product_base_menu" href="#product_base_menu"
           class=" mr_cursor col-md-12 mt_table_header">Продукция</h5>
@@ -172,7 +177,6 @@
 
       </div>
     </div>
-
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_3">
       <h5 data-toggle="collapse" aria-controls="doc_menu" href="#doc_menu" class="mr_cursor col-md-12 mt_table_header">
         Документы, привязанные к сертификату</h5>
@@ -250,7 +254,6 @@
         </div>
       </div>
     </div>
-
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_4">
       <h5 data-toggle="collapse" aria-controls="applicant_base_menu" href="#applicant_base_menu"
           class="mr_cursor col-md-12 mt_table_header">Заявитель</h5>
@@ -294,14 +297,14 @@
         </table>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
   export default {
     props: ['certificate_json'],
-    data() {
+    data()
+    {
       return {
         visible_1: true,
         visible_2: true,
@@ -312,10 +315,13 @@
         manufacturer: [],
         documents: [],
         applicant: [],
+        src: '',
       }
     },
-    mounted() {
+    mounted()
+    {
       this.certificate = this.certificate_json.certificate;
+      this.src = 'https://img.geonames.org/flags/m/' + this.certificate_json.certificate['CountryAlpha2'] + '.png';
       this.authority = this.certificate_json.authority;
       this.manufacturer = this.certificate_json.manufacturer;
       this.documents = this.certificate_json.documents;
@@ -324,22 +330,30 @@
       console.log(this.manufacturer);
     },
     methods: {
-      change_data(kind) {
+      change_data(kind)
+      {
         this.visible_1 = false;
         this.visible_2 = false;
         this.visible_3 = false;
         this.visible_4 = false;
 
-        if (kind === 'visible_1') {
+        if (kind === 'visible_1')
+        {
           this.visible_1 = true;
           this.visible_2 = true;
           this.visible_3 = true;
           this.visible_4 = true;
-        } else if (kind === 'visible_2') {
+        }
+        else if (kind === 'visible_2')
+        {
           this.visible_2 = true;
-        } else if (kind === 'visible_3') {
+        }
+        else if (kind === 'visible_3')
+        {
           this.visible_3 = true;
-        } else if (kind === 'visible_4') {
+        }
+        else if (kind === 'visible_4')
+        {
           this.visible_4 = true;
         }
       }
@@ -404,4 +418,7 @@
     color: #6cb2eb;
   }
 
+  .mr_cert_status_certificate_1{
+   color: #009e00;
+  }
 </style>
