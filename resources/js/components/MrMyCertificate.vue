@@ -1,8 +1,9 @@
 <template>
-  <div class="container text-left col-md-4 col-sm-12 m-t-10">
-    <h5 class="mr-bold">Отслеживаемые сертификаты</h5>
-    <table class="table table-sm table-hover table-striped table-bordered col-md-12">
-      <thead class="mr-bold mr-bg-table-header mr-test">
+  <div class="row no-gutters col-md-12 col-sm-12 m-t-10 padding-horizontal">
+    <h5 class="mr-bold" data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1"
+        href="#my_certificate_list" style="cursor: pointer;">Отслеживаемые сертификаты</h5>
+    <table class="table table-sm table-hover col-md-12 collapse show" id="my_certificate_list">
+      <thead class="mr-bold  mr-test">
       <tr class="mr-auto-size">
         <td v-for="head in table_header" v-bind:class="typeof head['sort'] !== 'undefined' ? 'mr_cursor' : ''"
             v-on:click="mr_sort_field(head)">
@@ -13,7 +14,7 @@
       </tr>
       </thead>
       <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
-      <tr v-for="td in table_body.data">
+      <tr v-for="td in table_body.data" class="border-top">
         <td style="max-width: 300px; word-wrap: break-word;" v-for="item in td">
           <div style="white-space: pre-line; max-width: 500px;" v-html="item"></div>
         </td>
@@ -60,11 +61,11 @@
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
         console.log(param);
         axios.post('/api/watch/list/' + param).then(response =>
-          {
-            this.table_body = response.data.body;
-            this.table_header = response.data.header;
-            this.mr_wait = false;
-          }
+            {
+              this.table_body = response.data.body;
+              this.table_header = response.data.header;
+              this.mr_wait = false;
+            }
         );
       },
 
@@ -103,7 +104,6 @@
 
   .mr_cursor {
     cursor: pointer;
-    color: #0a1041;
   }
 
   .mr_cursor:hover {

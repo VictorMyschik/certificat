@@ -50,7 +50,7 @@ class MrCertificate extends ORM
   const STATUS_STOPPED = 3;
   const STATUS_CONTINUED = 4;
   const STATUS_REOPENED = 5;
-  const STATUS_ARHIVED = 6;
+  const STATUS_ARCHIVED = 6;
 
   protected static $statuses = array(
       self::STATUS_ACTIVE    => 'действует',
@@ -58,7 +58,7 @@ class MrCertificate extends ORM
       self::STATUS_STOPPED   => 'прекращен',
       self::STATUS_CONTINUED => 'продлен',
       self::STATUS_REOPENED  => 'возобновлен',
-      self::STATUS_ARHIVED   => 'архивный',
+      self::STATUS_ARCHIVED  => 'архивный',
   );
 
 
@@ -578,6 +578,7 @@ class MrCertificate extends ORM
 
   /**
    * Поиск сертификата
+   *
    * @param string|null $text
    * @return array
    */
@@ -588,11 +589,14 @@ class MrCertificate extends ORM
       return array();
     }
 
-    $list = DB::table(self::getTableName())->where('Number', 'LIKE', '%' . $text . '%')->limit(15)->get(['id', 'Number']);
+    $list = DB::table(self::getTableName())->where('Number', 'LIKE', '%' . $text . '%')->limit(15)->get(['id', 'Number', 'Status']);
     $out = array();
     foreach ($list as $item)
     {
-      $out[$item->id] = $item->Number;
+      $out[$item->id] = array(
+          'Number' => $item->Number,
+          'Status' => self::$statuses[$item->Status],
+      );
     }
     return $out;
   }

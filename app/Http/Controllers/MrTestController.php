@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Xml\MrXmlImportBase;
-use App\Models\Office\MrOffice;
+use App\Models\MrUser;
 use Illuminate\Http\Request;
 
 class MrTestController extends Controller
@@ -11,12 +11,13 @@ class MrTestController extends Controller
   public function index(Request $request)
   {
 
-    $object = MrOffice::loadBy(20);
-    $certs = $object->GetMonitoringCertificates();
+    $user = MrUser::me();
+    $user->SetSearchStory('9999');
 
-    dd($certs);
+    //$redis = MrCacheHelper::GetCachedData($user->id() . '_search_history');
+    dd($user->GetSearchHistory());
 
-dd(1);
+    dd(1);
     /*
         MrCertificate::AllDelete();
         MrCertificateDocument::AllDelete();

@@ -259,9 +259,14 @@ class MrOfficeController extends Controller
   public function SearchApi(Request $request)
   {
     $certificate = MrCertificate::Search($request->get('text'));
+
+    // Сохранение в истории поиска
+    $user = MrUser::me();
+    $user->SetSearchStory($request->get('text'));
+
     if ($certificate)
     {
-      return ['data' => $certificate];
+      return ['data' => array('result' => $certificate, 'history' => $user->GetSearchHistory())];
     }
 
     return null;

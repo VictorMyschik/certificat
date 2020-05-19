@@ -35,17 +35,31 @@ class MrCacheHelper extends Cache
   }
 
   /**
-   * Get text
-   *
    * @param string $key
-   * @param callable $text
+   * @param $value
+   * @param MrDateTime $time
+   */
+  public static function SetCachedData(string $key, $value, ?MrDateTime $time)
+  {
+    if (!$time)
+    {
+      $time = MrDateTime::now()->AddYears(1);
+    }
+    dump($key);
+    Cache::remember($key, $time, function () use ($value) {
+      return $value;
+    });
+  }
+
+  /**
+   * получить кэшированные данные
+   *
+   * @param $key
    * @return mixed
    */
-  public static function GetCachedField(string $key, callable $text): ?string
+  public static function GetCachedData($key)
   {
-    return Cache::rememberForever($key, function () use ($text) {
-      return $text();
-    });
+    return Cache::get($key, null);
   }
 
 
