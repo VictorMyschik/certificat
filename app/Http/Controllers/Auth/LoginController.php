@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\MrUser;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -21,6 +22,24 @@ class LoginController extends Controller
 
   use AuthenticatesUsers;
 
+  public function username()
+  {
+    $login = request()->input('identity');
+
+    $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+
+    request()->merge([$fieldType => $login]);
+
+    return $fieldType;
+  }
+
+  protected function validateLogin(Request $request)
+  {
+    $request->validate([
+        $this->username() => 'required|string',
+        'password' => 'required|string',
+    ]);
+  }
 
   //protected $redirectTo = '/';
   protected function redirectTo()
@@ -28,7 +47,7 @@ class LoginController extends Controller
     $user = MrUser::me();
     $user->setDateLogin();
     $user->save_mr();
-    if($def_office = $user->getDefaultOffice())
+    if ($def_office = $user->getDefaultOffice())
     {
       redirect()->route('office_page', ['office_id' => $def_office->id()]);
     }

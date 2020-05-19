@@ -28,7 +28,7 @@ Route::match(['get', 'post'], '/unsubscription/{token}', "MrSubscriptionControll
 Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 
 //// Справочники
-/// универсальная динамческая страница справочкика
+/// универсальная динамическая страница справочника
 Route::get('/references/{name}', 'MrReferencesController@View')->name('references');
 
 // Страница инфо о сертификате
