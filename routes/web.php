@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
   //// Работа пользователя с сертификатами
   // Поиск
-  Route::match(['get', 'post'], '/search/api', 'Office\MrOfficeController@SearchApi')->name('certificate_search');
+  Route::match(['get', 'post'], '/search/certificate', 'Office\MrOfficeController@SearchApi')->name('certificate_search');
   Route::match(['get', 'post'], '/search/api/get/{id}', 'Office\MrOfficeController@GetCertificate');
 
   // Добавление отслеживания

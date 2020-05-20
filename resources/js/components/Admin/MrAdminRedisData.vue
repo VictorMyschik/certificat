@@ -27,18 +27,18 @@
     },
 
     mounted() {
-      this.getResults();
+      this.SearchCertificate();
     },
 
     methods: {
-      getResults() {
+      SearchCertificate() {
         axios.post('api/admin/systemdata').then(response => {
               this.table_body = response.data;
               console.log(this.table_body);
             }
         );
 
-        setTimeout(this.getResults, 2000);
+        setTimeout(this.SearchCertificate, 2000);
       },
     },
   }

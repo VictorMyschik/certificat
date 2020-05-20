@@ -10,9 +10,8 @@ class MrTestController extends Controller
 {
   public function index(Request $request)
   {
-
     $user = MrUser::me();
-    $user->SetSearchStory('9999');
+    $user->SetSearchStory('5');
 
     //$redis = MrCacheHelper::GetCachedData($user->id() . '_search_history');
     dd($user->GetSearchHistory());
@@ -40,16 +39,16 @@ class MrTestController extends Controller
     // удаление шлака
     foreach ($files as $key => $file_q)
     {
-      if (strlen($file_q) < 3)
+      if(strlen($file_q) < 3)
       {
         unset($files[$key]);
       }
     }
 
 
-    if ($name = $request->get('file_name'))
+    if($name = $request->get('file_name'))
     {
-      if (array_search($name, $files))
+      if(array_search($name, $files))
       {
         ini_set('max_execution_time', 50000);
         $file = public_path() . '/files/' . $name;
@@ -72,7 +71,7 @@ class MrTestController extends Controller
     // удаление шлака
     foreach ($files as $key => $file_q)
     {
-      if (strlen($file_q) < 3)
+      if(strlen($file_q) < 3)
       {
         unset($files[$key]);
       }

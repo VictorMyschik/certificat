@@ -19,19 +19,19 @@ class MrUser extends ORM
   const super_token = 'c10ea6679d1336c6f3e60fd29752cee96154967e';
 
   protected $fillable = array(
-      'UserLaravelID',
-      'Telegram',
-      'DateFirstVisit',
-      'DateLogin',
-      'DefaultOfficeID',
-      'DateLastVisit',
-      'Phone'
+    'UserLaravelID',
+    'Telegram',
+    'DateFirstVisit',
+    'DateLogin',
+    'DefaultOfficeID',
+    'DateLastVisit',
+    'Phone'
   );
 
   public function canEdit()
   {
     $me = self::me();
-    if ($me->id() == $this->id() || $me->IsSuperAdmin())
+    if($me->id() == $this->id() || $me->IsSuperAdmin())
     {
       return true;
     }
@@ -61,13 +61,13 @@ class MrUser extends ORM
    */
   public static function me(): ?MrUser
   {
-    if ($me = self::$me)
+    if($me = self::$me)
     {
       return $me;
     }
     else
     {
-      if (Auth::check())
+      if(Auth::check())
       {
         $me = MrUser::loadBy(Auth::id(), 'UserLaravelID');
         self::$me = $me;
@@ -92,7 +92,7 @@ class MrUser extends ORM
   // пользователь Laravel
   public function getUserLaravel(): ?User
   {
-    if ($this['UserLaravelID'])
+    if($this['UserLaravelID'])
     {
       return User::find($this['UserLaravelID']);
     }
@@ -198,7 +198,7 @@ class MrUser extends ORM
   public function getIsSubscription(): bool
   {
     $sub = MrSubscription::loadBy($this->getEmail(), 'Email');
-    if ($sub)
+    if($sub)
     {
       return true;
     }
@@ -219,7 +219,7 @@ class MrUser extends ORM
     $list = MrUserBlocked::GetAllBlocked();
     foreach ($list as $item)
     {
-      if ($this->id == $item->getUser()->id())
+      if($this->id == $item->getUser()->id())
       {
         return $item;
       }
@@ -238,16 +238,16 @@ class MrUser extends ORM
   {
     $log_authed = MrLogIdent::loadBy($this->id(), 'UserID');
     $links = DB::table(MrLogIdent::getTableName())
-        ->WHERE('Cookie', '=', $log_authed->getCookie())
-        ->whereNull('UserID')
-        ->orderBy('Date', 'desc')
-        ->limit(200)
-        ->pluck('Link')->toArray();
+      ->WHERE('Cookie', '=', $log_authed->getCookie())
+      ->whereNull('UserID')
+      ->orderBy('Date', 'desc')
+      ->limit(200)
+      ->pluck('Link')->toArray();
 
     $url = '';
     foreach ($links as $link)
     {
-      if ($link == '/ulogin' || $link == '/login' || $link == '/home' || $link == '/register')
+      if($link == '/ulogin' || $link == '/login' || $link == '/home' || $link == '/register')
       {
         continue;
       }
@@ -265,17 +265,17 @@ class MrUser extends ORM
    */
   public function IsSuperAdmin(): bool
   {
-    if (!Auth::check())
+    if(!Auth::check())
     {
       return false;
     }
 
     $admins = array(
-        $this->admin_email,
-        'valuxin@live.com',
+      $this->admin_email,
+      'valuxin@live.com',
     );
 
-    if ($this->getEmail())
+    if($this->getEmail())
     {
       return in_array($this->getEmail(), $admins);
     }
@@ -339,9 +339,9 @@ class MrUser extends ORM
   {
     return MrCacheHelper::GetCachedObjectList('user_offices' . '_' . $this->id(), MrOffice::$className, function () {
       return DB::table(MrOffice::getTableName())
-          ->leftJoin(MrUserInOffice::getTableName(), MrUserInOffice::getTableName() . '.OfficeID', '=', MrOffice::getTableName() . '.id')
-          ->where(MrUserInOffice::getTableName() . '.UserID', $this->id())
-          ->pluck(MrOffice::getTableName() . '.id')->toArray();
+        ->leftJoin(MrUserInOffice::getTableName(), MrUserInOffice::getTableName() . '.OfficeID', '=', MrOffice::getTableName() . '.id')
+        ->where(MrUserInOffice::getTableName() . '.UserID', $this->id())
+        ->pluck(MrOffice::getTableName() . '.id')->toArray();
     });
   }
 
@@ -367,7 +367,7 @@ class MrUser extends ORM
   {
     foreach ($office->GetUsers() as $uio)
     {
-      if ($this->id() == $uio->getUser()->id() && $uio->getIsAdmin())
+      if($this->id() == $uio->getUser()->id() && $uio->getIsAdmin())
       {
         return true;
       }
@@ -385,14 +385,28 @@ class MrUser extends ORM
   {
     $key = $this->id() . '_search_history';
     $time = MrDateTime::now()->AddYears(1);
-    $data = array($text);
-    if ($has = $this->GetSearchHistory())
+
+    $story_count = 5; // количество сохр. истории
+
+    $new_history = array();
+
+    $has_history = $this->GetSearchHistory();
+    if(!in_array($text, $has_history))
     {
-      $data = array_merge($has, $data);
+      array_unshift($has_history, $text);
     }
+    $new_history[0] = $text;
+    for ($i = 0; $i < $story_count; $i++)
+    {
+      if(!in_array($has_history[$i], $new_history))
+      {
+        $new_history[] = $has_history[$i];
+      }
+    }
+
     Cache::forget($key);
 
-    MrCacheHelper::SetCachedData($key, $data, $time);
+    MrCacheHelper::SetCachedData($key, $new_history, $time);
   }
 
   /**
@@ -400,8 +414,14 @@ class MrUser extends ORM
    *
    * @return array|null
    */
-  public function GetSearchHistory()
+  public function GetSearchHistory(): array
   {
-    return MrCacheHelper::GetCachedData($this->id() . '_search_history');
+    $out = array();
+    if($story = MrCacheHelper::GetCachedData($this->id() . '_search_history'))
+    {
+      return $story;
+    }
+
+    return $out;
   }
 }

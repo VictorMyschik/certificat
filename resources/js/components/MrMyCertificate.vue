@@ -50,12 +50,12 @@
 
     mounted()
     {
-      this.getResults();
+      this.SearchCertificate();
     },
 
     methods: {
 
-      getResults(page = 1)
+      SearchCertificate(page = 1)
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
@@ -84,7 +84,7 @@
             this.mr_sort = 'asc';
           }
 
-          this.getResults();
+          this.SearchCertificate();
         }
       }
     },
