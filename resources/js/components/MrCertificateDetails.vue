@@ -327,7 +327,7 @@
       this.documents = this.certificate_json.documents;
       this.applicant = this.certificate_json.applicant;
 
-      console.log(this.manufacturer);
+      //console.log(this.manufacturer);
     },
     methods: {
       change_data(kind)

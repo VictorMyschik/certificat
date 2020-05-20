@@ -266,7 +266,7 @@ class MrOfficeController extends Controller
 
     if ($certificate)
     {
-      return ['data' => array('result' => $certificate, 'history' => $user->GetSearchHistory())];
+      return ['result' => $certificate, 'history' => $user->GetSearchHistory()];
     }
 
     return null;

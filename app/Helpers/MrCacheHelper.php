@@ -45,7 +45,7 @@ class MrCacheHelper extends Cache
     {
       $time = MrDateTime::now()->AddYears(1);
     }
-    dump($key);
+
     Cache::remember($key, $time, function () use ($value) {
       return $value;
     });

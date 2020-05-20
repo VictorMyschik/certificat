@@ -48,7 +48,7 @@
 
 <script>
   export default {
-    name: "MrSearchCertificate",
+    name: "MrSearchCertificatePage",
     data()
     {
       return {
@@ -67,8 +67,8 @@
         {
           axios.post(url, {'text': this.message}).then(response =>
               {
-                console.log(result);
-                this.result = response.data.data;
+                console.log(response.data);
+                this.result = response.data;
               }
           );
         }
