@@ -32,6 +32,8 @@ Route::match(['get', 'post'], '/admin/system/backup/summary_table', 'Admin\MrAdm
 /// Для авторизованных
 Route::group(['middleware' => 'auth'], function () {
   Route::match(['get', 'post'], '/watch/list', 'Office\MrOfficeController@CertificateMonitoringList')->name('list_certificate_monitoring');
+  Route::match(['get', 'post'], '/search/user-history/{search_query}', 'Office\MrOfficeController@SetUserSearchHistory')
+    ->name('set_user_search_history');
 });
 
 /// Для Админов

@@ -56,7 +56,7 @@ class MrOfficeController extends Controller
   {
     $office = MrUser::me()->getDefaultOffice();
 
-    if (!$office)
+    if(!$office)
     {
       return redirect('/');
     }
@@ -73,8 +73,10 @@ class MrOfficeController extends Controller
   public function officePage(int $office_id)
   {
     $office = parent::has_permission($office_id);
-
+    $user = MrUser::me();
     $out = array();
+    $out['user_history'] = $user->GetSearchHistory();
+
     return View('Office.office_page')->with($out);
   }
 
@@ -90,23 +92,23 @@ class MrOfficeController extends Controller
     $uio = MrUserInOffice::loadByOrDie($id);
     $office = MrOffice::loadByOrDie($office_id);
 
-    if (!$office->canEdit() || $uio->getOffice()->id() != $office->id())
+    if(!$office->canEdit() || $uio->getOffice()->id() != $office->id())
     {
       mr_access_violation();
     }
 
-    if ($uio->getIsAdmin())
+    if($uio->getIsAdmin())
     {
       $i = 0;
       foreach ($office->GetUsers() as $uio_item)
       {
-        if ($uio_item->getIsAdmin())
+        if($uio_item->getIsAdmin())
         {
           $i++;
         }
       }
 
-      if ($i == 1)
+      if($i == 1)
       {
         MrMessageHelper::SetMessage(MrMessageHelper::KIND_ERROR, 'Нельзя оставить виртуальный офис без администратора');
         return back();
@@ -138,7 +140,7 @@ class MrOfficeController extends Controller
     $new_user = MrNewUsers::loadByOrDie($new_user_id);
     $office = MrOffice::loadByOrDie($office_id);
 
-    if (!$office->canEdit())
+    if(!$office->canEdit())
     {
       mr_access_violation();
     }
@@ -146,14 +148,14 @@ class MrOfficeController extends Controller
     // Новый пользователь должен быть привязан к офису
     foreach ($office->GetNewUsers() as $new_exist_user)
     {
-      if ($new_exist_user->id() == $new_user->id())
+      if($new_exist_user->id() == $new_user->id())
       {
 
         // Предовращение серии писем
-        if ($email_log = MrEmailLog::loadBy($new_user->getEmail(), 'EmailTo'))
+        if($email_log = MrEmailLog::loadBy($new_user->getEmail(), 'EmailTo'))
         {
           $diff = $email_log->getWriteDate()->diff(MrDateTime::now())->i;
-          if ($diff < 1) // период 3 минуты
+          if($diff < 1) // период 3 минуты
           {
             MrMessageHelper::SetMessage(MrMessageHelper::KIND_WARNING, 'Повоторите попытку через несколько минут');
             return back();
@@ -181,7 +183,7 @@ class MrOfficeController extends Controller
   {
     $uio = MrUserInOffice::loadBy($id);
 
-    if (!$uio->catEdit())
+    if(!$uio->catEdit())
     {
       mr_access_violation();
     }
@@ -189,7 +191,7 @@ class MrOfficeController extends Controller
     // Очистка из getDefaultOffice
     $user = $uio->getUser();
 
-    if ($uio->getOffice()->id() == $user->getDefaultOffice())
+    if($uio->getOffice()->id() == $user->getDefaultOffice())
     {
       $user->setDefaultOfficeID(null);
 
@@ -199,7 +201,7 @@ class MrOfficeController extends Controller
     $user->save_mr();
     $user->flush();
 
-    if (!MrUser::me()->getDefaultOffice())
+    if(!MrUser::me()->getDefaultOffice())
     {
       return redirect('/');
     }
@@ -218,7 +220,7 @@ class MrOfficeController extends Controller
   {
     $new_user = MrNewUsers::loadBy($id);
 
-    if (!$new_user->canEdit())
+    if(!$new_user->canEdit())
     {
       mr_access_violation();
     }
@@ -239,7 +241,7 @@ class MrOfficeController extends Controller
   public function NewUserDelete(int $office_id, int $id)
   {
     $new_user = MrNewUsers::loadBy($id);
-    if (!$new_user->canDelete())
+    if(!$new_user->canDelete())
     {
       mr_access_violation();
     }
@@ -258,18 +260,26 @@ class MrOfficeController extends Controller
    */
   public function SearchApi(Request $request)
   {
-    $certificate = MrCertificate::Search($request->get('text'));
-
-    // Сохранение в истории поиска
-    $user = MrUser::me();
-    $user->SetSearchStory($request->get('text'));
-
-    if ($certificate)
+    if($search_text = $request->get('text'))
     {
-      return ['result' => $certificate, 'history' => $user->GetSearchHistory()];
+      return MrCertificate::Search($search_text);
     }
 
     return null;
+  }
+
+  /**
+   * Сохранение истории поиска. Вернёт обновлённую историю.
+   *
+   * @param string $search_query
+   * @return array
+   */
+  public function SetUserSearchHistory(string $search_query): array
+  {
+    $user = MrUser::me();
+    $user->SetSearchStory($search_query);
+
+    return $user->GetSearchHistory();
   }
 
   public function GetCertificate(int $id)
@@ -287,7 +297,7 @@ class MrOfficeController extends Controller
   {
     $user = MrUser::me();
 
-    if (!$user->getDefaultOffice()->canEdit())
+    if(!$user->getDefaultOffice()->canEdit())
     {
       mr_access_violation();
     }

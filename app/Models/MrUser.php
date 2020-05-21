@@ -398,9 +398,12 @@ class MrUser extends ORM
     $new_history[0] = $text;
     for ($i = 0; $i < $story_count; $i++)
     {
-      if(!in_array($has_history[$i], $new_history))
+      if($has_history[$i] ?? null)
       {
-        $new_history[] = $has_history[$i];
+        if(!in_array($has_history[$i], $new_history))
+        {
+          $new_history[] = $has_history[$i];
+        }
       }
     }
 

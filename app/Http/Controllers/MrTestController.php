@@ -11,7 +11,6 @@ class MrTestController extends Controller
   public function index(Request $request)
   {
     $user = MrUser::me();
-    $user->SetSearchStory('5');
 
     //$redis = MrCacheHelper::GetCachedData($user->id() . '_search_history');
     dd($user->GetSearchHistory());
