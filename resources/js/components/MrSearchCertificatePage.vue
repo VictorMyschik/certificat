@@ -29,7 +29,7 @@
 
       <div v-if="certificate_json" class="d-inline col-md-9 m-t-15 shadow padding-horizontal">
         <div class="row no-gutters padding-horizontal m-b-15">
-          <span class="btn btn-success btn-sm m-t-5" v-on:click="watch()">Отслеживать</span>
+          <span class="btn btn-success btn-sm m-t-5" v-on:click="AddCertificateWatch">Отслеживать</span>
         </div>
         <hr>
         <mr-certificate-details class="padding-horizontal" v-model="certificate_json"
@@ -54,6 +54,7 @@
         result: [],
         history_search: [],
         watch_id: 0,
+        my_certificate_list: null,
       }
     },
 
@@ -63,6 +64,7 @@
     },
 
     methods: {
+      // Поиск сертификатов
       SearchCertificate()
       {
         let url = '/search/certificate';
@@ -99,7 +101,8 @@
         );
       },
 
-      watch()// Поставка отслеживания сертификата
+      // Поставка отслеживания сертификата
+      AddCertificateWatch()
       {
         let url = '/watch/add/' + this.watch_id;
 

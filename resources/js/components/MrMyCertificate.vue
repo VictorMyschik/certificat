@@ -61,11 +61,11 @@
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
 
         axios.post('/api/watch/list/' + param).then(response =>
-            {
-              this.table_body = response.data.body;
-              this.table_header = response.data.header;
-              this.mr_wait = false;
-            }
+          {
+            this.table_body = response.data.body;
+            this.table_header = response.data.header;
+            this.mr_wait = false;
+          }
         );
       },
 

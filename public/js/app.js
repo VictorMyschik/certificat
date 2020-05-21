@@ -41320,7 +41320,7 @@ var isPhantomJS = UA && /phantomjs/.test(UA);
 var isFF = UA && UA.match(/firefox\/(\d+)/);
 
 // Firefox has a "watch" function on Object.prototype...
-var nativeWatch = ({}).watch;
+var nativeWatch = ({}).AddCertificateWatch;
 
 var supportsPassive = false;
 if (inBrowser) {
@@ -42117,7 +42117,7 @@ ASSET_TYPES.forEach(function (type) {
  * Watchers hashes should not overwrite one
  * another, so we merge them as arrays.
  */
-strats.watch = function (
+strats.AddCertificateWatch = function (
   parentVal,
   childVal,
   vm,
@@ -45422,8 +45422,8 @@ function initState (vm) {
     observe(vm._data = {}, true /* asRootData */);
   }
   if (opts.computed) { initComputed(vm, opts.computed); }
-  if (opts.watch && opts.watch !== nativeWatch) {
-    initWatch(vm, opts.watch);
+  if (opts.AddCertificateWatch && opts.AddCertificateWatch !== nativeWatch) {
+    initWatch(vm, opts.AddCertificateWatch);
   }
 }
 
