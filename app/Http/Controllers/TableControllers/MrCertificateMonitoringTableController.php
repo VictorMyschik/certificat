@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\TableControllers;
 
+use App\Helpers\MrDateTime;
 use App\Models\Certificate\MrCertificateMonitoring;
-use App\Models\Office\MrOffice;
 
 class MrCertificateMonitoringTableController extends MrTableController
 {
@@ -17,6 +17,7 @@ class MrCertificateMonitoringTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
+      array('name' => __('mr-t.Срок действия'), 'sort' => 'mr_certificate.DateStatusTo'),
       array('name' => __('mr-t.Статус'), 'sort' => 'mr_certificate.Status'),
       array('name' => __('mr-t.Номер'), 'sort' => 'mr_certificate.Number'),
     );
@@ -24,14 +25,14 @@ class MrCertificateMonitoringTableController extends MrTableController
 
   protected static function buildRow(int $id, array $args): array
   {
-    $office = MrOffice::loadBy($args['office_id']);
     $row = array();
 
     $certificate_monitoring = MrCertificateMonitoring::loadByOrDie($id);
     $certificate = $certificate_monitoring->getCertificate();
 
     $row['id'] = $certificate->id();
-    $row['status'] = '<span class="'.$certificate->GetStatusColor().'">' . $certificate->getStatusName() . '</span>';
+    $row['dates'] = MrDateTime::GetFromToDate($certificate->getDateFrom(), $certificate->getDateTo());
+    $row['status'] = '<span class="' . $certificate->GetStatusColor() . '">' . $certificate->getStatusName() . '</span>';
     $row['number'] = $certificate->getNumber();
 
     $row[] = $certificate_monitoring->id();

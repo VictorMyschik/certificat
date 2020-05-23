@@ -27,6 +27,11 @@ class MrCertificateMonitoring extends ORM
     Cache::forget('user_certificate_' . MrUser::me()->id());
   }
 
+  public function after_save()
+  {
+    $this->getOffice()->flush();
+  }
+
   public function getOffice(): MrOffice
   {
     return MrOffice::loadBy($this->OfficeID);

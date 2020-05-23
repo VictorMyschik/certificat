@@ -30,7 +30,7 @@
         </div>
         <hr>
         <div class="row no-gutters shadow padding-horizontal mr-border-radius-10 m-l-5 m-r-5">
-          <mr-my-certificate></mr-my-certificate>
+          <mr-my-certificate :mr_key="mr_key"></mr-my-certificate>
         </div>
         <hr>
       </div>
@@ -57,6 +57,7 @@
     data()
     {
       return {
+        mr_key: 0,
         certificate_json: null,
         v_query_text: '',
         result: [],
@@ -122,6 +123,7 @@
         axios.post('/watch/add/' + this.watch_id).then(response =>
           {
             alert('Сертификат №' + response.data['certificate'] + ' отслеживается');
+            this.mr_key = 1;
           }
         );
       },

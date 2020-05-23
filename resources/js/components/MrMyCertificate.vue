@@ -5,8 +5,8 @@
          aria-controls="base_menu_1" href="#my_certificate_list">
       Отслеживаемые сертификаты
     </div>
-    <div id="my_certificate_list" class="collapse show" style="max-height: 200px; overflow: auto;">
-      <table class="table table-sm table-hover col-md-12">
+    <div id="my_certificate_list" class="collapse show" style="width: 100%; max-height: 300px; overflow: auto;">
+      <table class="table table-sm table-hover">
         <thead class="mr-bold">
         <tr class="mr-auto-size">
           <td v-for="head in table_header" v-bind:class="head['sort'] ? 'mr_cursor' : ''"
@@ -19,8 +19,7 @@
         </thead>
         <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
         <tr v-for="item in table_body.data" class="border-top mr_cursor" v-on:click="qwerty(item['id'])">
-          <td class="" v-html="item['status']"></td>
-          <td class="">{{item['number']}}</td>
+          <td v-html="item['dates']"></td><td v-html="item['status']"></td><td>{{item['number']}}</td>
         </tr>
         </tbody>
       </table>

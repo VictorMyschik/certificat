@@ -15,17 +15,19 @@ class MrDateTime extends \DateTime
 
   public function __construct($time = 'now', DateTimeZone $timezone = null)
   {
-    if (is_integer($time))
+    if(is_integer($time))
     {
       $time = '@' . $time;
     }
-    elseif ($time instanceof \DateTime)
+    elseif($time instanceof \DateTime)
     {
       $time = $time->format(self::ISO8601);
     }
 
-    if (!$timezone)
+    if(!$timezone)
+    {
       $timezone = self::getDefaultTimezone();
+    }
 
     parent::__construct($time, $timezone);
   }
@@ -34,7 +36,7 @@ class MrDateTime extends \DateTime
 
   public static function getDefaultTimezone()
   {
-    if (self::$default_timezone === -1)
+    if(self::$default_timezone === -1)
     {
       self::$default_timezone = new \DateTimeZone('Europe/Moscow');
     }
@@ -42,31 +44,41 @@ class MrDateTime extends \DateTime
     return self::$default_timezone;
   }
 
-  public static function GetFromToDate(?MrDateTime $from, ?MrDateTime $to): string
+  public static function GetFromToDate(?MrDateTime $from, ?MrDateTime $to, $without_word = false): string
   {
     $r = '';
 
-    if ($from && $to)
+    if($from && $to)
     {
-      if ($from->diff($to)->days == 0)
+      if($from->diff($to)->days == 0)
       {
         return $from->format('d.m.Y');
       }
     }
 
-    if ($from)
+    if($from)
     {
-      $r .= 'c ' . $from->format('d.m.Y');
+      if($without_word)
+      {
+        $r .= __('mr-t.с');
+      }
+
+      $r .= ' ' . $from->format('d.m.Y');
     }
 
-    if ($to)
+    if($to)
     {
-      if (strlen($r))
+      if(strlen($r))
       {
         $r .= ' - ';
       }
 
-      $r .= 'по ' . $to->format('d.m.Y');
+      if($without_word)
+      {
+        $r .= __('mr-t.по');
+      }
+
+      $r .= ' ' . $to->format('d.m.Y');
     }
 
     return $r;
@@ -79,7 +91,7 @@ class MrDateTime extends \DateTime
 
   public static function fromValue($value, ?string $format = null)
   {
-    if (!$value instanceof MrDateTime)
+    if(!$value instanceof MrDateTime)
     {
       $value = new MrDateTime($value);
     }
@@ -93,7 +105,7 @@ class MrDateTime extends \DateTime
     $d1 = $this->getMysqlDateTime();
     $d2 = $datetime->getMysqlDateTime();
 
-    if ($d1 == $d2 && $allow_equal)
+    if($d1 == $d2 && $allow_equal)
     {
       return true;
     }
@@ -108,7 +120,7 @@ class MrDateTime extends \DateTime
     $d1 = $this->getMysqlDateTime();
     $d2 = $datetime->getMysqlDateTime();
 
-    if ($d1 == $d2 && $allow_equal)
+    if($d1 == $d2 && $allow_equal)
     {
       return true;
     }
@@ -127,7 +139,7 @@ class MrDateTime extends \DateTime
 
   public function getFullTime(): string
   {
-    if ($this->full_time === -1)
+    if($this->full_time === -1)
     {
       $this->full_time = $this->format(MrDateTime::FULL_TIME);
     }
@@ -139,7 +151,7 @@ class MrDateTime extends \DateTime
 
   public function getShortTime(): string
   {
-    if ($this->short_time === -1)
+    if($this->short_time === -1)
     {
       $this->short_time = $this->format(MrDateTime::SHORT_TIME);
     }
@@ -161,7 +173,7 @@ class MrDateTime extends \DateTime
 
   public function getMysqlDate(): string
   {
-    if ($this->mysql_date === -1)
+    if($this->mysql_date === -1)
     {
       $this->mysql_date = $this->format(MrDateTime::MYSQL_DATE);
     }
@@ -173,7 +185,7 @@ class MrDateTime extends \DateTime
 
   public function getMysqlDateTime(): string
   {
-    if ($this->mysql_datetime === -1)
+    if($this->mysql_datetime === -1)
     {
       $this->mysql_datetime = $this->format(MrDateTime::MYSQL_DATETIME);
     }
@@ -201,7 +213,7 @@ class MrDateTime extends \DateTime
 
   public static function StopItem(?string $note)
   {
-    if ($note)
+    if($note)
     {
       self::$spent_result[$note] = sprintf('%.4f sec', microtime(true) - self::$time_spent);
     }
@@ -223,8 +235,10 @@ class MrDateTime extends \DateTime
   {
     $new_date = clone $this;
 
-    if (!$number_of_days)
+    if(!$number_of_days)
+    {
       return $new_date;
+    }
 
     $str = ($number_of_days >= 0 ? '+' : '') . $number_of_days . ' days';
 
@@ -236,12 +250,12 @@ class MrDateTime extends \DateTime
     $str = ($number_of_months >= 0 ? '+' : '') . $number_of_months . ' month';
 
     $new_date = clone $this;
-    if ($new_date->modify($str) === false)
+    if($new_date->modify($str) === false)
     {
       dd('$new_date->modify error');
     }
 
-    if ($new_date->format('j') != $this->format('j')) //we exceeded month limits
+    if($new_date->format('j') != $this->format('j')) //we exceeded month limits
     {
       $new_date->modify('last day of last month');
     }

@@ -88,7 +88,7 @@ class MrOfficeController extends Controller
    * @param int $id User in office
    * @return RedirectResponse
    */
-  public function userOfficeIsAdmin(int $office_id, int $id)
+  public function ChangeUserRoleInOffice(int $office_id, int $id)
   {
     $uio = MrUserInOffice::loadByOrDie($id);
     $office = MrOffice::loadByOrDie($office_id);
@@ -294,7 +294,7 @@ class MrOfficeController extends Controller
    * @param int $certificate_id
    * @return array
    */
-  public function AddCertificateToMonitoring(int $certificate_id)
+  public function AddCertificateToMonitoring(int $certificate_id): array
   {
     $user = MrUser::me();
 
@@ -305,7 +305,7 @@ class MrOfficeController extends Controller
 
     $certificate = MrCertificate::loadByOrDie($certificate_id);
 
-    $monitoring = MrCertificateMonitoring::loadBy($certificate->id()) ?: new MrCertificateMonitoring();
+    $monitoring = MrCertificateMonitoring::loadBy($certificate->id(), 'CertificateID') ?: new MrCertificateMonitoring();
     $monitoring->setCertificateID($certificate->id());
     $monitoring->setOfficeID($user->getDefaultOffice()->id());
     $monitoring->save_mr();
