@@ -1,6 +1,7 @@
 <template>
-  <div class="row no-gutters col-md-12 col-sm-12 m-t-10 padding-horizontal">
-    <div class="mr-bold mr_cursor mr-border-radius-5" style="width: 100%;" data-toggle="collapse" aria-expanded="false"
+  <div class="row no-gutters col-md-12 col-sm-12 m-t-10 p-b-5 padding-horizontal">
+    <div class="mr-bold mr_cursor mr-border-radius-5 mr_block_head p-l-5" style="width: 100%;" data-toggle="collapse"
+         aria-expanded="false"
          aria-controls="base_menu_1" href="#my_certificate_list">
       Отслеживаемые сертификаты
     </div>
@@ -16,17 +17,13 @@
       </tr>
       </thead>
       <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
-      <tr v-for="td in table_body.data" class="border-top">
-        <td style="max-width: 300px; word-wrap: break-word;" v-for="item in td">
-          <div style="white-space: pre-line; max-width: 500px;" v-html="item"></div>
-        </td>
+      <tr v-for="item in table_body.data" class="border-top mr_cursor" v-on:click="qwerty(item['id'])">
+        <td class="mr-middle" style=" max-width: 500px;">{{item['status']}}</td>
+        <td class="mr-middle" style=" max-width: 500px;">{{item['country']}}</td>
+        <td class="mr-middle" style=" max-width: 500px;">{{item['number']}}</td>
       </tr>
       </tbody>
     </table>
-    <pagination :data="table_body" @pagination-change-page="SearchCertificate" :limit="5">
-      <span class="" slot="prev-nav">Previous</span>
-      <span class="" slot="next-nav">Next</span>
-    </pagination>
   </div>
 </template>
 
@@ -52,12 +49,17 @@
 
     mounted()
     {
-      this.SearchCertificate();
+      this.CertificateList();
     },
 
     methods: {
 
-      SearchCertificate(page = 1)
+      qwerty(id)
+      {
+        this.$parent.getCertificate(id);
+      },
+
+      CertificateList(page = 1)
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
@@ -86,7 +88,7 @@
             this.mr_sort = 'asc';
           }
 
-          this.SearchCertificate();
+          this.CertificateList();
         }
       }
     },

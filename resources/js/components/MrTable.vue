@@ -56,7 +56,7 @@
     {
       if (this.mr_route)
       {
-        this.SearchCertificate();
+        this.CertificateList();
       }
 
       if (this.mr_object)
@@ -67,7 +67,7 @@
     },
 
     methods: {
-      SearchCertificate(page = 1)
+      CertificateList(page = 1)
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
@@ -99,7 +99,7 @@
           // Если нету роута - сортировка в пределах имеющегося списка
           if (this.mr_route)
           {
-            this.SearchCertificate();
+            this.CertificateList();
           }
         }
       }

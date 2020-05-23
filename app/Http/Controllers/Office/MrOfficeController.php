@@ -72,7 +72,8 @@ class MrOfficeController extends Controller
    */
   public function officePage(int $office_id)
   {
-    $office = parent::has_permission($office_id);
+    parent::has_permission($office_id);
+
     $user = MrUser::me();
     $out = array();
     $out['user_history'] = $user->GetSearchHistory();

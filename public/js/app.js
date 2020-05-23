@@ -1935,17 +1935,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.SearchCertificate();
+    this.CertificateList();
   },
   methods: {
-    SearchCertificate: function getResults() {
+    CertificateList: function getResults() {
       var _this = this;
 
       axios.post('api/admin/systemdata').then(function (response) {
         _this.table_body = response.data;
         console.log(_this.table_body);
       });
-      setTimeout(this.SearchCertificate, 2000);
+      setTimeout(this.CertificateList, 2000);
     }
   }
 });
@@ -2347,7 +2347,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    SearchCertificate: function getResults() {
+    CertificateList: function getResults() {
       var _this = this;
 
       var url = '/search/api';
@@ -2436,10 +2436,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.SearchCertificate();
+    this.CertificateList();
   },
   methods: {
-    SearchCertificate: function getResults() {
+    CertificateList: function getResults() {
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -2461,7 +2461,7 @@ __webpack_require__.r(__webpack_exports__);
           this.mr_sort = 'asc';
         }
 
-        this.SearchCertificate();
+        this.CertificateList();
       }
     }
   }
@@ -40472,7 +40472,7 @@ var render = function() {
                     _vm.v_query_text = $event.target.value
                   },
                   function($event) {
-                    return _vm.SearchCertificate($event)
+                    return _vm.CertificateList($event)
                   }
                 ]
               }
@@ -40638,7 +40638,7 @@ var render = function() {
         "pagination",
         {
           attrs: { data: _vm.table_body, limit: 5 },
-          on: { "pagination-change-page": _vm.SearchCertificate }
+          on: { "pagination-change-page": _vm.CertificateList }
         },
         [
           _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [

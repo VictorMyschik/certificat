@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\TableControllers;
 
-use App\Helpers\MrLink;
 use App\Models\Certificate\MrCertificateMonitoring;
 use App\Models\Office\MrOffice;
 
@@ -33,9 +32,10 @@ class MrCertificateMonitoringTableController extends MrTableController
     $certificate_monitoring = MrCertificateMonitoring::loadByOrDie($id);
     $certificate = $certificate_monitoring->getCertificate();
 
-    $row[] = $certificate->getStatusName();
-    $row[] = __('mr-t.' . $certificate->getCountry()->getName());
-    $row[] = $certificate->getNumber();
+    $row['id'] = $certificate->id();
+    $row['status'] = $certificate->getStatusName();
+    $row['country'] = __('mr-t.' . $certificate->getCountry()->getName());
+    $row['number'] = $certificate->getNumber();
 
     if($office->canEdit())
     {

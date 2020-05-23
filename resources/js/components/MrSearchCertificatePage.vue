@@ -3,7 +3,6 @@
     <div class="row no-gutters padding-horizontal">
       <div class="d-inline col-md-3 m-t-15">
         <div class="shadow mr-border-radius-10 padding-horizontal p-t-5 p-b-5 m-l-5 m-r-5">
-          <h5><label for="mr_input" class="mr-bold">Номер сертификата, артикул, наименование...</label></h5>
           <input id="mr_input" v-model="v_query_text" type="text" @keyup="SearchCertificate(v_query_text)"
                  placeholder="search..."
                  autofocus class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;">
@@ -16,7 +15,9 @@
               </div>
 
               <div id="recent_search_list" class="p-l-5 collapse mr-middle" v-if="history_search">
-                <div class="mr_cursor mr-border-radius-5" v-for="story in history_search" v-on:click="ChangeSearch(story)">{{story}}</div>
+                <div class="mr_cursor mr-border-radius-5" v-for="story in history_search"
+                     v-on:click="ChangeSearch(story)">{{story}}
+                </div>
               </div>
             </div>
 
@@ -73,13 +74,11 @@
       // Поиск сертификатов
       SearchCertificate: function (query_text)
       {
-        let url = '/search/certificate';
-
         this.v_query_text = query_text;
 
         if (query_text.length > 2)
         {
-          axios.post(url, {'text': query_text}).then(response =>
+          axios.post('/search/certificate', {'text': query_text}).then(response =>
             {
               console.log(response.data);
               this.result = response.data;
@@ -110,9 +109,7 @@
       // Поставка отслеживания сертификата по нажатию на кнопку
       AddCertificateWatch()
       {
-        let url = '/watch/add/' + this.watch_id;
-
-        axios.post(url).then(response =>
+        axios.post('/watch/add/' + this.watch_id).then(response =>
           {
             alert('Сертификат №' + response.data['certificate'] + ' отслеживается');
           }
@@ -132,7 +129,7 @@
       ChangeSearch: function (story)
       {
         this.v_query_text = story;
-        this.SearchCertificate(story);
+        this.CertificateList(story);
       }
     },
   }

@@ -1,18 +1,20 @@
 <template>
   <div class="row no-gutters col-md-12 padding-horizontal-0">
     <div class="col-md-12 no-gutters">
-      <h4 class="mr-bold" :class="'mr_cert_status_certificate_'+certificate['Status']"><img style='height: 21px; border-radius: 4px;' :src="src" :alt="certificate['Country']"> {{certificate['StatusName']}}</h4>
+      <h4 class="mr-bold" :class="'mr_cert_status_certificate_'+certificate['Status']"><img
+        style='height: 21px; border-radius: 4px;' :src="src" :alt="certificate['Country']">
+        {{certificate['StatusName']}}</h4>
     </div>
     <div class="col-md-12 no-gutters">
       <h6 class="mr-bold" style="color: #090d2f">
         {{certificate['Number']}}
       </h6>
     </div>
-    <div class="row no-gutters col-lg-4 col-md-5 col-sm-12 m-r-5 m-l-5 m-b-10">
-      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_1')">Общее</div>
-      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_2')">Продукция</div>
-      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_3')">Документы</div>
-      <div class="mr_shadow btn mr_btn btn-sm m-auto" v-on:click="change_data('visible_4')">Заявитель</div>
+    <div class="row no-gutters col-sm-12 m-b-10">
+      <div class="mr_shadow btn mr_btn btn-sm m-l-5 m-r-5" v-on:click="change_data('visible_1')">Общее</div>
+      <div class="mr_shadow btn mr_btn btn-sm m-l-5 m-r-5" v-on:click="change_data('visible_2')">Продукция</div>
+      <div class="mr_shadow btn mr_btn btn-sm m-l-5 m-r-5" v-on:click="change_data('visible_3')">Документы</div>
+      <div class="mr_shadow btn mr_btn btn-sm m-l-5 m-r-5" v-on:click="change_data('visible_4')">Заявитель</div>
     </div>
     <div class="row col-md-12 no-gutters" v-if="visible_1">
 
@@ -401,6 +403,7 @@
     box-shadow: 0 0 0 0.1rem rgba(209, 211, 235, 0.6);
     background-color: rgba(221, 223, 247, 0.6);
   }
+
   .mr_cursor {
     cursor: pointer;
   }
@@ -415,7 +418,7 @@
     color: #6cb2eb;
   }
 
-  .mr_cert_status_certificate_1{
-   color: #009e00;
+  .mr_cert_status_certificate_1 {
+    color: #009e00;
   }
 </style>
