@@ -617,19 +617,19 @@ class MrCertificate extends ORM
         $class_name = 'mr-status-active';
         break;
       case self::STATUS_PAUSED:
-        $class_name = '';
+        $class_name = 'mr-status-paused';
         break;
       case self::STATUS_STOPPED:
-        $class_name = '';
+        $class_name = 'mr-status-stopped';
         break;
       case self::STATUS_CONTINUED:
-        $class_name = '';
+        $class_name = 'mr-status-continued';
         break;
       case self::STATUS_REOPENED:
-        $class_name = '';
+        $class_name = 'mr-status-reopened';
         break;
       case self::STATUS_ARCHIVED:
-        $class_name = '';
+        $class_name = 'mr-status-archived';
         break;
     }
 

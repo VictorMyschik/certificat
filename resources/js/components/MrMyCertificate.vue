@@ -5,24 +5,27 @@
          aria-controls="base_menu_1" href="#my_certificate_list">
       Отслеживаемые сертификаты
     </div>
-    <table class="table table-sm table-hover col-md-12 collapse show" id="my_certificate_list">
-      <thead class="mr-bold">
-      <tr class="mr-auto-size">
-        <td v-for="head in table_header" v-bind:class="head['sort'] ? 'mr_cursor' : ''"
-            v-on:click="mr_sort_field(head)">
-          <i v-if="mr_field === head['sort']" class="mr-color-green-dark"
-             :class="[mr_sort === 'asc' ? arrow_up : arrow_down]"></i>
-          {{head['name']}}
-        </td>
-      </tr>
-      </thead>
-      <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
-      <tr v-for="item in table_body.data" class="border-top mr_cursor" v-on:click="qwerty(item['id'])">
-        <td class="mr-middle" style=" max-width: 500px;" v-html="item['status']"></td>
-        <td class="mr-middle" style=" max-width: 500px;">{{item['number']}}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div id="my_certificate_list" class="collapse show" style="max-height: 200px; overflow: auto;">
+      <table class="table table-sm table-hover col-md-12">
+        <thead class="mr-bold">
+        <tr class="mr-auto-size">
+          <td v-for="head in table_header" v-bind:class="head['sort'] ? 'mr_cursor' : ''"
+              v-on:click="mr_sort_field(head)">
+            <i v-if="mr_field === head['sort']" class="mr-color-green-dark"
+               :class="[mr_sort === 'asc' ? arrow_up : arrow_down]"></i>
+            {{head['name']}}
+          </td>
+        </tr>
+        </thead>
+        <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
+        <tr v-for="item in table_body.data" class="border-top mr_cursor" v-on:click="qwerty(item['id'])">
+          <td class="" v-html="item['status']"></td>
+          <td class="">{{item['number']}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <a href="#" class="btn btn-success btn-sm">все сертификаты</a>
+    </div>
   </div>
 </template>
 
