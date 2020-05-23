@@ -18,9 +18,7 @@ class MrCertificateMonitoringTableController extends MrTableController
   {
     return array(
       array('name' => __('mr-t.Статус'), 'sort' => 'mr_certificate.Status'),
-      array('name' => __('mr-t.Страна'), 'sort' => 'mr_certificate.Country'),
       array('name' => __('mr-t.Номер'), 'sort' => 'mr_certificate.Number'),
-      array('name' => '#'),
     );
   }
 
@@ -33,14 +31,8 @@ class MrCertificateMonitoringTableController extends MrTableController
     $certificate = $certificate_monitoring->getCertificate();
 
     $row['id'] = $certificate->id();
-    $row['status'] = $certificate->getStatusName();
-    $row['country'] = __('mr-t.' . $certificate->getCountry()->getName());
+    $row['status'] = '<span class="'.$certificate->GetStatusColor().'">' . $certificate->getStatusName() . '</span>';
     $row['number'] = $certificate->getNumber();
-
-    if($office->canEdit())
-    {
-      //$delete = MrLink::open('');
-    }
 
     $row[] = $certificate_monitoring->id();
 

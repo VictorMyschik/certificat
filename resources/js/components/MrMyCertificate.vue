@@ -18,8 +18,7 @@
       </thead>
       <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
       <tr v-for="item in table_body.data" class="border-top mr_cursor" v-on:click="qwerty(item['id'])">
-        <td class="mr-middle" style=" max-width: 500px;">{{item['status']}}</td>
-        <td class="mr-middle" style=" max-width: 500px;">{{item['country']}}</td>
+        <td class="mr-middle" style=" max-width: 500px;" v-html="item['status']"></td>
         <td class="mr-middle" style=" max-width: 500px;">{{item['number']}}</td>
       </tr>
       </tbody>

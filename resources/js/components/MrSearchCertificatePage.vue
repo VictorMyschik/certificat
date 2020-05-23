@@ -24,6 +24,7 @@
             <div v-if="result" v-for="(it,ind) in result" v-on:click="getCertificate(ind)"
                  class="mr_cursor mr-middle">{{it['Status']}} {{it['Number']}}
             </div>
+            <div v-if="not_found" class="mr-middle mr-muted">Не найдено</div>
           </div>
 
         </div>
@@ -61,6 +62,7 @@
         result: [],
         history_search: [],
         watch_id: 0,
+        not_found: false,
       }
     },
 
@@ -80,8 +82,16 @@
         {
           axios.post('/search/certificate', {'text': query_text}).then(response =>
             {
-              console.log(response.data);
               this.result = response.data;
+
+              if (Object.keys(this.result).length)
+              {
+                this.not_found = false;
+              }
+              else
+              {
+                this.not_found = true;
+              }
             }
           );
         }
@@ -129,7 +139,7 @@
       ChangeSearch: function (story)
       {
         this.v_query_text = story;
-        this.CertificateList(story);
+        this.SearchCertificate(story);
       }
     },
   }
