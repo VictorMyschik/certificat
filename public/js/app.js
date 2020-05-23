@@ -375,7 +375,7 @@ function Cancel(message) {
 }
 
 Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
+  return 'Cancel' + (this.v_query_text ? ': ' + this.v_query_text : '');
 };
 
 Cancel.prototype.__CANCEL__ = true;
@@ -827,7 +827,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
   error.toJSON = function() {
     return {
       // Standard
-      message: this.message,
+      v_query_text: this.v_query_text,
       name: this.name,
       // Microsoft
       description: this.description,
@@ -2342,7 +2342,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       certificate_json: null,
-      message: '',
+      v_query_text: '',
       result: []
     };
   },
@@ -2352,9 +2352,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var url = '/search/api';
 
-      if (this.message.length > 2) {
+      if (this.v_query_text.length > 2) {
         axios.post(url, {
-          'text': this.message
+          'text': this.v_query_text
         }).then(function (response) {
           _this.result = response.data.data;
         });
@@ -11095,7 +11095,7 @@ jQuery.Deferred.exceptionHook = function( error, stack ) {
 	// Support: IE 8 - 9 only
 	// Console exists when dev tools are open, which can happen at any time
 	if ( window.console && window.console.warn && error && rerrorNames.test( error.name ) ) {
-		window.console.warn( "jQuery.Deferred exception: " + error.message, error.stack, stack );
+		window.console.warn( "jQuery.Deferred exception: " + error.v_query_text, error.stack, stack );
 	}
 };
 
@@ -24242,7 +24242,7 @@ var LaravelVuePagination_component = normalizeComponent(
           return eq(+object, +other);
 
         case errorTag:
-          return object.name == other.name && object.message == other.message;
+          return object.name == other.name && object.v_query_text == other.v_query_text;
 
         case regexpTag:
         case stringTag:
@@ -30123,7 +30123,7 @@ var LaravelVuePagination_component = normalizeComponent(
       }
       var tag = baseGetTag(value);
       return tag == errorTag || tag == domExcTag ||
-        (typeof value.message == 'string' && typeof value.name == 'string' && !isPlainObject(value));
+        (typeof value.v_query_text == 'string' && typeof value.name == 'string' && !isPlainObject(value));
     }
 
     /**
@@ -40452,7 +40452,7 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.message,
+                  value: _vm.v_query_text,
                   expression: "message"
                 }
               ],
@@ -40462,14 +40462,14 @@ var render = function() {
                 type: "text",
                 placeholder: "номер сертификата, артикул, наименование..."
               },
-              domProps: { value: _vm.message },
+              domProps: { value: _vm.v_query_text },
               on: {
                 input: [
                   function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.message = $event.target.value
+                    _vm.v_query_text = $event.target.value
                   },
                   function($event) {
                     return _vm.SearchCertificate($event)
@@ -52343,7 +52343,7 @@ function checkExpression (exp, text, warn, range) {
       );
     } else {
       warn(
-        "invalid expression: " + (e.message) + " in\n\n" +
+        "invalid expression: " + (e.v_query_text) + " in\n\n" +
         "    " + exp + "\n\n" +
         "  Raw expression: " + (text.trim()) + "\n",
         range
@@ -52357,7 +52357,7 @@ function checkFunctionParameterExpression (exp, text, warn, range) {
     new Function(exp, '');
   } catch (e) {
     warn(
-      "invalid function parameter expression: " + (e.message) + " in\n\n" +
+      "invalid function parameter expression: " + (e.v_query_text) + " in\n\n" +
       "    " + exp + "\n\n" +
       "  Raw expression: " + (text.trim()) + "\n",
       range

@@ -1,11 +1,13 @@
 <template>
   <div class="row no-gutters col-md-12 col-sm-12 m-t-10 padding-horizontal">
-    <h5 class="mr-bold" data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1"
-        href="#my_certificate_list" style="cursor: pointer;">Отслеживаемые сертификаты</h5>
+    <div class="mr-bold mr_cursor mr-border-radius-5" style="width: 100%;" data-toggle="collapse" aria-expanded="false"
+         aria-controls="base_menu_1" href="#my_certificate_list">
+      Отслеживаемые сертификаты
+    </div>
     <table class="table table-sm table-hover col-md-12 collapse show" id="my_certificate_list">
-      <thead class="mr-bold  mr-test">
+      <thead class="mr-bold">
       <tr class="mr-auto-size">
-        <td v-for="head in table_header" v-bind:class="typeof head['sort'] !== 'undefined' ? 'mr_cursor' : ''"
+        <td v-for="head in table_header" v-bind:class="head['sort'] ? 'mr_cursor' : ''"
             v-on:click="mr_sort_field(head)">
           <i v-if="mr_field === head['sort']" class="mr-color-green-dark"
              :class="[mr_sort === 'asc' ? arrow_up : arrow_down]"></i>
@@ -107,6 +109,6 @@
   }
 
   .mr_cursor:hover {
-    background-color: rgba(230, 232, 254, 0.3);
+    background-color: rgba(119, 128, 229, 0.2);
   }
 </style>

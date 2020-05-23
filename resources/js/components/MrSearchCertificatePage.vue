@@ -3,22 +3,28 @@
     <div class="row no-gutters padding-horizontal">
       <div class="d-inline col-md-3 m-t-15">
         <div class="shadow mr-border-radius-10 padding-horizontal p-t-5 p-b-5 m-l-5 m-r-5">
-          <h5><label class="mr-bold">Номер сертификата, артикул, наименование...
-            <input v-model="message" type="text" @keyup="SearchCertificate" placeholder="search..." autofocus
-                   class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;"></label></h5>
+          <h5><label for="mr_input" class="mr-bold">Номер сертификата, артикул, наименование...</label></h5>
+          <input id="mr_input" v-model="v_query_text" type="text" @keyup="SearchCertificate(v_query_text)"
+                 placeholder="search..."
+                 autofocus class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;">
+
           <div class="">
-            <div class="history_search mr-middle mr-muted padding-horizontal mr-border-radius-5"
-                 style="cursor: pointer;" data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1"
-                 href="#recent_search_list">Недавно искали
+            <div class="border mr-border-radius-5 m-t-5">
+              <div class="history_search mr_cursor mr-middle mr-muted padding-horizontal mr-border-radius-5"
+                   data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1"
+                   href="#recent_search_list">Недавно искали
+              </div>
+
+              <div id="recent_search_list" class="p-l-5 collapse mr-middle" v-if="history_search">
+                <div class="mr_cursor mr-border-radius-5" v-for="story in history_search" v-on:click="ChangeSearch(story)">{{story}}</div>
+              </div>
             </div>
-            <div id="recent_search_list" class="padding-horizontal collapse mr-middle cursor" v-if="history_search"
-                 v-for="story in history_search" v-on:click="SearchCertificate(message = story)">{{story}}
-            </div>
+
             <div v-if="result" v-for="(it,ind) in result" v-on:click="getCertificate(ind)"
-                 class="list mr-middle">
-              {{it['Status']}} {{it['Number']}}
+                 class="mr_cursor mr-middle">{{it['Status']}} {{it['Number']}}
             </div>
           </div>
+
         </div>
         <hr>
         <div class="row no-gutters shadow padding-horizontal mr-border-radius-10 m-l-5 m-r-5">
@@ -50,28 +56,30 @@
     {
       return {
         certificate_json: null,
-        message: '',
+        v_query_text: '',
         result: [],
         history_search: [],
         watch_id: 0,
-        my_certificate_list: null,
       }
     },
 
     mounted()
     {
+      // Текущая история посика
       this.history_search = this.history;
     },
 
     methods: {
       // Поиск сертификатов
-      SearchCertificate()
+      SearchCertificate: function (query_text)
       {
         let url = '/search/certificate';
 
-        if (this.message.length > 2)
+        this.v_query_text = query_text;
+
+        if (query_text.length > 2)
         {
-          axios.post(url, {'text': this.message}).then(response =>
+          axios.post(url, {'text': query_text}).then(response =>
             {
               console.log(response.data);
               this.result = response.data;
@@ -87,13 +95,11 @@
 
       getCertificate(id)
       {
-        let url = '/search/api/get/' + id;
-
         // Запись истории поиска для быстрого повтора
-        this.SetSearchHistory(this.message);
+        this.SetSearchHistory(this.v_query_text);
 
         this.certificate_json = null;
-        axios.post(url).then(response =>
+        axios.post('/search/api/get/' + id).then(response =>
           {
             this.certificate_json = response.data;
             this.watch_id = id;
@@ -101,7 +107,7 @@
         );
       },
 
-      // Поставка отслеживания сертификата
+      // Поставка отслеживания сертификата по нажатию на кнопку
       AddCertificateWatch()
       {
         let url = '/watch/add/' + this.watch_id;
@@ -120,25 +126,28 @@
         {
           this.history_search = response.data;
         });
+      },
+
+      // Искать по нажатию на строку в истории поиска
+      ChangeSearch: function (story)
+      {
+        this.v_query_text = story;
+        this.SearchCertificate(story);
       }
     },
   }
 </script>
 
 <style scoped>
-  .list {
-    cursor: pointer;
-  }
-
-  .cursor {
-    cursor: pointer;
-  }
-
-  .list:hover {
+  .history_search {
     background-color: rgba(119, 128, 229, 0.2);
   }
 
-  .history_search {
+  .mr_cursor {
+    cursor: pointer;
+  }
+
+  .mr_cursor:hover {
     background-color: rgba(119, 128, 229, 0.2);
   }
 </style>

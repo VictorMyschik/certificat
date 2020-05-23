@@ -11,7 +11,7 @@
     {
       return {
         certificate_json: null,
-        message: '',
+        v_query_text: '',
         result: [],
       }
     },
@@ -20,5 +20,11 @@
 </script>
 
 <style scoped>
+  .mr_cursor {
+    cursor: pointer;
+  }
 
+  .mr_cursor:hover {
+    background-color: rgba(119, 128, 229, 0.2);
+  }
 </style>

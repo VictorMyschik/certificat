@@ -401,15 +401,12 @@
     box-shadow: 0 0 0 0.1rem rgba(209, 211, 235, 0.6);
     background-color: rgba(221, 223, 247, 0.6);
   }
-
   .mr_cursor {
     cursor: pointer;
-    color: #0a1041;
   }
 
   .mr_cursor:hover {
-    background-color: rgba(230, 232, 254, 0.3);
-    color: #0a1041;
+    background-color: rgba(119, 128, 229, 0.2);
   }
 
   .mr_shadow {
