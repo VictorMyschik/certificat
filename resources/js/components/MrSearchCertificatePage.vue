@@ -29,7 +29,7 @@
         </div>
         <hr>
         <div class="row no-gutters shadow padding-horizontal mr-border-radius-10 m-l-5 m-r-5">
-          <mr-my-certificate v-if="render_my_certificate_list"></mr-my-certificate>
+          <mr-my-certificate ref="my_certificate_list"></mr-my-certificate>
         </div>
         <hr>
       </div>
@@ -56,7 +56,7 @@
     data()
     {
       return {
-        render_my_certificate_list: true,
+        render_my_certificate_list: 1,
         certificate_json: null,
         v_query_text: '',
         result: [],
@@ -121,9 +121,8 @@
       {
         axios.post('/watch/add/' + this.watch_id).then(response =>
           {
-            this.render_my_certificate_list = false;
             alert('Сертификат №' + response.data['certificate'] + ' отслеживается');
-            this.render_my_certificate_list = true;
+            this.$refs.my_certificate_list.CertificateList();
           }
         );
       },
@@ -131,10 +130,13 @@
       // Сохранение запроса поиска для быстрого повтора
       SetSearchHistory(search_query)
       {
-        axios.post('/api/search/user-history/' + search_query).then(response =>
+        if (search_query.length > 2)
         {
-          this.history_search = response.data;
-        });
+          axios.post('/api/search/user-history/' + search_query).then(response =>
+          {
+            this.history_search = response.data;
+          });
+        }
       },
 
       // Искать по нажатию на строку в истории поиска

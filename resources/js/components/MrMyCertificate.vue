@@ -62,7 +62,7 @@
         this.$parent.getCertificate(id);
       },
 
-      CertificateList(page = 1)
+      CertificateList: function(page = 1)
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
