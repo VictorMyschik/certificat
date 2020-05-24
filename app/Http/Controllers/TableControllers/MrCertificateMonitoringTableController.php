@@ -10,7 +10,7 @@ class MrCertificateMonitoringTableController extends MrTableController
   public static function GetQuery(array $args = array())
   {
     return MrCertificateMonitoring::Select(['mr_certificate_monitoring.id'])->where('mr_certificate_monitoring.OfficeID', $args['office_id'])
-      ->join('mr_certificate', 'mr_certificate.id', '=', 'mr_certificate_monitoring.CertificateID')
+      ->join('mr_certificate', 'mr_certificate.id', '=', 'mr_certificate_monitoring.CertificateID')->limit(50)
       ->paginate(100);
   }
 

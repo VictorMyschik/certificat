@@ -25,6 +25,7 @@ class CreateMrAddressTable extends Migration
       $table->string('AddressText', 1001)->nullable();
       $table->string('Lat')->nullable();
       $table->string('Lon')->nullable();
+      $table->string('Hash', 32);
     });
   }
 

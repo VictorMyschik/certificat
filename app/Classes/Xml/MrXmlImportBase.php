@@ -240,52 +240,56 @@ class MrXmlImportBase extends Controller
           }
           $hash_name = null;
           $hash_name = $doc_number_xml . '|' . $doc_name_xml . '|' . $doc_date_xml . '|' . $doc_accr_xml . '|' . $doc_business_xml;
-          $hash = md5($hash_name);
 
-          $document = MrDocument::loadBy($hash, 'Hash');
-
-          /// Поиск дубликатов
-          $has = false;
-          if($document)
+          if(strlen($hash_name))
           {
-            foreach ($certificate->GetDocuments() as $dil)
+            $hash = md5($hash_name);
+
+            $document = MrDocument::loadBy($hash, 'Hash');
+
+            /// Поиск дубликатов
+            $has = false;
+            if($document)
             {
-              if($document->id() == $dil->getDocument()->id())
+              foreach ($certificate->GetDocuments() as $dil)
               {
-                $has = true;
-                break;
+                if($document->id() == $dil->getDocument()->id())
+                {
+                  $has = true;
+                  break;
+                }
               }
             }
-          }
-          else
-          {
-            $document = new MrDocument();
-          }
+            else
+            {
+              $document = new MrDocument();
+            }
 
-          // Документ найден в этом серитфикате - следующая итерация
-          if($has)
-          {
-            continue;
-          }
-          else
-          {
-            $document->setKind(MrDocument::KIND_EQUALS);
-            $document->setName($doc_name_xml == 'no_name' ? null : $doc_name_xml);
-            $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
-            $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
-            // Если есть документ аккредитации - тип аккредитация
-            $document->setAccreditation($doc_accr_xml == 'no_accr' ? null : $doc_accr_xml);
-            $document->setOrganisation($doc_business_xml == 'no_business' ? null : $doc_business_xml);
-            $document->setHash($hash);
+            // Документ найден в этом серитфикате - следующая итерация
+            if($has)
+            {
+              continue;
+            }
+            else
+            {
+              $document->setKind(MrDocument::KIND_EQUALS);
+              $document->setName($doc_name_xml == 'no_name' ? null : $doc_name_xml);
+              $document->setNumber($doc_number_xml == 'no_number' ? null : $doc_number_xml);
+              $document->setDate($doc_date_xml == 'no_date' ? null : $doc_date_xml);
+              // Если есть документ аккредитации - тип аккредитация
+              $document->setAccreditation($doc_accr_xml == 'no_accr' ? null : $doc_accr_xml);
+              $document->setOrganisation($doc_business_xml == 'no_business' ? null : $doc_business_xml);
+              $document->setHash($hash);
 
-            $document->save_mr();
-            $document->reload();
+              $document->save_mr();
+              $document->reload();
 
 
-            $new_dil = new MrCertificateDocument();
-            $new_dil->setCertificateID($certificate->id());
-            $new_dil->setDocumentID($document->id());
-            $new_dil->save_mr();
+              $new_dil = new MrCertificateDocument();
+              $new_dil->setCertificateID($certificate->id());
+              $new_dil->setDocumentID($document->id());
+              $new_dil->save_mr();
+            }
           }
         }
       }
@@ -602,12 +606,15 @@ class MrXmlImportBase extends Controller
 
     if($first_name || $middle_name || $last_name || $position_name)
     {
-      $fio = new MrFio();
+      $hash_name = $first_name . '|' . $middle_name . '|' . $last_name . '|' . $position_name;
+      $hash = md5($hash_name);
+      $fio = MrFio::loadBy($hash, 'Hash') ?: new MrFio();
 
       $fio->setPositionName($position_name);
       $fio->setFirstName($first_name);
       $fio->setMiddleName($middle_name);
       $fio->setLastName($last_name);
+      $fio->setHash($hash);
 
       $fio_id = $fio->save_mr();
       $fio->reload();
@@ -740,58 +747,86 @@ class MrXmlImportBase extends Controller
         $address = $object->getAddress2();
       }
 
-      if(!$address)
-      {
-        $address = new MrAddress();
-      }
-
-      $address->setAddressKind($address_kind);
-
+      $hash_name = '';
       if(isset($address_xml->unifiedCountryCode) && isset($address_xml->unifiedCountryCode->value) && ($country_xml = (string)$address_xml->unifiedCountryCode->value))
       {
         $country = MrCountry::loadBy($country_xml, 'ISO3166alpha2');
-        if($country)
-        {
-          $address->setCountryID($country->id());
-        }
+        $hash_name = $country->id();
       }
 
       // Регион
-      if(isset($address_xml->regionName) && ($region = (string)$address_xml->regionName))
+      if(isset($address_xml->regionName))
       {
-        $address->setRegionName($region);
+        if($region = (string)$address_xml->regionName)
+        {
+          $hash_name .= '|' . $region;
+        }
       }
 
-      if(isset($address_xml->districtName) && ($district = (string)$address_xml->districtName))
+      if(isset($address_xml->districtName))
       {
-        $address->setDistrictName($district);
+        if($district = (string)$address_xml->districtName)
+        {
+          $hash_name .= '|' . $district;
+        }
       }
 
 
-      if(isset($address_xml->cityName) && ($cityName = (string)$address_xml->cityName))
+      if(isset($address_xml->cityName))
       {
-        $address->setCity($cityName);
+        if($cityName = (string)$address_xml->cityName)
+        {
+          $hash_name .= '|' . $cityName;
+        }
       }
 
-      if(isset($address_xml->streetName) && ($streetName = (string)$address_xml->streetName))
+      if(isset($address_xml->streetName))
       {
-        $address->setStreetName($streetName);
+        if($streetName = (string)$address_xml->streetName)
+        {
+          $hash_name .= '|' . $streetName;
+        }
       }
 
-      if(isset($address_xml->buildingNumberId) && ($buildingNumberId = (string)$address_xml->buildingNumberId))
+      if(isset($address_xml->buildingNumberId))
       {
-        $address->setBuildingNumberId($buildingNumberId);
+        if($buildingNumberId = (string)$address_xml->buildingNumberId)
+        {
+          $hash_name .= '|' . $buildingNumberId;
+        }
       }
 
-      if(isset($address_xml->postCode) && ($postCode = (string)$address_xml->postCode))
+      if(isset($address_xml->postCode))
       {
-        $address->setPostCode($postCode);
+        if($postCode = (string)$address_xml->postCode)
+        {
+          $hash_name .= '|' . $postCode;
+        }
       }
 
-      if(isset($address_xml->addressText) && ($address_text = (string)$address_xml->addressText))
+      if(isset($address_xml->addressText))
       {
-        $address->setAddressText($address_text);
+        if($address_text = (string)$address_xml->addressText)
+        {
+          $hash_name .= '|' . $address_text;
+        }
       }
+
+
+      $hash = md5($hash_name);
+
+      $address = MrAddress::loadBy($hash, 'Hash') ?: new MrAddress();
+
+      $address->setCountryID($country->id());
+      $address->setAddressKind($address_kind);
+      $address->setRegionName($region ?? null);
+      $address->setDistrictName($district ?? null);
+      $address->setCity($cityName ?? null);
+      $address->setStreetName($streetName ?? null);
+      $address->setBuildingNumberId($buildingNumberId ?? null);
+      $address->setPostCode($postCode ?? null);
+      $address->setAddressText($address_text ?? null);
+      $address->setHash($hash);
 
       $address->save_mr();
       $address->reload();
@@ -821,7 +856,6 @@ class MrXmlImportBase extends Controller
       if(isset(MrCertificate::GetHashedList()[$number]))
       {
         $certificate = MrCertificate::loadBy($number, 'Number');
-        //return null;
       }
       else
       {
@@ -1117,73 +1151,74 @@ class MrXmlImportBase extends Controller
 
         $product->save_mr();
         $product_tnved_xml = null;
-      }
 
-      // Сведения о единице продукта
-      if(isset($item_xml->productInstanceDetails) && ($product_info_xml = $item_xml->productInstanceDetails))
-      {
-        foreach ($product_info_xml->element as $info_xml)
+
+        // Сведения о единице продукта
+        if(isset($product) && isset($item_xml->productInstanceDetails) && ($product_info_xml =
+            $item_xml->productInstanceDetails))
         {
-          $product_info = new MrProductInfo();
-          $product_info->setProductID($product->id());
-
-          // Марка, модель...
-          if(isset($info_xml->productInstanceId) && ($productInstanceId_xml = (string)$info_xml->productInstanceId))
+          foreach ($product_info_xml->element as $info_xml)
           {
-            $product_info->setInstanceId($productInstanceId_xml);
-          }
+            $product_info = new MrProductInfo();
+            $product_info->setProductID($product->id());
 
-          // Код ТН ВЭД
-          if(isset($item_xml->commodityCode) && ($tnved_xml = (string)$item_xml->commodityCode))
-          {
-            if($tnved = MrTnved::loadBy($tnved_xml, 'Code'))
+            // Марка, модель...
+            if(isset($info_xml->productInstanceId) && ($productInstanceId_xml = (string)$info_xml->productInstanceId))
             {
-              $product_info->setTnved($tnved->id());
+              $product_info->setInstanceId($productInstanceId_xml);
             }
-            else
+
+            // Код ТН ВЭД
+            if(isset($item_xml->commodityCode) && ($tnved_xml = (string)$item_xml->commodityCode))
             {
-              $tnved = new MrTnved();
-              $tnved->setCode($tnved_xml);
-              $tnved->save_mr();
-              $tnved->reload();
+              if($tnved = MrTnved::loadBy($tnved_xml, 'Code'))
+              {
+                $product_info->setTnved($tnved->id());
+              }
+              else
+              {
+                $tnved = new MrTnved();
+                $tnved->setCode($tnved_xml);
+                $tnved->save_mr();
+                $tnved->reload();
 
-              $product_info->setTnved($tnved->id());
+                $product_info->setTnved($tnved->id());
+              }
             }
-          }
 
-          // Дата изготовления
-          if(isset($info_xml->ProductInstanceManufacturedDate) && ($manufacturer_date_xml = $info_xml->ProductInstanceManufacturedDate))
-          {
-            $product_info->setManufacturedDate($manufacturer_date_xml);
-          }
+            // Дата изготовления
+            if(isset($info_xml->ProductInstanceManufacturedDate) && ($manufacturer_date_xml = $info_xml->ProductInstanceManufacturedDate))
+            {
+              $product_info->setManufacturedDate($manufacturer_date_xml);
+            }
 
-          // Срок годности
-          if(isset($info_xml->ProductInstanceExpiryDate) && ($expiryr_date_xml = $info_xml->ProductInstanceExpiryDate))
-          {
-            $product_info->setExpiryDate($expiryr_date_xml);
-          }
+            // Срок годности
+            if(isset($info_xml->ProductInstanceExpiryDate) && ($expiryr_date_xml = $info_xml->ProductInstanceExpiryDate))
+            {
+              $product_info->setExpiryDate($expiryr_date_xml);
+            }
 
-          // Прочее описание продукта
-          if(isset($info_xml->ProductText) && ($description_xml = $info_xml->ProductText))
-          {
-            $product_info->setDescription($description_xml);
-          }
+            // Прочее описание продукта
+            if(isset($info_xml->ProductText) && ($description_xml = $info_xml->ProductText))
+            {
+              $product_info->setDescription($description_xml);
+            }
 
-          // Наименование
-          if(isset($info_xml->ProductName) && ($name_xml = $info_xml->ProductName))
-          {
-            $product_info->setName($name_xml);
-          }
+            // Наименование
+            if(isset($info_xml->ProductName) && ($name_xml = $info_xml->ProductName))
+            {
+              $product_info->setName($name_xml);
+            }
 
-          ///TODO сделать количество и ед измерение
+            ///TODO сделать количество и ед измерение
 
-          if($product_info->getName() || $product_info->getDescription() || $product_info->getTnved() || $product_info->getInstanceId() || $product_info->getManufacturedDate() || $product_info->getExpiryDate())
-          {
-            $product_info->save_mr();
+            if($product_info->getName() || $product_info->getDescription() || $product_info->getTnved() || $product_info->getInstanceId() || $product_info->getManufacturedDate() || $product_info->getExpiryDate())
+            {
+              $product_info->save_mr();
+            }
           }
         }
       }
-
       //// Документы
       if(isset($item_xml->docInformationDetails))
       {

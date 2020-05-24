@@ -6,7 +6,7 @@
       Отслеживаемые сертификаты
     </div>
     <div id="my_certificate_list" class="collapse show" style="width: 100%; max-height: 300px; overflow: auto;">
-      <a href="/" class="btn btn-success btn-sm">все сертификаты</a>
+      <a href="/office/watch" class="btn btn-success btn-sm">все сертификаты</a>
       <table class="table table-sm table-hover">
         <thead class="mr-bold">
         <tr class="mr-auto-size">
@@ -66,7 +66,7 @@
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
-        axios.post('/api/watch/list/' + param).then(response =>
+        axios.post('/api/watch/short-list/' + param).then(response =>
           {
             this.table_body = response.data.body;
             this.table_header = response.data.header;

@@ -70,6 +70,23 @@ class MrAddress extends ORM
 
   }
 
+  //TODO: Переделать на трейт
+
+  /**
+   *
+   *
+   * @return string
+   */
+  public function getHash(): string
+  {
+    return $this->Hash;
+  }
+
+  public function setHash(string $value): void
+  {
+    $this->Hash = $value;
+  }
+
   /**
    * Тип адреса
    * адрес регистрации

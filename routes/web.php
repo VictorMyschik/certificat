@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // Форма редактирования офиса
   Route::match(['get', 'post'], '/office/edit/submit', "\App\Forms\MrOfficeEditForm@submitForm")->name('office_submit');
   Route::match(['get', 'post'], '/office/edit', "\App\Forms\MrOfficeEditForm@getFormBuilder")->name('office_edit');
-
+  // Форма редактирования нового офиса
   Route::match(['get', 'post'], '/new_office/edit/submit', "\App\Forms\MrNewOfficeEditForm@submitForm")->name('new_office_submit');
   Route::match(['get', 'post'], '/new_office/edit', "\App\Forms\MrNewOfficeEditForm@getFormBuilder")->name('new_office_edit');
 
@@ -121,7 +121,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/watch/add/{certificate_id}', 'Office\MrOfficeController@AddCertificateToMonitoring');
 
   /// Excel импорт
-  Route::get('/office/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
+  Route::get('/office/watch', "Office\MrOfficeController@OfficeWatchPage")->name('office_watch_page');
 });
 
 

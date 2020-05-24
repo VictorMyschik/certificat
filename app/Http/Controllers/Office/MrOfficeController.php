@@ -302,12 +302,29 @@ class MrOfficeController extends Controller
 
   /**
    * Список отслеживаемых сертификатов
+   * Упрощённый список
    *
    * @return array
    */
-  public function CertificateMonitoringList()
+  public function CertificateMonitoringShortList()
   {
     $office = MrUser::me()->getDefaultOffice();
     return MrTableController::buildTable(MrCertificateMonitoringTableController::class, ['office_id' => $office->id()]);
+  }
+
+  public function CertificateMonitoringList()
+  {
+
+  }
+
+  /**
+   * Страница отслеживания сертификатов
+   */
+  public function OfficeWatchPage()
+  {
+    $out = array();
+    $out['page_title'] = __('mr-t.Мои сертификаты');
+
+    return View('Office.watch')->with($out);
   }
 }

@@ -8,10 +8,6 @@
       <div>
         <a class="btn btn-primary btn-sm mr-border-radius-5"
            href="{{route('artisan_migrate')}}">Запустить миграцию</a>
-        <p><i class="fa fa-info-circle mr-color-green"></i>Будут созданы таблицы из файлов, отсутствующие в БД</p>
-        <div><i class="fa fa-info-circle mr-color-green"></i>Кнопка <a class="btn btn-primary btn-sm mr-border-radius-5"
-                                                                       href="#">Recovery</a> восстановит данные
-        </div>
       </div>
       <mr-table :mr_route="'{{$route_name}}'"></mr-table>
     </div>

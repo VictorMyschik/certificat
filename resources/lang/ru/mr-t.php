@@ -6,6 +6,7 @@ use App\Models\MrTranslate;
 $translate_arr = MrTranslate::GetAllRusWords();
 
 return $translate_arr + [
+    'Мои сертификаты'                                                                              => 'Мои сертификаты',
     'по'                                                                                           => 'по',
     'с'                                                                                            => 'с',
     'Срок действия'                                                                                => 'Срок действия',

@@ -14,6 +14,7 @@ class CreateMrFioTable extends Migration
       $table->string('MiddleName', 120)->nullable();//Отчество
       $table->string('LastName', 120)->nullable();//Фамилия
       $table->string('PositionName', 120)->nullable();//Фамилия
+      $table->string('Hash', 32);
     });
   }
 

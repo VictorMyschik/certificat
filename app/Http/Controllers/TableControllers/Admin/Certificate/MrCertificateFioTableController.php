@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\TableControllers\Admin\Certificate;
 
-
 use App\Helpers\MrLink;
 use App\Http\Controllers\TableControllers\MrTableController;
 use App\Models\Certificate\MrFio;
@@ -12,7 +11,7 @@ class MrCertificateFioTableController extends MrTableController
 {
   public static function GetQuery(array $args = array())
   {
-    return MrFio::Select()->paginate(20, __('mr-t.Дальше'));
+    return MrFio::Select()->paginate(20);
   }
 
   protected static function getHeader(): array

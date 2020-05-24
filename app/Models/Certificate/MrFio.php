@@ -5,7 +5,6 @@ namespace App\Models\Certificate;
 use App\Models\Lego\MrCommunicateTrait;
 use App\Models\MrUser;
 use App\Models\ORM;
-use Illuminate\Support\Facades\DB;
 
 class MrFio extends ORM
 {
@@ -18,7 +17,8 @@ class MrFio extends ORM
     'FirstName',//Имя max 120
     'MiddleName',//Отчество max 120
     'LastName', //Фамилия max 120
-    'PositionName' //Должность max 120
+    'PositionName', //Должность max 120
+    'Hash',
   );
 
   public function canEdit(): bool
@@ -34,21 +34,7 @@ class MrFio extends ORM
 
   public function before_save()
   {
-    $data = DB::table(self::getTableName())
-      ->where('FirstName', $this->getFirstName())
-      ->where('MiddleName', $this->getMiddleName())
-      ->where('LastName', $this->getLastName())
-      ->where('PositionName', $this->getPositionName())
-      ->first(['id']);
 
-    if($data)
-    {
-      $this->id = $data->id;
-    }
-    else
-    {
-      $this->id = 0;
-    }
   }
 
   /**
@@ -109,6 +95,23 @@ class MrFio extends ORM
   public function setPositionName(?string $value): void
   {
     $this->PositionName = $value;
+  }
+
+  //TODO: Переделать на трейт
+
+  /**
+   *
+   *
+   * @return string
+   */
+  public function getHash(): string
+  {
+    return $this->Hash;
+  }
+
+  public function setHash(string $value): void
+  {
+    $this->Hash = $value;
   }
 
   public function GetFullName(): string
