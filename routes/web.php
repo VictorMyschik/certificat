@@ -113,6 +113,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // Добавление отслеживания
   Route::match(['get', 'post'], '/watch/add/{certificate_id}', 'Office\MrOfficeController@AddCertificateToMonitoring');
 
+  /// Excel импорт
+  Route::get('/office/{office_id}/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
 });
 
 
@@ -136,9 +138,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
   Route::get('/admin/feedback/edit/{id}', "Admin\MrAdminFeedbackController@edit")->name('admin_feedback_edit');
   Route::get('/admin/feedback/edit/read/{id}',
-      "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
+    "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
   Route::match(['get', 'post'], '/admin/feedback/edit/send/{id}',
-      "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
+    "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
 
   // Почта

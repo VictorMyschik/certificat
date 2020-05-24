@@ -3,27 +3,33 @@
     <div class="row no-gutters padding-horizontal">
       <div class="d-inline col-md-3 m-t-15">
         <div class="shadow mr-border-radius-10 padding-horizontal p-t-5 p-b-5 m-l-5 m-r-5">
-          <input id="mr_input" v-model="v_query_text" type="text" @keyup="SearchCertificate(v_query_text)"
-                 placeholder="search..." autofocus class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;">
+          <div class="mr-bold mr_cursor mr-border-radius-5 mr_block_head p-l-5 m-b-5" style="width: 100%;"
+               data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1" href="#find_block">
+            Поиск
+          </div>
+          <div id="find_block" class="collapse show">
+            <input id="mr_input" v-model="v_query_text" type="text" @keyup="SearchCertificate(v_query_text)"
+                   placeholder="search..." autofocus class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;">
 
-          <div class="">
-            <div class="border mr-border-radius-5 m-t-5">
-              <div class="history_search mr_cursor mr-middle mr-muted padding-horizontal mr-border-radius-5"
-                   data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1"
-                   href="#recent_search_list">Недавно искали
-              </div>
+            <div class="">
+              <div class="border mr-border-radius-5 m-t-5">
+                <div class="history_search mr_cursor mr-middle mr-muted padding-horizontal mr-border-radius-5"
+                     data-toggle="collapse" aria-expanded="false" aria-controls="base_menu_1"
+                     href="#recent_search_list">Недавно искали
+                </div>
 
-              <div id="recent_search_list" class="p-l-5 collapse mr-middle" v-if="history_search">
-                <div class="mr_cursor mr-border-radius-5" v-for="story in history_search"
-                     v-on:click="ChangeSearch(story)">{{story}}
+                <div id="recent_search_list" class="p-l-5 collapse mr-middle" v-if="history_search">
+                  <div class="mr_cursor mr-border-radius-5" v-for="story in history_search"
+                       v-on:click="ChangeSearch(story)">{{story}}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div v-if="result" v-for="(it,ind) in result" v-on:click="getCertificate(ind)"
-                 class="mr_cursor mr-middle">{{it['Status']}} {{it['Number']}}
+              <div v-if="result" v-for="(it,ind) in result" v-on:click="getCertificate(ind)"
+                   class="mr_cursor mr-middle">{{it['Status']}} {{it['Number']}}
+              </div>
+              <div v-if="not_found" class="mr-middle mr-muted">Не найдено</div>
             </div>
-            <div v-if="not_found" class="mr-middle mr-muted">Не найдено</div>
           </div>
 
         </div>

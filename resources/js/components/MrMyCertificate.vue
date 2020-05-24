@@ -6,6 +6,7 @@
       Отслеживаемые сертификаты
     </div>
     <div id="my_certificate_list" class="collapse show" style="width: 100%; max-height: 300px; overflow: auto;">
+      <a href="/" class="btn btn-success btn-sm">все сертификаты</a>
       <table class="table table-sm table-hover">
         <thead class="mr-bold">
         <tr class="mr-auto-size">
@@ -25,7 +26,6 @@
         </tr>
         </tbody>
       </table>
-      <a href="#" class="btn btn-success btn-sm">все сертификаты</a>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@
         this.$parent.getCertificate(id);
       },
 
-      CertificateList: function(page = 1)
+      CertificateList: function (page = 1)
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
