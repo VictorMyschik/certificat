@@ -66,7 +66,6 @@
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
-        console.log(param);
         axios.post('/api/watch/list/' + param).then(response =>
           {
             this.table_body = response.data.body;
