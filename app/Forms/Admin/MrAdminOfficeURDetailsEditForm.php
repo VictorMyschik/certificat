@@ -3,6 +3,7 @@
 namespace App\Forms\Admin;
 
 use App\Forms\FormBase\MrFormBase;
+use App\Models\MrUser;
 use App\Models\Office\MrOffice;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class MrAdminOfficeURDetailsEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($args['office_id']);
+    $office = MrUser::me()->getDefaultOffice();
 
     $form[] = '<h3>Юредические данные</h3>';
     $form['URPostalCode'] = array(
@@ -81,10 +82,10 @@ class MrAdminOfficeURDetailsEditForm extends MrFormBase
     return $out;
   }
 
-  protected static function submitForm(Request $request, int $id)
+  protected static function submitForm(Request $request)
   {
     $v = $request->all();
-    $errors = self::validateForm($request->all() + ['id' => $id]);
+    $errors = self::validateForm($request->all());
     if(count($errors))
     {
       return $errors;
@@ -92,7 +93,7 @@ class MrAdminOfficeURDetailsEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $office = MrOffice::loadBy($id) ?: new MrOffice();
+    $office = MrUser::me()->getDefaultOffice();
 
     $office->setURPostalCode($v['URPostalCode'] ?: null);
     $office->setURRegion($v['URRegion'] ?: null);
@@ -102,6 +103,7 @@ class MrAdminOfficeURDetailsEditForm extends MrFormBase
     $office->setBankRS($v['BankRS'] ?: null);
     $office->setBankAddress($v['BankAddress'] ?: null);
     $office->setBankCode($v['BankCode'] ?: null);
+
     $office->save_mr();
 
 

@@ -20,7 +20,7 @@ class Controller extends BaseController
    * @param int $office_id
    * @return MrOffice
    */
-  public function has_permission(int $office_id): MrOffice
+  public function CheckAndChangeOffice(int $office_id): MrOffice
   {
     $user = MrUser::me();
     $office = MrOffice::loadBy($office_id);

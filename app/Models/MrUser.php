@@ -41,12 +41,12 @@ class MrUser extends ORM
 
   protected function before_delete()
   {
-    $subscription = MrSubscription::loadBy($this->getEmail(), 'Email');
-    $subscription ? $subscription->mr_delete() : null;
+    if($subscription = MrSubscription::loadBy($this->getEmail(), 'Email'))
+    {
+      $subscription->mr_delete();
+    }
 
     $uio = MrUserInOffice::loadBy($this->id(), 'UserID');
-
-    MrCertificateMonitoring::loadBy($uio->id(), 'UserInOfficeID');
 
     $uio->mr_delete();
   }

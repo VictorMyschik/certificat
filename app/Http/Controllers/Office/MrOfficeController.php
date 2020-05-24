@@ -15,7 +15,6 @@ use App\Models\Certificate\MrCertificateMonitoring;
 use App\Models\MrEmailLog;
 use App\Models\MrNewUsers;
 use App\Models\MrUser;
-use App\Models\Office\MrOffice;
 use App\Models\Office\MrUserInOffice;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -25,18 +24,23 @@ use Illuminate\View\View;
 
 class MrOfficeController extends Controller
 {
+  public function ChangeOffice(int $office_id)
+  {
+    parent::CheckAndChangeOffice($office_id);
+    return redirect()->route('office_page');
+  }
+
   /**
    * Настройки ВО, отчёты и прочие инструменты
    *
-   * @param int $office_id
    * @return Factory|View
    */
-  public function settingsPage(int $office_id)
+  public function settingsPage()
   {
-    $office = parent::has_permission($office_id);
     $user = MrUser::me();
 
     $out = array();
+    $office = $user->getDefaultOffice();
 
     $out['me'] = $user;
     $out['page_title'] = 'Персональные настройки';
@@ -47,34 +51,20 @@ class MrOfficeController extends Controller
     return View('Office.office_settings_page')->with($out);
   }
 
-  /**
-   * заглушка-редирект
-   *
-   * @return RedirectResponse|Redirector
-   */
-  public function officePageDefault()
-  {
-    $office = MrUser::me()->getDefaultOffice();
-
-    if(!$office)
-    {
-      return redirect('/');
-    }
-
-    return redirect()->route('office_page', ['office_id' => $office->id()]);
-  }
 
   /**
    * Главная страница ВО
    *
-   * @param int $office_id
    * @return Factory|View
    */
-  public function officePage(int $office_id)
+  public function officePage()
   {
-    parent::has_permission($office_id);
-
     $user = MrUser::me();
+    if(!$user->getDefaultOffice())
+    {
+      return redirect('/');
+    }
+
     $out = array();
     $out['user_history'] = $user->GetSearchHistory();
 
@@ -84,14 +74,13 @@ class MrOfficeController extends Controller
   /**
    * Смена полномочий пользователя в ВО
    *
-   * @param int $office_id
    * @param int $id User in office
    * @return RedirectResponse
    */
-  public function ChangeUserRoleInOffice(int $office_id, int $id)
+  public function ChangeUserRoleInOffice(int $id)
   {
     $uio = MrUserInOffice::loadByOrDie($id);
-    $office = MrOffice::loadByOrDie($office_id);
+    $office = MrUser::me()->getDefaultOffice();
 
     if(!$office->canEdit() || $uio->getOffice()->id() != $office->id())
     {
@@ -132,14 +121,14 @@ class MrOfficeController extends Controller
   /**
    * Переотправка письма для приглашённого пользователя
    *
-   * @param int $office_id
    * @param int $new_user_id
    * @return RedirectResponse
    */
-  public function ResendEmailForNewUser(int $office_id, int $new_user_id)
+  public function ResendEmailForNewUser(int $new_user_id)
   {
+    $user = MrUser::me();
     $new_user = MrNewUsers::loadByOrDie($new_user_id);
-    $office = MrOffice::loadByOrDie($office_id);
+    $office = $user->getDefaultOffice();
 
     if(!$office->canEdit())
     {
@@ -192,13 +181,13 @@ class MrOfficeController extends Controller
     // Очистка из getDefaultOffice
     $user = $uio->getUser();
 
-    if($uio->getOffice()->id() == $user->getDefaultOffice())
+    if($uio->getOffice()->id() == $user->getDefaultOffice()->id())
     {
       $user->setDefaultOfficeID(null);
-
     }
 
     $uio->mr_delete();
+    $uio->flush();
     $user->save_mr();
     $user->flush();
 
@@ -213,11 +202,10 @@ class MrOfficeController extends Controller
   /**
    * Поменять привилегии у приглашённого пользователя
    *
-   * @param int $office_id
    * @param int $id
    * @return RedirectResponse
    */
-  public function NewUserOfficeIsAdmin(int $office_id, int $id)
+  public function NewUserOfficeIsAdmin(int $id)
   {
     $new_user = MrNewUsers::loadBy($id);
 
@@ -235,11 +223,10 @@ class MrOfficeController extends Controller
   /**
    * Удалить приглашённого пользователя
    *
-   * @param int $office_id
    * @param int $id
    * @return RedirectResponse
    */
-  public function NewUserDelete(int $office_id, int $id)
+  public function NewUserDelete(int $id)
   {
     $new_user = MrNewUsers::loadBy($id);
     if(!$new_user->canDelete())

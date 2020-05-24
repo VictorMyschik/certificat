@@ -39,14 +39,14 @@ class MrNewUserInOfficeTableController extends MrTableController
     if($me->IsAdminInOffice($office))
     {
       $btn_resend_email = MrLink::open('resend_message_for_new_user',
-        ['office_id' => $office->id(), 'new_user_id' => $new_users->id()], '',
+        ['new_user_id' => $new_users->id()], '',
         'btn btn-success btn-sm fa fa-at', 'Переотправить сообщение', ['onclick' => 'return confirm("Переотправить?");']);
 
-      $btn_edit = MrLink::open('new_user_office_toggle_admin', ['office_id' => $office->id(), 'id' => $id], '', 'btn btn-primary btn-sm fa fa-edit');
+      $btn_edit = MrLink::open('new_user_office_toggle_admin', ['id' => $id], '', 'btn btn-primary btn-sm fa fa-edit');
 
       $delete = MrLink::open(
         'new_user_delete',
-        ['office_id' => $office->id(), 'id' => $new_users->id()],
+        ['id' => $new_users->id()],
         '',
         'btn btn-danger btn-sm fa fa-trash-alt',
         'Удалить пользователя из ВО', ['onclick' => 'return confirm("Уверены?");']

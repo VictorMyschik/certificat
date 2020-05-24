@@ -3,6 +3,7 @@
 namespace App\Forms\Admin;
 
 use App\Forms\FormBase\MrFormBase;
+use App\Models\MrUser;
 use App\Models\References\MrCountry;
 use App\Models\Office\MrOffice;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class MrAdminOfficePostDetailsEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $office = MrOffice::loadBy($args['office_id']);
+    $office = MrUser::me()->getDefaultOffice();
 
     $form['CountryID'] = array(
       '#type' => 'select',
@@ -106,10 +107,10 @@ class MrAdminOfficePostDetailsEditForm extends MrFormBase
     return $out;
   }
 
-  protected static function submitForm(Request $request, int $id)
+  protected static function submitForm(Request $request)
   {
     $v = $request->all();
-    $errors = self::validateForm($request->all() + ['id' => $id]);
+    $errors = self::validateForm($request->all());
     if(count($errors))
     {
       return $errors;
@@ -117,7 +118,7 @@ class MrAdminOfficePostDetailsEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $office = MrOffice::loadBy($id) ?: new MrOffice();
+    $office = MrUser::me()->getDefaultOffice();
 
     $office->setCountryID($v['CountryID'] ?: null);
     $office->setPhone($v['Phone'] ?: null);

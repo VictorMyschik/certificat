@@ -60,13 +60,13 @@
               @endif
               @foreach($offices as $office)
                 <a class="nav-link"
-                   href="{{route('office_page',['office_id'=>$office->id()])}}">{{$office->getName()}}</a>
+                   href="{{route('change_office', ['office_id'=>$office->id()])}}">{{$office->getName()}}</a>
               @endforeach
-              <a class="nav-link" href="#" onclick="mr_popup('{{route('admin_office_edit',['office_id'=>0])}}');return false;">Создать
-                пустой офис</a>
               @if(isset($default_office) && $default_office->canView())
-                <a class="nav-link"
-                   href="{{route('office_settings_page',['office_id'=>$default_office->id()])}}">{{ __('mr-t.Настройки') }}</a>
+                <a class="nav-link" href="{{route('office_settings_page')}}">{{ __('mr-t.Настройки') }}</a>
+              @else
+                  <a class="nav-link" href="#" onclick="mr_popup('{{route('new_office_edit')}}');return false;">Создать
+                    пустой офис</a>
               @endif
               <a class="nav-link m-t-15" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
               <a class="nav-link m-t-15" href="{{ route('logout') }}"

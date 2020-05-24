@@ -1,36 +1,40 @@
 <?php
 
-namespace App\Forms\Admin;
+namespace App\Forms;
 
 use App\Forms\FormBase\MrFormBase;
-use App\Models\Office\MrOffice;
 use App\Models\MrUser;
+use App\Models\Office\MrOffice;
 use App\Models\Office\MrUserInOffice;
 use Illuminate\Http\Request;
 
 /**
- * Форма создания пустого офиса
+ * Создание пустого офиса
  */
-class MrOfficeEditForm extends MrFormBase
+class MrNewOfficeEditForm extends MrFormBase
 {
   protected function builderForm(&$form, $args)
   {
-    $office = MrUser::me()->getDefaultOffice();
+    if(MrUser::me()->getDefaultOffice())
+    {
+      print('Disable create second office');
+      exit;
+    }
 
-    $form['#title'] = $args['office_id'] ? 'Переименовать офис' : 'Создание нового офиса';
+    $form['#title'] = 'Создание нового офиса';
 
     $form['Name'] = array(
       '#type'  => 'textfield',
       '#title' => 'Наименование офиса',
       '#class' => ['mr-border-radius-5'],
-      '#value' => $office ? $office->getName() : null,
+      '#value' => null,
     );
 
     $form['Description'] = array(
       '#type'  => 'textarea',
       '#title' => 'Примечание (для себя)',
       '#class' => ['mr-border-radius-5'],
-      '#value' => $office ? $office->getDescription() : null,
+      '#value' => null,
       '#rows'  => 5,
     );
 
@@ -45,8 +49,7 @@ class MrOfficeEditForm extends MrFormBase
     {
       $out['Name'] = 'Наименование обязательно';
     }
-
-    if(!$v['id'] && $v['Name'])
+    else
     {
       if(MrOffice::loadBy($v['Name'], 'Name'))
       {
@@ -57,10 +60,10 @@ class MrOfficeEditForm extends MrFormBase
     return $out;
   }
 
-  protected static function submitForm(Request $request, int $id)
+  protected static function submitForm(Request $request)
   {
     $v = $request->all();
-    $errors = self::validateForm($request->all() + ['id' => $id]);
+    $errors = self::validateForm($request->all());
     if(count($errors))
     {
       return $errors;
@@ -68,11 +71,22 @@ class MrOfficeEditForm extends MrFormBase
 
     parent::submitFormBase($request->all());
 
-    $office = MrUser::me()->getDefaultOffice();
+    $office = new MrOffice();
 
     $office->setName($v['Name']);
     $office->setDescription($v['Description'] ?: null);
-    $office->save_mr();
+    $office_id = $office->save_mr();
+
+    $user = MrUser::me();
+
+    $uio = new MrUserInOffice();
+    $uio->setUserID($user->id());
+    $uio->setOfficeID($office_id);
+    $uio->setIsAdmin(true);
+    $uio->save_mr();
+
+    $user->setDefaultOfficeID($office_id);
+    $user->save_mr();
 
     return;
   }

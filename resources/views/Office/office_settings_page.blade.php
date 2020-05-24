@@ -8,7 +8,7 @@
           {!! MrMessage::GetMessage() !!}
           <h5 class="mr-bold">{{$office->getName()}}</h5>
           <div class="mr-bold mr-middle margin-b-10" style="border-bottom: #0c175b 1px solid">
-            <a onclick="mr_popup('{{ route('admin_office_edit',['office_id'=>$office->id()]) }}'); return false;">
+            <a onclick="mr_popup('{{ route('office_edit') }}'); return false;">
               <span class="mr-color-red-dark">{{__('mr-t.Изменить')}}</span></a>
             {{__('mr-t.Офис создан')}}
             : {{ $office->getCreateDate()->GetShortDateShortTime() }}
@@ -22,7 +22,7 @@
               <div class="">
                 <h5 class="mr-bold" style="padding-right: 20px;">
                   @if($office->canEdit())
-                    {!! MrBtn::loadForm('office_po_details_edit', ['office_id'=> $office->id()], '', ['btn-primary btn-sm fa fa-edit']) !!}
+                    {!! MrBtn::loadForm('office_po_details_edit', [], '', ['btn-primary btn-sm fa fa-edit']) !!}
                   @endif Контактная информация и <br>лицо с правом подписи
                 </h5>
                 <div class="margin-b-10">
@@ -73,7 +73,7 @@
               <div class="">
                 <h5 class="mr-bold margin-b-5">
                   @if($office->canEdit())
-                    {!! MrBtn::loadForm('office_ur_details_edit', ['office_id' => $office->id()], '', ['btn btn-primary btn-sm fa fa-edit']) !!}@endif
+                    {!! MrBtn::loadForm('office_ur_details_edit',[], '', ['btn btn-primary btn-sm fa fa-edit']) !!}@endif
                   Юридическая информация
                 </h5>
                 <table class="margin-b-10">

@@ -52,41 +52,48 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   #endregion
 
   #region Office
-
   // Форма редактирования офиса
-  Route::match(['get', 'post'], '/office/{office_id}/edit/submit', "\App\Forms\Admin\MrOfficeEditForm@submitForm")->name('admin_office_submit');
-  Route::match(['get', 'post'], '/office/{office_id}/edit', "\App\Forms\Admin\MrOfficeEditForm@getFormBuilder")->name('admin_office_edit');
+  Route::match(['get', 'post'], '/office/edit/submit', "\App\Forms\MrOfficeEditForm@submitForm")->name('office_submit');
+  Route::match(['get', 'post'], '/office/edit', "\App\Forms\MrOfficeEditForm@getFormBuilder")->name('office_edit');
+
+  Route::match(['get', 'post'], '/new_office/edit/submit', "\App\Forms\MrNewOfficeEditForm@submitForm")->name('new_office_submit');
+  Route::match(['get', 'post'], '/new_office/edit', "\App\Forms\MrNewOfficeEditForm@getFormBuilder")->name('new_office_edit');
+
+
 
   // Добавление пользователя в ВО
   Route::get('/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
   #endregion
 
   //// Кабинет пользователя
-  Route::get('/office', "Office\MrOfficeController@officePageDefault")->name('office_page_default');
-  Route::get('/office/{office_id}', "Office\MrOfficeController@officePage")->name('office_page');
-  Route::get('/office/{office_id}/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
+  // Переключение офиса
+  Route::get('/office/change/{office_id}', "Office\MrOfficeController@ChangeOffice")->name('change_office');
+
+  // Страница офиса
+  Route::get('/office', "Office\MrOfficeController@officePage")->name('office_page');
+  Route::get('/office/settings', "Office\MrOfficeController@settingsPage")->name('office_settings_page');
 
   // форма для редактирования почтовых данных офиса
-  Route::match(['get', 'post'], '/office/{office_id}/po/details/edit/submit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
-  Route::match(['get', 'post'], '/office/{office_id}/po/details/edit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
+  Route::match(['get', 'post'], '/office/po/details/edit/submit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@submitForm")->name('office_po_details_submit');
+  Route::match(['get', 'post'], '/office/po/details/edit', "\App\Forms\Admin\MrAdminOfficePostDetailsEditForm@getFormBuilder")->name('office_po_details_edit');
 
   // форма для редактирования юридических данных офиса
-  Route::match(['get', 'post'], '/office/{office_id}/ur/details/edit/submit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
-  Route::match(['get', 'post'], '/office/{office_id}/ur/details/edit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
+  Route::match(['get', 'post'], '/office/ur/details/edit/submit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@submitForm")->name('office_ur_details_submit');
+  Route::match(['get', 'post'], '/office/ur/details/edit', "\App\Forms\Admin\MrAdminOfficeURDetailsEditForm@getFormBuilder")->name('office_ur_details_edit');
 
   // Смена статуса пользователя в офисе
-  Route::get('/office/{office_id}/userinoffice/{id}/isadmin', "Office\MrOfficeController@ChangeUserRoleInOffice")->name
+  Route::get('/office/userinoffice/{id}/isadmin', "Office\MrOfficeController@ChangeUserRoleInOffice")->name
   ('user_office_toggle_admin');
   // Смена статуса приглашённого пользователя
-  Route::get('/office/{office_id}/newuserinoffice/{id}/isadmin', "Office\MrOfficeController@NewUserOfficeIsAdmin")->name('new_user_office_toggle_admin');
+  Route::get('/office/newuserinoffice/{id}/isadmin', "Office\MrOfficeController@NewUserOfficeIsAdmin")->name('new_user_office_toggle_admin');
 
 
   // Добавление нового пользователя
-  Route::match(['get', 'post'], 'office/{office_id}/user/edit/{id}/submit', "\App\Forms\MrAddOfficeUserForm@submitForm")->name('add_office_user_submit');
-  Route::match(['get', 'post'], 'office/{office_id}/user/edit/{id}', "\App\Forms\MrAddOfficeUserForm@getFormBuilder")->name('add_office_user_edit');
+  Route::match(['get', 'post'], 'office/user/edit/{id}/submit', "\App\Forms\MrAddOfficeUserForm@submitForm")->name('add_office_user_submit');
+  Route::match(['get', 'post'], 'office/user/edit/{id}', "\App\Forms\MrAddOfficeUserForm@getFormBuilder")->name('add_office_user_edit');
 
   // Переотправить письмо со ссылкой для приглашённого пользователя
-  Route::get('office/{office_id}/{new_user_id}/resend', "Office\MrOfficeController@ResendEmailForNewUser")->name('resend_message_for_new_user');
+  Route::get('office/new_user/{new_user_id}/resend', "Office\MrOfficeController@ResendEmailForNewUser")->name('resend_message_for_new_user');
 
   //// Telegram Оповещение
   //Форма добавления нового аккаунта телеграмм
@@ -102,7 +109,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // подписка пользователя
   Route::get('/toggle_subscription', "Office\MrUserController@ToggleSubscription")->name('toggle_subscription');
   // Удалить приглашённого пользователя
-  Route::get('/office/{office_id}/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
+  Route::get('/office/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
 
 
   //// Работа пользователя с сертификатами
@@ -114,7 +121,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/watch/add/{certificate_id}', 'Office\MrOfficeController@AddCertificateToMonitoring');
 
   /// Excel импорт
-  Route::get('/office/{office_id}/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
+  Route::get('/office/new_user/{id}/delete', "Office\MrOfficeController@NewUserDelete")->name('new_user_delete');
 });
 
 

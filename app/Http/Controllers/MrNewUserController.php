@@ -75,6 +75,6 @@ class MrNewUserController extends Controller
 
     $new_user->mr_delete();
 
-    return redirect()->route('office_page_default');
+    return redirect()->route('office_page');
   }
 }
