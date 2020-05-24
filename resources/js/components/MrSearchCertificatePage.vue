@@ -4,8 +4,7 @@
       <div class="d-inline col-md-3 m-t-15">
         <div class="shadow mr-border-radius-10 padding-horizontal p-t-5 p-b-5 m-l-5 m-r-5">
           <input id="mr_input" v-model="v_query_text" type="text" @keyup="SearchCertificate(v_query_text)"
-                 placeholder="search..."
-                 autofocus class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;">
+                 placeholder="search..." autofocus class="mr-muted mr-border-radius-10 p-l-5" style="width: 100%;">
 
           <div class="">
             <div class="border mr-border-radius-5 m-t-5">
@@ -30,7 +29,7 @@
         </div>
         <hr>
         <div class="row no-gutters shadow padding-horizontal mr-border-radius-10 m-l-5 m-r-5">
-          <mr-my-certificate :mr_key="mr_key"></mr-my-certificate>
+          <mr-my-certificate v-if="render_my_certificate_list"></mr-my-certificate>
         </div>
         <hr>
       </div>
@@ -57,7 +56,7 @@
     data()
     {
       return {
-        mr_key: 0,
+        render_my_certificate_list: true,
         certificate_json: null,
         v_query_text: '',
         result: [],
@@ -79,9 +78,9 @@
       {
         this.v_query_text = query_text;
 
-        if (query_text.length > 2)
+        if (this.v_query_text.length > 2)
         {
-          axios.post('/search/certificate', {'text': query_text}).then(response =>
+          axios.post('/search/certificate', {'text': this.v_query_text}).then(response =>
             {
               this.result = response.data;
 
@@ -122,8 +121,9 @@
       {
         axios.post('/watch/add/' + this.watch_id).then(response =>
           {
+            this.render_my_certificate_list = false;
             alert('Сертификат №' + response.data['certificate'] + ' отслеживается');
-            this.mr_key = 1;
+            this.render_my_certificate_list = true;
           }
         );
       },

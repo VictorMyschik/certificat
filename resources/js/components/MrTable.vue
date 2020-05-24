@@ -23,7 +23,7 @@
       </tr>
       </tbody>
     </table>
-    <pagination :data="table_body" @pagination-change-page="SearchCertificate" :limit="5">
+    <pagination :data="table_body" @pagination-change-page="CertificateList" :limit="5">
       <span class="" slot="prev-nav">Previous</span>
       <span class="" slot="next-nav">Next</span>
     </pagination>

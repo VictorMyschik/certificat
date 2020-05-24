@@ -42,8 +42,8 @@ class ORM extends Model
     }
 
     // Base parametrise
-    $field_name = 'id';
-    $sort = 'DESC';
+    $field_name = self::getTableName() . '.' . 'id';
+    $sort = 'asc';
 
     foreach (explode('&', request()->getQueryString()) as $item)
     {
@@ -52,9 +52,14 @@ class ORM extends Model
       {
         $sort = $param[1];
       }
-      elseif($param[0] == 'field' && in_array($param[1], self::getFieldMap()))
+      elseif($param[0] == 'field' && $param[1])
       {
         $field_name = $param[1];
+
+        if(!strpos($param[1], '.'))
+        {
+          $field_name = self::getTableName() . '.' . $field_name;
+        }
       }
     }
 

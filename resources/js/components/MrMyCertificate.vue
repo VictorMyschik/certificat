@@ -19,7 +19,9 @@
         </thead>
         <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
         <tr v-for="item in table_body.data" class="border-top mr_cursor" v-on:click="qwerty(item['id'])">
-          <td v-html="item['dates']"></td><td v-html="item['status']"></td><td>{{item['number']}}</td>
+          <td v-html="item['dates']"></td>
+          <td v-html="item['status']"></td>
+          <td>{{item['number']}}</td>
         </tr>
         </tbody>
       </table>
@@ -38,8 +40,8 @@
         table_body: {},
         table_header: [],
         // Сортировка
-        mr_field: 'id',
-        mr_sort: 'asc',
+        mr_field: 'WriteDate',
+        mr_sort: 'desc',
         // Стрелки сортировки
         arrow_up: 'fa fa-arrow-up',
         arrow_down: 'fa fa-arrow-down',
@@ -64,7 +66,7 @@
       {
         this.mr_wait = true;
         let param = '?page=' + page + '&' + 'sort' + '=' + this.mr_sort + '&field=' + this.mr_field;
-
+        console.log(param);
         axios.post('/api/watch/list/' + param).then(response =>
           {
             this.table_body = response.data.body;
