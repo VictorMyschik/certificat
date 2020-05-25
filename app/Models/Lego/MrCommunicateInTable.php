@@ -17,9 +17,9 @@ class MrCommunicateInTable extends ORM
   protected $table = 'mr_communicate_in_table';
 
   protected $fillable = array(
-    'TableKind',
-    'RowID',
-    'CommunicateID',
+      'TableKind',
+      'RowID',
+      'CommunicateID',
   );
 
   const TABLE_KIND_FIO = 1;
@@ -29,9 +29,9 @@ class MrCommunicateInTable extends ORM
   public static function getTableList(): array
   {
     return array(
-      self::TABLE_KIND_FIO       => MrFio::getTableName(),
-      self::TABLE_KIND_AUTHORITY => MrConformityAuthority::getTableName(),
-      self::TABLE_KIND_APPLICANT => MrApplicant::getTableName(),
+        self::TABLE_KIND_FIO       => MrFio::getTableName(),
+        self::TABLE_KIND_AUTHORITY => MrConformityAuthority::getTableName(),
+        self::TABLE_KIND_APPLICANT => MrApplicant::getTableName(),
     );
   }
 
@@ -47,7 +47,7 @@ class MrCommunicateInTable extends ORM
 
   public function setTableKind(int $value): void
   {
-    if(isset(self::getTableList()[$value]))
+    if (isset(self::getTableList()[$value]))
     {
       $this->TableKind = $value;
     }
@@ -71,7 +71,7 @@ class MrCommunicateInTable extends ORM
   }
 
   /**
-   * Объект свзяи
+   * Объект связи
    *
    * @return MrCommunicate
    */
@@ -90,24 +90,21 @@ class MrCommunicateInTable extends ORM
   /**
    * @param int $communicative_id
    * @param object $object
-   * @return Model|Builder|object|void|null
+   * @return Model|Builder|object|null
    */
   public static function GetByObject(int $communicative_id, object $object)
   {
-    if($table_kind = $object->GetTableKind())
+    if ($table_kind = $object->GetTableKind())
     {
-      $query = DB::table(self::getTableName())
-        ->where('CommunicateID', '=', $communicative_id)
-        ->Where('RowID', '=', $object->id())
-        ->Where('TableKind', '=', $table_kind);
-
-      return $query->first();
+      return DB::table(self::getTableName())
+          ->where('CommunicateID', $communicative_id)
+          ->Where('RowID', $object->id())
+          ->Where('TableKind', $table_kind)
+          ->first();
     }
     else
     {
       dd('Тип объекта не опознан');
     }
-
-    return;
   }
 }

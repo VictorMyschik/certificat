@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Feature\Certificate;
-
 
 use App\Models\Certificate\MrFio;
 use Tests\TestCase;

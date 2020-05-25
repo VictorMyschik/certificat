@@ -12,7 +12,6 @@ class MrAddress extends ORM
   protected $table = 'mr_address';
 
   protected $fillable = array(
-    'AddressKind',
     'CountryID',
     'TerritoryCode',//17
     'RegionName',//120
@@ -27,6 +26,7 @@ class MrAddress extends ORM
     'AddressText', //max 1000 Адрес в текстовой форме
     'Lat',
     'Lon',
+    'Hash',
   );
 
   public function canEdit(): bool
@@ -85,36 +85,6 @@ class MrAddress extends ORM
   public function setHash(string $value): void
   {
     $this->Hash = $value;
-  }
-
-  /**
-   * Тип адреса
-   * адрес регистрации
-   * фактический адрес
-   * почтовый адрес
-   *
-   * @return int
-   */
-  public function getAddressKind(): int
-  {
-    return $this->AddressKind;
-  }
-
-  public function getAddressKindName(): string
-  {
-    return self::GetAddressKindList()[$this->AddressKind];
-  }
-
-  public function setAddressKind(int $value)
-  {
-    if(isset(self::GetAddressKindList()[$value]))
-    {
-      $this->AddressKind = $value;
-    }
-    else
-    {
-      dd('Тип адреса не найден');
-    }
   }
 
   /**

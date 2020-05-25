@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Feature\Certificate;
-
 
 use App\Models\Certificate\MrManufacturer;
 use App\Models\References\MrCountry;
@@ -47,12 +45,14 @@ class MrManufacturerTest extends TestCase
     $manufacturer_id = $manufacturer->save_mr();
     $manufacturer->flush();
 
+
     //// Asserts
     $manufacturer = MrManufacturer::loadBy($manufacturer_id);
     $this->assertNotNull($manufacturer);
 
     $this->assertEquals($manufacturer->getCountry()->id(), $CountryID);
     $this->assertEquals($manufacturer->getName(), $Name);
+
 
     //// Delete
     $manufacturer->mr_delete();

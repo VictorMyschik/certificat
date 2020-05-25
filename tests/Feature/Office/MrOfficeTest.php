@@ -1,10 +1,8 @@
 <?php
 
-
 namespace Tests\Feature\Office;
 
-
-use App\Models\MrOffice;
+use App\Models\Office\MrOffice;
 use App\Models\References\MrCountry;
 use Tests\TestCase;
 

@@ -35,6 +35,7 @@ class MrCommunicateTest extends TestCase
     $this->assertEquals($Kind, $communicate->getKind());
     $this->assertEquals($Address, $communicate->getAddress());
 
+
     //// Update
     //'Kind'
     $Kind = array_rand(MrCommunicate::getAddressKinds());

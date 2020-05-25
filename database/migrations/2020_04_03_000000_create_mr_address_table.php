@@ -10,7 +10,6 @@ class CreateMrAddressTable extends Migration
   {
     Schema::create('mr_address', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
-      $table->tinyInteger('AddressKind'); // Кодовое обозначение вида адреса
       $table->integer('CountryID')->nullable(); // Страна
       $table->string('TerritoryCode', 18)->nullable();
       $table->string('RegionName', 121)->nullable();

@@ -22,7 +22,8 @@
     "laravel/tinker": "^2.0",
     "laravel/ui": "^2.0",
     "laravelcollective/html": "^6.0",
-    "phpoffice/phpspreadsheet": "^1.9"
+    "phpoffice/phpspreadsheet": "^1.9",
+    "ext-pdo": "*"
   },
   "require-dev": {
     "facade/ignition": "^2.0",

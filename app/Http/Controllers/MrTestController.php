@@ -16,44 +16,34 @@ use App\Models\Certificate\MrProduct;
 use App\Models\Certificate\MrProductInfo;
 use App\Models\Lego\MrCertificateDocument;
 use App\Models\Lego\MrCommunicateInTable;
-use App\Models\MrUser;
 use Illuminate\Http\Request;
 
 class MrTestController extends Controller
 {
   public function index(Request $request)
   {
-
-    MrCertificate::AllDelete();
-    MrCertificateDocument::AllDelete();
-    MrCommunicate::AllDelete();
-    MrCommunicateInTable::AllDelete();
-    MrConformityAuthority::AllDelete();
-    MrDocument::AllDelete();
-    MrManufacturer::AllDelete();
-    MrAddress::AllDelete();
-    MrFio::AllDelete();
-    MrApplicant::AllDelete();
-    MrProductInfo::AllDelete();
-    MrProduct::AllDelete();
-    MrCertificateMonitoring::AllDelete();
-
     $out = array();
     $files = scandir(public_path() . '/files');
 
     // удаление шлака
     foreach ($files as $key => $file_q)
     {
-      if(strlen($file_q) < 3)
+      if (strlen($file_q) < 3)
       {
         unset($files[$key]);
       }
     }
 
 
-    if($name = $request->get('file_name'))
+    if ($name = $request->get('file_name'))
     {
-      if(array_search($name, $files))
+      // Очистка перед импортом
+      if ($request->get('clear'))
+      {
+        $this->ClearCertificate();
+      }
+
+      if (array_search($name, $files))
       {
         ini_set('max_execution_time', 50000);
         $file = public_path() . '/files/' . $name;
@@ -76,7 +66,7 @@ class MrTestController extends Controller
     // удаление шлака
     foreach ($files as $key => $file_q)
     {
-      if(strlen($file_q) < 3)
+      if (strlen($file_q) < 3)
       {
         unset($files[$key]);
       }
@@ -92,8 +82,24 @@ class MrTestController extends Controller
 
   public function asd(string $path)
   {
-
     $xml = simplexml_load_file($path);
     MrXmlImportBase::parse($xml);
+  }
+
+  public function ClearCertificate()
+  {
+    MrCertificate::AllDelete();
+    MrCertificateDocument::AllDelete();
+    MrCommunicate::AllDelete();
+    MrCommunicateInTable::AllDelete();
+    MrConformityAuthority::AllDelete();
+    MrDocument::AllDelete();
+    MrManufacturer::AllDelete();
+    MrAddress::AllDelete();
+    MrFio::AllDelete();
+    MrApplicant::AllDelete();
+    MrProductInfo::AllDelete();
+    MrProduct::AllDelete();
+    MrCertificateMonitoring::AllDelete();
   }
 }

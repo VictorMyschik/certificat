@@ -5,6 +5,9 @@
     <div class="container m-t-10">
       {{Form::open(array('url' => '/test', 'files' => true))}}
       @csrf
+      <label class="mr-bold">Очистить таблицы перед импортом
+        <input type="checkbox" name="clear" value="1">
+      </label>
       <table>
         @foreach($file_name as $name)
           <tr>
@@ -13,6 +16,7 @@
           </tr>
         @endforeach
       </table>
+
       {{Form::submit('Click Me!')}}
       {{ Form::close() }}
     </div>
