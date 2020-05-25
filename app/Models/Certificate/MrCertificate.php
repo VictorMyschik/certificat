@@ -584,14 +584,14 @@ class MrCertificate extends ORM
     }
 
     $list = DB::table(self::getTableName())
-        ->join('mr_manufacturer', 'mr_manufacturer.id', '=', self::getTableName() . '.id')
+        ->join('mr_manufacturer', 'mr_manufacturer.id', '=', 'mr_certificate.ManufacturerID')
         ->join('mr_product', 'mr_product.ManufacturerID', '=', 'mr_manufacturer.id')
         ->join('mr_product_info', 'mr_product_info.ProductID', '=', 'mr_product.id')
         ->Where('mr_certificate.Number', 'LIKE', '%' . $text . '%')
         ->orWhere('mr_manufacturer.Name', 'LIKE', '%' . $text . '%')
         ->orWhere('mr_product.Name', 'LIKE', '%' . $text . '%')
         ->orWhere('mr_product.Description', 'LIKE', '%' . $text . '%')
-        ->orWhere('mr_product_info.InstanceId', 'LIKE', '%' . $text . '%')
+        //->orWhere('mr_product_info.InstanceId', 'LIKE', '%' . $text . '%')
         ->limit(15)->get(['mr_certificate.id', 'mr_certificate.Number', 'mr_certificate.Status']);
 
     $out = array();

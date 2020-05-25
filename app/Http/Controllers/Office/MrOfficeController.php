@@ -6,6 +6,7 @@ use App\Helpers\MrDateTime;
 use App\Helpers\MrEmailHelper;
 use App\Helpers\MrMessageHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TableControllers\MrCertificateMonitoringShortTableController;
 use App\Http\Controllers\TableControllers\MrCertificateMonitoringTableController;
 use App\Http\Controllers\TableControllers\MrNewUserInOfficeTableController;
 use App\Http\Controllers\TableControllers\MrTableController;
@@ -301,7 +302,7 @@ class MrOfficeController extends Controller
   }
 
   /**
-   * Список отслеживаемых сертификатов
+   * Сокращённый список недавно добавлнных сертификатов для отслеживания
    * Упрощённый список
    *
    * @return array
@@ -309,12 +310,13 @@ class MrOfficeController extends Controller
   public function CertificateMonitoringShortList()
   {
     $office = MrUser::me()->getDefaultOffice();
-    return MrTableController::buildTable(MrCertificateMonitoringTableController::class, ['office_id' => $office->id()]);
+    return MrTableController::buildTable(MrCertificateMonitoringShortTableController::class, ['office_id' => $office->id()]);
   }
 
   public function CertificateMonitoringList()
   {
-
+    $office = MrUser::me()->getDefaultOffice();
+    return MrTableController::buildTable(MrCertificateMonitoringTableController::class, ['office_id' => $office->id()]);
   }
 
   /**
