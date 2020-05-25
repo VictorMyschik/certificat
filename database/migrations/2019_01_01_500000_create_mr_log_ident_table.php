@@ -13,7 +13,7 @@ class CreateMrLogIdentTable extends Migration
       $table->increments('id')->autoIncrement();
       $table->timestamp('Date')->default(DB::raw('CURRENT_TIMESTAMP'));
       $table->string('Referer', 512)->nullable();
-      $table->string('Link', 512)->nullable();
+      $table->string('Link', 1024)->nullable();
       $table->string('Ip', 16);
       $table->mediumInteger('UserID', false, true)->nullable();
       $table->string('UserAgent', 800);

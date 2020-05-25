@@ -10,7 +10,6 @@ use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
 use App\Models\References\MrTechnicalRegulation;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -193,7 +192,7 @@ class MrCertificate extends ORM
     }
     else
     {
-      dd('Неизвестный статус действия сертификата: '. $value);
+      dd('Неизвестный статус действия сертификата: ' . $value);
     }
   }
 
@@ -584,11 +583,23 @@ class MrCertificate extends ORM
       return array();
     }
 
-    $list = DB::table(self::getTableName())->where('Number', 'LIKE', '%' . $text . '%')->limit(15)->get(['id', 'Number', 'Status']);
+    $list = DB::table(self::getTableName())
+        ->join('mr_manufacturer', 'mr_manufacturer.id', '=', self::getTableName() . '.id')
+        ->join('mr_product', 'mr_product.ManufacturerID', '=', 'mr_manufacturer.id')
+        ->join('mr_product_info', 'mr_product_info.ProductID', '=', 'mr_product.id')
+        ->Where('mr_certificate.Number', 'LIKE', '%' . $text . '%')
+        ->orWhere('mr_manufacturer.Name', 'LIKE', '%' . $text . '%')
+        ->orWhere('mr_product.Name', 'LIKE', '%' . $text . '%')
+        ->orWhere('mr_product.Description', 'LIKE', '%' . $text . '%')
+        ->orWhere('mr_product_info.InstanceId', 'LIKE', '%' . $text . '%')
+        ->limit(15)->get(['mr_certificate.id', 'mr_certificate.Number', 'mr_certificate.Status']);
+
     $out = array();
+
     foreach ($list as $item)
     {
-      $out[$item->id] = array(
+      $out[] = array(
+          'id'     => $item->id,
           'Number' => $item->Number,
           'Status' => self::$statuses[$item->Status],
       );
@@ -598,14 +609,14 @@ class MrCertificate extends ORM
   }
 
   /**
-   * нвернёт наимнование класса для расскрасуи статуса
+   * вернёт наименование класса для раскраски статуса
    *
    * @return string
    */
   public function GetStatusColor(): string
   {
     $status = $this->getStatus();
-
+    $class_name = '';
     switch ($status)
     {
       case self::STATUS_ACTIVE:

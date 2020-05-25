@@ -25,7 +25,7 @@
                 </div>
               </div>
 
-              <div v-if="result" v-for="(it,ind) in result" v-on:click="getCertificate(ind)"
+              <div v-if="result" v-for="it in result" v-on:click="getCertificate(it['id'])"
                    class="mr_cursor mr-middle">{{it['Status']}} {{it['Number']}}
               </div>
               <div v-if="not_found" class="mr-middle mr-muted">Не найдено</div>
@@ -105,6 +105,7 @@
         {
           this.result = [];
           this.certificate_json = null;
+          this.not_found = '';
         }
       },
 
