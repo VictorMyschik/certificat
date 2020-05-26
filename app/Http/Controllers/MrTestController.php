@@ -61,7 +61,7 @@ class MrTestController extends Controller
   public function qwe()
   {
     ini_set('max_execution_time', 500000000000);
-    $files = scandir('files');
+    $files = scandir($file = public_path() . '/files');
 
     // удаление шлака
     foreach ($files as $key => $file_q)

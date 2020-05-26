@@ -66,11 +66,6 @@ class MrCertificate extends ORM
     return self::$statuses;
   }
 
-  /*public static function loadBy($value, $field = 'id'): ?MrCertificate
-  {
-    return parent::loadBy((string)$value, $field);
-  }*/
-
   protected function before_delete()
   {
 
@@ -375,10 +370,10 @@ class MrCertificate extends ORM
       return self::$hashed;
     }
 
-    $list = DB::table(self::getTableName())->pluck('Number')->toArray();
+    $list = DB::table(self::getTableName())->get(['id', 'Number'])->toArray();
     foreach ($list as $item)
     {
-      self::$hashed[$item] = $item;
+      self::$hashed[$item->Number] = $item->id;
     }
 
     return self::$hashed;
@@ -458,6 +453,18 @@ class MrCertificate extends ORM
   }
 
   /**
+   * Список товаров
+   *
+   * @return MrProduct[]
+   */
+  public function GetProducts(): array
+  {
+    return MrCacheHelper::GetCachedObjectList('product' . '_' . $this->id() . '_list', MrProduct::class, function () {
+      return DB::table(MrProduct::getTableName())->where('CertificateID', $this->id())->pluck('id')->toArray();
+    });
+  }
+
+  /**
    * Создание массив для использования во Vue
    */
   public function GetJsonData(): array
@@ -509,7 +516,7 @@ class MrCertificate extends ORM
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
 
       //// Товары
-      foreach ($manufacturer->GetProducts() as $key => $product)
+      foreach ($this->GetProducts() as $key => $product)
       {
         $out['manufacturer']['products'][$key] = array(
             'Name'        => $product->getName(),

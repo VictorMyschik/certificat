@@ -15,11 +15,12 @@ class MrProduct extends ORM
   protected $table = 'mr_product';
 
   protected $fillable = array(
-    'ManufacturerID',
-    'Name',
-    'EANCommodityId',
-    'TnvedID',
-    'Description' // Макс. длина: 4000
+      'CertificateID',
+      'Name',
+      'EANCommodityId',
+      'TnvedID',
+      'Description', // Макс. длина: 4000
+      'Hash'
   );
 
   protected function before_delete()
@@ -27,19 +28,29 @@ class MrProduct extends ORM
 
   }
 
+  public function getHash(): string
+  {
+    return $this->Hash;
+  }
+
+  public function setHash(string $value): void
+  {
+    $this->Hash = $value;
+  }
+
   /**
    * Производитель продукта
    *
-   * @return MrManufacturer
+   * @return MrCertificate
    */
-  public function getManufacturer(): MrManufacturer
+  public function getCertificate(): MrCertificate
   {
-    return MrManufacturer::loadBy($this->ManufacturerID);
+    return MrCertificate::loadBy($this->CertificateID);
   }
 
-  public function setManufacturerID(int $value): void
+  public function setCertificateID(int $value): void
   {
-    $this->ManufacturerID = $value;
+    $this->CertificateID = $value;
   }
 
   /**

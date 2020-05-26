@@ -11,9 +11,9 @@ class CreateMrManufacturerTable extends Migration
     Schema::create('mr_manufacturer', function (Blueprint $table) {
       $table->bigIncrements('id')->autoIncrement();
       $table->smallInteger('CountryID')->nullable();//Страна производителя
-      $table->string('Name');//Юр наименование
-      $table->string('Address1ID')->nullable();//адрес регистрации
-      $table->string('Address2ID')->nullable();//фактический адрес
+      $table->string('Name',300);//Юр наименование
+      $table->integer('Address1ID')->nullable();//адрес регистрации
+      $table->integer('Address2ID')->nullable();//фактический адрес
     });
   }
 

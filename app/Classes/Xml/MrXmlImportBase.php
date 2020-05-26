@@ -82,13 +82,11 @@ class MrXmlImportBase extends Controller
   {
     // Сведения о сертификате
     $certificate = self::importCertificateDetails($xml, $link_out);
+
     if (!$certificate)
     {
       return null;
     }
-
-    $certificate->save_mr();
-    $certificate->reload();
 
     //// Сведения об органе по оценке соответствия
     if (isset($xml->conformityAuthorityV2Details))
@@ -117,7 +115,7 @@ class MrXmlImportBase extends Controller
         //// Товары
         if (isset($tech_regulation->productDetails) && ($product_details_xml = $tech_regulation->productDetails))
         {
-          self::importProducts($product_details_xml, $manufacturer, $certificate);
+          self::importProducts($product_details_xml, $certificate);
         }
       }
 
@@ -676,11 +674,20 @@ class MrXmlImportBase extends Controller
       $address_kind = (int)$address_xml->addressKindCode;
 
       $hash_name = '';
+      $country = null;
 
       if (isset($address_xml->unifiedCountryCode) && isset($address_xml->unifiedCountryCode->value) && ($country_xml = (string)$address_xml->unifiedCountryCode->value))
       {
-        $country = MrCountry::loadBy($country_xml, 'ISO3166alpha2');
-        $hash_name .= '|' . $country->id();
+        if ($country = MrCountry::loadBy($country_xml, 'ISO3166alpha2'))
+        {
+          $hash_name .= '|' . $country->id();
+        }
+        else
+        {
+          dump($country_xml);
+          dump($object);
+          dd('Не найдена страна в адресе для ');
+        }
       }
 
       // Регион
@@ -749,7 +756,7 @@ class MrXmlImportBase extends Controller
 
       $address = MrAddress::loadBy($hash, 'Hash') ?: new MrAddress();
 
-      $address->setCountryID($country->id());
+      $address->setCountryID($country ? $country->id() : null);
       $address->setRegionName($region ?? null);
       $address->setDistrictName($district ?? null);
       $address->setCity($cityName ?? null);
@@ -781,18 +788,14 @@ class MrXmlImportBase extends Controller
 
     if (isset($xml->docId) && ($number = (string)$xml->docId))
     {
-      $number = (string)$xml->docId;
+
+      if (MrCertificate::GetHashedList()[$number] ?? null)
+      {
+        return null;
+      }
 
       // Проверка, есть такой номер сертификата или нет
-      if (isset(MrCertificate::GetHashedList()[$number]))
-      {
-        $certificate = MrCertificate::loadBy($number, 'Number');
-      }
-      else
-      {
-        $certificate = new MrCertificate();
-        MrCertificate::GetHashedList()[$number] = $number;
-      }
+      $certificate = MrCertificate::loadBy(MrCertificate::GetHashedList()[$number] ?? null) ?: new MrCertificate();
     }
     else
     {
@@ -860,7 +863,14 @@ class MrXmlImportBase extends Controller
     {
       if (isset($docStatusDetails->docStatusCode) && ($status_code = (int)$docStatusDetails->docStatusCode))
       {
-        $certificate->setStatus($status_code);
+        if (MrCertificate::getStatuses()[$status_code] ?? null)
+        {
+          $certificate->setStatus($status_code);
+        }
+        else
+        {
+          return null;
+        }
       }
 
       // Начальная дата действия статуса
@@ -897,6 +907,11 @@ class MrXmlImportBase extends Controller
         $certificate->setAuditorID($fio->id());
       }
     }
+
+    $certificate->save_mr();
+    $certificate->reload();
+
+    MrCertificate::$hashed[$certificate->getNumber()] = $certificate->id();
 
     return $certificate;
   }
@@ -986,11 +1001,6 @@ class MrXmlImportBase extends Controller
       dd('Заявитель не заполнен');
     }
 
-    if (!$country_code)
-    {
-      dd('Сертификат ID' . $certificate->id() . ' нет страны заявителя');
-    }
-
     $hash_name = $name_xml . '|' . $country_code . '|' . $applicant_id_xml;
     $hash = md5($hash_name);
 
@@ -1039,37 +1049,34 @@ class MrXmlImportBase extends Controller
    * Импорт товаров
    *
    * @param SimpleXMLElement $xml
-   * @param MrManufacturer $manufacturer
    * @param MrCertificate $certificate
    */
-  protected static function importProducts(SimpleXMLElement $xml, MrManufacturer $manufacturer, MrCertificate $certificate): void
+  protected static function importProducts(SimpleXMLElement $xml, MrCertificate $certificate): void
   {
     // Продукт
     foreach ($xml->element as $item_xml)
     {
       // Наименование
-      if (isset($item_xml->productName) && ($product_name_xml = (string)$item_xml->productName))
+      if (isset($item_xml->productName))
       {
-        if (!$product = MrProduct::loadBy($product_name_xml, 'Name'))
-        {
-          $product = new MrProduct();
-        }
+        $tnved = null;
+        $product_name_xml = (string)$item_xml->productName;
+
+        $hash_name = $product_name_xml;
 
         // Примечание
-        if (isset($item_xml->productText) && ($description_xml = (string)$item_xml->productText))
+        if (isset($item_xml->productText))
         {
-          $product->setDescription($description_xml);
+          $description_xml = (string)$item_xml->productText;
+          $hash_name .= $description_xml;
         }
 
-        $product->setManufacturerID($manufacturer->id());
-        $product->setName($product_name_xml);
         if (isset($item_xml->commodityCode) && ($product_tnved_xml = $item_xml->commodityCode))
         {
           if (isset($product_tnved_xml->element) && $tnved_xml = (string)$product_tnved_xml->element)
           {
             if ($tnved = MrTnved::loadBy($tnved_xml, 'Code'))
             {
-              $product->setTnved($tnved->id());
             }
             else
             {
@@ -1077,14 +1084,23 @@ class MrXmlImportBase extends Controller
               $tnved->setCode($tnved_xml);
               $tnved->save_mr();
               $tnved->reload();
-              $product->setTnved($tnved->id());
             }
+
+            $hash_name .= $tnved->id();
           }
         }
 
-        $product->save_mr();
-        $product_tnved_xml = null;
+        $hash = md5($hash_name);
+        $product = MrProduct::loadBy($hash, 'Hash') ?: new MrProduct();
 
+        $product->setCertificateID($certificate->id());
+        $product->setDescription($description_xml ?? null);
+        $product->setTnved($tnved ? $tnved->id() : null);
+        $product->setName($product_name_xml);
+        $product->setHash($hash);
+        $product->save_mr();
+
+        $product_tnved_xml = null;
 
         // Сведения о единице продукта
         if (isset($product) && isset($item_xml->productInstanceDetails) && ($product_info_xml =
@@ -1160,7 +1176,7 @@ class MrXmlImportBase extends Controller
       {
         foreach ($item_xml->docInformationDetails->element as $doc_xml)
         {
-          self::importDocument($doc_xml, $certificate, MrDocument::KIND_GOOD);
+          self::importDocument($doc_xml, $certificate);
         }
       }
     }

@@ -69,15 +69,5 @@ class MrManufacturer extends ORM
 
   //////////////////////////////////////////////////////
 
-  /**
-   * Список товаров
-   *
-   * @return MrProduct[]
-   */
-  public function GetProducts(): array
-  {
-    return MrCacheHelper::GetCachedObjectList('product' . '_' . $this->id() . '_list', MrProduct::class, function () {
-      return DB::table(MrProduct::getTableName())->where('ManufacturerID', $this->id())->pluck('id')->toArray();
-    });
-  }
+
 }
