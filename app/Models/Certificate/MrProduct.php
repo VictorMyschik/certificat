@@ -20,6 +20,7 @@ class MrProduct extends ORM
       'EANCommodityId',
       'TnvedID',
       'Description', // Макс. длина: 4000
+      'AdditionalInfoText',
       'Hash'
   );
 
@@ -66,6 +67,21 @@ class MrProduct extends ORM
   public function setName(string $value): void
   {
     $this->Name = $value;
+  }
+
+  /**
+   * Дополнительное описание
+   *
+   * @return string
+   */
+  public function getAdditionalInfoText(): ?string
+  {
+    return $this->AdditionalInfoText;
+  }
+
+  public function setAdditionalInfoText(?string $value): void
+  {
+    $this->AdditionalInfoText = $value;
   }
 
   /**

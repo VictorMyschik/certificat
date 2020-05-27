@@ -21,7 +21,7 @@ trait MrCommunicateTrait
    */
   public function GetCommunicate(): array
   {
-    return MrCommunicateInTable::LoadArray(array([$this->GetTableKind() => 'TableKind'], [$this->id() => 'RowID']));
+    return MrCommunicateInTable::LoadArray(['TableKind' => $this->GetTableKind(), 'RowID' => $this->id()]);
   }
 
   /**
@@ -36,9 +36,9 @@ trait MrCommunicateTrait
     {
       $communicate = $item->getCommunicate();
       $out[] = array(
-        'kind'    => $communicate->getKindName(),
-        'address' => $communicate->getAddress(),
-        'icon'    => $communicate->getKindIcon()
+          'kind'    => $communicate->getKindName(),
+          'address' => $communicate->getAddress(),
+          'icon'    => $communicate->getKindIcon()
       );
     }
 

@@ -5,4 +5,7 @@
      title="Ссылка на картоку сертификата на сайте ЕАЭС" target="_blank"> EAEU</a>
   {!! MrLink::open('admin_certificate_update', ['id' => $certificate->id()], ' UPDATE', 'btn border-dark bold btn-sm fa fa-sm',
   'Обновить с сайта ЕАЭС',['onclick'=>"return confirm('Обновить?');"]) !!}
+  {!! MrLink::open('get_certificate_debug', ['id' => $certificate->id()], ' debug', 'btn border-dark bold btn-sm fa fa-sm',
+  'json') !!}
+
 </div>

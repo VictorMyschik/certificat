@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Office;
 
+use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrDateTime;
 use App\Helpers\MrEmailHelper;
 use App\Helpers\MrMessageHelper;
@@ -274,6 +275,23 @@ class MrOfficeController extends Controller
   public function GetCertificate(int $id)
   {
     return MrCertificate::loadBy($id)->GetJsonData();
+  }
+
+  // Выведет дамп
+  public function GetCertificateDebug(int $id)
+  {
+    $certificate = MrCertificate::loadByOrDie($id);
+
+    dump($certificate->GetJsonData());
+
+    $url = $certificate->getLinkOut();
+
+    $str = $certificate::GetCertificateFromURL($url);
+    $xml = simplexml_load_string($str);
+    $ns = $xml->content->children('http://schemas.microsoft.com/ado/2007/08/dataservices/metadata');
+    $nsd = $ns->properties->children("http://schemas.microsoft.com/ado/2007/08/dataservices");
+
+    dump($nsd);
   }
 
   /**

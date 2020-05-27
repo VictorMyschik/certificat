@@ -60,7 +60,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   Route::match(['get', 'post'], '/new_office/edit', "\App\Forms\MrNewOfficeEditForm@getFormBuilder")->name('new_office_edit');
 
 
-
   // Добавление пользователя в ВО
   Route::get('/office/userinoffice/{id}/delete', "Admin\MrAdminOfficeController@userOfficeDelete")->name('user_office_delete');
   #endregion
@@ -116,6 +115,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
   // Поиск
   Route::match(['get', 'post'], '/search/certificate', 'Office\MrOfficeController@SearchApi')->name('certificate_search');
   Route::match(['get', 'post'], '/search/api/get/{id}', 'Office\MrOfficeController@GetCertificate');
+  Route::match(['get', 'post'], '/search/api/get/{id}/debug', 'Office\MrOfficeController@GetCertificateDebug')->name('get_certificate_debug');
 
   // Добавление отслеживания
   Route::match(['get', 'post'], '/watch/add/{certificate_id}', 'Office\MrOfficeController@AddCertificateToMonitoring');
@@ -145,9 +145,9 @@ Route::group(['middleware' => 'is_admin'], function () {
   Route::get('/admin/feedback', "Admin\MrAdminFeedbackController@List")->name('admin_feedback_list');
   Route::get('/admin/feedback/edit/{id}', "Admin\MrAdminFeedbackController@edit")->name('admin_feedback_edit');
   Route::get('/admin/feedback/edit/read/{id}',
-    "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
+      "Admin\MrAdminFeedbackController@read")->name('admin_feedback_read');
   Route::match(['get', 'post'], '/admin/feedback/edit/send/{id}',
-    "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
+      "Admin\MrAdminFeedbackController@send")->name('admin_feedback_send');
   Route::get('/admin/feedback/delete/{id}', "Admin\MrAdminFeedbackController@delete")->name('delete_faq');
 
   // Почта

@@ -516,11 +516,14 @@ class MrCertificate extends ORM
       $out['manufacturer']['Address2'] = $manufacturer->getAddress2() ? $manufacturer->getAddress2()->GetFullAddress() : null;
 
       //// Товары
+      //dd($this->GetProducts());
       foreach ($this->GetProducts() as $key => $product)
       {
         $out['manufacturer']['products'][$key] = array(
-            'Name'        => $product->getName(),
-            'Description' => $product->getDescription(),
+            'Name'               => $product->getName(),
+            'Description'        => $product->getDescription(),
+            'TnvedCode'          => $product->getTnved() ? $product->getTnved()->getCode() : null,
+            'AdditionalInfoText' => $product->getAdditionalInfoText(),
         );
 
         foreach ($product->GetProductInfo() as $info)
@@ -536,7 +539,6 @@ class MrCertificate extends ORM
           );
         }
       }
-
     }
 
     //// Документы

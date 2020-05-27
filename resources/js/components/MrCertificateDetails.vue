@@ -120,7 +120,7 @@
     </div>
     <div class="row no-gutters shadow-sm col-md-12 m-b-10" v-if="visible_2">
       <h6 data-toggle="collapse" aria-controls="product_base_menu" href="#product_base_menu"
-          class=" mr_cursor col-md-12 mt_table_header">Продукция</h6>
+          class=" mr_cursor col-md-12 mt_table_header">Производитель и продукция</h6>
       <div id="product_base_menu"
            class="collapse show col-sm-12 no-gutters mr-sm-0 padding-horizontal-0 p-md-2 mr-auto-size m-b-10">
         <h6 data-toggle="collapse" aria-controls="manufacturer_menu" href="#manufacturer_menu"
@@ -150,6 +150,9 @@
         <div id="product_base" class="collapse show">
           <div class="m-t-5 m-b-5" v-for="product in manufacturer['products']"><i><b>{{product['Name']}}</b></i>
             <div class="mr-muted">{{product['Description']}}</div>
+            <div class="mr-muted" v-if="product['TnvedCode']">Код ТНВЭД: {{product['TnvedCode']}}</div>
+            <div class="mr-muted" v-if="product['AdditionalInfoText']">Дополнительная информация:{{product['AdditionalInfoText']}}</div>
+
             <table class="table table-sm mr-small">
               <thead>
               <tr>

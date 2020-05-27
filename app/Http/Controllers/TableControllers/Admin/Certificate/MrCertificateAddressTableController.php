@@ -19,7 +19,6 @@ class MrCertificateAddressTableController extends MrTableController
   {
     return array(
       array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Тип', 'sort' => 'AddressKind'),
       array('name' => 'Страна', 'sort' => 'CountryID'),
       array('name' => 'Код территории', 'sort' => 'TerritoryCode'),
       array('name' => 'Регион', 'sort' => 'RegionName'),
@@ -43,7 +42,6 @@ class MrCertificateAddressTableController extends MrTableController
     $address = MrAddress::loadBy($id);
 
     $row[] = $address->id();
-    $row[] = $address->getAddressKindName();
     $row[] = $address->getCountry()->getName();
     $row[] = $address->getTerritoryCode();
     $row[] = $address->getRegionName();

@@ -550,13 +550,14 @@ class MrXmlImportBase extends Controller
       $fio->setLastName($last_name);
       $fio->setHash($hash);
 
-      $fio_id = $fio->save_mr();
+      $fio->save_mr();
       $fio->reload();
-    }
 
-    if (isset($xml_old->communicationDetails) && isset($fio_id))
-    {
-      self::importCommunicate($xml_old->communicationDetails, $fio);
+      if (isset($xml_old->communicationDetails) && $fio)
+      {
+       $f = self::importCommunicate($xml_old->communicationDetails, $fio);
+        dd($f);
+      }
     }
 
     return $fio;
@@ -977,6 +978,9 @@ class MrXmlImportBase extends Controller
             $in_table->save_mr();
             $in_table->reload();
           }
+          else
+          {
+          }
         }
       }
     }
@@ -1071,9 +1075,15 @@ class MrXmlImportBase extends Controller
           $hash_name .= $description_xml;
         }
 
+        if (isset($item_xml->additionalInfoText))
+        {
+          $additionalInfoText = (string)$item_xml->additionalInfoText;
+          $hash_name .= $additionalInfoText;
+        }
+
         if (isset($item_xml->commodityCode) && ($product_tnved_xml = $item_xml->commodityCode))
         {
-          if (isset($product_tnved_xml->element) && $tnved_xml = (string)$product_tnved_xml->element)
+          if (isset($product_tnved_xml->element) && ($tnved_xml = (string)$product_tnved_xml->element))
           {
             if ($tnved = MrTnved::loadBy($tnved_xml, 'Code'))
             {
@@ -1097,6 +1107,7 @@ class MrXmlImportBase extends Controller
         $product->setDescription($description_xml ?? null);
         $product->setTnved($tnved ? $tnved->id() : null);
         $product->setName($product_name_xml);
+        $product->setAdditionalInfoText($additionalInfoText ?? null);
         $product->setHash($hash);
         $product->save_mr();
 
