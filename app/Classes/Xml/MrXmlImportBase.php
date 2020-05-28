@@ -15,9 +15,11 @@ use App\Models\Certificate\MrProduct;
 use App\Models\Certificate\MrProductInfo;
 use App\Models\Certificate\MrTnved;
 use App\Models\Lego\MrCertificateDocument;
+use App\Models\Lego\MrCertificateTechnicalReglament;
 use App\Models\Lego\MrCommunicateInTable;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
+use App\Models\References\MrTechnicalReglament;
 use App\Models\References\MrTechnicalRegulation;
 use SimpleXMLElement;
 
@@ -57,6 +59,7 @@ class MrXmlImportBase extends Controller
         $link_out = (string)$item->id;
 
         $certificate_out[] = self::importCertificate($nsd, $link_out);
+        dd();
       }
     }
     else
@@ -151,6 +154,26 @@ class MrXmlImportBase extends Controller
         self::importDocument($product_documents_xml, $certificate);
       }
     }
+
+    // Технический регламент
+    if (isset($xml->technicalRegulationId))
+    {
+      foreach ($xml->technicalRegulationId->element as $reglament_xml)
+      {
+        if ($reglament = MrTechnicalReglament::loadBy((string)$reglament_xml, 'Code'))
+        {
+          if (array_search($reglament->getCode(), $certificate->GetCertificateTechnicalReglamentOut()) === false)
+          {
+            $certificate_reglament = new MrCertificateTechnicalReglament();
+            $certificate_reglament->setCertificateID($certificate->id());
+            $certificate_reglament->setTechnicalReglamentID($reglament->id());
+            $certificate_reglament->save_mr();
+            $certificate_reglament->flush();
+          }
+        }
+      }
+    }
+
     //dd($xml);
     $certificate->save_mr();
     $certificate->reload();
@@ -555,8 +578,8 @@ class MrXmlImportBase extends Controller
 
       if (isset($xml_old->communicationDetails) && $fio)
       {
-       $f = self::importCommunicate($xml_old->communicationDetails, $fio);
-        dd($f);
+        $f = self::importCommunicate($xml_old->communicationDetails, $fio);
+//        dd($f);
       }
     }
 
@@ -792,11 +815,12 @@ class MrXmlImportBase extends Controller
 
       if (MrCertificate::GetHashedList()[$number] ?? null)
       {
-        return null;
+        //return null;
       }
 
       // Проверка, есть такой номер сертификата или нет
       $certificate = MrCertificate::loadBy(MrCertificate::GetHashedList()[$number] ?? null) ?: new MrCertificate();
+      return $certificate;
     }
     else
     {

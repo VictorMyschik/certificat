@@ -6,6 +6,7 @@ use App\Classes\Xml\MrXmlImportBase;
 use App\Helpers\MrCacheHelper;
 use App\Helpers\MrDateTime;
 use App\Models\Lego\MrCertificateDocument;
+use App\Models\Lego\MrCertificateTechnicalReglament;
 use App\Models\ORM;
 use App\Models\References\MrCertificateKind;
 use App\Models\References\MrCountry;
@@ -75,8 +76,12 @@ class MrCertificate extends ORM
   {
     parent::flush();
 
-    // Список документов сертификата
+    // Список документов
     Cache::forget('documents' . '_' . $this->id() . '_list');
+    // Список товаров
+    Cache::forget('product' . '_' . $this->id() . '_list');
+    // Список тех регламентов
+    Cache::forget('technical_reglament' . '_' . $this->id() . '_list');
   }
 
   public static $hashed = array();
@@ -465,6 +470,35 @@ class MrCertificate extends ORM
   }
 
   /**
+   * Номер технического регламента Союза (технического регламента Таможенного союза), на соответствие требованиям которого проводилась оценка соответствия
+   *
+   * @return MrCertificateTechnicalReglament[]
+   */
+  public function GetCertificateTechnicalReglaments(): array
+  {
+    return MrCacheHelper::GetCachedObjectList('technical_reglament' . '_' . $this->id() . '_list', MrCertificateTechnicalReglament::class, function () {
+      return DB::table(MrCertificateTechnicalReglament::getTableName())->where('CertificateID', $this->id())->pluck('id')->toArray();
+    });
+  }
+
+  /**
+   * Список технических регламентов в простом массиве
+   *
+   * @return array
+   */
+  public function GetCertificateTechnicalReglamentOut(): array
+  {
+    $out = array();
+
+    foreach ($this->GetCertificateTechnicalReglaments() as $reglament)
+    {
+      $out[] = $reglament->getTechnicalReglamentID()->getCode();
+    }
+
+    return $out;
+  }
+
+  /**
    * Создание массив для использования во Vue
    */
   public function GetJsonData(): array
@@ -488,6 +522,7 @@ class MrCertificate extends ORM
         'WhyChange'                => $this->getWhyChange(),
         'SchemaCertificate'        => $this->getSchemaCertificate(),
         'Description'              => $this->getDescription(),
+        'TechnicalReglament'       => $this->GetCertificateTechnicalReglamentOut(),
     );
 
     //// Орган по сертификации
