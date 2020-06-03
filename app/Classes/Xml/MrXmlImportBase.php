@@ -59,7 +59,6 @@ class MrXmlImportBase extends Controller
         $link_out = (string)$item->id;
 
         $certificate_out[] = self::importCertificate($nsd, $link_out);
-        dd();
       }
     }
     else
@@ -812,15 +811,8 @@ class MrXmlImportBase extends Controller
 
     if (isset($xml->docId) && ($number = (string)$xml->docId))
     {
-
-      if (MrCertificate::GetHashedList()[$number] ?? null)
-      {
-        //return null;
-      }
-
       // Проверка, есть такой номер сертификата или нет
       $certificate = MrCertificate::loadBy(MrCertificate::GetHashedList()[$number] ?? null) ?: new MrCertificate();
-      return $certificate;
     }
     else
     {

@@ -2,7 +2,7 @@
   <div class="row no-gutters col-md-12 padding-horizontal-0">
     <div class="col-md-12 no-gutters">
       <h4 class="mr-bold" :class="'mr_cert_status_certificate_'+certificate['Status']"><img
-        style='height: 21px; border-radius: 4px;' :src="src" :alt="certificate['Country']">
+          style='height: 21px; border-radius: 4px;' :src="src" :alt="certificate['Country']">
         {{certificate['StatusName']}}</h4>
     </div>
     <div class="col-md-12 no-gutters">
@@ -150,8 +150,15 @@
         <div id="product_base" class="collapse show">
           <div class="m-t-5 m-b-5" v-for="product in manufacturer['products']"><i><b>{{product['Name']}}</b></i>
             <div class="mr-muted">{{product['Description']}}</div>
-            <div class="mr-muted" v-if="product['TnvedCode']">Код ТНВЭД: {{product['TnvedCode']}}</div>
-            <div class="mr-muted" v-if="product['AdditionalInfoText']">Дополнительная информация:{{product['AdditionalInfoText']}}</div>
+            <div class="mr-muted mr-bold">Технический регламент:
+              <a :href="reglament['Link']" target="_blank" class="m-r-10"
+                 v-for="reglament in certificate['TechnicalReglament']"
+                 :title="reglament['Name']">{{reglament['Code']}}</a>
+            </div>
+            <div class="mr-muted mr-bold" v-if="product['TnvedCode']">Код ТНВЭД: {{product['TnvedCode']}}</div>
+            <div class="mr-muted mr-bold" v-if="product['AdditionalInfoText']">Дополнительная
+              информация:{{product['AdditionalInfoText']}}
+            </div>
 
             <table class="table table-sm mr-small">
               <thead>
@@ -241,8 +248,8 @@
                 <tr class="mr-bold">
                   <td>Документ</td>
                   <td>Дата выдачи документа</td>
-                  <td>Признак включения документа в перечень стандартов, в результате применения которых на добровольной
-                    основе обеспечивается соблюдение установленных требований
+                  <td title="Признак включения документа в перечень стандартов, в результате применения которых на добровольной основе обеспечивается соблюдение установленных требований">
+                    Признак
                   </td>
                 </tr>
                 </thead>

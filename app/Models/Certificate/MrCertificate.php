@@ -490,9 +490,15 @@ class MrCertificate extends ORM
   {
     $out = array();
 
-    foreach ($this->GetCertificateTechnicalReglaments() as $reglament)
+    foreach ($this->GetCertificateTechnicalReglaments() as $reglament_in_certificate)
     {
-      $out[] = $reglament->getTechnicalReglamentID()->getCode();
+      $reglament = $reglament_in_certificate->getTechnicalReglamentID();
+
+      $out[] = array(
+          'Code' => $reglament->getCode(),
+          'Name' => $reglament->getName(),
+          'Link' => $reglament->getLink(),
+      );
     }
 
     return $out;
