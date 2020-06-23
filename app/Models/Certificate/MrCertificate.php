@@ -112,7 +112,7 @@ class MrCertificate extends ORM
     $this->Number = $value;
   }
 
-  // Дата начала блокировки
+  // Дата начала
   public function getDateFrom(): ?MrDateTime
   {
     return $this->getDateNullableField('DateFrom');
@@ -182,6 +182,11 @@ class MrCertificate extends ORM
   public function getStatusName(): string
   {
     return self::$statuses[$this->Status];
+  }
+
+  public function GetStatusNameLg()
+  {
+    return __('mr-t.'.$this->getStatusName());
   }
 
   public function setStatus(int $value): void
@@ -683,5 +688,10 @@ class MrCertificate extends ORM
     }
 
     return $class_name;
+  }
+
+  public function GetDisplayStatusHtml(): string
+  {
+    return "<span class='{$this->GetStatusColor()} mr-bold'>{$this->GetStatusNameLg()}</span>";
   }
 }

@@ -19,21 +19,21 @@ class MrCountry extends ORM
   }
 
   protected $fillable = array(
-    'Name',
-    'ISO3166alpha2',
-    'ISO3166alpha3',
-    'ISO3166numeric',
-    'Continent',
+      'Name',
+      'ISO3166alpha2',
+      'ISO3166alpha3',
+      'ISO3166numeric',
+      'Continent',
   );
 
   public static function getReferenceInfo()
   {
     return array(
-      'classifier_group' => 'Классификаторы для заполнения таможенных деклараций',
-      'description'      => 'классификатор предназначен для классификации и кодирования информации о наименованиях стран мира',
-      'date'             => '30.09.2016',
-      'document'         => 'О классификаторах, используемых для заполнения таможенных деклараций Решение №378 (имеются изменения и дополнения: Решения Комиссии Таможенного союза №№ 441, 719, 858, 906, Решение Совета Евразийской экономической комиссии № 9)',
-      'doc_link'         => 'https://docs.eaeunion.org/_layouts/15/Portal.EEC.NPB/Pages/RedirectToDisplayForm.aspx?mode=Document&UseSearch=1&docId=6690653a-2f1d-4428-b6fc-cf43fa5d4095',
+        'classifier_group' => 'Классификаторы для заполнения таможенных деклараций',
+        'description'      => 'классификатор предназначен для классификации и кодирования информации о наименованиях стран мира',
+        'date'             => '30.09.2016',
+        'document'         => 'О классификаторах, используемых для заполнения таможенных деклараций Решение №378 (имеются изменения и дополнения: Решения Комиссии Таможенного союза №№ 441, 719, 858, 906, Решение Совета Евразийской экономической комиссии № 9)',
+        'doc_link'         => 'https://docs.eaeunion.org/_layouts/15/Portal.EEC.NPB/Pages/RedirectToDisplayForm.aspx?mode=Document&UseSearch=1&docId=6690653a-2f1d-4428-b6fc-cf43fa5d4095',
     );
   }
 
@@ -47,24 +47,24 @@ class MrCountry extends ORM
   const CONTINENT_AN = 7;
 
   protected static $continents = array(
-    self::CONTINENT_UNKNOWN => 'Not select',
-    self::CONTINENT_AF      => 'Africa',
-    self::CONTINENT_AS      => 'Asia',
-    self::CONTINENT_EU      => 'Europe',
-    self::CONTINENT_NA      => 'North America',
-    self::CONTINENT_OC      => 'Oceania',
-    self::CONTINENT_SA      => 'South America',
-    self::CONTINENT_AN      => 'Antarctica',
+      self::CONTINENT_UNKNOWN => 'Not select',
+      self::CONTINENT_AF      => 'Africa',
+      self::CONTINENT_AS      => 'Asia',
+      self::CONTINENT_EU      => 'Europe',
+      self::CONTINENT_NA      => 'North America',
+      self::CONTINENT_OC      => 'Oceania',
+      self::CONTINENT_SA      => 'South America',
+      self::CONTINENT_AN      => 'Antarctica',
   );
 
   protected static $continent_short = array(
-    self::CONTINENT_AF => 'AF',
-    self::CONTINENT_AS => 'AS',
-    self::CONTINENT_EU => 'EU',
-    self::CONTINENT_NA => 'NA',
-    self::CONTINENT_OC => 'OC',
-    self::CONTINENT_SA => 'SA',
-    self::CONTINENT_AN => 'AN',
+      self::CONTINENT_AF => 'AF',
+      self::CONTINENT_AS => 'AS',
+      self::CONTINENT_EU => 'EU',
+      self::CONTINENT_NA => 'NA',
+      self::CONTINENT_OC => 'OC',
+      self::CONTINENT_SA => 'SA',
+      self::CONTINENT_AN => 'AN',
   );
 
   public static function getContinentList()
@@ -156,4 +156,10 @@ class MrCountry extends ORM
     return $out;
   }
 
+  public function GetCodeWithTitleName(): string
+  {
+    $title = __('mr-t.' . $this->getName());
+
+    return "<span title={$title}>{$this->getISO3166alpha2()}</span>";
+  }
 }

@@ -11,9 +11,7 @@
       }
     @endphp
 
-    <a class="navbar-brand" href="{{ url('/') }}">
-      {{MrBaseHelper::MR_SITE_NAME}}
-    </a>
+    {!! MrBaseHelper::GetHeadTextWithLink() !!}
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
@@ -65,8 +63,8 @@
               @if(isset($default_office) && $default_office->canView())
                 <a class="nav-link" href="{{route('office_settings_page')}}">{{ __('mr-t.Настройки') }}</a>
               @else
-                  <a class="nav-link" href="#" onclick="mr_popup('{{route('new_office_edit')}}');return false;">Создать
-                    пустой офис</a>
+                <a class="nav-link" href="#" onclick="mr_popup('{{route('new_office_edit')}}');return false;">Создать
+                  пустой офис</a>
               @endif
               <a class="nav-link m-t-15" href="{{route('personal_page')}}">{{ __('mr-t.Личная страница') }}</a>
               <a class="nav-link m-t-15" href="{{ route('logout') }}"

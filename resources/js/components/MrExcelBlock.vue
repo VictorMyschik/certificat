@@ -1,6 +1,6 @@
 <template>
   <div class="row no-gutters padding-horizontal col-md-12">
-
+wefew
   </div>
 </template>
 
@@ -10,9 +10,7 @@
     data()
     {
       return {
-        certificate_json: null,
-        v_query_text: '',
-        result: [],
+
       }
     },
     methods: {},

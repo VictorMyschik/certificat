@@ -5,7 +5,9 @@ namespace App\Helpers;
 /*
  * Common helpers
  * */
+
 use App\Http\Controllers\Controller;
+use App\Models\MrUser;
 
 abstract class MrBaseHelper extends Controller
 {
@@ -79,6 +81,22 @@ abstract class MrBaseHelper extends Controller
   public static function GetLinkForNewUser(string $soul)
   {
     return self::MR_SITE_URL . '/newuser/' . $soul;
+  }
+
+  public static function GetHeadTextWithLink(): string
+  {
+    if ($me = MrUser::me())
+    {
+      $link = route('office_page');
+      $text = $me->getDefaultOffice() ? $me->getDefaultOffice()->getName() : self::MR_SITE_NAME;
+    }
+    else
+    {
+      $link = route('welcome');
+      $text = self::MR_SITE_NAME;
+    }
+
+    return "<a class='navbar-brand' href='{$link}'>" . $text . '</a>';
   }
 }
 
