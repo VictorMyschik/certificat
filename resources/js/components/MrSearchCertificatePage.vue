@@ -41,7 +41,7 @@
       </div>
 
       <div v-if="certificate_json" class="d-inline col-md-9 m-t-15 shadow padding-horizontal">
-        <div class="row no-gutters padding-horizontal m-b-15">
+        <div v-if="can_edit" class="row no-gutters padding-horizontal m-b-15">
           <span class="btn btn-success btn-sm m-t-5" v-on:click="AddCertificateWatch">Отслеживать</span>
         </div>
         <hr>
@@ -58,7 +58,7 @@
 <script>
   export default {
     name: "MrSearchCertificatePage",
-    props: ['history'],
+    props: ['history', 'can_edit'],
     data()
     {
       return {

@@ -69,6 +69,7 @@ class MrOfficeController extends Controller
 
     $out = array();
     $out['user_history'] = $user->GetSearchHistory();
+    $out['can_edit'] = $user->IsAdminInOffice($user->getDefaultOffice());
 
     return View('Office.office_page')->with($out);
   }
@@ -143,19 +144,19 @@ class MrOfficeController extends Controller
       if($new_exist_user->id() == $new_user->id())
       {
 
-        // Предовращение серии писем
+        // Предотвращение серии писем
         if($email_log = MrEmailLog::loadBy($new_user->getEmail(), 'EmailTo'))
         {
           $diff = $email_log->getWriteDate()->diff(MrDateTime::now())->i;
           if($diff < 1) // период 3 минуты
           {
-            MrMessageHelper::SetMessage(MrMessageHelper::KIND_WARNING, 'Повоторите попытку через несколько минут');
+            MrMessageHelper::SetMessage(MrMessageHelper::KIND_WARNING, 'Повторите попытку через несколько минут');
             return back();
           }
         }
 
         MrEmailHelper::SendNewUser($new_user);
-        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, __('mr-t.Сообщение было переотправлено'));
+        MrMessageHelper::SetMessage(MrMessageHelper::KIND_SUCCESS, __('mr-t.Сообщение было отправлено'));
 
         return back();
       }
@@ -320,7 +321,7 @@ class MrOfficeController extends Controller
   }
 
   /**
-   * Сокращённый список недавно добавлнных сертификатов для отслеживания
+   * Сокращённый список недавно добавленных сертификатов для отслеживания
    * Упрощённый список
    *
    * @return array
