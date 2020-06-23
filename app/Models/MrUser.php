@@ -383,7 +383,7 @@ class MrUser extends ORM
    */
   public function SetSearchStory(string $text)
   {
-    $key = $this->id() . '_search_history';
+    $key = $this->id() . '_search_history_for_office_'. $this->getDefaultOffice()->id();
     $time = MrDateTime::now()->AddYears(1);
 
     $story_count = 5; // количество сохр. истории
@@ -420,7 +420,7 @@ class MrUser extends ORM
   public function GetSearchHistory(): array
   {
     $out = array();
-    if($story = MrCacheHelper::GetCachedData($this->id() . '_search_history'))
+    if($story = MrCacheHelper::GetCachedData($this->id() . '_search_history_for_office_'. $this->getDefaultOffice()->id()))
     {
       return $story;
     }
