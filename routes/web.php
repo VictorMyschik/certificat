@@ -31,10 +31,6 @@ Route::post('/feedback', "MrFAQController@Feedback")->name('feedback');
 /// универсальная динамическая страница справочника
 Route::get('/references/{name}', 'MrReferencesController@View')->name('references');
 
-// Страница инфо о сертификате
-Route::get('/certificate/{number}', 'MrCertificateController@View');
-
-
 Route::POST('/newuser/{string}/register', 'MrNewUserController@RegNewUser')->name('new_user_register');
 Route::get('/newuser/{string}', 'MrNewUserController@RegistrationNewUser')->name('registration_new_user');
 
@@ -153,9 +149,6 @@ Route::group(['middleware' => 'is_admin'], function () {
   // Почта
   Route::get('/admin/email', "Admin\MrAdminEmailController@List")->name('admin_emails_page');
   Route::get('/admin/email/{id}/delete', "Admin\MrAdminEmailController@EmailDelete")->name('admin_email_delete');
-  // Почта инфо о письме
-  Route::match(['get', 'post'], '/email/{id}/info/submit', "App\Forms\Admin\MrAdminEmailInfoForm@submitForm")->name('email_info_popup_submit');
-  Route::match(['get', 'post'], '/email/{id}/info/', "App\Forms\Admin\MrAdminEmailInfoForm@getFormBuilder")->name('email_info_popup_edit');
 
   // Пользователи
   Route::get('/admin/users', "Admin\MrAdminUsersController@index")->name('admin_users');

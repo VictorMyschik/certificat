@@ -62,6 +62,6 @@ class MrAdminController extends Controller
       User::find($user_laravel->id)->delete();
     }
 
-    return Redirect::route('users');
+    return Redirect::route('admin_users');
   }
 }

@@ -828,7 +828,8 @@ class MrXmlImportBase extends Controller
     }
     else
     {
-      dd('Страна не найдена в справочнике стран по столбцу ISO3166alpha2: ' . (string)$xml->unifiedCountryCode);
+      dump('Страна не найдена в справочнике стран по столбцу ISO3166alpha2: ' . (string)$xml->unifiedCountryCode);
+      dd($xml);
     }
 
     // Номер

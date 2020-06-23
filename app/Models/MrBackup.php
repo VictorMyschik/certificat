@@ -9,7 +9,7 @@ class MrBackup extends ORM
 {
   public static function recovery(array $data, string $table_name)
   {
-    DB::table($table_name)->truncate();
+    DB::table($table_name)->delete();
 
     foreach ($data as $item)
     {

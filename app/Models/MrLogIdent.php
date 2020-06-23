@@ -60,7 +60,7 @@ class MrLogIdent extends ORM
     $this->Link = $value;
   }
 
-  // Зарегестрированный пользователь
+  // Зарегистрированный пользователь
   public function getUser(): ?MrUser
   {
     return MrUser::loadBy($this->UserID);

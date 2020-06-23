@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Helpers;
 
 /*
  * Common helpers
  * */
-
 use App\Http\Controllers\Controller;
 
 abstract class MrBaseHelper extends Controller

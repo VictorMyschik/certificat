@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms\Admin;
+namespace App\Forms;
 
 use App\Forms\FormBase\MrFormBase;
 use App\Models\Office\MrOffice;
