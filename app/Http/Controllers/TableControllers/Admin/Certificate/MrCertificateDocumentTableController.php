@@ -18,18 +18,18 @@ class MrCertificateDocumentTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Тип', 'sort' => 'Kind'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Номер', 'sort' => 'Number'),
-      array('name' => 'Дата', 'sort' => 'Date'),
-      array('name' => 'Дата с', 'sort' => 'DateFrom'),
-      array('name' => 'Дата по', 'sort' => 'DateTo'),
-      array('name' => 'Организация, выдавшая документ', 'sort' => 'Organisation'),
-      array('name' => 'Номер и дата документа аккредитации', 'sort' => 'Accreditation'),
-      array('name' => 'Примечание', 'sort' => 'Description'),
-      array('name' => 'Признак включения документа в перечень стандартов', 'sort' => 'IsInclude'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Тип', 'sort' => 'Kind'),
+      array('#name' => 'Наименование', 'sort' => 'Name'),
+      array('#name' => 'Номер', 'sort' => 'Number'),
+      array('#name' => 'Дата', 'sort' => 'Date'),
+      array('#name' => 'Дата с', 'sort' => 'DateFrom'),
+      array('#name' => 'Дата по', 'sort' => 'DateTo'),
+      array('#name' => 'Организация, выдавшая документ', 'sort' => 'Organisation'),
+      array('#name' => 'Номер и дата документа аккредитации', 'sort' => 'Accreditation'),
+      array('#name' => 'Примечание', 'sort' => 'Description'),
+      array('#name' => 'Признак включения документа в перечень стандартов', 'sort' => 'IsInclude'),
+      array('#name' => '#'),
     );
   }
 

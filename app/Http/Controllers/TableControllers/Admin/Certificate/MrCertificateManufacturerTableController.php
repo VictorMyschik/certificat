@@ -18,12 +18,12 @@ class MrCertificateManufacturerTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Страна', 'sort' => 'CountryID'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Юр. адрес', 'sort' => 'Address1ID'),
-      array('name' => 'Факт. адрес', 'sort' => 'Address2ID'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Страна', 'sort' => 'CountryID'),
+      array('#name' => 'Наименование', 'sort' => 'Name'),
+      array('#name' => 'Юр. адрес', 'sort' => 'Address1ID'),
+      array('#name' => 'Факт. адрес', 'sort' => 'Address2ID'),
+      array('#name' => '#'),
     );
   }
 

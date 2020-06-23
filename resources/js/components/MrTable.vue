@@ -18,7 +18,7 @@
       </thead>
       <tbody class="mr-middle" v-bind:class="mr_wait ? 'mr_wait_class' : ''">
       <tr v-for="td in table_body.data">
-        <td style="max-width: 300px; word-wrap: break-word;" v-for="(item, ind) in td">
+        <td style="max-width: 300px; word-wrap: break-word;" v-for="(item, ind) in td" v-on:dblclick="doubleClick(td[0])">
           <div v-if="table_header['#checkbox'] !== 'undefined' && ind === 0">
             <label><input type='checkbox' v-bind:value='item' v-model='selected' @change='updateCheckAll()'></label>
           </div>
@@ -149,6 +149,11 @@
       ReturnSelected: function ()
       {
         this.$emit('selected', this.selected);
+      },
+
+      doubleClick: function (data)
+      {
+        console.log(data);
       }
     },
   }

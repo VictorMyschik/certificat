@@ -18,11 +18,11 @@ class MrAdminFaqTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Наименование', 'sort' => 'Title'),
-        array('name' => 'Текст', 'sort' => 'Text'),
-        array('name' => 'Язык', 'sort' => 'LanguageID'),
-        array('name' => '#'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Наименование', 'sort' => 'Title'),
+        array('#name' => 'Текст', 'sort' => 'Text'),
+        array('#name' => 'Язык', 'sort' => 'LanguageID'),
+        array('#name' => '#'),
     );
   }
 

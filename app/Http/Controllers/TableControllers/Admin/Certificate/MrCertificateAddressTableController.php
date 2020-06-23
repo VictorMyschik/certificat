@@ -18,20 +18,20 @@ class MrCertificateAddressTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Страна', 'sort' => 'CountryID'),
-      array('name' => 'Код территории', 'sort' => 'TerritoryCode'),
-      array('name' => 'Регион', 'sort' => 'RegionName'),
-      array('name' => 'Район', 'sort' => 'DistrictName'),
-      array('name' => 'Город', 'sort' => 'City'),
-      array('name' => 'Населённый пункт', 'sort' => 'SettlementName'),
-      array('name' => 'Улица', 'sort' => 'StreetName'),
-      array('name' => 'Номер здания', 'sort' => 'BuildingNumberId'),
-      array('name' => 'Номер помещения', 'sort' => 'RoomNumberId'),
-      array('name' => 'Почтовый индекс', 'sort' => 'PostCode'),
-      array('name' => 'Номер абонентского ящика', 'sort' => 'PostOfficeBoxId'),
-      array('name' => 'Адрес в текстовой форме', 'sort' => 'AddressText'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Страна', 'sort' => 'CountryID'),
+      array('#name' => 'Код территории', 'sort' => 'TerritoryCode'),
+      array('#name' => 'Регион', 'sort' => 'RegionName'),
+      array('#name' => 'Район', 'sort' => 'DistrictName'),
+      array('#name' => 'Город', 'sort' => 'City'),
+      array('#name' => 'Населённый пункт', 'sort' => 'SettlementName'),
+      array('#name' => 'Улица', 'sort' => 'StreetName'),
+      array('#name' => 'Номер здания', 'sort' => 'BuildingNumberId'),
+      array('#name' => 'Номер помещения', 'sort' => 'RoomNumberId'),
+      array('#name' => 'Почтовый индекс', 'sort' => 'PostCode'),
+      array('#name' => 'Номер абонентского ящика', 'sort' => 'PostOfficeBoxId'),
+      array('#name' => 'Адрес в текстовой форме', 'sort' => 'AddressText'),
+      array('#name' => '#'),
     );
   }
 

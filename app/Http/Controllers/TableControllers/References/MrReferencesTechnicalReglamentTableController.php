@@ -20,14 +20,14 @@ class MrReferencesTechnicalReglamentTableController extends MrTableController
   protected static function getHeader(): array
   {
     $out = array(
-      array('name' => __('mr-t.Код'), 'sort' => 'Code'),
-      array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
-      array('name' => __('mr-t.Ссылка'), 'sort' => 'Link'),
+      array('#name' => __('mr-t.Код'), 'sort' => 'Code'),
+      array('#name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('#name' => __('mr-t.Ссылка'), 'sort' => 'Link'),
     );
 
     if(self::$can_edit)
     {
-      $out[] = array('name' => '#');
+      $out[] = array('#name' => '#');
     }
 
     return $out;

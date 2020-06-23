@@ -17,13 +17,13 @@ class MrAdminOfficeTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Страна', 'sort' => 'CountryID'),
-      array('name' => 'Email'),
-      array('name' => 'ФИО', 'sort' => 'PersonFIO'),
-      array('name' => 'Доолжность', 'sort' => 'PersonPost'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Наименование', 'sort' => 'Name'),
+      array('#name' => 'Страна', 'sort' => 'CountryID'),
+      array('#name' => 'Email'),
+      array('#name' => 'ФИО', 'sort' => 'PersonFIO'),
+      array('#name' => 'Доолжность', 'sort' => 'PersonPost'),
+      array('#name' => '#'),
     );
   }
 

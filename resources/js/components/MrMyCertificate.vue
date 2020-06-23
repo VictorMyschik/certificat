@@ -14,7 +14,7 @@
               v-on:click="mr_sort_field(head)">
             <i v-if="mr_field === head['sort']" class="mr-color-green-dark"
                :class="[mr_sort === 'asc' ? arrow_up : arrow_down]"></i>
-            {{head['name']}}
+            {{head['#name']}}
           </td>
         </tr>
         </thead>

@@ -345,6 +345,6 @@ class MrOfficeController extends Controller
     $out = array();
     $out['page_title'] = __('mr-t.Мои сертификаты');
 
-    return View('Office.watch')->with($out);
+    return View('Office.my_certificate')->with($out);
   }
 }

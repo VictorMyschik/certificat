@@ -18,14 +18,14 @@ class MrCertificateApplicantTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Страна', 'sort' => 'CountryID'),
-      array('name' => 'Id регистрации', 'sort' => 'BusinessEntityId'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Принявший сертификат', 'sort' => 'FioID'),
-      array('name' => 'Адрес 1'),
-      array('name' => 'Адрес 2'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Страна', 'sort' => 'CountryID'),
+      array('#name' => 'Id регистрации', 'sort' => 'BusinessEntityId'),
+      array('#name' => 'Наименование', 'sort' => 'Name'),
+      array('#name' => 'Принявший сертификат', 'sort' => 'FioID'),
+      array('#name' => 'Адрес 1'),
+      array('#name' => 'Адрес 2'),
+      array('#name' => '#'),
     );
   }
 

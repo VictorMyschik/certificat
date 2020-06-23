@@ -18,14 +18,14 @@ class MrAdminSystemDbLogTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Идентификатор', 'sort' => 'LogIdentID'),
-        array('name' => 'Таблица', 'sort' => 'TableName'),
-        array('name' => 'ID записи', 'sort' => 'RowId'),
-        array('name' => 'Поле', 'sort' => 'Field'),
-        array('name' => 'Новое знчение', 'sort' => 'Value'),
-        array('name' => 'Дата', 'sort' => 'WriteDate'),
-        array('name' => '#'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Идентификатор', 'sort' => 'LogIdentID'),
+        array('#name' => 'Таблица', 'sort' => 'TableName'),
+        array('#name' => 'ID записи', 'sort' => 'RowId'),
+        array('#name' => 'Поле', 'sort' => 'Field'),
+        array('#name' => 'Новое знчение', 'sort' => 'Value'),
+        array('#name' => 'Дата', 'sort' => 'WriteDate'),
+        array('#name' => '#'),
     );
   }
 

@@ -16,9 +16,9 @@ class MrNewUserInOfficeTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => __('mr-t.Имя')),
-      array('name' => __('mr-t.Доступ')),
-      array('name' => '#'),
+      array('#name' => __('mr-t.Имя')),
+      array('#name' => __('mr-t.Доступ')),
+      array('#name' => '#'),
     );
   }
 

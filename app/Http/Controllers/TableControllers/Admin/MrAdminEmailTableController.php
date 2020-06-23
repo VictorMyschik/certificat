@@ -16,13 +16,13 @@ class MrAdminEmailTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Автор письма', 'sort' => 'UserID'),
-      array('name' => 'Email', 'sort' => 'Email'),
-      array('name' => 'Title', 'sort' => 'Title'),
-      array('name' => 'Text', 'sort' => 'Text'),
-      array('name' => 'WriteDate', 'sort' => 'WriteDate'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Автор письма', 'sort' => 'UserID'),
+      array('#name' => 'Email', 'sort' => 'Email'),
+      array('#name' => 'Title', 'sort' => 'Title'),
+      array('#name' => 'Text', 'sort' => 'Text'),
+      array('#name' => 'WriteDate', 'sort' => 'WriteDate'),
+      array('#name' => '#'),
     );
   }
 

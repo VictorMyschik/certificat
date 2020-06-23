@@ -22,18 +22,18 @@ class MrReferencesCurrencyTableController extends MrTableController
   protected static function getHeader(): array
   {
     $out = array(
-      array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
-      array('name' => __('mr-t.Код'), 'sort' => 'TextCode'),
-      array('name' => __('mr-t.Дата с'), 'sort' => 'DateFrom'),
-      array('name' => __('mr-t.Дата по'), 'sort' => 'DateTo'),
-      array('name' => __('mr-t.Цифровой код'), 'sort' => 'Code'),
-      array('name' => __('mr-t.Округление'), 'sort' => 'Rounding'),
-      array('name' => __('mr-t.Примечание'), 'sort' => 'Description'),
+      array('#name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('#name' => __('mr-t.Код'), 'sort' => 'TextCode'),
+      array('#name' => __('mr-t.Дата с'), 'sort' => 'DateFrom'),
+      array('#name' => __('mr-t.Дата по'), 'sort' => 'DateTo'),
+      array('#name' => __('mr-t.Цифровой код'), 'sort' => 'Code'),
+      array('#name' => __('mr-t.Округление'), 'sort' => 'Rounding'),
+      array('#name' => __('mr-t.Примечание'), 'sort' => 'Description'),
     );
 
     if(self::$can_edit)
     {
-      $out[] = array('name' => '#');
+      $out[] = array('#name' => '#');
     }
 
     return $out;

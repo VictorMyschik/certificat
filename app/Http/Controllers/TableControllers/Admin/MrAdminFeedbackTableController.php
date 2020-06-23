@@ -18,12 +18,12 @@ class MrAdminFeedbackTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Name', 'sort' => 'Name'),
-        array('name' => 'Email', 'sort' => 'Email'),
-        array('name' => 'Text', 'sort' => 'Text'),
-        array('name' => 'Date', 'sort' => 'Date'),
-        array('name' => '#'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Name', 'sort' => 'Name'),
+        array('#name' => 'Email', 'sort' => 'Email'),
+        array('#name' => 'Text', 'sort' => 'Text'),
+        array('#name' => 'Date', 'sort' => 'Date'),
+        array('#name' => '#'),
     );
   }
 

@@ -18,11 +18,11 @@ class MrAdminSubscriptionTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Email', 'sort' => 'Email'),
-        array('name' => 'Date', 'sort' => 'Date'),
-        array('name' => 'Token', 'sort' => 'Token'),
-        array('name' => '#'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Email', 'sort' => 'Email'),
+        array('#name' => 'Date', 'sort' => 'Date'),
+        array('#name' => 'Token', 'sort' => 'Token'),
+        array('#name' => '#'),
     );
   }
 

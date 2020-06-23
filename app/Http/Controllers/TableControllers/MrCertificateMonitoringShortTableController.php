@@ -17,9 +17,9 @@ class MrCertificateMonitoringShortTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => __('mr-t.Срок действия'), 'sort' => 'mr_certificate.DateTo'),
-      array('name' => __('mr-t.Статус'), 'sort' => 'mr_certificate.Status'),
-      array('name' => __('mr-t.Номер'), 'sort' => 'mr_certificate.Number'),
+      array('#name' => __('mr-t.Срок действия'), 'sort' => 'mr_certificate.DateTo'),
+      array('#name' => __('mr-t.Статус'), 'sort' => 'mr_certificate.Status'),
+      array('#name' => __('mr-t.Номер'), 'sort' => 'mr_certificate.Number'),
     );
   }
 

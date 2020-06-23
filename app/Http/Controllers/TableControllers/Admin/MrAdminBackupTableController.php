@@ -38,11 +38,11 @@ class MrAdminBackupTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Таблица', 'sort' => 'migration'),
-      array('name' => 'Строк'),
-      array('name' => 'Переустановить'),
-      array('name' => 'Восстановить'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Таблица', 'sort' => 'migration'),
+      array('#name' => 'Строк'),
+      array('#name' => 'Переустановить'),
+      array('#name' => 'Восстановить'),
     );
   }
 

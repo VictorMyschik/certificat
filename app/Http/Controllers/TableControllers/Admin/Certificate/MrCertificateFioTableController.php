@@ -17,12 +17,12 @@ class MrCertificateFioTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Имя', 'sort' => 'FirstName'),
-      array('name' => 'Отчество', 'sort' => 'MiddleName'),
-      array('name' => 'Фамилия', 'sort' => 'LastName'),
-      array('name' => 'Должность', 'sort' => 'PositionName'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Имя', 'sort' => 'FirstName'),
+      array('#name' => 'Отчество', 'sort' => 'MiddleName'),
+      array('#name' => 'Фамилия', 'sort' => 'LastName'),
+      array('#name' => 'Должность', 'sort' => 'PositionName'),
+      array('#name' => '#'),
     );
   }
 

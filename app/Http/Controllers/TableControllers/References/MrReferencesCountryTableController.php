@@ -20,17 +20,17 @@ class MrReferencesCountryTableController extends MrTableController
   protected static function getHeader(): array
   {
     $out = array(
-      array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
-      array('name' => 'ISO-3166 alpha2', 'sort' => 'ISO3166alpha2'),
-      array('name' => 'ISO-3166 alpha3', 'sort' => 'ISO3166alpha3'),
-      array('name' => 'ISO-3166 numeric', 'sort' => 'ISO3166numeric'),
-      array('name' => __('mr-t.Континент'), 'sort' => 'Continent'),
-      array('name' => __('mr-t.Флаг'), 'sort' => 'Flag')
+      array('#name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('#name' => 'ISO-3166 alpha2', 'sort' => 'ISO3166alpha2'),
+      array('#name' => 'ISO-3166 alpha3', 'sort' => 'ISO3166alpha3'),
+      array('#name' => 'ISO-3166 numeric', 'sort' => 'ISO3166numeric'),
+      array('#name' => __('mr-t.Континент'), 'sort' => 'Continent'),
+      array('#name' => __('mr-t.Флаг'), 'sort' => 'Flag')
     );
 
     if(self::$can_edit)
     {
-      $out[] = array('name' => '#');
+      $out[] = array('#name' => '#');
     }
 
     return $out;

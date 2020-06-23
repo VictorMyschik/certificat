@@ -19,10 +19,10 @@ class MrCertificateCommunicateTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Kind', 'sort' => 'Kind'),
-      array('name' => 'Адрес', 'sort' => 'Address'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Kind', 'sort' => 'Kind'),
+      array('#name' => 'Адрес', 'sort' => 'Address'),
+      array('#name' => '#'),
     );
   }
 

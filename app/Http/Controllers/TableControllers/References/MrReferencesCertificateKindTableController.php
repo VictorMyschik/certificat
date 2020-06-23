@@ -25,15 +25,15 @@ class MrReferencesCertificateKindTableController extends MrTableController
   protected static function getHeader(): array
   {
     $out = array(
-      array('name' => __('mr-t.Код'), 'sort' => 'Code'),
-      array('name' => __('mr-t.Условное обозначение'), 'sort' => 'ShortName'),
-      array('name' => __('mr-t.Наименование'), 'sort' => 'Name'),
-      array('name' => __('mr-t.Примечание'), 'sort' => 'Description'),
+      array('#name' => __('mr-t.Код'), 'sort' => 'Code'),
+      array('#name' => __('mr-t.Условное обозначение'), 'sort' => 'ShortName'),
+      array('#name' => __('mr-t.Наименование'), 'sort' => 'Name'),
+      array('#name' => __('mr-t.Примечание'), 'sort' => 'Description'),
     );
 
     if(self::$can_edit)
     {
-      $out[] = array('name' => '#');
+      $out[] = array('#name' => '#');
     }
 
     return $out;

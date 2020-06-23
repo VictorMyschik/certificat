@@ -18,16 +18,16 @@ class MrCertificateAuthorityTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Номер органа', 'sort' => 'ConformityAuthorityId'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Страна', 'sort' => 'CountryID'),
-      array('name' => 'Документ, подтверждающий аккредитацию', 'sort' => 'DocumentNumber'),
-      array('name' => 'Дата регистрации документа', 'sort' => 'DocumentDate'),
-      array('name' => 'Руководитель', 'sort' => 'OfficerDetailsID'),
-      array('name' => 'Адрес 1'),
-      array('name' => 'Адрес 2'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Номер органа', 'sort' => 'ConformityAuthorityId'),
+      array('#name' => 'Наименование', 'sort' => 'Name'),
+      array('#name' => 'Страна', 'sort' => 'CountryID'),
+      array('#name' => 'Документ, подтверждающий аккредитацию', 'sort' => 'DocumentNumber'),
+      array('#name' => 'Дата регистрации документа', 'sort' => 'DocumentDate'),
+      array('#name' => 'Руководитель', 'sort' => 'OfficerDetailsID'),
+      array('#name' => 'Адрес 1'),
+      array('#name' => 'Адрес 2'),
+      array('#name' => '#'),
     );
   }
 

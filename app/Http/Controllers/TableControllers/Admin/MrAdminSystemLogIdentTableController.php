@@ -18,16 +18,16 @@ class MrAdminSystemLogIdentTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Дата', 'sort' => 'Date'),
-        array('name' => 'Откуда', 'sort' => 'Referer'),
-        array('name' => 'Куда', 'sort' => 'Link'),
-        array('name' => 'IP', 'sort' => 'Ip'),
-        array('name' => 'User', 'sort' => 'User'),
-        array('name' => 'UserAgent', 'sort' => 'UserAgent'),
-        array('name' => 'Город', 'sort' => 'City'),
-        array('name' => 'Страна', 'sort' => 'Country'),
-        array('name' => 'Cookie', 'sort' => 'Cookie'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Дата', 'sort' => 'Date'),
+        array('#name' => 'Откуда', 'sort' => 'Referer'),
+        array('#name' => 'Куда', 'sort' => 'Link'),
+        array('#name' => 'IP', 'sort' => 'Ip'),
+        array('#name' => 'User', 'sort' => 'User'),
+        array('#name' => 'UserAgent', 'sort' => 'UserAgent'),
+        array('#name' => 'Город', 'sort' => 'City'),
+        array('#name' => 'Страна', 'sort' => 'Country'),
+        array('#name' => 'Cookie', 'sort' => 'Cookie'),
     );
   }
 

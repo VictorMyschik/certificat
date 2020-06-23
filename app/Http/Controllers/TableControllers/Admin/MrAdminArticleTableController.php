@@ -16,13 +16,13 @@ class MrAdminArticleTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Тип', 'sort' => 'Title'),
-        array('name' => 'Язык', 'sort' => 'LanguageID'),
-        array('name' => 'Обновлено', 'sort' => 'DateUpdate'),
-        array('name' => 'Public', 'sort' => 'Public'),
-        array('name' => 'Дата', 'sort' => 'Date'),
-        array('name' => '#'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Тип', 'sort' => 'Title'),
+        array('#name' => 'Язык', 'sort' => 'LanguageID'),
+        array('#name' => 'Обновлено', 'sort' => 'DateUpdate'),
+        array('#name' => 'Public', 'sort' => 'Public'),
+        array('#name' => 'Дата', 'sort' => 'Date'),
+        array('#name' => '#'),
     );
   }
 

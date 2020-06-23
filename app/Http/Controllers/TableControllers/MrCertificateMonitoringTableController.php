@@ -22,6 +22,7 @@ class MrCertificateMonitoringTableController extends MrTableController
         array('#name' => __('mr-t.Дата документа'), 'sort' => 'mr_certificate.DateFrom'),
         array('#name' => __('mr-t.Срок действия'), 'sort' => 'mr_certificate.DateTo'),
         array('#name' => __('mr-t.Номер'), 'sort' => 'mr_certificate.Number'),
+        array('#name' => __('mr-t.Заявитель'), 'sort' => 'mr_certificate.ApplicantID'),
     );
   }
 
@@ -38,6 +39,7 @@ class MrCertificateMonitoringTableController extends MrTableController
     $row[] = $certificate->getDateFrom() ? $certificate->getDateFrom()->getShortDate() : null;
     $row[] = $certificate->getDateTo() ? $certificate->getDateTo()->getShortDate() : null;
     $row[] = $certificate->getNumber();
+    $row[] = $certificate->getApplicant()->getName();
 
     return $row;
   }

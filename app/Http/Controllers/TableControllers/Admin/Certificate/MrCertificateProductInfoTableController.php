@@ -18,16 +18,16 @@ class MrCertificateProductInfoTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-      array('name' => 'id', 'sort' => 'id'),
-      array('name' => 'Продукт', 'sort' => 'ProductID'),
-      array('name' => 'Ед.изм.', 'sort' => 'MeasureID'),
-      array('name' => 'Марка, модель...', 'sort' => 'InstanceId'),
-      array('name' => 'Наименование', 'sort' => 'Name'),
-      array('name' => 'Описание', 'sort' => 'Description'),
-      array('name' => 'Дата изготовления', 'sort' => 'ManufacturedDate'),
-      array('name' => 'Срок годности', 'sort' => 'ExpiryDate'),
-      array('name' => 'ТН ВЭД', 'sort' => 'Tnved'),
-      array('name' => '#'),
+      array('#name' => 'id', 'sort' => 'id'),
+      array('#name' => 'Продукт', 'sort' => 'ProductID'),
+      array('#name' => 'Ед.изм.', 'sort' => 'MeasureID'),
+      array('#name' => 'Марка, модель...', 'sort' => 'InstanceId'),
+      array('#name' => 'Наименование', 'sort' => 'Name'),
+      array('#name' => 'Описание', 'sort' => 'Description'),
+      array('#name' => 'Дата изготовления', 'sort' => 'ManufacturedDate'),
+      array('#name' => 'Срок годности', 'sort' => 'ExpiryDate'),
+      array('#name' => 'ТН ВЭД', 'sort' => 'Tnved'),
+      array('#name' => '#'),
     );
   }
 

@@ -19,11 +19,11 @@ class MrAdminTranslateTableController extends MrTableController
   protected static function getHeader(): array
   {
     return array(
-        array('name' => 'id', 'sort' => 'id'),
-        array('name' => 'Слово', 'sort' => 'Name'),
-        array('name' => 'LanguageID', 'sort' => 'LanguageID'),
-        array('name' => 'Перевод', 'sort' => 'Translate'),
-        array('name' => '#'),
+        array('#name' => 'id', 'sort' => 'id'),
+        array('#name' => 'Слово', 'sort' => 'Name'),
+        array('#name' => 'LanguageID', 'sort' => 'LanguageID'),
+        array('#name' => 'Перевод', 'sort' => 'Translate'),
+        array('#name' => '#'),
     );
   }
 

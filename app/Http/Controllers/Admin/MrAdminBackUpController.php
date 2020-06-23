@@ -88,7 +88,7 @@ class MrAdminBackUpController extends Controller
       $header = array();
       foreach ($body->items()[0] as $key => $field)
       {
-        $header[] = array('name' => $key, 'sort' => $key);
+        $header[] = array('#name' => $key, 'sort' => $key);
       }
 
       return array(
