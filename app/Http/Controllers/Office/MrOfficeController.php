@@ -33,6 +33,26 @@ class MrOfficeController extends Controller
   }
 
   /**
+   * Главная страница ВО
+   *
+   * @return Factory|View
+   */
+  public function officePage()
+  {
+    $user = MrUser::me();
+    if(!$user->getDefaultOffice())
+    {
+      return redirect('/');
+    }
+
+    $out = array();
+    $out['user_history'] = $user->GetSearchHistory();
+    $out['can_edit'] = $user->IsAdminInOffice($user->getDefaultOffice());
+
+    return View('Office.office_page')->with($out);
+  }
+
+  /**
    * Настройки ВО, отчёты и прочие инструменты
    *
    * @return Factory|View
@@ -51,27 +71,6 @@ class MrOfficeController extends Controller
     $out['new_table'] = MrTableController::buildTable(MrNewUserInOfficeTableController::class, ['office_id' => $office->id()]);
 
     return View('Office.office_settings_page')->with($out);
-  }
-
-
-  /**
-   * Главная страница ВО
-   *
-   * @return Factory|View
-   */
-  public function officePage()
-  {
-    $user = MrUser::me();
-    if(!$user->getDefaultOffice())
-    {
-      return redirect('/');
-    }
-
-    $out = array();
-    $out['user_history'] = $user->GetSearchHistory();
-    $out['can_edit'] = $user->IsAdminInOffice($user->getDefaultOffice());
-
-    return View('Office.office_page')->with($out);
   }
 
   /**
