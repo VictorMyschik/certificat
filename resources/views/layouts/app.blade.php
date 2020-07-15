@@ -12,9 +12,6 @@
   <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" defer rel="script" src="/public/js/app.js"></script>
-  <!-- Fonts -->
-
-
   <!-- Styles -->
   <link href='/public/css/app.css' rel="stylesheet">
   <link href='/public/css/mr-style.css' rel="stylesheet">

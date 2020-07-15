@@ -49,6 +49,7 @@ class MrAdminBackUpController extends Controller
 
   /**
    * Генератор построения таблиц
+   *
    * @param string $table_name
    * @return array
    */
@@ -609,7 +610,7 @@ class MrAdminBackUpController extends Controller
       array('id' => '26', 'Code' => '861', 'TextCode' => 'КГ N', 'Name' => 'КИЛОГРАММ АЗОТА'),
       array('id' => '27', 'Code' => '863', 'TextCode' => 'КГ NAOH', 'Name' => 'КИЛОГРАММ ГИДРОКСИДА НАТРИЯ'),
       array('id' => '28', 'Code' => '865', 'TextCode' => 'КГ P2O5', 'Name' => 'КИЛОГРАММ ПЯТИОКИСИ ФОСФОРА'),
-      array('id' => '29', 'Code' => '867', 'TextCode' => 'КИЛОГРАММ УРАНА', 'Name' => 'КГ U')
+      array('id' => '29', 'Code' => '867', 'TextCode' => 'КГ U', 'Name' => 'КИЛОГРАММ УРАНА')
     ),
     'mr_translate'            => array(
         array('id' => '1','Name' => 'Столица','LanguageID' => '2','Translate' => 'Capital'),
